@@ -6,6 +6,7 @@ class JSONFile implements JSONFileInterface
 {
 
     protected $repositoryToken = null;
+    protected $sourceFiles = null;
 
     /**
      * @param array $values
@@ -22,6 +23,11 @@ class JSONFile implements JSONFileInterface
         return $this->repositoryToken;
     }
 
+    public function getSourceFiles()
+    {
+        return $this->sourceFiles;
+    }
+
     /**
      * @param string $name
      * @return mixed
@@ -30,6 +36,8 @@ class JSONFile implements JSONFileInterface
     {
         $getter = 'get' . ucwords($name);
 
+
+        //FIXME throw exception
         if (method_exists($this, $getter) === false) {
             return null;
         }
