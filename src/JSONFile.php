@@ -2,10 +2,10 @@
 
 namespace coveralls;
 
-class JSONFile
+class JSONFile implements JSONFileInterface
 {
 
-    private $repositoryToken = null;
+    protected $repositoryToken = null;
 
     /**
      * @param array $values
@@ -17,13 +17,24 @@ class JSONFile
         }
     }
 
+    public function getRepositoryToken()
+    {
+        return $this->repositoryToken;
+    }
+
     /**
      * @param string $name
      * @return mixed
      */
     public function __get($name)
     {
-        return $this->$name;
+        $getter = 'get' . ucwords($name);
+
+        if (method_exists($this, $getter) === false) {
+            return null;
+        }
+
+        return $this->$getter();
     }
 
 }
