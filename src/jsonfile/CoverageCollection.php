@@ -21,7 +21,13 @@ class CoverageCollection
 
     public function at($lineAt)
     {
-        return $this->coverages->get($lineAt)->get();
+        $coverage = $this->coverages->get($lineAt);
+
+        if ($coverage->isEmpty()) {
+            return null;
+        }
+
+        return $coverage->get();
     }
 
 }

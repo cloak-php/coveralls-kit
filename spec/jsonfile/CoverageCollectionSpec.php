@@ -17,4 +17,14 @@ describe('CoverageCollection', function() {
             expect($this->coverage)->toEqual($this->retrieveCoverage);
         });
     });
+    describe('at', function() {
+        before(function() {
+            $this->coverages = new CoverageCollection();
+        });
+        context('when not found coverage', function() {
+            it('should return null', function() {
+                expect($this->coverages->at(1))->toBeNull();
+            });
+        });
+    });
 });
