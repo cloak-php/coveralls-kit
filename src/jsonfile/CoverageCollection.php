@@ -14,7 +14,7 @@ class CoverageCollection
         $this->coverages = new Map();
     }
 
-    public function add(Coverage $coverage)
+    public function add(CoverageInterface $coverage)
     {
         $this->coverages->set($coverage->getLineNumber(), $coverage);
     }

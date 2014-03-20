@@ -2,7 +2,7 @@
 
 namespace coveralls\jsonfile;
 
-class Coverage
+class Coverage implements CoverageInterface 
 {
 
     const UNUSED = 0;
