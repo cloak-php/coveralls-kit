@@ -4,7 +4,6 @@ namespace coveralls\spec;
 
 use coveralls\JSONFile;
 use PhpCollection\Sequence;
-use pho;
 
 describe('JSONFile', function() {
     before(function() {

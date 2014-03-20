@@ -3,7 +3,6 @@
 namespace coveralls\spec;
 
 use coveralls\jsonfile\SourceFile;
-use pho;
 
 describe('SourceFile', function() {
     before(function() {
