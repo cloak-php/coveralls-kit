@@ -27,6 +27,16 @@ class Coverage
         return $this->analysisResult;
     }
 
+    public function isUnused()
+    {
+        return $this->getAnalysisResult() === static::UNUSED;
+    }
+
+    public function isExecuted()
+    {
+        return $this->getAnalysisResult() === static::EXECUTED;
+    }
+
     public static function unused($lineAt)
     {
         return new static($lineAt, static::UNUSED);

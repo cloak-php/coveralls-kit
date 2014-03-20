@@ -12,7 +12,8 @@ describe('Coverage', function() {
         it('should return coveralls\jsonfile\Coverage instance', function() {
             expect($this->coverage)->toBeAnInstanceOf('coveralls\jsonfile\Coverage');
             expect($this->coverage->getLineNumber())->toEqual(1);
-            expect($this->coverage->getAnalysisResult())->toEqual(Coverage::UNUSED);
+            expect($this->coverage->isExecuted())->toBeFalse();
+            expect($this->coverage->isUnused())->toBeTrue();
         });
     });
     describe('executed', function() {
@@ -22,7 +23,8 @@ describe('Coverage', function() {
         it('should return coveralls\jsonfile\Coverage instance', function() {
             expect($this->coverage)->toBeAnInstanceOf('coveralls\jsonfile\Coverage');
             expect($this->coverage->getLineNumber())->toEqual(1);
-            expect($this->coverage->getAnalysisResult())->toEqual(Coverage::EXECUTED);
+            expect($this->coverage->isExecuted())->toBeTrue();
+            expect($this->coverage->isUnused())->toBeFalse();
         });
     });
 });
