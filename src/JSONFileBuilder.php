@@ -33,7 +33,8 @@ class JSONFileBuilder
     {
         return new JSONFile([
             'token' => $this->token,
-            'sourceFiles' => $this->sourceFiles
+            'sourceFiles' => $this->sourceFiles,
+            'runAt' => date('Y-m-d H:i:s O') ////2013-02-18 00:52:48 -0800
         ]);
     }
 
