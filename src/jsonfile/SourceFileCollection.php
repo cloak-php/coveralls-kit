@@ -19,6 +19,23 @@ class SourceFileCollection
         $this->sources->add($source);
     }
 
+    public function has($source)
+    {
+        $querySource = $source;
+
+        if (gettype($source) === 'string') {
+            $querySource = new SourceFile($source);
+        }
+
+        $applyFilter = function(SourceFile $element) use ($querySource) {
+            return $element->getName() === $querySource->getName();
+        };
+
+        $results = $this->sources->filter($applyFilter);
+
+        return $results->isEmpty() === false;
+    }
+
     public function toArray()
     {
         $values = [];

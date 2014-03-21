@@ -7,7 +7,7 @@ use coveralls\jsonfile\SourceFileCollection;
 
 describe('SourceFileCollection', function() {
     before(function() {
-        $this->path = __DIR__ . '/fixtures/foo.php';
+        $this->path = realpath(__DIR__ . '/fixtures/foo.php');
         $this->source = [
             'name' => $this->path,
             'source' => file_get_contents($this->path),
@@ -15,8 +15,16 @@ describe('SourceFileCollection', function() {
         ];
         $this->values = [ $this->source ];
 
+        $this->source = new SourceFile($this->path);
         $this->sources = new SourceFileCollection();
-        $this->sources->add(new SourceFile($this->path));
+        $this->sources->add( $this->source );
+    });
+    describe('has', function() {
+        context('when file exists', function() {
+            it('should return true', function() {
+                expect($this->sources->has($this->path))->toBeTrue();
+            });
+        });
     });
     describe('toArray', function() {
         it('should return array value', function() {

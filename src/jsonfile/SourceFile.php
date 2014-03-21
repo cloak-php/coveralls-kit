@@ -31,7 +31,7 @@ class SourceFile
     protected function resolveContent()
     {
         $content = file_get_contents($this->getName());
-        $lineCount = count(split(PHP_EOL, $content));
+        $lineCount = count(explode(PHP_EOL, $content));
         $this->content = $content;
         $this->coverages = new CoverageCollection($lineCount);
     }
