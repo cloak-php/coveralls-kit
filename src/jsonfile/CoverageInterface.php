@@ -5,6 +5,9 @@ namespace coveralls\jsonfile;
 interface CoverageInterface
 {
 
+    const UNUSED = 0;
+    const EXECUTED = 1;
+
     /**
      * @return integer
      */
@@ -19,5 +22,10 @@ interface CoverageInterface
      * @return boolean
      */
     public function isExecuted();
+
+    /**
+     * @return mixed
+     */
+    public function valueOf(); 
 
 }

@@ -5,9 +5,6 @@ namespace coveralls\jsonfile;
 class Coverage implements CoverageInterface 
 {
 
-    const UNUSED = 0;
-    const EXECUTED = 1;
-
     protected $lineAt = null;
     protected $analysisResult = null;
 
