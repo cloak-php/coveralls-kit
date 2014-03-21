@@ -22,4 +22,18 @@ describe('JSONFile', function() {
             expect($this->jsonFile->sourceFiles)->toBeAnInstanceOf('coveralls\jsonfile\SourceFileCollection');
         });
     });
+    describe('saveAs', function() {
+        before(function() {
+            mkdir(__DIR__ . '/tmp');
+            $this->path = __DIR__ . '/tmp/coverage.json';
+            $this->jsonFile->saveAs($this->path);
+        });
+        after(function() {
+            unlink($this->path);
+            rmdir(__DIR__ . '/tmp');
+        });
+        it('should saved the file', function() {
+            expect(file_exists($this->path))->toBeTrue();
+        });
+    });
 });

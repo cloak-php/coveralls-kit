@@ -40,6 +40,27 @@ class JSONFile implements JSONFileInterface
         $this->sourceFiles = $sourceFiles;
     }
 
+    public function saveAs($path)
+    {
+        $content = (string) $this;
+        file_put_contents($path, $content);
+    }
+
+    public function toArray()
+    {
+        $values = array(
+            'repo_token' => $this->token,
+            'source_files' => $this->sourceFiles->toArray()
+        );
+
+        return $values;
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toArray());
+    }
+
     public function __set($name, $value)
     {
         $setter = 'set' . ucwords($name);
