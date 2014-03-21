@@ -31,8 +31,9 @@ class SourceFile
     protected function resolveContent()
     {
         $content = file_get_contents($this->getName());
+        $lineCount = count(split(PHP_EOL, $content));
         $this->content = $content;
-        $this->coverages = new CoverageCollection(split(PHP_EOL, $content));
+        $this->coverages = new CoverageCollection($lineCount);
     }
 
     public function getName()
@@ -48,6 +49,17 @@ class SourceFile
     public function getCoverages()
     {
         return $this->coverages;
+    }
+
+    public function toArray()
+    {
+        $values = array(
+            'name' => $this->getName(),
+            'content' => $this->getContent(),
+            'coverage' => $this->getCoverages()->toArray(),
+        );
+
+        return $values;
     }
 
 }

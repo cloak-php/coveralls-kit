@@ -35,4 +35,14 @@ describe('SourceFile', function() {
             expect($this->sourceFile->getCoverages())->toBeAnInstanceOf('coveralls\jsonfile\CoverageCollection');
         });
     });
+
+    describe('toArray', function() {
+        it('should return array values', function() {
+            $values = $this->sourceFile->toArray();
+            expect($values['name'])->toEqual($this->sourceFile->getName());
+            expect($values['content'])->toEqual($this->sourceFile->getContent());
+            expect($values['coverage'])->toEqual($this->sourceFile->getCoverages()->toArray());
+        });
+    });
+
 });
