@@ -34,7 +34,7 @@ class CoverageCollection
 
     public function toArray()
     {
-        $results = array_pad(array(), $this->lineCount, null);
+        $results = array_pad([], $this->lineCount, null);
         $coverages = $this->lineCoverages->getIterator();
 
         foreach ($coverages as $coverage) {

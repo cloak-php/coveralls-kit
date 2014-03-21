@@ -53,11 +53,11 @@ class SourceFile
 
     public function toArray()
     {
-        $values = array(
+        $values = [
             'name' => $this->getName(),
             'source' => $this->getContent(),
             'coverage' => $this->getCoverages()->toArray(),
-        );
+        ];
 
         return $values;
     }

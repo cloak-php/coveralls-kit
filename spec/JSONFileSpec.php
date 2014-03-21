@@ -7,10 +7,10 @@ use PhpCollection\Sequence;
 
 describe('JSONFile', function() {
     before(function() {
-        $this->jsonFile = new JSONFile(array(
+        $this->jsonFile = new JSONFile([
             'repositoryToken' => 'foo',
             'sourceFiles' => new Sequence()
-        ));
+        ]);
     });
     describe('repositoryToken', function() {
         it('should return repository token string', function() {
