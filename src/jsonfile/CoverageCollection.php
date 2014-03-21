@@ -32,7 +32,7 @@ class CoverageCollection
         return $coverage->get();
     }
 
-    public function toJSON()
+    public function toArray()
     {
         $results = array_pad(array(), $this->lineCount, null);
         $coverages = $this->lineCoverages->getIterator();
@@ -41,7 +41,12 @@ class CoverageCollection
             $results[$coverage->getLineNumber() - 1] = $coverage->valueOf();
         }
 
-        return json_encode($results);
+        return $results;
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toArray());
     }
 
 }

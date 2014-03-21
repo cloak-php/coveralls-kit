@@ -27,7 +27,7 @@ describe('CoverageCollection', function() {
             });
         });
     });
-    describe('toJSON', function() {
+    describe('__toString', function() {
         before(function() {
             $this->coverages = new CoverageCollection(3);
             $this->coverages->add(Coverage::unused(1));
@@ -35,7 +35,7 @@ describe('CoverageCollection', function() {
         });
         it('should return coverage', function() {
             $coverage = '[0,1,null]';
-            expect($this->coverages->toJSON())->toEqual($coverage);
+            expect((string) $this->coverages)->toEqual($coverage);
         });
     });
 });
