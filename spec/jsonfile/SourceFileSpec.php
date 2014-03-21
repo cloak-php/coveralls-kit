@@ -44,7 +44,7 @@ describe('SourceFile', function() {
         });
     });
     describe('__toString', function() {
-        it('should return string', function() {
+        it('should return json string', function() {
             $json = [
                 'name' => $this->path,
                 'source' => file_get_contents($this->path),
