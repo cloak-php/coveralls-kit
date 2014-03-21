@@ -3,23 +3,23 @@
 namespace coveralls\spec;
 
 use coveralls\JSONFile;
-use PhpCollection\Sequence;
+use coveralls\jsonfile\SourceFileCollection;
 
 describe('JSONFile', function() {
     before(function() {
         $this->jsonFile = new JSONFile([
-            'repositoryToken' => 'foo',
-            'sourceFiles' => new Sequence()
+            'token' => 'foo',
+            'sourceFiles' => new SourceFileCollection()
         ]);
     });
-    describe('repositoryToken', function() {
+    describe('token', function() {
         it('should return repository token string', function() {
-            expect($this->jsonFile->repositoryToken)->toBe('foo');
+            expect($this->jsonFile->token)->toBe('foo');
         });
     });
     describe('sourceFiles', function() {
         it('should return sources file collection', function() {
-            expect($this->jsonFile->sourceFiles)->toBeAnInstanceOf('PhpCollection\Sequence');
+            expect($this->jsonFile->sourceFiles)->toBeAnInstanceOf('coveralls\jsonfile\SourceFileCollection');
         });
     });
 });

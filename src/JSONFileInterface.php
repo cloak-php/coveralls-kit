@@ -2,18 +2,16 @@
 
 namespace coveralls;
 
-use PhpCollection\SequenceInterface;
-
 interface JSONFileInterface
 {
 
     /**
      * @return string  
      */
-    public function getRepositoryToken();
+    public function getToken();
 
     /**
-     * @return SequenceInterface  
+     * @return coveralls\jsonfile\SourceFileCollection;
      */
     public function getSourceFiles();
 

@@ -2,10 +2,12 @@
 
 namespace coveralls;
 
+use coveralls\jsonfile\SourceFileCollection;
+
 class JSONFile implements JSONFileInterface
 {
 
-    protected $repositoryToken = null;
+    protected $token = null;
     protected $sourceFiles = null;
 
     /**
@@ -18,14 +20,36 @@ class JSONFile implements JSONFileInterface
         }
     }
 
-    public function getRepositoryToken()
+    public function getToken()
     {
-        return $this->repositoryToken;
+        return $this->token;
+    }
+
+    public function setToken($repositoryToken)
+    {
+        $this->token = $repositoryToken;
     }
 
     public function getSourceFiles()
     {
         return $this->sourceFiles;
+    }
+
+    public function setSourceFiles(SourceFileCollection $sourceFiles)
+    {
+        $this->sourceFiles = $sourceFiles;
+    }
+
+    public function __set($name, $value)
+    {
+        $setter = 'set' . ucwords($name);
+
+        //FIXME throw exception
+        if (method_exists($this, $setter) === false) {
+            return null;
+        }
+
+        return $this->$setter($value);
     }
 
     /**
