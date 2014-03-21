@@ -10,6 +10,15 @@ describe('SourceFile', function() {
         $this->path = __DIR__ . '/fixtures/foo.php';
         $this->sourceFile = new SourceFile($this->path);
     });
+    describe('__construct', function() {
+        context('when the file does not exist', function() {
+            it('should throw UnexpectedValueException exception', function() {
+                expect(function() {
+                    $source = new SourceFile('bar.php');
+                })->toThrow('UnexpectedValueException');
+            });
+        });
+    });
     describe('getName', function() {
         it('should return file name', function() {
             expect($this->sourceFile->getName())->toBe($this->path);

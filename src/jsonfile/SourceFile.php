@@ -2,6 +2,8 @@
 
 namespace coveralls\jsonfile;
 
+use UnexpectedValueException;
+
 class SourceFile
 {
 
@@ -11,10 +13,26 @@ class SourceFile
 
     public function __construct($name)
     {
-        $this->name = realpath($name);
-        $this->content = file_get_contents($this->name);
-        $count = split(PHP_EOL, $this->content);
-        $this->coverages = new CoverageCollection($count);
+        $this->resolvePath($name);
+        $this->resolveContent();
+    }
+
+    protected function resolvePath($name)
+    {
+        $path = realpath($name);
+
+        if (file_exists($path) === false) {
+            throw new UnexpectedValueException("Can not find the source file $path");
+        }
+
+        $this->name = $path;
+    }
+
+    protected function resolveContent()
+    {
+        $content = file_get_contents($this->getName());
+        $this->content = $content;
+        $this->coverages = new CoverageCollection(split(PHP_EOL, $content));
     }
 
     public function getName()
@@ -24,10 +42,6 @@ class SourceFile
 
     public function getContent()
     {
-        if ($this->content === null) {
-            $this->content = file_get_contents($this->getName());
-        }
-
         return $this->content;
     }
 
