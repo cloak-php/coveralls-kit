@@ -3,6 +3,7 @@
 namespace coveralls\spec;
 
 use coveralls\jsonfile\SourceFile;
+use coveralls\jsonfile\CoverageCollection;
 
 describe('SourceFile', function() {
     before(function() {
@@ -17,6 +18,11 @@ describe('SourceFile', function() {
     describe('getContent', function() {
         it('should return file content', function() {
             expect($this->sourceFile->getContent())->toBe(file_get_contents($this->path));
+        });
+    });
+    describe('getCoverages', function() {
+        it('should return coveralls\jsonfile\CoverageCollection instance', function() {
+            expect($this->sourceFile->getCoverages())->toBeAnInstanceOf('coveralls\jsonfile\CoverageCollection');
         });
     });
 });
