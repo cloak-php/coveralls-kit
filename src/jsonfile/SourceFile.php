@@ -2,7 +2,7 @@
 
 namespace coveralls\jsonfile;
 
-use UnexpectedValueException;
+use coveralls\exception\FileNotFoundException;
 
 class SourceFile
 {
@@ -22,7 +22,7 @@ class SourceFile
         $path = realpath($name);
 
         if (file_exists($path) === false) {
-            throw new UnexpectedValueException("Can not find the source file $path");
+            throw new FileNotFoundException("Can not find the source file $path");
         }
 
         $this->name = $path;

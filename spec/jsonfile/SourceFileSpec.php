@@ -4,6 +4,7 @@ namespace coveralls\spec;
 
 use coveralls\jsonfile\SourceFile;
 use coveralls\jsonfile\CoverageCollection;
+use coveralls\exception\FileNotFoundException;
 
 describe('SourceFile', function() {
     before(function() {
@@ -12,10 +13,10 @@ describe('SourceFile', function() {
     });
     describe('__construct', function() {
         context('when the file does not exist', function() {
-            it('should throw UnexpectedValueException exception', function() {
+            it('should throw coveralls\exception\FileNotFoundException', function() {
                 expect(function() {
                     $source = new SourceFile('bar.php');
-                })->toThrow('UnexpectedValueException');
+                })->toThrow('coveralls\exception\FileNotFoundException');
             });
         });
     });
