@@ -55,7 +55,7 @@ class SourceFile
     {
         $values = array(
             'name' => $this->getName(),
-            'content' => $this->getContent(),
+            'source' => $this->getContent(),
             'coverage' => $this->getCoverages()->toArray(),
         );
 

@@ -39,7 +39,7 @@ describe('SourceFile', function() {
         it('should return array values', function() {
             $values = $this->sourceFile->toArray();
             expect($values['name'])->toEqual($this->sourceFile->getName());
-            expect($values['content'])->toEqual($this->sourceFile->getContent());
+            expect($values['source'])->toEqual($this->sourceFile->getContent());
             expect($values['coverage'])->toEqual($this->sourceFile->getCoverages()->toArray());
         });
     });
@@ -47,7 +47,7 @@ describe('SourceFile', function() {
         it('should return string', function() {
             $json = [
                 'name' => $this->path,
-                'content' => file_get_contents($this->path),
+                'source' => file_get_contents($this->path),
                 'coverage' => [null,null,null,null]
             ];
             expect((string) $this->sourceFile)->toEqual(json_encode($json));
