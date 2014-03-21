@@ -9,7 +9,7 @@ describe('CoverageCollection', function() {
     describe('add', function() {
         before(function() {
             $this->coverage = Coverage::unused(1);
-            $this->coverages = new CoverageCollection();
+            $this->coverages = new CoverageCollection(1);
             $this->coverages->add($this->coverage);
             $this->retrieveCoverage = $this->coverages->at(1);
         });
@@ -19,12 +19,23 @@ describe('CoverageCollection', function() {
     });
     describe('at', function() {
         before(function() {
-            $this->coverages = new CoverageCollection();
+            $this->coverages = new CoverageCollection(1);
         });
         context('when not found coverage', function() {
             it('should return null', function() {
                 expect($this->coverages->at(1))->toBeNull();
             });
+        });
+    });
+    describe('toJSON', function() {
+        before(function() {
+            $this->coverages = new CoverageCollection(3);
+            $this->coverages->add(Coverage::unused(1));
+            $this->coverages->add(Coverage::executed(2));
+        });
+        it('should return coverage', function() {
+            $coverage = '[0,1,null]';
+            expect($this->coverages->toJSON())->toEqual($coverage);
         });
     });
 });

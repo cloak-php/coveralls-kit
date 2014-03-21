@@ -47,4 +47,17 @@ class Coverage implements CoverageInterface
         return new static($lineAt, static::EXECUTED);
     }
 
+    public function valueOf()
+    {
+        $value = null;
+
+        if ($this->isExecuted()) {
+            $value = static::EXECUTED;
+        } else if ($this->isUnused()) {
+            $value = static::UNUSED;
+        }
+
+        return $value;
+    }
+
 }

@@ -7,27 +7,41 @@ use PhpCollection\Map;
 class CoverageCollection
 {
 
-    protected $coverages = null;
+    protected $lineCount = null;
+    protected $lineCoverages = null;
 
-    public function __construct()
+    public function __construct($lineCount)
     {
-        $this->coverages = new Map();
+        $this->lineCount = $lineCount;
+        $this->lineCoverages = new Map();
     }
 
     public function add(CoverageInterface $coverage)
     {
-        $this->coverages->set($coverage->getLineNumber(), $coverage);
+        $this->lineCoverages->set($coverage->getLineNumber(), $coverage);
     }
 
     public function at($lineAt)
     {
-        $coverage = $this->coverages->get($lineAt);
+        $coverage = $this->lineCoverages->get($lineAt);
 
         if ($coverage->isEmpty()) {
             return null;
         }
 
         return $coverage->get();
+    }
+
+    public function toJSON()
+    {
+        $results = array_pad(array(), $this->lineCount, null);
+        $coverages = $this->lineCoverages->getIterator();
+
+        foreach ($coverages as $coverage) {
+            $results[$coverage->getLineNumber() - 1] = $coverage->valueOf();
+        }
+
+        return json_encode($results);
     }
 
 }
