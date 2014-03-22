@@ -6,7 +6,7 @@
     ],
     "require-dev": {
         "danielstjules/pho": "1.0.0",
-        "guzzle/guzzle": "3.8.*",
+        "jaz303/phake": "0.6.0",
         "phpspec/prophecy": "1.1.*"
     },
     "license": "MIT",
@@ -19,7 +19,8 @@
     "require": {
         "php": ">=5.4.0",
         "phpcollection/phpcollection": "0.3.*",
-        "jaz303/phake": "0.6.0"
+        "guzzle/guzzle": "3.8.*",
+        "gitonomy/gitlib": "0.1.*"
     },
     "autoload": {
         "psr-4": { "coveralls\\": "src/" }
