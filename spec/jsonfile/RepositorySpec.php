@@ -25,7 +25,7 @@ describe('Repository', function() {
     });
     describe('branch', function() {
         it('should return current branch', function() {
-            expect($this->repository->branch)->toBeAnInstanceOf('Gitonomy\Git\Reference\Branch');
+            expect($this->repository->branch)->toBeAnInstanceOf('coveralls\jsonfile\repository\Branch');
         });
     });
     describe('remotes', function() {

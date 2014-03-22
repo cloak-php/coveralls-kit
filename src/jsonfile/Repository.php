@@ -13,6 +13,7 @@ namespace coveralls\jsonfile;
 
 use coveralls\ArrayConvertible;
 use coveralls\jsonfile\repository\Commit;
+use coveralls\jsonfile\repository\Branch;
 use coveralls\jsonfile\repository\Remote;
 use coveralls\jsonfile\repository\RemoteCollection;
 use Gitonomy\Git\Repository as GitRepository;
@@ -52,7 +53,7 @@ class Repository implements ArrayConvertible
             }
             $localBranch = $branch;
         }
-        $this->branch = $branch;
+        $this->branch = new Branch($branch);
 
         return $this;
     }
