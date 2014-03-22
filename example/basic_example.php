@@ -39,9 +39,9 @@ foreach ($result as $file => $coverage) {
 
     foreach ($coverage as $line => $status) {
         if ($status === 1) {
-            $coverages->add(Coverage::executed(1));
+            $coverages->add(Coverage::executed($line));
         } else if ($status === -1) {
-            $coverages->add(Coverage::unused(1));
+            $coverages->add(Coverage::unused($line));
         }
     }
 }
