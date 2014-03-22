@@ -1,6 +1,6 @@
 {
     "name": "shared-hat/coveralls-kit",
-    "description": "Developer kit for transmitting code coverage report to coveralls",
+    "description": "CoverallsKit is the library for transmitting the report of code coverage to coveralls.",
     "keywords": [
         "coveralls", "code coverage", "report"
     ],
