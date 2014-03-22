@@ -5,7 +5,8 @@
         "coveralls", "code coverage", "report"
     ],
     "require-dev": {
-        "danielstjules/pho": "1.0.0"
+        "danielstjules/pho": "1.0.0",
+        "guzzle/guzzle": "3.8.*"
     },
     "license": "MIT",
     "authors": [

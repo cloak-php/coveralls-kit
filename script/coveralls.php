@@ -7,7 +7,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use coveralls\JSONFileBuilder;
 use coveralls\jsonfile\Coverage;
 use coveralls\jsonfile\SourceFile;
-
+use Guzzle\Http\Client;
 
 /**
  * Get the code coverage
@@ -26,7 +26,7 @@ xdebug_stop_code_coverage();
  * Generate a json file
  */
 $builder = new JSONFileBuilder();
-$builder->token('foo');
+$builder->token('N852hqDzBRTjy2U9hxQ0HzGblXC9ASCTQ');
 
 foreach ($result as $file => $coverage) {
     if (preg_match('/vendor/', $file) || preg_match('/spec/', $file)) {
@@ -43,7 +43,18 @@ foreach ($result as $file => $coverage) {
             $coverages->add(Coverage::unused(1));
         }
     }
+
+    $builder->addSource($source);
 }
 
-$builder->addSource($source);
-$builder->build()->saveAs(__DIR__ . '/coverage.json');
+$coverageFile = __DIR__ . '/coverage.json';
+
+$builder->build()->saveAs($coverageFile);
+
+$client = new Client();
+$request = $client->post('https://coveralls.io/api/v1/jobs')
+    ->addPostFiles(array(
+        'json_file' => realpath($coverageFile)
+    ));
+
+$request->send();
