@@ -9,15 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\environment;
+namespace coveralls\service;
 
-use coveralls\ArrayConvertible;
-
-interface EnvironmentInterface extends ArrayConvertible
+interface TravisCIInterface extends ServiceInterface
 {
 
-    public function getJobId();
+    const SERVICE_CI = 'travis-ci';
+    const SERVICE_PRO = 'travis-pro';
 
-    public function getServiceName();
+    const ENV_JOB_ID = 'TRAVIS_JOB_ID';
 
 }

@@ -14,14 +14,14 @@ namespace coveralls;
 use coveralls\JSONFile;
 use coveralls\jsonfile\SourceFile;
 use coveralls\jsonfile\SourceFileCollection;
-use coveralls\environment\EnvironmentInterface;
+use coveralls\service\ServiceInterface;
 
 class JSONFileBuilder
 {
 
     protected $token = null;
     protected $sourceFiles = null;
-    protected $environment = null;
+    protected $service = null;
 
     public function __construct()
     {
@@ -34,9 +34,9 @@ class JSONFileBuilder
         return $this;
     }
 
-    public function environment(EnvironmentInterface $environment)
+    public function service(ServiceInterface $service)
     {
-        $this->environment = $environment;
+        $this->service = $service;
         return $this;
     }
 
@@ -50,7 +50,7 @@ class JSONFileBuilder
     {
         return new JSONFile([
             'token' => $this->token,
-            'environment' => $this->environment,
+            'service' => $this->service,
             'sourceFiles' => $this->sourceFiles,
             'runAt' => date('Y-m-d H:i:s O') ////2013-02-18 00:52:48 -0800
         ]);

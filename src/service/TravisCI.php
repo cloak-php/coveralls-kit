@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\environment;
+namespace coveralls\service;
 
 class TravisCI implements TravisCIInterface
 {

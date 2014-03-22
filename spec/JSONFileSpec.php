@@ -13,21 +13,21 @@ namespace coveralls\spec;
 
 use coveralls\JSONFile;
 use coveralls\jsonfile\SourceFileCollection;
-use coveralls\environment\TravisCI;
-use coveralls\environment\TravisCIInterface;
+use coveralls\service\TravisCI;
+use coveralls\service\TravisCIInterface;
 use Prophecy\Prophet;
 
 describe('JSONFile', function() {
     before(function() {
         $this->prophet = new Prophet();
-        $this->environment = $this->prophet->prophesize('coveralls\environment\TravisCIInterface');
-        $this->environment->toArray()->shouldBeCalled()->willReturn([
+        $this->service = $this->prophet->prophesize('coveralls\service\TravisCIInterface');
+        $this->service->toArray()->shouldBeCalled()->willReturn([
             'service_job_id' => '10',
             'service_name' => 'travis-ci'
         ]);
         $this->jsonFile = new JSONFile([
             'token' => 'foo',
-            'environment' => $this->environment->reveal(),
+            'service' => $this->service->reveal(),
             'sourceFiles' => new SourceFileCollection()
         ]);
     });

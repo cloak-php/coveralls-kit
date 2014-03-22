@@ -17,7 +17,7 @@ class JSONFile implements JSONFileInterface
 {
 
     protected $token = null;
-    protected $environment = null;
+    protected $service = null;
     protected $sourceFiles = null;
     protected $runAt = null;
 
@@ -45,7 +45,7 @@ class JSONFile implements JSONFileInterface
             'run_at' => $this->runAt
         );
 
-        $serviceValues = $this->environment->toArray();
+        $serviceValues = $this->service->toArray();
         foreach ($serviceValues as $key => $value) {
             $values[$key] = $value;
         }
