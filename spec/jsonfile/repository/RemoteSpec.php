@@ -17,6 +17,13 @@ describe('Remote', function() {
     before(function() {
         $this->remote = new Remote('origin', 'https://github.com/holyshared/coveralls-kit.git');
     });
+    describe('toArray', function() {
+        it('should return string value', function () {
+            $value = $this->remote->toArray();
+            expect($value['name'])->not()->toBeNull();
+            expect($value['url'])->not()->toBeNull();
+        });
+    });
     describe('__toString', function() {
         it('should return string value', function () {
             $expect = json_encode($this->remote->toArray());
