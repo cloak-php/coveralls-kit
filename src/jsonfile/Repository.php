@@ -12,6 +12,8 @@
 namespace coveralls\jsonfile;
 
 use coveralls\ArrayConvertible;
+use coveralls\jsonfile\repository\Commit;
+use coveralls\jsonfile\repository\Remote;
 use coveralls\jsonfile\repository\RemoteCollection;
 use Gitonomy\Git\Repository as GitRepository;
 
@@ -32,7 +34,8 @@ class Repository implements ArrayConvertible
 
     protected function resolveHeadCommit()
     {
-        $this->head = $this->repository->getHeadCommit();
+        $headCommit = $this->repository->getHeadCommit();
+        $this->head = new Commit($headCommit);
         return $this;
     }
 
@@ -77,7 +80,12 @@ class Repository implements ArrayConvertible
         }
 
         $remotes = array_values($remoteMap);
-        $this->remotes = new RemoteCollection($remotes);
+        $remotes = new RemoteCollection();
+
+        foreach ($remoteValues as $remote) {
+            $remotes->add( new Remote($remote['name'], $remote['url']) );
+        }
+        $this->remotes = $remotes;
 
         return $this;
     }
@@ -85,15 +93,9 @@ class Repository implements ArrayConvertible
     public function toArray()
     {
         $values = [
-            'head' => [
-                'id' => $this->head->getHash(),
-                'author_name' => $this->head->getAuthorName(),
-                'author_email' => $this->head->getAuthorEmail(),
-                'committer_name' => $this->head->getCommitterName(),
-                'committer_email' => $this->head->getCommitterEmail(),
-                'message' => $this->head->getMessage()
-            ],
-            'branch' => $this->branch
+            'head' => $this->head->toArray(),
+            'branch' => $this->branch,
+            'remotes' => $this->remotes->toArray()
         ];
 
         return $values;

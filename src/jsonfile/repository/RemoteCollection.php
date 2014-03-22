@@ -9,7 +9,7 @@ class RemoteCollection
 
     protected $remotes = null;
 
-    public function  __construct(array $remotes)
+    public function __construct(array $remotes = [])
     {
         $this->remotes = new Sequence($remotes);
     }

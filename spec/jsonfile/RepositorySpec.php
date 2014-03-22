@@ -20,7 +20,7 @@ describe('Repository', function() {
     });
     describe('head', function() {
         it('should return head commit', function() {
-            expect($this->repository->head)->toBeAnInstanceOf('Gitonomy\Git\Commit');
+            expect($this->repository->head)->toBeAnInstanceOf('coveralls\jsonfile\repository\Commit');
         });
     });
     describe('branch', function() {
