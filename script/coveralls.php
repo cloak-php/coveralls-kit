@@ -26,7 +26,7 @@ xdebug_stop_code_coverage();
  * Generate a json file
  */
 $builder = new JSONFileBuilder();
-$builder->token('N852hqDzBRTjy2U9hxQ0HzGblXC9ASCTQ');
+$builder->token('N852hqDzBRTjy2U9hxQ0HzGblXC9ASCTQ')->service(TravisCI::ci());
 
 foreach ($result as $file => $coverage) {
     if (preg_match('/vendor/', $file) || preg_match('/spec/', $file)) {
