@@ -33,6 +33,16 @@ class TravisCI implements TravisCIInterface
         return $this->serviceName;
     }
 
+    public function toArray()
+    {
+        $values = [
+            'service_job_id' => $this->getJobId(),
+            'service_name' => $this->getServiceName()
+        ];
+
+        return $values;
+    }
+
     public static function ci()
     {
         return new static();

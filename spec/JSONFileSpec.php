@@ -13,11 +13,13 @@ namespace coveralls\spec;
 
 use coveralls\JSONFile;
 use coveralls\jsonfile\SourceFileCollection;
+use coveralls\environment\TravisCI;
 
 describe('JSONFile', function() {
     before(function() {
         $this->jsonFile = new JSONFile([
             'token' => 'foo',
+            'environment' => TravisCI::ci(),
             'sourceFiles' => new SourceFileCollection()
         ]);
     });
