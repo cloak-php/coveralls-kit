@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of CoverallsKit.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
