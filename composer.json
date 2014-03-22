@@ -6,7 +6,8 @@
     ],
     "require-dev": {
         "danielstjules/pho": "1.0.0",
-        "guzzle/guzzle": "3.8.*"
+        "guzzle/guzzle": "3.8.*",
+        "phpspec/prophecy": "1.1.*"
     },
     "license": "MIT",
     "authors": [

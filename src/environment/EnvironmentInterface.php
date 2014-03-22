@@ -18,4 +18,6 @@ interface EnvironmentInterface
 
     public function getServiceName();
 
+    public function toArray();
+
 }
