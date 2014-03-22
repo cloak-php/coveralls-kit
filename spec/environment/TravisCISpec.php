@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of CodeAnalyzer.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace coveralls\spec;
 
 use coveralls\environment\TravisCI;
@@ -15,12 +24,12 @@ describe('TravisCI', function() {
     });
     describe('jobId', function() {
         it('should return job id', function() {
-            expect($this->env->jobId)->toEqual('10');
+            expect($this->env->getJobId())->toEqual('10');
         });
     });
     describe('serviceName', function() {
         it('should return the service name', function() {
-            expect($this->env->serviceName)->toEqual('travis-ci');
+            expect($this->env->getServiceName())->toEqual('travis-ci');
         });
     });
 });
