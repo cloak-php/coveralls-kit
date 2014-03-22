@@ -11,9 +11,10 @@
 
 namespace coveralls\jsonfile;
 
+use coveralls\ArrayConvertible;
 use coveralls\exception\FileNotFoundException;
 
-class SourceFile
+class SourceFile implements ArrayConvertible
 {
 
     protected $name = null;

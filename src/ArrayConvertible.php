@@ -9,15 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\environment;
+namespace coveralls;
 
-use coveralls\ArrayConvertible;
-
-interface EnvironmentInterface extends ArrayConvertible
+interface ArrayConvertible
 {
 
-    public function getJobId();
-
-    public function getServiceName();
+    /**
+     * @return array
+     */
+    public function toArray();  
 
 }

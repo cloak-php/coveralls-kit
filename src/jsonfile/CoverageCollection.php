@@ -12,8 +12,9 @@
 namespace coveralls\jsonfile;
 
 use PhpCollection\Map;
+use coveralls\ArrayConvertible;
 
-class CoverageCollection
+class CoverageCollection implements ArrayConvertible
 {
 
     protected $lineCount = null;

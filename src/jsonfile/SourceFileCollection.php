@@ -11,9 +11,10 @@
 
 namespace coveralls\jsonfile;
 
+use coveralls\ArrayConvertible;
 use PhpCollection\Sequence;
 
-class SourceFileCollection
+class SourceFileCollection implements ArrayConvertible
 {
 
     protected $sources = null; 
