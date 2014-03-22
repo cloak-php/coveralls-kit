@@ -65,8 +65,10 @@ describe('JSONFile', function() {
         it('should saved the file', function() {
             expect(file_exists($this->path))->toBeTrue();
         });
-        it('should has git key', function() {
-            expect($this->jsonResult->git)->not()->toBeNull();
+        it('should have a key git', function() {
+            expect($this->jsonResult->git->head->id)->toBeAn('string');
+            expect($this->jsonResult->git->branch)->toBeAn('string');
+            expect($this->jsonResult->git->remotes)->toHaveKey(0);
         });
     });
 });

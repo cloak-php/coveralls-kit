@@ -95,7 +95,7 @@ class Repository implements ArrayConvertible
     {
         $values = [
             'head' => $this->head->toArray(),
-            'branch' => $this->branch,
+            'branch' => (string) $this->branch,
             'remotes' => $this->remotes->toArray()
         ];
 
