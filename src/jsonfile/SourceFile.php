@@ -51,6 +51,11 @@ class SourceFile implements ArrayConvertible
         return $this->name;
     }
 
+    public function getPathFromCurrentDirectory()
+    {
+        return str_replace(getcwd(), '', $this->getName());
+    }
+
     public function getContent()
     {
         return $this->content;
@@ -64,7 +69,7 @@ class SourceFile implements ArrayConvertible
     public function toArray()
     {
         $values = [
-            'name' => $this->getName(),
+            'name' => $this->getPathFromCurrentDirectory(),
             'source' => $this->getContent(),
             'coverage' => $this->getCoverages()->toArray(),
         ];

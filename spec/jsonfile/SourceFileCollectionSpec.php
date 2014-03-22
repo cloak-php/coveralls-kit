@@ -17,8 +17,9 @@ use coveralls\jsonfile\SourceFileCollection;
 describe('SourceFileCollection', function() {
     before(function() {
         $this->path = realpath(__DIR__ . '/fixtures/foo.php');
+        $this->relativePath = str_replace(getcwd(), '', $this->path);
         $this->source = [
-            'name' => $this->path,
+            'name' => $this->relativePath,
             'source' => file_get_contents($this->path),
             'coverage' => [null,null,null,null]
         ];

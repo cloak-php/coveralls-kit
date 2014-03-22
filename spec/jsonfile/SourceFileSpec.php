@@ -18,6 +18,7 @@ use coveralls\exception\FileNotFoundException;
 describe('SourceFile', function() {
     before(function() {
         $this->path = __DIR__ . '/fixtures/foo.php';
+        $this->relativePath = str_replace(getcwd(), '', $this->path);
         $this->sourceFile = new SourceFile($this->path);
     });
     describe('__construct', function() {
@@ -47,7 +48,7 @@ describe('SourceFile', function() {
     describe('toArray', function() {
         it('should return array values', function() {
             $values = $this->sourceFile->toArray();
-            expect($values['name'])->toEqual($this->sourceFile->getName());
+            expect($values['name'])->toEqual($this->sourceFile->getPathFromCurrentDirectory());
             expect($values['source'])->toEqual($this->sourceFile->getContent());
             expect($values['coverage'])->toEqual($this->sourceFile->getCoverages()->toArray());
         });
@@ -55,7 +56,7 @@ describe('SourceFile', function() {
     describe('__toString', function() {
         it('should return json string', function() {
             $json = [
-                'name' => $this->path,
+                'name' => $this->relativePath,
                 'source' => file_get_contents($this->path),
                 'coverage' => [null,null,null,null]
             ];
