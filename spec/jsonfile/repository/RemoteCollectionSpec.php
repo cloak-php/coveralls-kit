@@ -12,22 +12,24 @@
 namespace coveralls\spec;
 
 use coveralls\jsonfile\repository\Remote;
+use coveralls\jsonfile\repository\RemoteCollection;
 
-describe('Remote', function() {
+describe('RemoteCollection', function() {
     before(function() {
-        $this->remote = new Remote('origin', 'https://github.com/holyshared/coveralls-kit.git');
+        $remote = new Remote('origin', 'https://github.com/holyshared/coveralls-kit.git');
+        $this->remotes = new RemoteCollection([ $remote ]);
     });
     describe('toArray', function() {
         it('should return array value', function () {
-            $value = $this->remote->toArray();
-            expect($value['name'])->not()->toBeNull();
-            expect($value['url'])->not()->toBeNull();
+            $value = $this->remotes->toArray();
+            expect($value[0]['name'])->not()->toBeNull();
+            expect($value[0]['url'])->not()->toBeNull();
         });
     });
     describe('__toString', function() {
         it('should return string value', function () {
-            $expect = json_encode($this->remote->toArray());
-            $value = (string) $this->remote;
+            $expect = json_encode($this->remotes->toArray());
+            $value = (string) $this->remotes;
             expect($value)->toEqual($expect);
         });
     });
