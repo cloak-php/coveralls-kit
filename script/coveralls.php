@@ -5,7 +5,9 @@ namespace coveralls\example;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use coveralls\JSONFileBuilder;
+use coveralls\service\TravisCI;
 use coveralls\jsonfile\Coverage;
+use coveralls\jsonfile\Repository;
 use coveralls\jsonfile\SourceFile;
 use Guzzle\Http\Client;
 
@@ -26,7 +28,9 @@ xdebug_stop_code_coverage();
  * Generate a json file
  */
 $builder = new JSONFileBuilder();
-$builder->token('N852hqDzBRTjy2U9hxQ0HzGblXC9ASCTQ')->service(TravisCI::ci());
+$builder->token('N852hqDzBRTjy2U9hxQ0HzGblXC9ASCTQ')
+    ->service(TravisCI::ci())
+    ->repository(new Repository(__DIR__ . '/../'));
 
 foreach ($result as $file => $coverage) {
     if (preg_match('/vendor/', $file) || preg_match('/spec/', $file)) {
