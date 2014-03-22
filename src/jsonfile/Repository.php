@@ -80,7 +80,7 @@ class Repository implements ArrayConvertible
             );
         }
 
-        $remotes = array_values($remoteMap);
+        $remoteValues = array_values($remoteMap);
         $remotes = new RemoteCollection();
 
         foreach ($remoteValues as $remote) {

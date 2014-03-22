@@ -15,6 +15,16 @@ class RemoteCollection implements ArrayConvertible
         $this->remotes = new Sequence($remotes);
     }
 
+    public function add(Remote $remote)
+    {
+        return $this->remotes->add($remote);
+    }
+
+    public function isEmpty()
+    {
+        return $this->remotes->isEmpty();
+    }
+
     public function toArray()
     {
         $arrayValues = [];

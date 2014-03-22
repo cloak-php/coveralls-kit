@@ -14,6 +14,11 @@ class Branch
         $this->branch = $branch;
     }
 
+    public function isEmpty()
+    {
+        return $this->branch === null;
+    }
+
     public function __toString()
     {
         return $this->branch->getName();

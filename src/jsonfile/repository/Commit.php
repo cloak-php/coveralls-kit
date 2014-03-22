@@ -15,6 +15,11 @@ class Commit implements ArrayConvertible
         $this->commit = $commit;
     }
 
+    public function isEmpty()
+    {
+        return $this->commit === null;
+    }
+
     public function toArray()
     {
         return [

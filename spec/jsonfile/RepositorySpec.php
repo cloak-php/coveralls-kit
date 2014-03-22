@@ -21,16 +21,19 @@ describe('Repository', function() {
     describe('head', function() {
         it('should return head commit', function() {
             expect($this->repository->head)->toBeAnInstanceOf('coveralls\jsonfile\repository\Commit');
+            expect($this->repository->head->isEmpty())->toBeFalse();
         });
     });
     describe('branch', function() {
         it('should return current branch', function() {
             expect($this->repository->branch)->toBeAnInstanceOf('coveralls\jsonfile\repository\Branch');
+            expect($this->repository->branch->isEmpty())->toBeFalse();
         });
     });
     describe('remotes', function() {
         it('should return remotes', function() {
             expect($this->repository->remotes)->toBeAnInstanceOf('coveralls\jsonfile\repository\RemoteCollection');
+            expect($this->repository->remotes->isEmpty())->toBeFalse();
         });
     });
 });
