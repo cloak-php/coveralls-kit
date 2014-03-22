@@ -12,6 +12,7 @@
 namespace coveralls;
 
 use coveralls\JSONFile;
+use coveralls\jsonfile\Repository;
 use coveralls\jsonfile\SourceFile;
 use coveralls\jsonfile\SourceFileCollection;
 use coveralls\service\ServiceInterface;
@@ -20,8 +21,9 @@ class JSONFileBuilder
 {
 
     protected $token = null;
-    protected $sourceFiles = null;
     protected $service = null;
+    protected $repository = null;
+    protected $sourceFiles = null;
 
     public function __construct()
     {
@@ -40,6 +42,12 @@ class JSONFileBuilder
         return $this;
     }
 
+    public function repository(Repository $repository)
+    {
+        $this->repository = $repository;
+        return $this;
+    }
+
     public function addSource(SourceFile $source)
     {
         $this->sourceFiles->add($source);
@@ -50,6 +58,7 @@ class JSONFileBuilder
     {
         return new JSONFile([
             'token' => $this->token,
+            'repository' => $this->repository,
             'service' => $this->service,
             'sourceFiles' => $this->sourceFiles,
             'runAt' => date('Y-m-d H:i:s O') ////2013-02-18 00:52:48 -0800
