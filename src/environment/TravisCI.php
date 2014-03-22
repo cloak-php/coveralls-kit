@@ -33,4 +33,14 @@ class TravisCI implements TravisCIInterface
         return $this->serviceName;
     }
 
+    public static function ci()
+    {
+        return new static();
+    }
+
+    public static function pro()
+    {
+        return new static(self::SERVICE_PRO);
+    }
+
 }

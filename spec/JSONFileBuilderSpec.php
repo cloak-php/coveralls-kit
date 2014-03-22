@@ -13,6 +13,7 @@ namespace coveralls\spec;
 
 use coveralls\JSONFileBuilder;
 use coveralls\jsonfile\SourceFile;
+use coveralls\environment\TravisCI;
 
 describe('JSONFileBuilder', function() {
     before(function() {
@@ -20,6 +21,7 @@ describe('JSONFileBuilder', function() {
         $this->bar = realpath(__DIR__ . '/jsonfile/fixtures/bar.php');
         $this->builder = new JSONFileBuilder();
         $this->builder->token('foo');
+//        $this->builder->environment(new TravisCI());
         $this->builder->addSource(new SourceFile($this->foo));
         $this->builder->addSource(new SourceFile($this->bar));
         $this->jsonFile = $this->builder->build();

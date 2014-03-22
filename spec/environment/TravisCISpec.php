@@ -32,4 +32,14 @@ describe('TravisCI', function() {
             expect($this->env->getServiceName())->toEqual('travis-ci');
         });
     });
+    describe('ci', function() {
+        it('should return travis-ci environment', function() {
+            expect(TravisCI::ci()->getServiceName())->toEqual('travis-ci');
+        });
+    });
+    describe('pro', function() {
+        it('should return travis-pro environment', function() {
+            expect(TravisCI::pro()->getServiceName())->toEqual('travis-pro');
+        });
+    });
 });
