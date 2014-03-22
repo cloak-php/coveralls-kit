@@ -6,6 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use coveralls\JSONFileBuilder;
 use coveralls\service\TravisCI;
+use coveralls\jsonfile\Repository;
 use coveralls\jsonfile\Coverage;
 use coveralls\jsonfile\SourceFile;
 
@@ -24,7 +25,9 @@ xdebug_stop_code_coverage();
  * Generate a json file
  */
 $builder = new JSONFileBuilder();
-$builder->token('foo')->service(TravisCI::ci());
+$builder->token('foo')
+    ->service(TravisCI::ci())
+    ->repository(new Repository(__DIR__ . '/../'));
 
 foreach ($result as $file => $coverage) {
     if (preg_match('/vendor/', $file) || preg_match('/src/', $file)) {
