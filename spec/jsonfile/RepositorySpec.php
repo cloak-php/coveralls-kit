@@ -15,8 +15,8 @@ use coveralls\jsonfile\Repository;
 
 describe('Repository', function() {
     before(function() {
-        $this->repositoryDirectory = realpath(__DIR__ . '/../../');
-        $this->repository = new Repository($this->repositoryDirectory);
+        $this->directory = realpath(__DIR__ . '/../../');
+        $this->repository = new Repository($this->directory);
     });
     describe('head', function() {
         it('should return head commit', function() {

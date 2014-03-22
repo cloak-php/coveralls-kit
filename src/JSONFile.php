@@ -18,6 +18,7 @@ class JSONFile implements JSONFileInterface
 
     protected $token = null;
     protected $service = null;
+    protected $repository = null;
     protected $sourceFiles = null;
     protected $runAt = null;
 
@@ -41,6 +42,7 @@ class JSONFile implements JSONFileInterface
     {
         $values = array(
             'repo_token' => $this->token,
+            'git' => $this->repository->toArray(),
             'source_files' => $this->sourceFiles->toArray(),
             'run_at' => $this->runAt
         );

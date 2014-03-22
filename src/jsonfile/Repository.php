@@ -27,7 +27,7 @@ class Repository implements ArrayConvertible
 
     public function __construct($directory)
     {
-        $this->repository = new GitRepository($directory);
+        $this->repository = new GitRepository(realpath($directory));
         $this->resolveHeadCommit()
             ->resolveBranch()
             ->resolveRemotes();

@@ -12,6 +12,7 @@
 namespace coveralls\spec;
 
 use coveralls\JSONFile;
+use coveralls\jsonfile\Repository;
 use coveralls\jsonfile\SourceFileCollection;
 use coveralls\service\TravisCI;
 use coveralls\service\TravisCIInterface;
@@ -27,6 +28,7 @@ describe('JSONFile', function() {
         ]);
         $this->jsonFile = new JSONFile([
             'token' => 'foo',
+            'repository' => new Repository(__DIR__ . '/../'),
             'service' => $this->service->reveal(),
             'sourceFiles' => new SourceFileCollection()
         ]);
@@ -39,6 +41,11 @@ describe('JSONFile', function() {
             expect($this->jsonFile->token)->toBe('foo');
         });
     });
+    describe('repository', function() {
+        it('should return repository', function() {
+            expect($this->jsonFile->repository)->toBeAnInstanceOf('coveralls\jsonfile\Repository');
+        });
+    });
     describe('sourceFiles', function() {
         it('should return sources file collection', function() {
             expect($this->jsonFile->sourceFiles)->toBeAnInstanceOf('coveralls\jsonfile\SourceFileCollection');
@@ -49,6 +56,7 @@ describe('JSONFile', function() {
             mkdir(__DIR__ . '/tmp');
             $this->path = __DIR__ . '/tmp/coverage.json';
             $this->jsonFile->saveAs($this->path);
+            $this->jsonResult = json_decode(file_get_contents($this->path));
         });
         after(function() {
             unlink($this->path);
@@ -56,6 +64,9 @@ describe('JSONFile', function() {
         });
         it('should saved the file', function() {
             expect(file_exists($this->path))->toBeTrue();
+        });
+        it('should has git key', function() {
+            expect($this->jsonResult->git)->not()->toBeNull();
         });
     });
 });
