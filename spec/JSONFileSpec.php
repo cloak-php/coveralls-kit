@@ -21,7 +21,7 @@ describe('JSONFile', function() {
     before(function() {
         $this->prophet = new Prophet();
         $this->environment = $this->prophet->prophesize('coveralls\environment\TravisCIInterface');
-        $this->environment->toArray()->willReturn([
+        $this->environment->toArray()->shouldBeCalled()->willReturn([
             'service_job_id' => '10',
             'service_name' => 'travis-ci'
         ]);
@@ -30,6 +30,9 @@ describe('JSONFile', function() {
             'environment' => $this->environment->reveal(),
             'sourceFiles' => new SourceFileCollection()
         ]);
+    });
+    after(function() {
+        $this->prophet->checkPredictions();
     });
     describe('token', function() {
         it('should return repository token string', function() {

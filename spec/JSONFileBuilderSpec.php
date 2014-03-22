@@ -14,24 +14,26 @@ namespace coveralls\spec;
 use coveralls\JSONFileBuilder;
 use coveralls\jsonfile\SourceFile;
 use coveralls\environment\TravisCI;
+use Prophecy\Prophet;
 
 describe('JSONFileBuilder', function() {
     describe('build', function() {
         before(function() {
-            $this->jobId = getenv('TRAVIS_JOB_ID');
-            putenv('TRAVIS_JOB_ID=10');
-
+            $this->prophet = new Prophet();
+            $this->environment = $this->prophet->prophesize('coveralls\environment\TravisCIInterface');
+            $this->environment->getJobId()->shouldBeCalled()->willReturn('10');
+            $this->environment->getServiceName()->shouldBeCalled()->willReturn('travis-ci');
             $this->foo = realpath(__DIR__ . '/jsonfile/fixtures/foo.php');
             $this->bar = realpath(__DIR__ . '/jsonfile/fixtures/bar.php');
             $this->builder = new JSONFileBuilder();
             $this->builder->token('foo');
-            $this->builder->environment(TravisCI::ci());
+            $this->builder->environment($this->environment->reveal());
             $this->builder->addSource(new SourceFile($this->foo));
             $this->builder->addSource(new SourceFile($this->bar));
             $this->jsonFile = $this->builder->build();
         });
         after(function() {
-            putenv('TRAVIS_JOB_ID=' . $this->jobId);
+            $this->prophet->checkPredictions();
         });
         it('should set the service environment', function() {
             expect($this->jsonFile->environment->getJobId())->toBe('10');
