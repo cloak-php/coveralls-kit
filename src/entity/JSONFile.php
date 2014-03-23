@@ -14,6 +14,7 @@ namespace coveralls\entity;
 class JSONFile implements JSONFileInterface
 {
 
+    protected $name = null;
     protected $token = null;
     protected $service = null;
     protected $repository = null;
@@ -30,8 +31,16 @@ class JSONFile implements JSONFileInterface
         }
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function saveAs($path)
     {
+        if ($this->getName() === null) {
+            $this->name = $path;         
+        }
         $content = (string) $this;
         file_put_contents($path, $content);
     }

@@ -16,6 +16,8 @@ use coveralls\CompositeEntityInterface;
 interface JSONFileInterface extends CompositeEntityInterface
 {
 
+    public function getName();
+
     public function saveAs($path);
 
 }
