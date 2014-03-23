@@ -12,8 +12,8 @@
 namespace coveralls\spec;
 
 use coveralls\JSONFileBuilder;
-use coveralls\jsonfile\SourceFile;
-use coveralls\service\TravisCI;
+use coveralls\entity\SourceFile;
+use coveralls\entity\service\TravisCI;
 use Prophecy\Prophet;
 
 describe('JSONFileBuilder', function() {
@@ -21,15 +21,15 @@ describe('JSONFileBuilder', function() {
         before(function() {
             $this->prophet = new Prophet();
 
-            $this->service = $this->prophet->prophesize('coveralls\service\TravisCIInterface');
+            $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisCIInterface');
             $this->service->getJobId()->shouldBeCalled()->willReturn('10');
             $this->service->getServiceName()->shouldBeCalled()->willReturn('travis-ci');
 
-            $this->repository = $this->prophet->prophesize('coveralls\jsonfile\Repository');
+            $this->repository = $this->prophet->prophesize('coveralls\entity\Repository');
             $this->repository->willBeConstructedWith([ __DIR__ . '/../' ]);
 
-            $this->foo = realpath(__DIR__ . '/jsonfile/fixtures/foo.php');
-            $this->bar = realpath(__DIR__ . '/jsonfile/fixtures/bar.php');
+            $this->foo = realpath(__DIR__ . '/entity/fixtures/foo.php');
+            $this->bar = realpath(__DIR__ . '/entity/fixtures/bar.php');
 
             $this->builder = new JSONFileBuilder();
             $this->builder->token('foo');

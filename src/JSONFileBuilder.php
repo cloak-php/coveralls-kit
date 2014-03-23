@@ -11,11 +11,11 @@
 
 namespace coveralls;
 
-use coveralls\JSONFile;
-use coveralls\jsonfile\Repository;
-use coveralls\jsonfile\SourceFile;
-use coveralls\jsonfile\SourceFileCollection;
-use coveralls\service\ServiceInterface;
+use coveralls\entity\JSONFile;
+use coveralls\entity\Repository;
+use coveralls\entity\SourceFile;
+use coveralls\entity\collection\SourceFileCollection;
+use coveralls\entity\service\ServiceInterface;
 
 class JSONFileBuilder
 {

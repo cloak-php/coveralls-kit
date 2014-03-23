@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * This file is part of CoverallsKit.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+namespace coveralls\spec;
+
+use coveralls\entity\Repository;
+
+describe('Repository', function() {
+    before(function() {
+        $this->directory = realpath(__DIR__ . '/../../');
+        $this->repository = new Repository($this->directory);
+    });
+    describe('head', function() {
+        it('should return head commit', function() {
+            expect($this->repository->head)->toBeAnInstanceOf('coveralls\entity\repository\Commit');
+            expect($this->repository->head->isEmpty())->toBeFalse();
+        });
+    });
+    describe('branch', function() {
+        it('should return current branch', function() {
+            expect($this->repository->branch)->toBeAnInstanceOf('coveralls\entity\repository\Branch');
+            expect($this->repository->branch->isEmpty())->toBeFalse();
+        });
+    });
+    describe('remotes', function() {
+        it('should return remotes', function() {
+            expect($this->repository->remotes)->toBeAnInstanceOf('coveralls\entity\collection\RemoteCollection');
+            expect($this->repository->remotes->isEmpty())->toBeFalse();
+        });
+    });
+});
