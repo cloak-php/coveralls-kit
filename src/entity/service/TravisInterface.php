@@ -11,7 +11,7 @@
 
 namespace coveralls\entity\service;
 
-interface TravisCIInterface extends ServiceInterface
+interface TravisInterface extends ServiceInterface
 {
 
     const SERVICE_CI = 'travis-ci';

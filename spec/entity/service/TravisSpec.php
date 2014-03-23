@@ -11,13 +11,13 @@
 
 namespace coveralls\spec;
 
-use coveralls\entity\service\TravisCI;
+use coveralls\entity\service\Travis;
 
-describe('TravisCI', function() {
+describe('Travis', function() {
     before(function() {
         $this->jobId = getenv('TRAVIS_JOB_ID');
         putenv('TRAVIS_JOB_ID=10');
-        $this->service = new TravisCI();
+        $this->service = new Travis();
     });
     after(function() {
         putenv('TRAVIS_JOB_ID=' . $this->jobId);
@@ -32,14 +32,14 @@ describe('TravisCI', function() {
             expect($this->service->getServiceName())->toEqual('travis-ci');
         });
     });
-    describe('ci', function() {
+    describe('travisCI', function() {
         it('should return travis-ci service', function() {
-            expect(TravisCI::travisCI()->getServiceName())->toEqual('travis-ci');
+            expect(Travis::travisCI()->getServiceName())->toEqual('travis-ci');
         });
     });
-    describe('pro', function() {
+    describe('travisPro', function() {
         it('should return travis-pro service', function() {
-            expect(TravisCI::travisPro()->getServiceName())->toEqual('travis-pro');
+            expect(Travis::travisPro()->getServiceName())->toEqual('travis-pro');
         });
     });
 });

@@ -11,7 +11,7 @@
 
 namespace coveralls\entity\service;
 
-class TravisCI implements TravisCIInterface
+class Travis implements TravisInterface
 {
 
     protected $jobId;

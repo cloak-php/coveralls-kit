@@ -14,14 +14,14 @@ namespace coveralls\spec;
 use coveralls\entity\JSONFile;
 use coveralls\entity\Repository;
 use coveralls\entity\collection\SourceFileCollection;
-use coveralls\entity\service\TravisCI;
-use coveralls\entity\service\TravisCIInterface;
+use coveralls\entity\service\Travis;
+use coveralls\entity\service\TravisInterface;
 use Prophecy\Prophet;
 
 describe('JSONFile', function() {
     before(function() {
         $this->prophet = new Prophet();
-        $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisCIInterface');
+        $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisInterface');
         $this->service->toArray()->shouldBeCalled()->willReturn([
             'service_job_id' => '10',
             'service_name' => 'travis-ci'

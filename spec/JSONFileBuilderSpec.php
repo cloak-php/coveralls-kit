@@ -21,7 +21,7 @@ describe('JSONFileBuilder', function() {
         before(function() {
             $this->prophet = new Prophet();
 
-            $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisCIInterface');
+            $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisInterface');
             $this->service->getJobId()->shouldBeCalled()->willReturn('10');
             $this->service->getServiceName()->shouldBeCalled()->willReturn('travis-ci');
 
