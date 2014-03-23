@@ -3,32 +3,68 @@
 namespace coveralls\entity\repository;
 
 use coveralls\CompositeEntityInterface;
-use Gitonomy\Git\Commit as HeadCommit;
 
 class Commit implements CompositeEntityInterface
 {
 
-    protected $commit = null;
+    protected $id = null;
+    protected $authorName = null;
+    protected $authorEmail = null;
+    protected $committerName = null;
+    protected $committerEmail = null;
+    protected $message = null;
 
-    public function __construct(HeadCommit $commit)
+    public function __construct(array $values)
     {
-        $this->commit = $commit;
+        foreach ($values as $key => $value) {
+            $this->$key = $value;
+        }
     }
 
     public function isEmpty()
     {
-        return $this->commit === null;
+        return $this->getHash() === null;
+    }
+
+    public function getHash()
+    {
+        return $this->id;
+    }
+
+    public function getAuthorName()
+    {
+        return $this->authorName;
+    }
+
+    public function getAuthorEmail()
+    {
+        return $this->authorEmail;
+    }
+
+    public function getCommitterName()
+    {
+        return $this->committerName;
+    }
+
+    public function getCommitterEmail()
+    {
+        return $this->committerEmail;
+    }
+
+    public function getMessage()
+    {
+        return $this->message;
     }
 
     public function toArray()
     {
         return [
-            'id' => $this->commit->getHash(),
-            'author_name' => $this->commit->getAuthorName(),
-            'author_email' => $this->commit->getAuthorEmail(),
-            'committer_name' => $this->commit->getCommitterName(),
-            'committer_email' => $this->commit->getCommitterEmail(),
-            'message' => $this->commit->getMessage()
+            'id' => $this->getHash(),
+            'author_name' => $this->getAuthorName(),
+            'author_email' => $this->getAuthorEmail(),
+            'committer_name' => $this->getCommitterName(),
+            'committer_email' => $this->getCommitterEmail(),
+            'message' => $this->getMessage()
         ];
     }
 

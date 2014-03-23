@@ -36,7 +36,15 @@ class Repository implements RepositoryInterface
     protected function resolveHeadCommit()
     {
         $headCommit = $this->repository->getHeadCommit();
-        $this->head = new Commit($headCommit);
+        $this->head = new Commit([
+            'id' => $headCommit->getHash(),
+            'authorName' => $headCommit->getAuthorName(),
+            'authorEmail' => $headCommit->getAuthorEmail(),
+            'committerName' => $headCommit->getCommitterName(),
+            'committerEmail' => $headCommit->getCommitterEmail(),
+            'message' => $headCommit->getMessage()
+        ]);
+
         return $this;
     }
 

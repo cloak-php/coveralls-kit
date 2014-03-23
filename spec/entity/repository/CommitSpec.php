@@ -12,24 +12,27 @@
 namespace coveralls\spec;
 
 use coveralls\entity\repository\Commit;
-use Gitonomy\Git\Commit as HeadCommit;
-use Gitonomy\Git\Repository as GitRepository;
 
 describe('Commit', function() {
     before(function() {
-        $repository = new GitRepository(realpath(__DIR__ . '/../../../'));
-        $headCommit = new HeadCommit($repository, '81a5e4dfaf9c1f34117ac9cdc3ee8fb477c3f6c5');
-        $this->commit = new Commit($headCommit);
+        $this->commit = new Commit(array(
+            'id' => '3fdcfa494f3e9bcb17f90085af9d11a936a7ef4e',
+            'authorName' => 'holyshared',
+            'authorEmail' => 'holy.shared.design@gmail.com',
+            'committerName' => 'holyshared',
+            'committerEmail' => 'holy.shared.design@gmail.com',
+            'message' => 'first commit'
+        ));
     });
     describe('toArray', function() {
         it('should return head commit array value', function () {
             $values = $this->commit->toArray();
-            expect($values['id'])->not()->toBeNull();
-            expect($values['author_name'])->not()->toBeNull();
-            expect($values['author_email'])->not()->toBeNull();
-            expect($values['committer_name'])->not()->toBeNull();
-            expect($values['committer_email'])->not()->toBeNull();
-            expect($values['message'])->not()->toBeNull();
+            expect($values['id'])->toBe('3fdcfa494f3e9bcb17f90085af9d11a936a7ef4e');
+            expect($values['author_name'])->toBe('holyshared');
+            expect($values['author_email'])->toBe('holy.shared.design@gmail.com');
+            expect($values['committer_name'])->toBe('holyshared');
+            expect($values['committer_email'])->toBe('holy.shared.design@gmail.com');
+            expect($values['message'])->toBe('first commit');
         });
     });
     describe('__toString', function() {
