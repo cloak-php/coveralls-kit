@@ -28,8 +28,8 @@ describe('JSONFileBuilder', function() {
             $this->repository = $this->prophet->prophesize('coveralls\entity\Repository');
             $this->repository->willBeConstructedWith([ __DIR__ . '/../' ]);
 
-            $this->foo = realpath(__DIR__ . '/entity/fixtures/foo.php');
-            $this->bar = realpath(__DIR__ . '/entity/fixtures/bar.php');
+            $this->foo = realpath(__DIR__ . '/fixtures/foo.php');
+            $this->bar = realpath(__DIR__ . '/fixtures/bar.php');
 
             $this->builder = new JSONFileBuilder();
             $this->builder->token('foo');

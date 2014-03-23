@@ -17,7 +17,7 @@ use coveralls\exception\FileNotFoundException;
 
 describe('SourceFile', function() {
     before(function() {
-        $this->path = __DIR__ . '/fixtures/foo.php';
+        $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
         $this->relativePath = str_replace(getcwd(), '', $this->path);
         $this->sourceFile = new SourceFile($this->path);
     });
