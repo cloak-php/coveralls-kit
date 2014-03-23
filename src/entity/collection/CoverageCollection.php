@@ -11,11 +11,11 @@
 
 namespace coveralls\entity\collection;
 
-use coveralls\ArrayConvertible;
+use coveralls\CompositeEntityInterface;
 use coveralls\entity\CoverageInterface;
 use PhpCollection\Map;
 
-class CoverageCollection implements ArrayConvertible
+class CoverageCollection implements CompositeEntityInterface
 {
 
     protected $lineCount = null;

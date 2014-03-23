@@ -2,11 +2,11 @@
 
 namespace coveralls\entity\collection;
 
-use coveralls\ArrayConvertible;
+use coveralls\CompositeEntityInterface;
 use coveralls\entity\repository\Remote;
 use PhpCollection\Sequence;
 
-class RemoteCollection implements ArrayConvertible
+class RemoteCollection implements CompositeEntityInterface
 {
 
     protected $remotes = null;

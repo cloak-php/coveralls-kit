@@ -11,11 +11,11 @@
 
 namespace coveralls\entity;
 
-use coveralls\ArrayConvertible;
+use coveralls\CompositeEntityInterface;
 use coveralls\entity\collection\CoverageCollection;
 use coveralls\exception\FileNotFoundException;
 
-class SourceFile implements ArrayConvertible
+class SourceFile implements CompositeEntityInterface
 {
 
     protected $name = null;

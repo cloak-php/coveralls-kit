@@ -9,13 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\entity;
+namespace coveralls;
 
-use coveralls\CompositeEntityInterface;
-
-interface JSONFileInterface extends CompositeEntityInterface
+interface CompositeEntityInterface extends EntityInterface, ArrayConvertible
 {
-
-    public function saveAs($path);
-
 }

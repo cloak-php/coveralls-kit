@@ -2,9 +2,9 @@
 
 namespace coveralls\entity\repository;
 
-use coveralls\ArrayConvertible;
+use coveralls\CompositeEntityInterface;
 
-class Remote implements ArrayConvertible
+class Remote implements CompositeEntityInterface
 {
 
     protected $name = null;

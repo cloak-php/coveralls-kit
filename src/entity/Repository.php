@@ -11,14 +11,14 @@
 
 namespace coveralls\entity;
 
-use coveralls\ArrayConvertible;
+use coveralls\CompositeEntityInterface;
 use coveralls\entity\repository\Commit;
 use coveralls\entity\repository\Branch;
 use coveralls\entity\repository\Remote;
 use coveralls\entity\collection\RemoteCollection;
 use Gitonomy\Git\Repository as GitRepository;
 
-class Repository implements ArrayConvertible
+class Repository implements CompositeEntityInterface
 {
 
     protected $head = null;

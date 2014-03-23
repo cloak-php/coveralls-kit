@@ -11,11 +11,11 @@
 
 namespace coveralls\entity\collection;
 
-use coveralls\ArrayConvertible;
+use coveralls\CompositeEntityInterface;
 use coveralls\entity\SourceFile;
 use PhpCollection\Sequence;
 
-class SourceFileCollection implements ArrayConvertible
+class SourceFileCollection implements CompositeEntityInterface
 {
 
     protected $sources = null; 

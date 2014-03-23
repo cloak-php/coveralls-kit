@@ -2,10 +2,10 @@
 
 namespace coveralls\entity\repository;
 
-use coveralls\ArrayConvertible;
+use coveralls\CompositeEntityInterface;
 use Gitonomy\Git\Commit as HeadCommit;
 
-class Commit implements ArrayConvertible
+class Commit implements CompositeEntityInterface
 {
 
     protected $commit = null;
