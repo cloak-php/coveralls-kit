@@ -18,22 +18,22 @@ describe('Repository', function() {
         $this->directory = realpath(__DIR__ . '/../../');
         $this->repository = new Repository($this->directory);
     });
-    describe('head', function() {
+    describe('getCommit', function() {
         it('should return head commit', function() {
-            expect($this->repository->head)->toBeAnInstanceOf('coveralls\entity\repository\Commit');
-            expect($this->repository->head->isEmpty())->toBeFalse();
+            expect($this->repository->getCommit())->toBeAnInstanceOf('coveralls\entity\repository\Commit');
+            expect($this->repository->getCommit()->isEmpty())->toBeFalse();
         });
     });
-    describe('branch', function() {
+    describe('getBranch', function() {
         it('should return current branch', function() {
-            expect($this->repository->branch)->toBeAnInstanceOf('coveralls\entity\repository\Branch');
-            expect($this->repository->branch->isEmpty())->toBeFalse();
+            expect($this->repository->getBranch())->toBeAnInstanceOf('coveralls\entity\repository\Branch');
+            expect($this->repository->getBranch()->isEmpty())->toBeFalse();
         });
     });
-    describe('remotes', function() {
+    describe('getRemotes', function() {
         it('should return remotes', function() {
-            expect($this->repository->remotes)->toBeAnInstanceOf('coveralls\entity\collection\RemoteCollection');
-            expect($this->repository->remotes->isEmpty())->toBeFalse();
+            expect($this->repository->getRemotes())->toBeAnInstanceOf('coveralls\entity\collection\RemoteCollection');
+            expect($this->repository->getRemotes()->isEmpty())->toBeFalse();
         });
     });
 });

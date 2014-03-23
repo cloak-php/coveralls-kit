@@ -18,7 +18,7 @@ use coveralls\entity\repository\Remote;
 use coveralls\entity\collection\RemoteCollection;
 use Gitonomy\Git\Repository as GitRepository;
 
-class Repository implements CompositeEntityInterface
+class Repository implements RepositoryInterface
 {
 
     protected $head = null;
@@ -91,12 +91,36 @@ class Repository implements CompositeEntityInterface
         return $this;
     }
 
+    /**
+     * @return coveralls\entity\repository\Commit
+     */
+    public function getCommit()
+    {
+        return $this->head; 
+    }
+
+    /**
+     * @return coveralls\entity\repository\Branch
+     */
+    public function getBranch()
+    {
+        return $this->branch; 
+    }
+
+    /**
+     * @return coveralls\entity\collection\RemoteCollection;
+     */
+    public function getRemotes()
+    {
+        return $this->remotes; 
+    }
+
     public function toArray()
     {
         $values = [
-            'head' => $this->head->toArray(),
-            'branch' => (string) $this->branch,
-            'remotes' => $this->remotes->toArray()
+            'head' => $this->getCommit()->toArray(),
+            'branch' => (string) $this->getBranch(),
+            'remotes' => $this->getRemotes()->toArray()
         ];
 
         return $values;
@@ -105,15 +129,6 @@ class Repository implements CompositeEntityInterface
     public function __toString()
     {
         return json_encode($this->toArray()); 
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return $this->$name;
     }
 
 }

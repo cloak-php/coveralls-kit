@@ -12,7 +12,7 @@
 namespace coveralls;
 
 use coveralls\entity\JSONFile;
-use coveralls\entity\Repository;
+use coveralls\entity\RepositoryInterface;
 use coveralls\entity\SourceFile;
 use coveralls\entity\collection\SourceFileCollection;
 use coveralls\entity\service\ServiceInterface;
@@ -42,7 +42,7 @@ class JSONFileBuilder
         return $this;
     }
 
-    public function repository(Repository $repository)
+    public function repository(RepositoryInterface $repository)
     {
         $this->repository = $repository;
         return $this;
