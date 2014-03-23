@@ -3,7 +3,7 @@
 namespace coveralls\entity\collection;
 
 use coveralls\ArrayConvertible;
-use coveralls\entity\Remote;
+use coveralls\entity\repository\Remote;
 use PhpCollection\Sequence;
 
 class RemoteCollection implements ArrayConvertible

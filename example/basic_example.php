@@ -5,10 +5,10 @@ namespace coveralls\example;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use coveralls\JSONFileBuilder;
-use coveralls\service\TravisCI;
-use coveralls\jsonfile\Repository;
-use coveralls\jsonfile\Coverage;
-use coveralls\jsonfile\SourceFile;
+use coveralls\entity\service\TravisCI;
+use coveralls\entity\Repository;
+use coveralls\entity\Coverage;
+use coveralls\entity\SourceFile;
 
 /**
  * Get the code coverage

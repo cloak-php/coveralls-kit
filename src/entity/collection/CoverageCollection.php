@@ -11,8 +11,9 @@
 
 namespace coveralls\entity\collection;
 
-use PhpCollection\Map;
 use coveralls\ArrayConvertible;
+use coveralls\entity\CoverageInterface;
+use PhpCollection\Map;
 
 class CoverageCollection implements ArrayConvertible
 {
