@@ -35,13 +35,12 @@ foreach ($result as $file => $coverage) {
     }
 
     $source = new SourceFile($file);
-    $coverages = $source->getCoverages();
 
     foreach ($coverage as $line => $status) {
         if ($status === 1) {
-            $coverages->add(Coverage::executed($line));
+            $source->addCoverage(Coverage::executed($line));
         } else if ($status === -1) {
-            $coverages->add(Coverage::unused($line));
+            $source->addCoverage(Coverage::unused($line));
         }
     }
 }
