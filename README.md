@@ -4,6 +4,7 @@ CoverallsKit
 [![Build Status](https://travis-ci.org/holyshared/coveralls-kit.png?branch=master)](https://travis-ci.org/holyshared/coveralls-kit)
 [![Stories in Ready](https://badge.waffle.io/holyshared/coveralls-kit.png?label=ready&title=Ready)](https://waffle.io/holyshared/coveralls-kit)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/holyshared/coveralls-kit/badges/quality-score.png?s=659a62f282026153701b67aadcb2398529c9495d)](https://scrutinizer-ci.com/g/holyshared/coveralls-kit/)
+[![Coverage Status](https://coveralls.io/repos/holyshared/coveralls-kit/badge.png?branch=master)](https://coveralls.io/r/holyshared/coveralls-kit?branch=master)
 
 **CoverallsKit** is the library for transmitting the report of code coverage to **coveralls**.  
 This library works with **PHP5.4** or more.
