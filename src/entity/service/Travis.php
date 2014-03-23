@@ -43,6 +43,11 @@ class Travis implements TravisInterface
         return $values;
     }
 
+    public function __toString()
+    {
+        return json_encode($this->toArray());
+    }
+
     public static function travisCI()
     {
         return new static();

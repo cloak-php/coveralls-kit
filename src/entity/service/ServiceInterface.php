@@ -11,9 +11,9 @@
 
 namespace coveralls\entity\service;
 
-use coveralls\ArrayConvertible;
+use coveralls\CompositeEntityInterface;
 
-interface ServiceInterface extends ArrayConvertible
+interface ServiceInterface extends CompositeEntityInterface
 {
 
     public function getJobId();
