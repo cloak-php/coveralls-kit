@@ -20,6 +20,7 @@ use Gitonomy\Git\Repository as GitRepository;
 class Repository implements RepositoryInterface
 {
 
+    protected $repository = null;
     protected $head = null;
     protected $branch = null;
     protected $remotes = null;
@@ -62,8 +63,8 @@ class Repository implements RepositoryInterface
         }
 
         $this->branch = new Branch([
-            'name' => $branch->getName(),
-            'remote' => $branch->isRemote()
+            'name' => $localBranch->getName(),
+            'remote' => $localBranch->isRemote()
         ]);
 
         return $this;
