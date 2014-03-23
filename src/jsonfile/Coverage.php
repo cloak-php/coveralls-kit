@@ -43,6 +43,11 @@ class Coverage implements CoverageInterface
         return $this->getAnalysisResult() === static::EXECUTED;
     }
 
+    public function isValidLine($lineCount)
+    {
+        return $this->getLineNumber() >= 1 && $this->getLineNumber() <= $lineCount;
+    }
+
     public static function unused($lineAt)
     {
         return new static($lineAt, static::UNUSED);

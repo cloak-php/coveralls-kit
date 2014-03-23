@@ -28,6 +28,9 @@ class CoverageCollection implements ArrayConvertible
 
     public function add(CoverageInterface $coverage)
     {
+        if ($coverage->isValidLine($this->lineCount) === false) {
+            return;
+        }
         $this->lineCoverages->set($coverage->getLineNumber(), $coverage);
     }
 

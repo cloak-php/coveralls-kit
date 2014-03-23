@@ -17,13 +17,27 @@ use coveralls\jsonfile\CoverageCollection;
 describe('CoverageCollection', function() {
     describe('add', function() {
         before(function() {
-            $this->coverage = Coverage::unused(1);
             $this->coverages = new CoverageCollection(1);
-            $this->coverages->add($this->coverage);
-            $this->retrieveCoverage = $this->coverages->at(1);
         });
-        it('should add coverage', function() {
-            expect($this->coverage)->toEqual($this->retrieveCoverage);
+        context('when the valid line number', function() {
+            before(function() {
+                $this->coverage = Coverage::unused(1);
+                $this->coverages->add($this->coverage);
+                $this->retrieveCoverage = $this->coverages->at(1);
+            });
+            it('should add coverage', function() {
+                expect($this->coverage)->toEqual($this->retrieveCoverage);
+            });
+        });
+        context('when the invalid line number', function() {
+            before(function() {
+                $this->coverage = Coverage::unused(2);
+                $this->coverages->add($this->coverage);
+                $this->retrieveCoverage = $this->coverages->at(2);
+            });
+            it('should not add coverage', function() {
+                expect($this->retrieveCoverage)->toBeNull();
+            });
         });
     });
     describe('at', function() {
