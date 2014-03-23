@@ -19,7 +19,7 @@ interface ServiceInterface extends CompositeEntityInterface
     /**
      * @return string
      */
-    public function getJobId();
+    public function getServiceJobId();
 
     /**
      * @return string
@@ -27,3 +27,4 @@ interface ServiceInterface extends CompositeEntityInterface
     public function getServiceName();
 
 }
+

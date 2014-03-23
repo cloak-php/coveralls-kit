@@ -22,12 +22,12 @@ describe('Travis', function() {
     after(function() {
         putenv('TRAVIS_JOB_ID=' . $this->jobId);
     });
-    describe('jobId', function() {
+    describe('getServiceJobId', function() {
         it('should return job id', function() {
-            expect($this->service->getJobId())->toEqual('10');
+            expect($this->service->getServiceJobId())->toEqual('10');
         });
     });
-    describe('serviceName', function() {
+    describe('getServiceName', function() {
         it('should return the service name', function() {
             expect($this->service->getServiceName())->toEqual('travis-ci');
         });

@@ -14,18 +14,18 @@ namespace coveralls\entity\service;
 class Travis implements TravisInterface
 {
 
-    protected $jobId;
+    protected $serviceJobId;
     protected $serviceName;
 
     public function __construct($serviceName = self::SERVICE_CI)
     {
-        $this->jobId = getenv(self::ENV_JOB_ID);
+        $this->serviceJobId = getenv(self::ENV_JOB_ID);
         $this->serviceName = $serviceName;
     }
 
-    public function getJobId()
+    public function getServiceJobId()
     {
-        return $this->jobId;
+        return $this->serviceJobId;
     }
 
     public function getServiceName()
@@ -36,7 +36,7 @@ class Travis implements TravisInterface
     public function toArray()
     {
         $values = [
-            'service_job_id' => $this->getJobId(),
+            'service_job_id' => $this->getServiceJobId(),
             'service_name' => $this->getServiceName()
         ];
 

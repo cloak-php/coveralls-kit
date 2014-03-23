@@ -25,7 +25,7 @@ describe('JSONFileBuilder', function() {
             $this->prophet = new Prophet();
 
             $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisInterface');
-            $this->service->getJobId()->shouldBeCalled()->willReturn('10');
+            $this->service->getServiceJobId()->shouldBeCalled()->willReturn('10');
             $this->service->getServiceName()->shouldBeCalled()->willReturn('travis-ci');
 
             $this->commit = new Commit([
@@ -67,7 +67,7 @@ describe('JSONFileBuilder', function() {
             expect($this->jsonFile->token)->toBe('foo');
         });
         it('should set the service environment', function() {
-            expect($this->jsonFile->service->getJobId())->toBe('10');
+            expect($this->jsonFile->service->getServiceJobId())->toBe('10');
             expect($this->jsonFile->service->getServiceName())->toBe('travis-ci');
         });
         it('should set the commit log', function() {
