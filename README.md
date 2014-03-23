@@ -18,6 +18,30 @@ Requirements
 Basic usage
 ------------------------------------
 
+You can generate a json file using the **coveralls/JSONFileBuilder**.  
+You just set the code coverage of rows that have been executed.  
+Code coverage can be obtained easily by using the **HHVM** and **xdebug**.
+
+	$builder = new JSONFileBuilder();
+	$builder->token('your repository token')
+		->service(TravisCI::ci())
+		->repository(new Repository(__DIR__ . '/../'));
+
+	$source = new SourceFile('path/to/file');
+
+	$coverages = $source->getCoverages();
+
+	$coverages->add(Coverage::executed(1));	//The first line was executed
+	$coverages->add(Coverage::unused(2));	//The second line is not executed
+	$coverages->add(Coverage::executed(3));	//The third line is executed
+
+	$builder->addSource($source);
+	$builder->build()->saveAs(__DIR__ . '/tmp/coverage.json');
+
+
+Detailed documentation
+-----------------------------------
+
 * [Work with Travis-CI](docs/travis-ci.md)
 
 
