@@ -12,6 +12,7 @@
 namespace coveralls\entity;
 
 use coveralls\CompositeEntityInterface;
+use coveralls\entity\CoverageInterface;
 use coveralls\entity\collection\CoverageCollection;
 use coveralls\exception\FileNotFoundException;
 
@@ -65,6 +66,16 @@ class SourceFile implements CompositeEntityInterface
     public function getCoverages()
     {
         return $this->coverages;
+    }
+
+    public function addCoverage(CoverageInterface $coverage)
+    {
+        $this->coverages->add($coverage);
+    }
+
+    public function getCoverage($lineNumber)
+    {
+        return $this->coverages->at($lineNumber);
     }
 
     public function toArray()

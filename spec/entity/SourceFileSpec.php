@@ -12,6 +12,7 @@
 namespace coveralls\spec;
 
 use coveralls\entity\SourceFile;
+use coveralls\entity\Coverage;
 use coveralls\entity\collection\CoverageCollection;
 use coveralls\exception\FileNotFoundException;
 
@@ -45,6 +46,16 @@ describe('SourceFile', function() {
             expect($this->sourceFile->getCoverages())->toBeAnInstanceOf('coveralls\entity\collection\CoverageCollection');
         });
     });
+    describe('addCoverage', function() {
+        before(function() {
+            $this->coverage = Coverage::unused(1);
+            $this->sourceFile->addCoverage($this->coverage);
+            $this->retrieveCoverage = $this->sourceFile->getCoverage(1);
+        });
+        it('should add coverage', function() {
+            expect($this->retrieveCoverage)->toEqual($this->coverage);
+        });
+    });
     describe('toArray', function() {
         it('should return array values', function() {
             $values = $this->sourceFile->toArray();
@@ -54,6 +65,11 @@ describe('SourceFile', function() {
         });
     });
     describe('__toString', function() {
+        before(function() {
+            $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
+            $this->relativePath = str_replace(getcwd(), '', $this->path);
+            $this->sourceFile = new SourceFile($this->path);
+        });
         it('should return json string', function() {
             $json = [
                 'name' => $this->relativePath,
