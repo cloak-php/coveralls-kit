@@ -16,11 +16,21 @@ class Remote implements CompositeEntityInterface
         $this->url = $url;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getURL()
+    {
+        return $this->url;
+    }
+
     public function toArray()
     {
         return [
-            'name' => $this->name,
-            'url' => $this->url
+            'name' => $this->getName(),
+            'url' => $this->getURL()
         ];
     }
 

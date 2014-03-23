@@ -20,8 +20,8 @@ describe('Remote', function() {
     describe('toArray', function() {
         it('should return array value', function () {
             $value = $this->remote->toArray();
-            expect($value['name'])->not()->toBeNull();
-            expect($value['url'])->not()->toBeNull();
+            expect($value['name'])->toBe('origin');
+            expect($value['url'])->toBe('https://github.com/holyshared/coveralls-kit.git');
         });
     });
     describe('__toString', function() {
