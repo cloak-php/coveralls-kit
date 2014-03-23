@@ -17,17 +17,17 @@ interface RepositoryInterface extends CompositeEntityInterface
 {
 
     /**
-     * @return coveralls\entity\repository\Commit
+     * @return repository\Commit
      */
     public function getCommit();
 
     /**
-     * @return coveralls\entity\repository\Branch
+     * @return repository\Branch
      */
     public function getBranch();
 
     /**
-     * @return coveralls\entity\collection\RemoteCollection;
+     * @return collection\RemoteCollection;
      */
     public function getRemotes();
 

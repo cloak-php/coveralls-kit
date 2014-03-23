@@ -14,7 +14,6 @@ namespace coveralls\spec;
 use coveralls\entity\JSONFile;
 use coveralls\entity\Repository;
 use coveralls\entity\collection\SourceFileCollection;
-use coveralls\entity\service\Travis;
 use coveralls\entity\service\TravisInterface;
 use Prophecy\Prophet;
 

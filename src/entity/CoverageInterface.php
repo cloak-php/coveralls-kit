@@ -33,7 +33,7 @@ interface CoverageInterface
     public function isExecuted();
 
     /**
-     * @return mixed
+     * @return integer|null
      */
     public function valueOf(); 
 

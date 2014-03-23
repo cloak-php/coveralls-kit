@@ -17,6 +17,10 @@ class Coverage implements CoverageInterface
     protected $lineAt = null;
     protected $analysisResult = null;
 
+    /**
+     * @param integer $lineAt
+     * @param integer $analysisResult
+     */
     public function __construct($lineAt, $analysisResult)
     {
         $this->lineAt = $lineAt;

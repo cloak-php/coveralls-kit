@@ -11,7 +11,6 @@
 
 namespace coveralls\entity;
 
-use coveralls\CompositeEntityInterface;
 use coveralls\entity\repository\Commit;
 use coveralls\entity\repository\Branch;
 use coveralls\entity\repository\Remote;

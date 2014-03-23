@@ -21,6 +21,9 @@ class CoverageCollection implements CompositeEntityInterface
     protected $lineCount = null;
     protected $lineCoverages = null;
 
+    /**
+     * @param integer $lineCount
+     */
     public function __construct($lineCount)
     {
         $this->lineCount = $lineCount;

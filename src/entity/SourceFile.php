@@ -23,6 +23,9 @@ class SourceFile implements CompositeEntityInterface
     protected $content = null;
     protected $coverages = null;
 
+    /**
+     * @param string $name
+     */
     public function __construct($name)
     {
         $this->resolvePath($name);

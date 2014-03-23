@@ -16,8 +16,14 @@ use coveralls\CompositeEntityInterface;
 interface ServiceInterface extends CompositeEntityInterface
 {
 
+    /**
+     * @return string
+     */
     public function getJobId();
 
+    /**
+     * @return string
+     */
     public function getServiceName();
 
 }

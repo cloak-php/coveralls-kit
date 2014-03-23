@@ -11,8 +11,6 @@
 
 namespace coveralls\entity;
 
-use coveralls\entity\collection\SourceFileCollection;
-
 class JSONFile implements JSONFileInterface
 {
 
