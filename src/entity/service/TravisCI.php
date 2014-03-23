@@ -43,12 +43,12 @@ class TravisCI implements TravisCIInterface
         return $values;
     }
 
-    public static function ci()
+    public static function travisCI()
     {
         return new static();
     }
 
-    public static function pro()
+    public static function travisPro()
     {
         return new static(self::SERVICE_PRO);
     }

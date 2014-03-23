@@ -34,12 +34,12 @@ describe('TravisCI', function() {
     });
     describe('ci', function() {
         it('should return travis-ci service', function() {
-            expect(TravisCI::ci()->getServiceName())->toEqual('travis-ci');
+            expect(TravisCI::travisCI()->getServiceName())->toEqual('travis-ci');
         });
     });
     describe('pro', function() {
         it('should return travis-pro service', function() {
-            expect(TravisCI::pro()->getServiceName())->toEqual('travis-pro');
+            expect(TravisCI::travisPro()->getServiceName())->toEqual('travis-pro');
         });
     });
 });
