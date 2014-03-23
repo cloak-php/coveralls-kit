@@ -35,6 +35,16 @@ class CoverageCollection implements CompositeEntityInterface
         $this->lineCoverages->set($coverage->getLineNumber(), $coverage);
     }
 
+    public function remove(CoverageInterface $coverage)
+    {
+        $this->removeAt($coverage->getLineNumber());
+    }
+
+    public function removeAt($lineNumber)
+    {
+        $this->lineCoverages->remove($lineNumber);
+    }
+
     public function at($lineAt)
     {
         $coverage = $this->lineCoverages->get($lineAt);

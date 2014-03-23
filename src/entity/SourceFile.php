@@ -73,6 +73,17 @@ class SourceFile implements CompositeEntityInterface
         $this->coverages->add($coverage);
     }
 
+    public function removeCoverage($coverage)
+    {
+        $lineNumber = $coverage;
+
+        if ($coverage instanceof CoverageInterface) {
+            $lineNumber = $coverage->getLineNumber();
+        }
+
+        $this->coverages->removeAt($lineNumber);
+    }
+
     public function getCoverage($lineNumber)
     {
         return $this->coverages->at($lineNumber);
