@@ -5,7 +5,7 @@ namespace coveralls\example;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use coveralls\JSONFileBuilder;
-use coveralls\entity\service\TravisCI;
+use coveralls\entity\service\Travis;
 use coveralls\entity\Repository;
 use coveralls\entity\Coverage;
 use coveralls\entity\SourceFile;
@@ -26,7 +26,7 @@ xdebug_stop_code_coverage();
  */
 $builder = new JSONFileBuilder();
 $builder->token('foo')
-    ->service(TravisCI::ci())
+    ->service(Travis::travisCI())
     ->repository(new Repository(__DIR__ . '/../'));
 
 foreach ($result as $file => $coverage) {
