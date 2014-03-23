@@ -8,7 +8,8 @@
     "require-dev": {
         "danielstjules/pho": "1.0.0",
         "jaz303/phake": "0.6.0",
-        "phpspec/prophecy": "1.1.*"
+        "phpspec/prophecy": "1.1.*",
+        "jasonlewis/resource-watcher": "1.1.*"        
     },
     "license": "MIT",
     "authors": [
