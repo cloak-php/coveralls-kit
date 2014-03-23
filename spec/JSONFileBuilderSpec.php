@@ -13,7 +13,6 @@ namespace coveralls\spec;
 
 use coveralls\JSONFileBuilder;
 use coveralls\entity\SourceFile;
-use coveralls\entity\service\TravisCI;
 use Prophecy\Prophet;
 
 describe('JSONFileBuilder', function() {
