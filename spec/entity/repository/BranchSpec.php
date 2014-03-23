@@ -12,14 +12,12 @@
 namespace coveralls\spec;
 
 use coveralls\entity\repository\Branch;
-use Gitonomy\Git\Reference\Branch as CommitBranch;
-use Gitonomy\Git\Repository as GitRepository;
-
 describe('Branch', function() {
     before(function() {
-        $repository = new GitRepository(realpath(__DIR__ . '/../../../'));
-        $branch = new CommitBranch($repository, 'refs/heads/master', '81a5e4dfaf9c1f34117ac9cdc3ee8fb477c3f6c5');
-        $this->branch = new Branch($branch);
+        $this->branch = new Branch([
+            'name' => 'master',
+            'remote' => false
+        ]);
     });
     describe('__toString', function() {
         it('should return string value', function () {

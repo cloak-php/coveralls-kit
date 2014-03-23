@@ -2,26 +2,51 @@
 
 namespace coveralls\entity\repository;
 
-use Gitonomy\Git\Reference\Branch as CurrentBranch;
+use coveralls\EntityInterface;
 
-class Branch
+class Branch implements EntityInterface
 {
 
-    protected $branch = null;
+    protected $name = null;
+    protected $remote = null;
 
-    public function __construct(CurrentBranch $branch)
+    public function __construct(array $values)
     {
-        $this->branch = $branch;
+        foreach ($values as $key => $value) {
+            $this->$key = $value;
+        }
     }
 
+    /**
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return boolean 
+     */
+    public function isRemote()
+    {
+        return $this->remote;
+    }
+
+    /**
+     * @return boolean 
+     */
     public function isEmpty()
     {
-        return $this->branch === null;
+        return $this->name === null;
     }
 
+    /**
+     * @return string 
+     */
     public function __toString()
     {
-        return $this->branch->getName();
+        return $this->getName();
     }
 
 }

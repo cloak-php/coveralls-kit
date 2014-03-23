@@ -53,7 +53,11 @@ class Repository implements RepositoryInterface
             }
             $localBranch = $branch;
         }
-        $this->branch = new Branch($branch);
+
+        $this->branch = new Branch([
+            'name' => $branch->getName(),
+            'remote' => $branch->isRemote()
+        ]);
 
         return $this;
     }
