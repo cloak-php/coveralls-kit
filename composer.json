@@ -1,5 +1,5 @@
 {
-    "name": "shared-hat/coveralls-kit",
+    "name": "holyshared/coveralls-kit",
     "description": "CoverallsKit is the library for transmitting the report of code coverage to coveralls.",
     "version": "1.0.0",
     "keywords": [
