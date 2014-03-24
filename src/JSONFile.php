@@ -1,12 +1,26 @@
 <?php
 
+/**
+ * This file is part of CoverallsKit.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace coveralls;
+
+use coveralls\jsonfile\SourceFileCollection;
 
 class JSONFile implements JSONFileInterface
 {
 
-    protected $repositoryToken = null;
+    protected $token = null;
+    protected $service = null;
+    protected $repository = null;
     protected $sourceFiles = null;
+    protected $runAt = null;
 
     /**
      * @param array $values
@@ -18,14 +32,32 @@ class JSONFile implements JSONFileInterface
         }
     }
 
-    public function getRepositoryToken()
+    public function saveAs($path)
     {
-        return $this->repositoryToken;
+        $content = (string) $this;
+        file_put_contents($path, $content);
     }
 
-    public function getSourceFiles()
+    public function toArray()
     {
-        return $this->sourceFiles;
+        $values = array(
+            'repo_token' => $this->token,
+            'git' => $this->repository->toArray(),
+            'source_files' => $this->sourceFiles->toArray(),
+            'run_at' => $this->runAt
+        );
+
+        $serviceValues = $this->service->toArray();
+        foreach ($serviceValues as $key => $value) {
+            $values[$key] = $value;
+        }
+
+        return $values;
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
@@ -34,15 +66,7 @@ class JSONFile implements JSONFileInterface
      */
     public function __get($name)
     {
-        $getter = 'get' . ucwords($name);
-
-
-        //FIXME throw exception
-        if (method_exists($this, $getter) === false) {
-            return null;
-        }
-
-        return $this->$getter();
+        return $this->$name;
     }
 
 }

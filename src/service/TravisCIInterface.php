@@ -9,11 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls;
+namespace coveralls\service;
 
-interface JSONFileInterface extends ArrayConvertible
+interface TravisCIInterface extends ServiceInterface
 {
 
-    public function saveAs($path);
+    const SERVICE_CI = 'travis-ci';
+    const SERVICE_PRO = 'travis-pro';
+
+    const ENV_JOB_ID = 'TRAVIS_JOB_ID';
 
 }

@@ -11,9 +11,12 @@
 
 namespace coveralls;
 
-interface JSONFileInterface extends ArrayConvertible
+interface ArrayConvertible
 {
 
-    public function saveAs($path);
+    /**
+     * @return array
+     */
+    public function toArray();  
 
 }

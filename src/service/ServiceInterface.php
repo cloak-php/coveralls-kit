@@ -9,11 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls;
+namespace coveralls\service;
 
-interface JSONFileInterface extends ArrayConvertible
+use coveralls\ArrayConvertible;
+
+interface ServiceInterface extends ArrayConvertible
 {
 
-    public function saveAs($path);
+    public function getJobId();
+
+    public function getServiceName();
 
 }

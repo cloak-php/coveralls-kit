@@ -1,12 +1,18 @@
 <?php
 
+/**
+ * This file is part of CoverallsKit.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace coveralls\jsonfile;
 
 class Coverage implements CoverageInterface 
 {
-
-    const UNUSED = 0;
-    const EXECUTED = 1;
 
     protected $lineAt = null;
     protected $analysisResult = null;
@@ -37,6 +43,11 @@ class Coverage implements CoverageInterface
         return $this->getAnalysisResult() === static::EXECUTED;
     }
 
+    public function isValidLine($lineCount)
+    {
+        return $this->getLineNumber() >= 1 && $this->getLineNumber() <= $lineCount;
+    }
+
     public static function unused($lineAt)
     {
         return new static($lineAt, static::UNUSED);
@@ -45,6 +56,19 @@ class Coverage implements CoverageInterface
     public static function executed($lineAt)
     {
         return new static($lineAt, static::EXECUTED);
+    }
+
+    public function valueOf()
+    {
+        $value = null;
+
+        if ($this->isExecuted()) {
+            $value = static::EXECUTED;
+        } else if ($this->isUnused()) {
+            $value = static::UNUSED;
+        }
+
+        return $value;
     }
 
 }
