@@ -1,11 +1,14 @@
 <?php
 
+namespace coveralls\spec;
+
 require_once __DIR__ . "/vendor/autoload.php";
 
 use Illuminate\Filesystem\Filesystem;
 use JasonLewis\ResourceWatcher\Tracker;
 use JasonLewis\ResourceWatcher\Watcher;
 use JasonLewis\ResourceWatcher\Resource\ResourceInterface;
+use phake\Application;
 
 group('example', function() {
     desc('Run the example program basic');
@@ -21,7 +24,7 @@ group('spec', function() {
     });
 
     desc('Monitoring the source file and rerun the test if there is a change.');
-    task('watch-source', function($application) {
+    task('watch-source', function(Application $application) {
         $watcher = $application['watcher'];
 
         if ($watcher === null) {
@@ -48,7 +51,7 @@ group('spec', function() {
     });
 
     desc('Monitoring the spec file and rerun the test if there is a change.');
-    task('watch-spec', function($application) {
+    task('watch-spec', function(Application $application) {
         $watcher = $application['watcher'];
 
         if ($watcher === null) {
@@ -65,7 +68,7 @@ group('spec', function() {
     });
 
     desc('Monitors the source files, test files, and rerun the test if there is a change');
-    task('watch', function($application) {
+    task('watch', function(Application $application) {
         $watcher = new Watcher(new Tracker(), new Filesystem());
 
         $application['watcher'] = $watcher;
