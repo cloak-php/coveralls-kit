@@ -50,6 +50,10 @@ Run only unit test
 
 	vendor/bin/pho
 
+or
+
+	vendor/bin/phake spec:watch
+
 How to run the example
 ------------------------------------
 
