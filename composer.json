@@ -1,5 +1,5 @@
 {
-    "name": "shared-hat/coveralls-kit",
+    "name": "holyshared/coveralls-kit",
     "description": "Developer kit for transmitting code coverage report to coveralls",
     "keywords": [
         "coveralls", "code coverage", "report"
