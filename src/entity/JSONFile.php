@@ -47,6 +47,8 @@ class JSONFile implements JSONFileInterface
         }
         $content = (string) $this;
         file_put_contents($path, $content);
+
+        return $this; 
     }
 
     public function setUpLoader(JSONFileUpLoaderInterface $uploader)
