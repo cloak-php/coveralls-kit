@@ -15,7 +15,7 @@ use coveralls\entity\JSONFileInterface;
 use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
 
-class JSONFileUpLoader
+class JSONFileUpLoader implements JSONFileUpLoaderInterface
 {
 
     protected $client = null;
@@ -27,9 +27,9 @@ class JSONFileUpLoader
 
     public function upload(JSONFileInterface $jsonFile)
     {
-        $request = $this->client->post('https://coveralls.io/api/v1/jobs');
+        $request = $this->client->post(static::ENDPOINT_URL);
         $request->addPostFiles([
-            'json_file' => $jsonFile->getName()
+            static::JSON_FILE_POST_FIELD_NAME => $jsonFile->getName()
         ]);
         $request->send();
     }
