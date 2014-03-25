@@ -20,9 +20,9 @@ class JSONFileUpLoader implements JSONFileUpLoaderInterface
 
     protected $client = null;
 
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientInterface $client = null)
     {
-        $this->client = $client;
+        $this->client = ($client === null) ? new Client() : $client;
     }
 
     public function upload(JSONFileInterface $jsonFile)
