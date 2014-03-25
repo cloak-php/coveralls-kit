@@ -19,6 +19,8 @@ use Prophecy\Prophet;
 
 describe('JSONFile', function() {
     before(function() {
+        mkdir(__DIR__ . '/tmp');
+
         $this->prophet = new Prophet();
 
         $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisInterface');
@@ -27,21 +29,22 @@ describe('JSONFile', function() {
             'service_name' => 'travis-ci'
         ]);
 
+        $this->path = __DIR__ . '/tmp/coverage.json';
+
         $this->jsonFile = new JSONFile([
             'token' => 'foo',
             'repository' => new Repository(__DIR__ . '/../../'),
             'service' => $this->service->reveal(),
             'sourceFiles' => new SourceFileCollection()
         ]);
-
-        $this->fileUpLoader = $this->prophet->prophesize('coveralls\JSONFileUpLoaderInterface');
-        $this->fileUpLoader->upload($this->jsonFile)->shouldBeCalled();
-
-        $this->jsonFile->setUpLoader($this->fileUpLoader->reveal());
     });
+
     after(function() {
+        rmdir(__DIR__ . '/tmp');
+
         $this->prophet->checkPredictions();
     });
+
     describe('token', function() {
         it('should return repository token string', function() {
             expect($this->jsonFile->token)->toBe('foo');
@@ -59,14 +62,11 @@ describe('JSONFile', function() {
     });
     describe('saveAs', function() {
         before(function() {
-            mkdir(__DIR__ . '/tmp');
-            $this->path = __DIR__ . '/tmp/coverage.json';
             $this->jsonFile->saveAs($this->path);
             $this->jsonResult = json_decode(file_get_contents($this->path));
         });
         after(function() {
             unlink($this->path);
-            rmdir(__DIR__ . '/tmp');
         });
         it('should saved the file', function() {
             expect(file_exists($this->path))->toBeTrue();
@@ -78,9 +78,50 @@ describe('JSONFile', function() {
         });
     });
     describe('upload', function() {
-        it('should upload the json file', function() {
-            $this->jsonFile->upload();
+        context('when not saved file', function() {
+            before(function() {
+                $this->notSavedJsonFile = new JSONFile([
+                    'token' => 'foo',
+                    'repository' => new Repository(__DIR__ . '/../../'),
+                    'service' => $this->service->reveal(),
+                    'sourceFiles' => new SourceFileCollection()
+                ]);
+
+                $this->notSavedFileUpLoader = $this->prophet->prophesize('coveralls\JSONFileUpLoaderInterface');
+                $this->notSavedFileUpLoader->upload($this->notSavedJsonFile)->shouldBeCalled();
+
+                $this->notSavedJsonFile->setUpLoader($this->notSavedFileUpLoader->reveal());
+                $this->notSavedJsonFile->upload();
+            });
+            after(function() {
+                unlink($this->notSavedJsonFile->getName());
+            });
+            it('should use the default name', function() {
+                expect($this->notSavedJsonFile->getName())->toEqual(getcwd() . '/' . JSONFile::DEFAULT_NAME);
+            });
+        });
+        context('when not saved file', function() {
+            before(function() {
+                $this->savedJsonFile = new JSONFile([
+                    'token' => 'foo',
+                    'repository' => new Repository(__DIR__ . '/../../'),
+                    'service' => $this->service->reveal(),
+                    'sourceFiles' => new SourceFileCollection()
+                ]);
+                $this->savedFileUpLoader = $this->prophet->prophesize('coveralls\JSONFileUpLoaderInterface');
+                $this->savedFileUpLoader->upload($this->savedJsonFile)->shouldBeCalled();
+
+                $this->savedJsonFile->setUpLoader($this->savedFileUpLoader->reveal());
+
+                $this->savedJsonFile->saveAs($this->path);
+                $this->savedJsonFile->upload();
+            });
+            after(function() {
+                unlink($this->savedJsonFile->getName());
+            });
+            it('should upload the json file', function() {
+                expect($this->savedJsonFile->getName())->toEqual($this->path);
+            });
         });
     });
-
 });

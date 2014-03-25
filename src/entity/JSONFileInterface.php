@@ -16,6 +16,8 @@ use coveralls\CompositeEntityInterface;
 interface JSONFileInterface extends CompositeEntityInterface
 {
 
+    const DEFAULT_NAME = 'coverage.json';
+
     public function getName();
 
     public function saveAs($path);
