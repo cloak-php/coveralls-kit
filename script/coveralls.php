@@ -9,7 +9,6 @@ use coveralls\entity\service\Travis;
 use coveralls\entity\Coverage;
 use coveralls\entity\Repository;
 use coveralls\entity\SourceFile;
-use Guzzle\Http\Client;
 
 /**
  * Get the code coverage
@@ -52,12 +51,4 @@ foreach ($result as $file => $coverage) {
 
 $coverageFile = __DIR__ . '/coverage.json';
 
-$builder->build()->saveAs($coverageFile);
-
-$client = new Client();
-$request = $client->post('https://coveralls.io/api/v1/jobs')
-    ->addPostFiles(array(
-        'json_file' => realpath($coverageFile)
-    ));
-
-$request->send();
+$builder->build()->saveAs($coverageFile)->upload();
