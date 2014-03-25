@@ -41,15 +41,15 @@ describe('JSONFileUpLoader', function() {
             ]);
 
             $this->request = $this->prophet->prophesize('Guzzle\Http\Message\EntityEnclosingRequestInterface');
-            $this->request->addPostFiles([ 'json_file' => 'path/to/coverage.json' ])->shouldBeCalled();
+            $this->request->addPostFiles([ JSONFileUpLoader::JSON_FILE_POST_FIELD_NAME => 'path/to/coverage.json' ])->shouldBeCalled();
             $this->request->send()->shouldBeCalled();
 
             $this->client = $this->prophet->prophesize('Guzzle\Http\ClientInterface');
-            $this->client->post('https://coveralls.io/api/v1/jobs')->shouldBeCalled()->willReturn($this->request->reveal());
+            $this->client->post(JSONFileUpLoader::ENDPOINT_URL)->shouldBeCalled()->willReturn($this->request->reveal());
 
             $this->jsonFileUpLoder = new JSONFileUpLoader($this->client->reveal());
         });
-        it('should return ', function() {
+        it('should upload json file', function() {
             $this->jsonFileUpLoder->upload($this->jsonFile);
         });
     });

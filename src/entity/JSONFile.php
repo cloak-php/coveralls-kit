@@ -11,6 +11,9 @@
 
 namespace coveralls\entity;
 
+use coveralls\JSONFileUpLoader;
+use coveralls\JSONFileUpLoaderInterface;
+
 class JSONFile implements JSONFileInterface
 {
 
@@ -20,6 +23,7 @@ class JSONFile implements JSONFileInterface
     protected $repository = null;
     protected $sourceFiles = null;
     protected $runAt = null;
+    protected $uploader = null;
 
     /**
      * @param array $values
@@ -43,6 +47,27 @@ class JSONFile implements JSONFileInterface
         }
         $content = (string) $this;
         file_put_contents($path, $content);
+
+        return $this; 
+    }
+
+    public function setUpLoader(JSONFileUpLoaderInterface $uploader)
+    {
+        $this->uploader = $uploader;
+    }
+
+    public function getUpLoader()
+    {
+        if ($this->uploader === null) {
+            $this->uploader = new JSONFileUpLoader();
+        }
+
+        return $this->uploader;
+    }
+
+    public function upload()
+    {
+        $this->getUpLoader()->upload($this);
     }
 
     public function toArray()

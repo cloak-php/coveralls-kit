@@ -20,4 +20,6 @@ interface JSONFileInterface extends CompositeEntityInterface
 
     public function saveAs($path);
 
+    public function upload();
+
 }

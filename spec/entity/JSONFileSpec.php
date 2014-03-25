@@ -20,17 +20,24 @@ use Prophecy\Prophet;
 describe('JSONFile', function() {
     before(function() {
         $this->prophet = new Prophet();
+
         $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisInterface');
         $this->service->toArray()->shouldBeCalled()->willReturn([
             'service_job_id' => '10',
             'service_name' => 'travis-ci'
         ]);
+
         $this->jsonFile = new JSONFile([
             'token' => 'foo',
             'repository' => new Repository(__DIR__ . '/../../'),
             'service' => $this->service->reveal(),
             'sourceFiles' => new SourceFileCollection()
         ]);
+
+        $this->fileUpLoader = $this->prophet->prophesize('coveralls\JSONFileUpLoaderInterface');
+        $this->fileUpLoader->upload($this->jsonFile)->shouldBeCalled();
+
+        $this->jsonFile->setUpLoader($this->fileUpLoader->reveal());
     });
     after(function() {
         $this->prophet->checkPredictions();
@@ -70,4 +77,10 @@ describe('JSONFile', function() {
             expect($this->jsonResult->git->remotes)->toHaveKey(0);
         });
     });
+    describe('upload', function() {
+        it('should upload the json file', function() {
+            $this->jsonFile->upload();
+        });
+    });
+
 });
