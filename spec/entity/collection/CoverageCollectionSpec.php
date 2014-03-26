@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\Coverage;
-use coveralls\entity\collection\CoverageCollection;
+use coverallskit\entity\Coverage;
+use coverallskit\entity\collection\CoverageCollection;
 
 describe('CoverageCollection', function() {
     describe('add', function() {

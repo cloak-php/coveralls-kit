@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\JSONFileUpLoader;
-use coveralls\entity\JSONFile;
-use coveralls\entity\Repository;
-use coveralls\entity\collection\SourceFileCollection;
+use coverallskit\JSONFileUpLoader;
+use coverallskit\entity\JSONFile;
+use coverallskit\entity\Repository;
+use coverallskit\entity\collection\SourceFileCollection;
 use Prophecy\Prophet;
 
 describe('JSONFileUpLoader', function() {
@@ -38,7 +38,7 @@ describe('JSONFileUpLoader', function() {
 
     describe('upload', function() {
         before(function() {
-            $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisInterface');
+            $this->service = $this->prophet->prophesize('coverallskit\entity\service\TravisInterface');
             $this->service->toArray()->shouldBeCalled()->willReturn([
                 'service_job_id' => '10',
                 'service_name' => 'travis-ci'

@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\SourceFile;
-use coveralls\entity\Coverage;
-use coveralls\entity\collection\CoverageCollection;
-use coveralls\exception\FileNotFoundException;
+use coverallskit\entity\SourceFile;
+use coverallskit\entity\Coverage;
+use coverallskit\entity\collection\CoverageCollection;
+use coverallskit\exception\FileNotFoundException;
 
 describe('SourceFile', function() {
     before(function() {
@@ -24,10 +24,10 @@ describe('SourceFile', function() {
     });
     describe('__construct', function() {
         context('when the file does not exist', function() {
-            it('should throw coveralls\exception\FileNotFoundException', function() {
+            it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
                     $source = new SourceFile('bar.php');
-                })->toThrow('coveralls\exception\FileNotFoundException');
+                })->toThrow('coverallskit\exception\FileNotFoundException');
             });
         });
     });
@@ -42,8 +42,8 @@ describe('SourceFile', function() {
         });
     });
     describe('getCoverages', function() {
-        it('should return coveralls\entity\collection\CoverageCollection instance', function() {
-            expect($this->sourceFile->getCoverages())->toBeAnInstanceOf('coveralls\entity\collection\CoverageCollection');
+        it('should return coverallskit\entity\collection\CoverageCollection instance', function() {
+            expect($this->sourceFile->getCoverages())->toBeAnInstanceOf('coverallskit\entity\collection\CoverageCollection');
         });
     });
     describe('addCoverage', function() {

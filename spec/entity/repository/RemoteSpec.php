@@ -9,19 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\repository\Remote;
+use coverallskit\entity\repository\Remote;
 
 describe('Remote', function() {
     before(function() {
-        $this->remote = new Remote('origin', 'https://github.com/holyshared/coveralls-kit.git');
+        $this->remote = new Remote('origin', 'https://github.com/holyshared/coverallskit-kit.git');
     });
     describe('toArray', function() {
         it('should return array value', function () {
             $value = $this->remote->toArray();
             expect($value['name'])->toBe('origin');
-            expect($value['url'])->toBe('https://github.com/holyshared/coveralls-kit.git');
+            expect($value['url'])->toBe('https://github.com/holyshared/coverallskit-kit.git');
         });
     });
     describe('__toString', function() {

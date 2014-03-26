@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\service\Travis;
+use coverallskit\entity\service\Travis;
 
 describe('Travis', function() {
     before(function() {

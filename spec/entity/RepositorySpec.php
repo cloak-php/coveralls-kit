@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\Repository;
+use coverallskit\entity\Repository;
 
 describe('Repository', function() {
     before(function() {
@@ -20,19 +20,19 @@ describe('Repository', function() {
     });
     describe('getCommit', function() {
         it('should return head commit', function() {
-            expect($this->repository->getCommit())->toBeAnInstanceOf('coveralls\entity\repository\Commit');
+            expect($this->repository->getCommit())->toBeAnInstanceOf('coverallskit\entity\repository\Commit');
             expect($this->repository->getCommit()->isEmpty())->toBeFalse();
         });
     });
     describe('getBranch', function() {
         it('should return current branch', function() {
-            expect($this->repository->getBranch())->toBeAnInstanceOf('coveralls\entity\repository\Branch');
+            expect($this->repository->getBranch())->toBeAnInstanceOf('coverallskit\entity\repository\Branch');
             expect($this->repository->getBranch()->isEmpty())->toBeFalse();
         });
     });
     describe('getRemotes', function() {
         it('should return remotes', function() {
-            expect($this->repository->getRemotes())->toBeAnInstanceOf('coveralls\entity\collection\RemoteCollection');
+            expect($this->repository->getRemotes())->toBeAnInstanceOf('coverallskit\entity\collection\RemoteCollection');
             expect($this->repository->getRemotes()->isEmpty())->toBeFalse();
         });
     });

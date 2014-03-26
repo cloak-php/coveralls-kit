@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\repository\Remote;
-use coveralls\entity\collection\RemoteCollection;
+use coverallskit\entity\repository\Remote;
+use coverallskit\entity\collection\RemoteCollection;
 
 describe('RemoteCollection', function() {
     before(function() {
-        $remote = new Remote('origin', 'https://github.com/holyshared/coveralls-kit.git');
+        $remote = new Remote('origin', 'https://github.com/holyshared/coverallskit-kit.git');
         $this->remotes = new RemoteCollection([ $remote ]);
     });
     describe('toArray', function() {

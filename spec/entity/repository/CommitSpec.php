@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\repository\Commit;
+use coverallskit\entity\repository\Commit;
 
 describe('Commit', function() {
     before(function() {

@@ -9,9 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\repository\Branch;
+use coverallskit\entity\repository\Branch;
+
 describe('Branch', function() {
     before(function() {
         $this->branch = new Branch([
