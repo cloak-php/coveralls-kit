@@ -15,6 +15,11 @@ group('example', function() {
     task('basic', function() {
         echo shell_exec('TRAVIS_JOB_ID=10 php ' . __DIR__ . '/example/basic_example.php');
     });
+
+    desc('Run in the example hhvm');
+    task('hhvm', function() {
+        echo shell_exec('TRAVIS_JOB_ID=10 php ' . __DIR__ . '/example/hhvm_example.php');
+    });
 });
 
 group('spec', function() {
