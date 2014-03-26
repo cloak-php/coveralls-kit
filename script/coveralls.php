@@ -15,7 +15,7 @@ use coverallskit\entity\SourceFile;
  */
 xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
 
-$argv = array('../vendor/bin/pho', '--reporter', 'spec');
+$argv = array('../vendor/bin/pho');
 
 require_once __DIR__ . "/../vendor/bin/pho";
 
