@@ -9,6 +9,7 @@ use JasonLewis\ResourceWatcher\Tracker;
 use JasonLewis\ResourceWatcher\Watcher;
 use JasonLewis\ResourceWatcher\Resource\ResourceInterface;
 use phake\Application;
+use RuntimeException;
 
 group('example', function() {
     desc('Run the example program basic');
@@ -18,6 +19,9 @@ group('example', function() {
 
     desc('Run in the example hhvm');
     task('hhvm', function() {
+        if (defined('HHVM_VERSION') === false) {
+            throw new RuntimeException('Please install the hhvm');
+        }
         echo shell_exec('TRAVIS_JOB_ID=10 php ' . __DIR__ . '/example/hhvm_example.php');
     });
 });
