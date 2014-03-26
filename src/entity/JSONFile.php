@@ -67,6 +67,9 @@ class JSONFile implements JSONFileInterface
 
     public function upload()
     {
+        if ($this->getName() === null) {
+            $this->saveAs(getcwd() . '/' . static::DEFAULT_NAME);
+        }
         $this->getUpLoader()->upload($this);
     }
 

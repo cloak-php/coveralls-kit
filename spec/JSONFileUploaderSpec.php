@@ -24,6 +24,18 @@ describe('JSONFileUpLoader', function() {
     after(function() {
         $this->prophet->checkPredictions();
     });
+    describe('getClient', function() {
+        before(function() {
+            $this->jsonFileUpLoder = new JSONFileUpLoader();
+        });
+        context('When not specified client', function() {
+            it('should return Guzzle\Http\Client instance', function() {
+                $client = $this->jsonFileUpLoder->getClient();
+                expect($client)->toBeAnInstanceOf('Guzzle\Http\Client');
+            });
+        });
+    });
+
     describe('upload', function() {
         before(function() {
             $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisInterface');

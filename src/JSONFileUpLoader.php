@@ -22,12 +22,27 @@ class JSONFileUpLoader implements JSONFileUpLoaderInterface
 
     public function __construct(ClientInterface $client = null)
     {
-        $this->client = ($client === null) ? new Client() : $client;
+        $httpClient = $client;
+
+        if ($httpClient === null) {
+            $httpClient = new Client();
+        }
+        $this->setClient($httpClient);
+    }
+
+    public function setClient(ClientInterface $client)
+    {
+        $this->client = $client;
+    }
+
+    public function getClient()
+    {
+        return $this->client;
     }
 
     public function upload(JSONFileInterface $jsonFile)
     {
-        $request = $this->client->post(static::ENDPOINT_URL);
+        $request = $this->getClient()->post(static::ENDPOINT_URL);
         $request->addPostFiles([
             static::JSON_FILE_POST_FIELD_NAME => $jsonFile->getName()
         ]);
