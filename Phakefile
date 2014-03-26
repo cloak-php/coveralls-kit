@@ -1,6 +1,6 @@
 <?php
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
