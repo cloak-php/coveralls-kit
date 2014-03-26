@@ -1,14 +1,14 @@
 <?php
 
-namespace coveralls\example;
+namespace coverallskit\example;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use coveralls\JSONFileBuilder;
-use coveralls\entity\service\Travis;
-use coveralls\entity\Coverage;
-use coveralls\entity\Repository;
-use coveralls\entity\SourceFile;
+use coverallskit\JSONFileBuilder;
+use coverallskit\entity\service\Travis;
+use coverallskit\entity\Coverage;
+use coverallskit\entity\Repository;
+use coverallskit\entity\SourceFile;
 
 /**
  * Get the code coverage
