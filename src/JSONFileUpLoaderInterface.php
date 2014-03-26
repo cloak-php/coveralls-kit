@@ -17,7 +17,7 @@ use Guzzle\Http\ClientInterface;
 interface JSONFileUpLoaderInterface
 {
 
-    const ENDPOINT_URL = 'https://coverallskit.io/api/v1/jobs';
+    const ENDPOINT_URL = 'https://coveralls.io/api/v1/jobs';
     const JSON_FILE_POST_FIELD_NAME = 'json_file';
 
     /**
