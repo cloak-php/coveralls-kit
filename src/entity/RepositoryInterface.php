@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\entity;
+namespace coverallskit\entity;
 
-use coveralls\CompositeEntityInterface;
+use coverallskit\CompositeEntityInterface;
 
 interface RepositoryInterface extends CompositeEntityInterface
 {

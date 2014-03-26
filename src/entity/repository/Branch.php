@@ -1,8 +1,8 @@
 <?php
 
-namespace coveralls\entity\repository;
+namespace coverallskit\entity\repository;
 
-use coveralls\EntityInterface;
+use coverallskit\EntityInterface;
 
 class Branch implements EntityInterface
 {

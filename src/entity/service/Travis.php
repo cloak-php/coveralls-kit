@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\entity\service;
+namespace coverallskit\entity\service;
 
 class Travis implements TravisInterface
 {

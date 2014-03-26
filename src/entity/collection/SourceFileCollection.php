@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\entity\collection;
+namespace coverallskit\entity\collection;
 
-use coveralls\CompositeEntityInterface;
-use coveralls\entity\SourceFile;
+use coverallskit\CompositeEntityInterface;
+use coverallskit\entity\SourceFile;
 use PhpCollection\Sequence;
 
 class SourceFileCollection implements CompositeEntityInterface
