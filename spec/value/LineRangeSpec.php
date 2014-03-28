@@ -29,14 +29,14 @@ describe('LineRange', function() {
         });
         context('when the range', function() {
             it('should return true', function() {
-                expect($this->range->between(1))->toBeTrue();
-                expect($this->range->between(30))->toBeTrue();
+                expect($this->range->contains(1))->toBeTrue();
+                expect($this->range->contains(30))->toBeTrue();
             });
         });
         context('when out of range', function() {
             it('should return false', function() {
-                expect($this->range->between(0))->toBeFalse();
-                expect($this->range->between(31))->toBeFalse();
+                expect($this->range->contains(0))->toBeFalse();
+                expect($this->range->contains(31))->toBeFalse();
             });
         });
     });
