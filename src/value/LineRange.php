@@ -29,13 +29,32 @@ class LineRange
         $this->lineCount = $lineCount;
     }
 
+    public function getFirstLineNumber()
+    {
+        return 1;
+    }
+
+    public function getLastLineNumber()
+    {
+        return $this->lineCount;
+    }
+
     /**
      * @param integer $lineAt
      * @return boolean
      */
     public function between($lineAt)
     {
-        return $lineAt >= 1 && $lineAt <= $this->lineCount;
+        return $lineAt >= $this->getFirstLineNumber() && $lineAt <= $this->getLastLineNumber();
+    }
+
+    /**
+     * @param integer $lineAt
+     * @return boolean
+     */
+    public function contains($lineAt)
+    {
+        return $this->between($lineAt);
     }
 
 }

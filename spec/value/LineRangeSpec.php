@@ -23,7 +23,7 @@ describe('LineRange', function() {
             });
         });
     });
-    describe('between', function() {
+    describe('contains', function() {
         before(function() {
             $this->range = new LineRange(30);
         });
