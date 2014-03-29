@@ -13,12 +13,13 @@ namespace coverallskit\entity\collection;
 
 use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\CoverageInterface;
+use coverallskit\value\LineRange;
 use PhpCollection\Map;
 
 class CoverageCollection implements CompositeEntityInterface
 {
 
-    protected $lineCount = null;
+    protected $lineRange = null;
     protected $lineCoverages = null;
 
     /**
@@ -26,13 +27,13 @@ class CoverageCollection implements CompositeEntityInterface
      */
     public function __construct($lineCount)
     {
-        $this->lineCount = $lineCount;
+        $this->lineRange = new LineRange(1, $lineCount);
         $this->lineCoverages = new Map();
     }
 
     public function add(CoverageInterface $coverage)
     {
-        if ($coverage->isValidLine($this->lineCount) === false) {
+        if ($this->lineRange->contains($coverage->getLineNumber()) === false) {
             return;
         }
         $this->lineCoverages->set($coverage->getLineNumber(), $coverage);
@@ -61,7 +62,7 @@ class CoverageCollection implements CompositeEntityInterface
 
     public function toArray()
     {
-        $results = array_pad([], $this->lineCount, null);
+        $results = array_pad([], $this->lineRange->getLastLineNumber(), null);
         $coverages = $this->lineCoverages->getIterator();
 
         foreach ($coverages as $coverage) {
