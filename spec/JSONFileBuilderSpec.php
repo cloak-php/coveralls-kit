@@ -55,6 +55,7 @@ describe('JSONFileBuilder', function() {
             $this->bar = realpath(__DIR__ . '/fixtures/bar.php');
 
             $this->builder = new JSONFileBuilder();
+            $this->builder->name(__DIR__  . '/tmp/coverage.json');
             $this->builder->token('foo');
             $this->builder->repository($this->repository->reveal());
             $this->builder->service($this->service->reveal());
@@ -65,6 +66,9 @@ describe('JSONFileBuilder', function() {
         });
         after(function() {
             $this->prophet->checkPredictions();
+        });
+        it('should set the file name', function() {
+            expect($this->jsonFile->name)->toBe(__DIR__  . '/tmp/coverage.json');
         });
         it('should set the repository token', function() {
             expect($this->jsonFile->token)->toBe('foo');

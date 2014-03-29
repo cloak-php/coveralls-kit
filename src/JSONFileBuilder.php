@@ -20,6 +20,7 @@ use coverallskit\entity\service\ServiceInterface;
 class JSONFileBuilder
 {
 
+    protected $name = null;
     protected $token = null;
     protected $service = null;
     protected $repository = null;
@@ -28,6 +29,12 @@ class JSONFileBuilder
     public function __construct()
     {
         $this->sourceFiles = new SourceFileCollection();
+    }
+
+    public function name($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 
     public function token($repositoryToken)
@@ -57,6 +64,7 @@ class JSONFileBuilder
     public function build()
     {
         return new JSONFile([
+            'name' => $this->name,
             'token' => $this->token,
             'repository' => $this->repository,
             'service' => $this->service,
