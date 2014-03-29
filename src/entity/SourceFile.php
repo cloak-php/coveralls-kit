@@ -48,7 +48,7 @@ class SourceFile implements CompositeEntityInterface
 
     protected function resolveContent()
     {
-        $content = file_get_contents($this->getName());
+        $content = trim(file_get_contents($this->getName()));
         $lineCount = count(explode(PHP_EOL, $content));
         $this->content = $content;
         $this->coverages = new CoverageCollection($lineCount);
