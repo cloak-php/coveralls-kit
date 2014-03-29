@@ -29,8 +29,12 @@ class LineRange
             throw new OutOfRangeException('Can not use a specified number of lines');
         }
 
-        $this->fromLineNumber = $fromLineNumber;
-        $this->toLineNumber = $toLineNumber;
+        if ((int) $fromLineNumber > (int) $toLineNumber) {
+            throw new OutOfRangeException('Can not use a specified range of lines');
+        }
+
+        $this->fromLineNumber = (int) $fromLineNumber;
+        $this->toLineNumber = (int) $toLineNumber;
     }
 
     public function getFirstLineNumber()

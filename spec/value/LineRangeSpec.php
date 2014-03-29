@@ -18,7 +18,17 @@ describe('LineRange', function() {
         context('when out of range', function() {
             it('should throw OutOfRangeException', function() {
                 expect(function() {
-                    new LineRange(0, 0);
+                    new LineRange(1, 0);
+                })->toThrow('OutOfRangeException');
+                expect(function() {
+                    new LineRange(0, 1);
+                })->toThrow('OutOfRangeException');
+            });
+        });
+        context('when range specified is wrong', function() {
+            it('should throw OutOfRangeException', function() {
+                expect(function() {
+                    new LineRange(5, 1);
                 })->toThrow('OutOfRangeException');
             });
         });
