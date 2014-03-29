@@ -20,8 +20,8 @@ describe('SourceFileCollection', function() {
         $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
         $this->source = [
             'name' => $this->relativePath,
-            'source' => file_get_contents($this->path),
-            'coverage' => [null,null,null,null]
+            'source' => trim(file_get_contents($this->path)),
+            'coverage' => [null,null,null]
         ];
         $this->values = [ $this->source ];
 

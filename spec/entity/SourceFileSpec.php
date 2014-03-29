@@ -49,7 +49,7 @@ describe('SourceFile', function() {
     });
     describe('getContent', function() {
         it('should return file content', function() {
-            expect($this->sourceFile->getContent())->toBe(file_get_contents($this->path));
+            expect($this->sourceFile->getContent())->toBe(trim(file_get_contents($this->path)));
         });
     });
     describe('getCoverages', function() {
@@ -84,8 +84,8 @@ describe('SourceFile', function() {
         it('should return json string', function() {
             $json = [
                 'name' => $this->relativePath,
-                'source' => file_get_contents($this->path),
-                'coverage' => [null,null,null,null]
+                'source' => trim(file_get_contents($this->path)),
+                'coverage' => [null,null,null]
             ];
             expect((string) $this->sourceFile)->toEqual(json_encode($json));
         });
