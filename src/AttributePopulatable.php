@@ -19,10 +19,15 @@ trait AttributePopulatable
     public function populate(array $values)
     {
         foreach ($values as $key => $value) {
-            if (property_exists($this, $key) === false) {
+            $setter = 'set' . ucfirst($key);
+
+            if (method_exists($this, $setter) === true) {
+                $this->$setter($value);
+            } else if (property_exists($this, $key) === true) {
+                $this->$key = $value;
+            } else {
                 throw new BadAttributeException($key);
             }
-            $this->$key = $value;
         }
     }
 
