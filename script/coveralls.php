@@ -9,6 +9,7 @@ use coverallskit\entity\service\Travis;
 use coverallskit\entity\Coverage;
 use coverallskit\entity\Repository;
 use coverallskit\entity\SourceFile;
+use coverallskit\exception\LineOutOfRangeException;
 
 /**
  * Get the code coverage
@@ -39,10 +40,15 @@ foreach ($result as $file => $coverage) {
     $source = new SourceFile($file);
 
     foreach ($coverage as $line => $status) {
-        if ($status === 1) {
-            $source->addCoverage(Coverage::executed($line));
-        } else if ($status === -1) {
-            $source->addCoverage(Coverage::unused($line));
+        try {
+            if ($status === 1) {
+                $source->addCoverage(Coverage::executed($line));
+            } else if ($status === -1) {
+                $source->addCoverage(Coverage::unused($line));
+            }
+        } catch (LineOutOfRangeException $exception) {
+            echo $source->getName() . PHP_EOL;
+            echo $exception->getMessage() . PHP_EOL;
         }
     }
 
