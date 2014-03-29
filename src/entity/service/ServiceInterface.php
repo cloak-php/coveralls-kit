@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\entity\service;
+namespace coverallskit\entity\service;
 
-use coveralls\CompositeEntityInterface;
+use coverallskit\CompositeEntityInterface;
 
 interface ServiceInterface extends CompositeEntityInterface
 {

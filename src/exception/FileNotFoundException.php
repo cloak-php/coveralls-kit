@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\exception;
+namespace coverallskit\exception;
 
 use Exception;
 use UnexpectedValueException;

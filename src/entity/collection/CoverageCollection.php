@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\entity\collection;
+namespace coverallskit\entity\collection;
 
-use coveralls\CompositeEntityInterface;
-use coveralls\entity\CoverageInterface;
+use coverallskit\CompositeEntityInterface;
+use coverallskit\entity\CoverageInterface;
 use PhpCollection\Map;
 
 class CoverageCollection implements CompositeEntityInterface

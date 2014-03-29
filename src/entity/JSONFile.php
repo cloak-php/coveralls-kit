@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\entity;
+namespace coverallskit\entity;
 
-use coveralls\JSONFileUpLoader;
-use coveralls\JSONFileUpLoaderInterface;
+use coverallskit\JSONFileUpLoader;
+use coverallskit\JSONFileUpLoaderInterface;
 
 class JSONFile implements JSONFileInterface
 {

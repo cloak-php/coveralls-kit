@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls;
+namespace coverallskit;
 
-use coveralls\entity\JSONFile;
-use coveralls\entity\RepositoryInterface;
-use coveralls\entity\SourceFile;
-use coveralls\entity\collection\SourceFileCollection;
-use coveralls\entity\service\ServiceInterface;
+use coverallskit\entity\JSONFile;
+use coverallskit\entity\RepositoryInterface;
+use coverallskit\entity\SourceFile;
+use coverallskit\entity\collection\SourceFileCollection;
+use coverallskit\entity\service\ServiceInterface;
 
 class JSONFileBuilder
 {

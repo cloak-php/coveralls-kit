@@ -1,9 +1,9 @@
 <?php
 
-namespace coveralls\entity\collection;
+namespace coverallskit\entity\collection;
 
-use coveralls\CompositeEntityInterface;
-use coveralls\entity\repository\Remote;
+use coverallskit\CompositeEntityInterface;
+use coverallskit\entity\repository\Remote;
 use PhpCollection\Sequence;
 
 class RemoteCollection implements CompositeEntityInterface

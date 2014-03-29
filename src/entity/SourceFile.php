@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\entity;
+namespace coverallskit\entity;
 
-use coveralls\CompositeEntityInterface;
-use coveralls\entity\CoverageInterface;
-use coveralls\entity\collection\CoverageCollection;
-use coveralls\exception\FileNotFoundException;
+use coverallskit\CompositeEntityInterface;
+use coverallskit\entity\CoverageInterface;
+use coverallskit\entity\collection\CoverageCollection;
+use coverallskit\exception\FileNotFoundException;
 
 class SourceFile implements CompositeEntityInterface
 {

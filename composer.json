@@ -25,6 +25,6 @@
         "gitonomy/gitlib": "0.1.*"
     },
     "autoload": {
-        "psr-4": { "coveralls\\": "src/" }
+        "psr-4": { "coverallskit\\": "src/" }
     }
 }

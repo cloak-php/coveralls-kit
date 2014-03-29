@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls;
+namespace coverallskit;
 
-use coveralls\entity\JSONFileInterface;
+use coverallskit\entity\JSONFileInterface;
 use Guzzle\Http\ClientInterface;
 
 interface JSONFileUpLoaderInterface

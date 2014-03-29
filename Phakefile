@@ -1,6 +1,6 @@
 <?php
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
@@ -9,11 +9,20 @@ use JasonLewis\ResourceWatcher\Tracker;
 use JasonLewis\ResourceWatcher\Watcher;
 use JasonLewis\ResourceWatcher\Resource\ResourceInterface;
 use phake\Application;
+use RuntimeException;
 
 group('example', function() {
     desc('Run the example program basic');
     task('basic', function() {
         echo shell_exec('TRAVIS_JOB_ID=10 php ' . __DIR__ . '/example/basic_example.php');
+    });
+
+    desc('Run in the example hhvm');
+    task('hhvm', function() {
+        if (defined('HHVM_VERSION') === false) {
+            throw new RuntimeException('Please install the hhvm');
+        }
+        echo shell_exec('TRAVIS_JOB_ID=10 php ' . __DIR__ . '/example/hhvm_example.php');
     });
 });
 

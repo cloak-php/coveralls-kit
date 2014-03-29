@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\exception\FileNotFoundException;
+use coverallskit\exception\FileNotFoundException;
 
 describe('FileNotFoundException', function() {
     describe('getMessage', function() {

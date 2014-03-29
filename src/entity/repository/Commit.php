@@ -1,8 +1,8 @@
 <?php
 
-namespace coveralls\entity\repository;
+namespace coverallskit\entity\repository;
 
-use coveralls\CompositeEntityInterface;
+use coverallskit\CompositeEntityInterface;
 
 class Commit implements CompositeEntityInterface
 {

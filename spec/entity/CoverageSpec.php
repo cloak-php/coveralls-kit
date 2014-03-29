@@ -9,17 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\Coverage;
+use coverallskit\entity\Coverage;
 
 describe('Coverage', function() {
     describe('unused', function() {
         before(function() {
             $this->coverage = Coverage::unused(1);
         });
-        it('should return coveralls\entity\Coverage instance', function() {
-            expect($this->coverage)->toBeAnInstanceOf('coveralls\entity\Coverage');
+        it('should return coverallskit\entity\Coverage instance', function() {
+            expect($this->coverage)->toBeAnInstanceOf('coverallskit\entity\Coverage');
             expect($this->coverage->getLineNumber())->toEqual(1);
             expect($this->coverage->isExecuted())->toBeFalse();
             expect($this->coverage->isUnused())->toBeTrue();
@@ -29,8 +29,8 @@ describe('Coverage', function() {
         before(function() {
             $this->coverage = Coverage::executed(1);
         });
-        it('should return coveralls\entity\Coverage instance', function() {
-            expect($this->coverage)->toBeAnInstanceOf('coveralls\entity\Coverage');
+        it('should return coverallskit\entity\Coverage instance', function() {
+            expect($this->coverage)->toBeAnInstanceOf('coverallskit\entity\Coverage');
             expect($this->coverage->getLineNumber())->toEqual(1);
             expect($this->coverage->isExecuted())->toBeTrue();
             expect($this->coverage->isUnused())->toBeFalse();

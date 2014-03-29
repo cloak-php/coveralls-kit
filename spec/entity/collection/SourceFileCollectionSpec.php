@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\SourceFile;
-use coveralls\entity\collection\SourceFileCollection;
+use coverallskit\entity\SourceFile;
+use coverallskit\entity\collection\SourceFileCollection;
 
 describe('SourceFileCollection', function() {
     before(function() {

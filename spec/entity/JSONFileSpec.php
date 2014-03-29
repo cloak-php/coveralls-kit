@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\entity\JSONFile;
-use coveralls\entity\Repository;
-use coveralls\entity\collection\SourceFileCollection;
-use coveralls\entity\service\TravisInterface;
+use coverallskit\entity\JSONFile;
+use coverallskit\entity\Repository;
+use coverallskit\entity\collection\SourceFileCollection;
+use coverallskit\entity\service\TravisInterface;
 use Prophecy\Prophet;
 
 describe('JSONFile', function() {
@@ -23,7 +23,7 @@ describe('JSONFile', function() {
 
         $this->prophet = new Prophet();
 
-        $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisInterface');
+        $this->service = $this->prophet->prophesize('coverallskit\entity\service\TravisInterface');
         $this->service->toArray()->shouldBeCalled()->willReturn([
             'service_job_id' => '10',
             'service_name' => 'travis-ci'
@@ -52,12 +52,12 @@ describe('JSONFile', function() {
     });
     describe('repository', function() {
         it('should return repository', function() {
-            expect($this->jsonFile->repository)->toBeAnInstanceOf('coveralls\entity\Repository');
+            expect($this->jsonFile->repository)->toBeAnInstanceOf('coverallskit\entity\Repository');
         });
     });
     describe('sourceFiles', function() {
         it('should return sources file collection', function() {
-            expect($this->jsonFile->sourceFiles)->toBeAnInstanceOf('coveralls\entity\collection\SourceFileCollection');
+            expect($this->jsonFile->sourceFiles)->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
         });
     });
     describe('saveAs', function() {
@@ -87,7 +87,7 @@ describe('JSONFile', function() {
                     'sourceFiles' => new SourceFileCollection()
                 ]);
 
-                $this->notSavedFileUpLoader = $this->prophet->prophesize('coveralls\JSONFileUpLoaderInterface');
+                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\JSONFileUpLoaderInterface');
                 $this->notSavedFileUpLoader->upload($this->notSavedJsonFile)->shouldBeCalled();
 
                 $this->notSavedJsonFile->setUpLoader($this->notSavedFileUpLoader->reveal());
@@ -108,7 +108,7 @@ describe('JSONFile', function() {
                     'service' => $this->service->reveal(),
                     'sourceFiles' => new SourceFileCollection()
                 ]);
-                $this->savedFileUpLoader = $this->prophet->prophesize('coveralls\JSONFileUpLoaderInterface');
+                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\JSONFileUpLoaderInterface');
                 $this->savedFileUpLoader->upload($this->savedJsonFile)->shouldBeCalled();
 
                 $this->savedJsonFile->setUpLoader($this->savedFileUpLoader->reveal());

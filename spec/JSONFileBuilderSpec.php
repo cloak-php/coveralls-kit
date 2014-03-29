@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls\spec;
+namespace coverallskit\spec;
 
-use coveralls\JSONFileBuilder;
-use coveralls\entity\SourceFile;
-use coveralls\entity\repository\Commit;
-use coveralls\entity\repository\Branch;
-use coveralls\entity\repository\Remote;
-use coveralls\entity\collection\RemoteCollection;
+use coverallskit\JSONFileBuilder;
+use coverallskit\entity\SourceFile;
+use coverallskit\entity\repository\Commit;
+use coverallskit\entity\repository\Branch;
+use coverallskit\entity\repository\Remote;
+use coverallskit\entity\collection\RemoteCollection;
 use Prophecy\Prophet;
 
 describe('JSONFileBuilder', function() {
@@ -24,7 +24,7 @@ describe('JSONFileBuilder', function() {
         before(function() {
             $this->prophet = new Prophet();
 
-            $this->service = $this->prophet->prophesize('coveralls\entity\service\TravisInterface');
+            $this->service = $this->prophet->prophesize('coverallskit\entity\service\TravisInterface');
             $this->service->getServiceJobId()->shouldBeCalled()->willReturn('10');
             $this->service->getServiceName()->shouldBeCalled()->willReturn('travis-ci');
 
@@ -40,10 +40,10 @@ describe('JSONFileBuilder', function() {
                 'name' => 'master',
                 'remote' => false
             ]);
-            $remote = new Remote('origin', 'https://github.com/holyshared/coveralls-kit.git');
+            $remote = new Remote('origin', 'https://github.com/holyshared/coverallskit-kit.git');
             $this->remotes = new RemoteCollection([ $remote ]);
 
-            $this->repository = $this->prophet->prophesize('coveralls\entity\RepositoryInterface');
+            $this->repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
             $this->repository->getCommit()->willReturn($this->commit);
             $this->repository->getBranch()->willReturn($this->branch);
             $this->repository->getRemotes()->willReturn($this->remotes);
