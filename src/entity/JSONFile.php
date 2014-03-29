@@ -33,15 +33,12 @@ class JSONFile implements JSONFileInterface
      */
     public function __construct(array $values = [])
     {
+        $this->name = getcwd() . '/' . static::DEFAULT_NAME;
         $this->populate($values);
     }
 
     public function getName()
     {
-        if (empty($this->name) === true) {
-            $this->name = getcwd() . '/' . static::DEFAULT_NAME;
-        }
-
         return $this->name;
     }
 
