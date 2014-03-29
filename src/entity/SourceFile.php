@@ -97,7 +97,8 @@ class SourceFile implements CompositeEntityInterface
 
     public function isEmpty()
     {
-        return empty($this->getContent());
+        $content = $this->getContent();
+        return empty($content);
     }
 
     public function toArray()

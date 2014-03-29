@@ -39,7 +39,8 @@ class Travis implements TravisInterface
 
     public function isEmpty()
     {
-        return empty($this->getServiceName());
+        $serviceName = $this->getServiceName();
+        return empty($serviceName);
     }
 
     public function toArray()

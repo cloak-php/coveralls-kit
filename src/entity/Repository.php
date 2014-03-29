@@ -132,7 +132,8 @@ class Repository implements RepositoryInterface
 
     public function isEmpty()
     {
-        return empty($this->getCommit());
+        $commit = $this->getCommit();
+        return empty($commit);
     }
 
     public function toArray()
