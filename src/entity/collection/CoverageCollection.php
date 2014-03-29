@@ -15,9 +15,12 @@ use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\CoverageInterface;
 use coverallskit\value\LineRange;
 use PhpCollection\Map;
+use coverallskit\AttributePopulatable;
 
 class CoverageCollection implements CompositeEntityInterface
 {
+
+    use AttributePopulatable;
 
     protected $lineRange = null;
     protected $lineCoverages = null;

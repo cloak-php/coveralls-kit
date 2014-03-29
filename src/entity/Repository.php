@@ -16,9 +16,12 @@ use coverallskit\entity\repository\Branch;
 use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
 use Gitonomy\Git\Repository as GitRepository;
+use coverallskit\AttributePopulatable;
 
 class Repository implements RepositoryInterface
 {
+
+    use AttributePopulatable;
 
     protected $repository = null;
     protected $head = null;
@@ -96,7 +99,7 @@ class Repository implements RepositoryInterface
         $remotes = new RemoteCollection();
 
         foreach ($remoteValues as $remote) {
-            $remotes->add( new Remote($remote['name'], $remote['url']) );
+            $remotes->add( new Remote($remote) );
         }
         $this->remotes = $remotes;
 

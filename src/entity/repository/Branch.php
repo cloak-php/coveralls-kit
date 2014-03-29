@@ -3,18 +3,19 @@
 namespace coverallskit\entity\repository;
 
 use coverallskit\EntityInterface;
+use coverallskit\AttributePopulatable;
 
 class Branch implements EntityInterface
 {
+
+    use AttributePopulatable;
 
     protected $name = null;
     protected $remote = null;
 
     public function __construct(array $values)
     {
-        foreach ($values as $key => $value) {
-            $this->$key = $value;
-        }
+        $this->populate($values);
     }
 
     /**

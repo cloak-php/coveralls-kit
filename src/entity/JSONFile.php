@@ -13,9 +13,12 @@ namespace coverallskit\entity;
 
 use coverallskit\JSONFileUpLoader;
 use coverallskit\JSONFileUpLoaderInterface;
+use coverallskit\AttributePopulatable;
 
 class JSONFile implements JSONFileInterface
 {
+
+    use AttributePopulatable;
 
     protected $name = null;
     protected $token = null;
@@ -30,9 +33,7 @@ class JSONFile implements JSONFileInterface
      */
     public function __construct(array $values = [])
     {
-        foreach ($values as $key => $value) {
-            $this->$key = $value;
-        }
+        $this->populate($values);
     }
 
     public function getName()

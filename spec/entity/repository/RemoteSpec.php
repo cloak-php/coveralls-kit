@@ -15,7 +15,10 @@ use coverallskit\entity\repository\Remote;
 
 describe('Remote', function() {
     before(function() {
-        $this->remote = new Remote('origin', 'https://github.com/holyshared/coverallskit-kit.git');
+        $this->remote = new Remote([
+            'name' => 'origin',
+            'url' => 'https://github.com/holyshared/coverallskit-kit.git'
+        ]);
     });
     describe('__construct', function() {
         it('should be initialized', function () {

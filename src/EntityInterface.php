@@ -15,6 +15,11 @@ interface EntityInterface
 {
 
     /**
+     * @param array
+     */
+    public function populate(array $values);
+
+    /**
      * @return boolean
      */
     public function isEmpty();  

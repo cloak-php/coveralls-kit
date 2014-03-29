@@ -3,17 +3,19 @@
 namespace coverallskit\entity\repository;
 
 use coverallskit\CompositeEntityInterface;
+use coverallskit\AttributePopulatable;
 
 class Remote implements CompositeEntityInterface
 {
 
+    use AttributePopulatable;
+
     protected $name = null;
     protected $url = null;
 
-    public function __construct($name = null, $url = null)
+    public function __construct(array $values = [])
     {
-        $this->setName($name);
-        $this->setURL($url);
+        $this->populate($values);
     }
 
     public function getName()
@@ -21,19 +23,9 @@ class Remote implements CompositeEntityInterface
         return $this->name;
     }
 
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
     public function getURL()
     {
         return $this->url;
-    }
-
-    public function setURL($url)
-    {
-        $this->url = $url;
     }
 
     public function isEmpty()

@@ -16,7 +16,10 @@ use coverallskit\entity\collection\RemoteCollection;
 
 describe('RemoteCollection', function() {
     before(function() {
-        $remote = new Remote('origin', 'https://github.com/holyshared/coverallskit-kit.git');
+        $remote = new Remote([
+            'name' => 'origin',
+            'url' => 'https://github.com/holyshared/coverallskit-kit.git'
+        ]);
         $this->remotes = new RemoteCollection([ $remote ]);
     });
     describe('toArray', function() {

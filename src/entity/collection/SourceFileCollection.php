@@ -14,9 +14,12 @@ namespace coverallskit\entity\collection;
 use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\SourceFile;
 use PhpCollection\Sequence;
+use coverallskit\AttributePopulatable;
 
 class SourceFileCollection implements CompositeEntityInterface
 {
+
+    use AttributePopulatable;
 
     protected $sources = null; 
 
