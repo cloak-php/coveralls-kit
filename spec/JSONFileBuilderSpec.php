@@ -40,7 +40,10 @@ describe('JSONFileBuilder', function() {
                 'name' => 'master',
                 'remote' => false
             ]);
-            $remote = new Remote('origin', 'https://github.com/holyshared/coverallskit-kit.git');
+            $remote = new Remote([
+                'name' => 'origin',
+                'url' => 'https://github.com/holyshared/coverallskit-kit.git'
+            ]);
             $this->remotes = new RemoteCollection([ $remote ]);
 
             $this->repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
