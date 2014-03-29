@@ -16,6 +16,8 @@ use coverallskit\entity\CoverageInterface;
 use coverallskit\entity\collection\CoverageCollection;
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\AttributePopulatable;
+use coverallskit\exception\LineOutOfRangeException;
+use coverallskit\value\LineRange;
 
 class SourceFile implements CompositeEntityInterface
 {
@@ -25,6 +27,7 @@ class SourceFile implements CompositeEntityInterface
     protected $name = null;
     protected $content = null;
     protected $coverages = null;
+    protected $realLineRange = null; 
 
     /**
      * @param string $name
@@ -48,8 +51,14 @@ class SourceFile implements CompositeEntityInterface
 
     protected function resolveContent()
     {
-        $content = trim(file_get_contents($this->getName()));
+        $content = file_get_contents($this->getName());
+        $realLineCount = count(explode(PHP_EOL, $content));
+
+        $this->realLineRange = new LineRange(1, $realLineCount);
+
+        $content = trim($content);
         $lineCount = count(explode(PHP_EOL, $content));
+
         $this->content = $content;
         $this->coverages = new CoverageCollection($lineCount);
     }
@@ -76,7 +85,14 @@ class SourceFile implements CompositeEntityInterface
 
     public function addCoverage(CoverageInterface $coverage)
     {
-        $this->coverages->add($coverage);
+        try {
+            $this->coverages->add($coverage);
+        } catch (LineOutOfRangeException $exception) {
+            if ($this->realLineRange->contains($coverage)) {
+                return;
+            }
+            throw $exception;
+        }
     }
 
     public function removeCoverage($coverage)
