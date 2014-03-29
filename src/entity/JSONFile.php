@@ -38,6 +38,10 @@ class JSONFile implements JSONFileInterface
 
     public function getName()
     {
+        if (empty($this->name) === true) {
+            $this->name = getcwd() . '/' . static::DEFAULT_NAME;
+        }
+
         return $this->name;
     }
 
@@ -67,9 +71,12 @@ class JSONFile implements JSONFileInterface
 
     public function upload()
     {
-        if ($this->getName() === null) {
-            $this->saveAs(getcwd() . '/' . static::DEFAULT_NAME);
+        $fileName = $this->getName();
+
+        if (file_exists($fileName) === false) {
+            $this->saveAs($fileName);
         }
+
         $this->getUpLoader()->upload($this);
     }
 
