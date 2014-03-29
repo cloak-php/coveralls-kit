@@ -19,7 +19,7 @@ use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
 use Prophecy\Prophet;
 
-describe('JSONFileBuilder', function() {
+describe('ReportBuilder', function() {
     describe('build', function() {
         before(function() {
             $this->prophet = new Prophet();
@@ -62,29 +62,29 @@ describe('JSONFileBuilder', function() {
             $this->builder->addSource(new SourceFile($this->foo));
             $this->builder->addSource(new SourceFile($this->bar));
 
-            $this->jsonFile = $this->builder->build();
+            $this->report = $this->builder->build();
         });
         after(function() {
             $this->prophet->checkPredictions();
         });
         it('should set the file name', function() {
-            expect($this->jsonFile->name)->toBe(__DIR__  . '/tmp/coverage.json');
+            expect($this->report->name)->toBe(__DIR__  . '/tmp/coverage.json');
         });
         it('should set the repository token', function() {
-            expect($this->jsonFile->token)->toBe('foo');
+            expect($this->report->token)->toBe('foo');
         });
         it('should set the service environment', function() {
-            expect($this->jsonFile->service->getServiceJobId())->toBe('10');
-            expect($this->jsonFile->service->getServiceName())->toBe('travis-ci');
+            expect($this->report->service->getServiceJobId())->toBe('10');
+            expect($this->report->service->getServiceName())->toBe('travis-ci');
         });
         it('should set the commit log', function() {
-            expect($this->jsonFile->repository->getCommit())->toBe($this->commit);
-            expect($this->jsonFile->repository->getBranch())->toBe($this->branch);
-            expect($this->jsonFile->repository->getRemotes())->toBe($this->remotes);
+            expect($this->report->repository->getCommit())->toBe($this->commit);
+            expect($this->report->repository->getBranch())->toBe($this->branch);
+            expect($this->report->repository->getRemotes())->toBe($this->remotes);
         });
         it('should add the source file', function() {
-            expect($this->jsonFile->sourceFiles->has($this->foo))->toBeTrue();
-            expect($this->jsonFile->sourceFiles->has($this->bar))->toBeTrue();
+            expect($this->report->sourceFiles->has($this->foo))->toBeTrue();
+            expect($this->report->sourceFiles->has($this->bar))->toBeTrue();
         });
     });
 });
