@@ -15,9 +15,12 @@ use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\CoverageInterface;
 use coverallskit\entity\collection\CoverageCollection;
 use coverallskit\exception\FileNotFoundException;
+use coverallskit\AttributePopulatable;
 
 class SourceFile implements CompositeEntityInterface
 {
+
+    use AttributePopulatable;
 
     protected $name = null;
     protected $content = null;

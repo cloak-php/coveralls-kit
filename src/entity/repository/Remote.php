@@ -3,9 +3,12 @@
 namespace coverallskit\entity\repository;
 
 use coverallskit\CompositeEntityInterface;
+use coverallskit\AttributePopulatable;
 
 class Remote implements CompositeEntityInterface
 {
+
+    use AttributePopulatable;
 
     protected $name = null;
     protected $url = null;

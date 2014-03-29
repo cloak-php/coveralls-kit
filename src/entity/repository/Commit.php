@@ -3,9 +3,12 @@
 namespace coverallskit\entity\repository;
 
 use coverallskit\CompositeEntityInterface;
+use coverallskit\AttributePopulatable;
 
 class Commit implements CompositeEntityInterface
 {
+
+    use AttributePopulatable;
 
     protected $id = null;
     protected $authorName = null;
@@ -16,9 +19,7 @@ class Commit implements CompositeEntityInterface
 
     public function __construct(array $values)
     {
-        foreach ($values as $key => $value) {
-            $this->$key = $value;
-        }
+        $this->populate($values);
     }
 
     public function isEmpty()

@@ -11,8 +11,12 @@
 
 namespace coverallskit\entity\service;
 
+use coverallskit\AttributePopulatable;
+
 class Travis implements TravisInterface
 {
+
+    use AttributePopulatable;
 
     protected $serviceJobId;
     protected $serviceName;

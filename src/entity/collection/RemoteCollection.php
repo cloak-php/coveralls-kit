@@ -5,9 +5,12 @@ namespace coverallskit\entity\collection;
 use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\repository\Remote;
 use PhpCollection\Sequence;
+use coverallskit\AttributePopulatable;
 
 class RemoteCollection implements CompositeEntityInterface
 {
+
+    use AttributePopulatable;
 
     protected $remotes = null;
 
