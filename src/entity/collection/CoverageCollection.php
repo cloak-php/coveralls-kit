@@ -14,8 +14,9 @@ namespace coverallskit\entity\collection;
 use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\CoverageInterface;
 use coverallskit\value\LineRange;
-use PhpCollection\Map;
 use coverallskit\AttributePopulatable;
+use coverallskit\exception\LineOutOfRangeException;
+use PhpCollection\Map;
 
 class CoverageCollection implements CompositeEntityInterface
 {
@@ -37,7 +38,7 @@ class CoverageCollection implements CompositeEntityInterface
     public function add(CoverageInterface $coverage)
     {
         if ($this->lineRange->contains($coverage->getLineNumber()) === false) {
-            return;
+            throw new LineOutOfRangeException($coverage, $this->lineRange);
         }
         $this->lineCoverages->set($coverage->getLineNumber(), $coverage);
     }

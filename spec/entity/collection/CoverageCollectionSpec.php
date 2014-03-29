@@ -42,11 +42,11 @@ describe('CoverageCollection', function() {
         context('when the invalid line number', function() {
             before(function() {
                 $this->coverage = Coverage::unused(2);
-                $this->coverages->add($this->coverage);
-                $this->retrieveCoverage = $this->coverages->at(2);
             });
-            it('should not add coverage', function() {
-                expect($this->retrieveCoverage)->toBeNull();
+            it('should throw coverallskit\exception\LineOutOfRangeException', function() {
+                expect(function() {
+                    $this->coverages->add($this->coverage);
+                })->toThrow('coverallskit\exception\LineOutOfRangeException');
             });
         });
     });
