@@ -18,13 +18,13 @@ Requirements
 Basic usage
 ------------------------------------
 
-You can generate a json file using the **coveralls/JSONFileBuilder**.  
+You can generate a json file using the **coverallskit/JSONFileBuilder**.  
 You just set the code coverage of rows that have been executed.  
 Code coverage can be obtained easily by using the **HHVM** and **xdebug**.
 
 	$builder = new JSONFileBuilder();
 	$builder->token('your repository token')
-		->service(TravisCI::ci())
+		->service(Travis::travisCI())
 		->repository(new Repository(__DIR__ . '/../'));
 
 	$source = new SourceFile('path/to/file');
@@ -49,6 +49,10 @@ Run only unit test
 ------------------------------------
 
 	vendor/bin/pho
+
+or
+
+	vendor/bin/phake spec:watch
 
 How to run the example
 ------------------------------------

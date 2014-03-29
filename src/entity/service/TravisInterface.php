@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coverallskit;
+namespace coverallskit\entity\service;
 
-interface ArrayConvertible
+interface TravisInterface extends ServiceInterface
 {
 
-    /**
-     * @return array
-     */
-    public function toArray();  
+    const SERVICE_CI = 'travis-ci';
+    const SERVICE_PRO = 'travis-pro';
+
+    const ENV_JOB_ID = 'TRAVIS_JOB_ID';
 
 }

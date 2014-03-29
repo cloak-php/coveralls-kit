@@ -1,14 +1,15 @@
 {
-    "name": "shared-hat/coveralls-kit",
+    "name": "holyshared/coverallskit",
     "description": "CoverallsKit is the library for transmitting the report of code coverage to coveralls.",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "keywords": [
         "coveralls", "code coverage", "report"
     ],
     "require-dev": {
         "danielstjules/pho": "1.0.0",
         "jaz303/phake": "0.6.0",
-        "phpspec/prophecy": "1.1.*"
+        "phpspec/prophecy": "1.1.*",
+        "jasonlewis/resource-watcher": "1.1.*"        
     },
     "license": "MIT",
     "authors": [
@@ -24,6 +25,6 @@
         "gitonomy/gitlib": "0.1.*"
     },
     "autoload": {
-        "psr-4": { "coveralls\\": "src/" }
+        "psr-4": { "coverallskit\\": "src/" }
     }
 }
