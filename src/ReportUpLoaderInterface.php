@@ -33,6 +33,6 @@ interface ReportUpLoaderInterface
     /**
      * @param entity\ReportInterface $jsonFile
      */
-    public function upload(ReportInterface $jsonFile);
+    public function upload(ReportInterface $report);
 
 }
