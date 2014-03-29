@@ -11,13 +11,13 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\entity\JSONFile;
+use coverallskit\entity\Report;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\TravisInterface;
 use Prophecy\Prophet;
 
-describe('JSONFile', function() {
+describe('Report', function() {
     before(function() {
         mkdir(__DIR__ . '/tmp');
 
@@ -31,7 +31,7 @@ describe('JSONFile', function() {
 
         $this->path = __DIR__ . '/tmp/coverage.json';
 
-        $this->jsonFile = new JSONFile([
+        $this->jsonFile = new Report([
             'token' => 'foo',
             'repository' => new Repository(__DIR__ . '/../../'),
             'service' => $this->service->reveal(),
@@ -48,7 +48,7 @@ describe('JSONFile', function() {
     describe('isEmpty', function() {
         context('when empty', function() {
             it('should return true', function () {
-                $jsonFile = new JSONFile();
+                $jsonFile = new Report();
                 expect($jsonFile->isEmpty())->toBeTrue();
             });
         });
@@ -89,14 +89,14 @@ describe('JSONFile', function() {
     describe('upload', function() {
         context('when not saved file', function() {
             before(function() {
-                $this->notSavedJsonFile = new JSONFile([
+                $this->notSavedJsonFile = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
                     'service' => $this->service->reveal(),
                     'sourceFiles' => new SourceFileCollection()
                 ]);
 
-                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\JSONFileUpLoaderInterface');
+                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportUpLoaderInterface');
                 $this->notSavedFileUpLoader->upload($this->notSavedJsonFile)->shouldBeCalled();
 
                 $this->notSavedJsonFile->setUpLoader($this->notSavedFileUpLoader->reveal());
@@ -106,18 +106,18 @@ describe('JSONFile', function() {
                 unlink($this->notSavedJsonFile->getName());
             });
             it('should use the default name', function() {
-                expect($this->notSavedJsonFile->getName())->toEqual(getcwd() . '/' . JSONFile::DEFAULT_NAME);
+                expect($this->notSavedJsonFile->getName())->toEqual(getcwd() . '/' . Report::DEFAULT_NAME);
             });
         });
         context('when not saved file', function() {
             before(function() {
-                $this->savedJsonFile = new JSONFile([
+                $this->savedJsonFile = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
                     'service' => $this->service->reveal(),
                     'sourceFiles' => new SourceFileCollection()
                 ]);
-                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\JSONFileUpLoaderInterface');
+                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportUpLoaderInterface');
                 $this->savedFileUpLoader->upload($this->savedJsonFile)->shouldBeCalled();
 
                 $this->savedJsonFile->setUpLoader($this->savedFileUpLoader->reveal());

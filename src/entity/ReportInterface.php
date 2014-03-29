@@ -13,7 +13,7 @@ namespace coverallskit\entity;
 
 use coverallskit\CompositeEntityInterface;
 
-interface JSONFileInterface extends CompositeEntityInterface
+interface ReportInterface extends CompositeEntityInterface
 {
 
     const DEFAULT_NAME = 'coverage.json';

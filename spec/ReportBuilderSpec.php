@@ -11,7 +11,7 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\JSONFileBuilder;
+use coverallskit\ReportBuilder;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\repository\Commit;
 use coverallskit\entity\repository\Branch;
@@ -54,7 +54,7 @@ describe('JSONFileBuilder', function() {
             $this->foo = realpath(__DIR__ . '/fixtures/foo.php');
             $this->bar = realpath(__DIR__ . '/fixtures/bar.php');
 
-            $this->builder = new JSONFileBuilder();
+            $this->builder = new ReportBuilder();
             $this->builder->name(__DIR__  . '/tmp/coverage.json');
             $this->builder->token('foo');
             $this->builder->repository($this->repository->reveal());

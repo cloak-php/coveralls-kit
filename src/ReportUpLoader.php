@@ -11,11 +11,11 @@
 
 namespace coverallskit;
 
-use coverallskit\entity\JSONFileInterface;
+use coverallskit\entity\ReportInterface;
 use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
 
-class JSONFileUpLoader implements JSONFileUpLoaderInterface
+class ReportUpLoader implements ReportUpLoaderInterface
 {
 
     protected $client = null;
@@ -40,11 +40,11 @@ class JSONFileUpLoader implements JSONFileUpLoaderInterface
         return $this->client;
     }
 
-    public function upload(JSONFileInterface $jsonFile)
+    public function upload(ReportInterface $report)
     {
         $request = $this->getClient()->post(static::ENDPOINT_URL);
         $request->addPostFiles([
-            static::JSON_FILE_POST_FIELD_NAME => $jsonFile->getName()
+            static::JSON_FILE_POST_FIELD_NAME => $report->getName()
         ]);
         $request->send();
     }

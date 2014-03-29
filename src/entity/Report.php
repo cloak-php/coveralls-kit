@@ -11,11 +11,11 @@
 
 namespace coverallskit\entity;
 
-use coverallskit\JSONFileUpLoader;
-use coverallskit\JSONFileUpLoaderInterface;
+use coverallskit\ReportUpLoader;
+use coverallskit\ReportUpLoaderInterface;
 use coverallskit\AttributePopulatable;
 
-class JSONFile implements JSONFileInterface
+class Report implements ReportInterface
 {
 
     use AttributePopulatable;
@@ -52,7 +52,7 @@ class JSONFile implements JSONFileInterface
         return $this; 
     }
 
-    public function setUpLoader(JSONFileUpLoaderInterface $uploader)
+    public function setUpLoader(ReportUpLoaderInterface $uploader)
     {
         $this->uploader = $uploader;
     }
@@ -60,7 +60,7 @@ class JSONFile implements JSONFileInterface
     public function getUpLoader()
     {
         if ($this->uploader === null) {
-            $this->uploader = new JSONFileUpLoader();
+            $this->uploader = new ReportUpLoader();
         }
 
         return $this->uploader;

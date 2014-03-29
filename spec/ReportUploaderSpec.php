@@ -11,13 +11,13 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\JSONFileUpLoader;
-use coverallskit\entity\JSONFile;
+use coverallskit\ReportUpLoader;
+use coverallskit\entity\Report;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
 use Prophecy\Prophet;
 
-describe('JSONFileUpLoader', function() {
+describe('ReportUpLoader', function() {
     before(function() {
         $this->prophet = new Prophet();
     });
@@ -26,7 +26,7 @@ describe('JSONFileUpLoader', function() {
     });
     describe('getClient', function() {
         before(function() {
-            $this->jsonFileUpLoder = new JSONFileUpLoader();
+            $this->jsonFileUpLoder = new ReportUpLoader();
         });
         context('When not specified client', function() {
             it('should return Guzzle\Http\Client instance', function() {
@@ -44,7 +44,7 @@ describe('JSONFileUpLoader', function() {
                 'service_name' => 'travis-ci'
             ]);
 
-            $this->jsonFile = new JSONFile([
+            $this->jsonFile = new Report([
                 'name' => 'path/to/coverage.json',
                 'token' => 'foo',
                 'repository' => new Repository(__DIR__ . '/../'),
@@ -53,13 +53,13 @@ describe('JSONFileUpLoader', function() {
             ]);
 
             $this->request = $this->prophet->prophesize('Guzzle\Http\Message\EntityEnclosingRequestInterface');
-            $this->request->addPostFiles([ JSONFileUpLoader::JSON_FILE_POST_FIELD_NAME => 'path/to/coverage.json' ])->shouldBeCalled();
+            $this->request->addPostFiles([ ReportUpLoader::JSON_FILE_POST_FIELD_NAME => 'path/to/coverage.json' ])->shouldBeCalled();
             $this->request->send()->shouldBeCalled();
 
             $this->client = $this->prophet->prophesize('Guzzle\Http\ClientInterface');
-            $this->client->post(JSONFileUpLoader::ENDPOINT_URL)->shouldBeCalled()->willReturn($this->request->reveal());
+            $this->client->post(ReportUpLoader::ENDPOINT_URL)->shouldBeCalled()->willReturn($this->request->reveal());
 
-            $this->jsonFileUpLoder = new JSONFileUpLoader($this->client->reveal());
+            $this->jsonFileUpLoder = new ReportUpLoader($this->client->reveal());
         });
         it('should upload json file', function() {
             $this->jsonFileUpLoder->upload($this->jsonFile);
