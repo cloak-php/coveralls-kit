@@ -15,6 +15,11 @@ interface EntityInterface
 {
 
     /**
+     * @return boolean
+     */
+    public function isEmpty();  
+
+    /**
      * @return string
      */
     public function __toString();  

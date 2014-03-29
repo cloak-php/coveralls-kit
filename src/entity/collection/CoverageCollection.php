@@ -60,6 +60,11 @@ class CoverageCollection implements CompositeEntityInterface
         return $coverage->get();
     }
 
+    public function isEmpty()
+    {
+        return $this->lineCoverages->isEmpty();
+    }
+
     public function toArray()
     {
         $results = array_pad([], $this->lineRange->getLastLineNumber(), null);

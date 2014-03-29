@@ -47,6 +47,11 @@ class SourceFileCollection implements CompositeEntityInterface
         return $results->isEmpty() === false;
     }
 
+    public function isEmpty()
+    {
+        return $this->sources->isEmpty();
+    }
+
     public function toArray()
     {
         $values = [];

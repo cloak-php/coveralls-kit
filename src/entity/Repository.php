@@ -127,6 +127,11 @@ class Repository implements RepositoryInterface
         return $this->remotes; 
     }
 
+    public function isEmpty()
+    {
+        return empty($this->getCommit());
+    }
+
     public function toArray()
     {
         $values = [

@@ -92,6 +92,11 @@ class SourceFile implements CompositeEntityInterface
         return $this->coverages->at($lineNumber);
     }
 
+    public function isEmpty()
+    {
+        return empty($this->getContent());
+    }
+
     public function toArray()
     {
         $values = [

@@ -28,7 +28,7 @@ class JSONFile implements JSONFileInterface
     /**
      * @param array $values
      */
-    public function __construct(array $values)
+    public function __construct(array $values = [])
     {
         foreach ($values as $key => $value) {
             $this->$key = $value;
@@ -71,6 +71,11 @@ class JSONFile implements JSONFileInterface
             $this->saveAs(getcwd() . '/' . static::DEFAULT_NAME);
         }
         $this->getUpLoader()->upload($this);
+    }
+
+    public function isEmpty()
+    {
+        return $this->token === null || $this->service->isEmpty() || $this->sourceFiles->isEmpty();
     }
 
     public function toArray()

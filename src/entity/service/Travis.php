@@ -33,6 +33,11 @@ class Travis implements TravisInterface
         return $this->serviceName;
     }
 
+    public function isEmpty()
+    {
+        return empty($this->getServiceName());
+    }
+
     public function toArray()
     {
         $values = [
