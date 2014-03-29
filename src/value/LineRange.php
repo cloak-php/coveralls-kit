@@ -16,27 +16,31 @@ use OutOfRangeException;
 class LineRange
 {
 
-    protected $lineCount = 1;
+    protected $fromLineNumber = 1;
+    protected $toLineNumber = 1;
 
     /**
-     * @param integer $lineCount
+     * @param integer $fromLineNumber
+     * @param integer $toLineNumber
      */
-    public function __construct($lineCount)
+    public function __construct($fromLineNumber, $toLineNumber)
     {
-        if ((int) $lineCount <= 0) {
+        if ((int) $fromLineNumber <= 0 || (int) $toLineNumber <= 0) {
             throw new OutOfRangeException('Can not use a specified number of lines');
         }
-        $this->lineCount = $lineCount;
+
+        $this->fromLineNumber = $fromLineNumber;
+        $this->toLineNumber = $toLineNumber;
     }
 
     public function getFirstLineNumber()
     {
-        return 1;
+        return $this->fromLineNumber;
     }
 
     public function getLastLineNumber()
     {
-        return $this->lineCount;
+        return $this->toLineNumber;
     }
 
     /**

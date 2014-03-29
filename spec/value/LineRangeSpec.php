@@ -18,14 +18,14 @@ describe('LineRange', function() {
         context('when out of range', function() {
             it('should throw OutOfRangeException', function() {
                 expect(function() {
-                    new LineRange(0);
+                    new LineRange(0, 0);
                 })->toThrow('OutOfRangeException');
             });
         });
     });
     describe('contains', function() {
         before(function() {
-            $this->range = new LineRange(30);
+            $this->range = new LineRange(1, 30);
         });
         context('when the range', function() {
             it('should return true', function() {
