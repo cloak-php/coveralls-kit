@@ -43,9 +43,8 @@ class JSONFile implements JSONFileInterface
 
     public function saveAs($path)
     {
-        if ($this->getName() === null) {
-            $this->name = $path;         
-        }
+        $this->name = $path;
+
         $content = (string) $this;
         file_put_contents($path, $content);
 
