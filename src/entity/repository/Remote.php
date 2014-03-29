@@ -13,10 +13,9 @@ class Remote implements CompositeEntityInterface
     protected $name = null;
     protected $url = null;
 
-    public function __construct($name = null, $url = null)
+    public function __construct(array $values = [])
     {
-        $this->setName($name);
-        $this->setURL($url);
+        $this->populate($values);
     }
 
     public function getName()

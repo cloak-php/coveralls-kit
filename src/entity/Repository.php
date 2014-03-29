@@ -99,7 +99,7 @@ class Repository implements RepositoryInterface
         $remotes = new RemoteCollection();
 
         foreach ($remoteValues as $remote) {
-            $remotes->add( new Remote($remote['name'], $remote['url']) );
+            $remotes->add( new Remote($remote) );
         }
         $this->remotes = $remotes;
 
