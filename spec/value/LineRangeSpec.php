@@ -12,6 +12,7 @@
 namespace coverallskit\spec;
 
 use coverallskit\value\LineRange;
+use Prophecy\Prophet;
 
 describe('LineRange', function() {
     describe('__construct', function() {
@@ -37,16 +38,58 @@ describe('LineRange', function() {
         before(function() {
             $this->range = new LineRange(1, 30);
         });
-        context('when the range', function() {
-            it('should return true', function() {
-                expect($this->range->contains(1))->toBeTrue();
-                expect($this->range->contains(30))->toBeTrue();
+        context('when the specified line number', function() {
+            context('when the range', function() {
+                it('should return true', function() {
+                    expect($this->range->contains(1))->toBeTrue();
+                    expect($this->range->contains(30))->toBeTrue();
+                });
+            });
+            context('when out of range', function() {
+                it('should return false', function() {
+                    expect($this->range->contains(0))->toBeFalse();
+                    expect($this->range->contains(31))->toBeFalse();
+                });
             });
         });
-        context('when out of range', function() {
-            it('should return false', function() {
-                expect($this->range->contains(0))->toBeFalse();
-                expect($this->range->contains(31))->toBeFalse();
+        context('when the specified CoverageInterface', function() {
+            before(function() {
+                $this->prophet = new Prophet();
+            });
+            after(function() {
+                $this->prophet->checkPredictions();
+            });
+            context('when the range', function() {
+                before(function() {
+                    $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
+                    $this->mixCovergage->getLineNumber()->willReturn(1);
+
+                    $this->maxCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
+                    $this->maxCovergage->getLineNumber()->willReturn(30);
+
+                    $this->min = $this->mixCovergage->reveal();
+                    $this->max = $this->maxCovergage->reveal();
+                });
+                it('should return true', function() {
+                    expect($this->range->contains($this->min))->toBeTrue();
+                    expect($this->range->contains($this->max))->toBeTrue();
+                });
+            });
+            context('when out of range', function() {
+                before(function() {
+                    $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
+                    $this->mixCovergage->getLineNumber()->willReturn(0);
+
+                    $this->maxCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
+                    $this->maxCovergage->getLineNumber()->willReturn(31);
+
+                    $this->min = $this->mixCovergage->reveal();
+                    $this->max = $this->maxCovergage->reveal();
+                });
+                it('should return false', function() {
+                    expect($this->range->contains($this->min))->toBeFalse();
+                    expect($this->range->contains($this->max))->toBeFalse();
+                });
             });
         });
     });
