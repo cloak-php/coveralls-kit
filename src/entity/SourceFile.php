@@ -61,7 +61,7 @@ class SourceFile implements CompositeEntityInterface
 
     public function getPathFromCurrentDirectory()
     {
-        return str_replace(getcwd(), '', $this->getName());
+        return str_replace(getcwd() . '/', '', $this->getName());
     }
 
     public function getContent()

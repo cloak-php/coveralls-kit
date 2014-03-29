@@ -19,7 +19,7 @@ use coverallskit\exception\FileNotFoundException;
 describe('SourceFile', function() {
     before(function() {
         $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
-        $this->relativePath = str_replace(getcwd(), '', $this->path);
+        $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
         $this->sourceFile = new SourceFile($this->path);
     });
     describe('__construct', function() {
@@ -78,7 +78,7 @@ describe('SourceFile', function() {
     describe('__toString', function() {
         before(function() {
             $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
-            $this->relativePath = str_replace(getcwd(), '', $this->path);
+            $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
             $this->sourceFile = new SourceFile($this->path);
         });
         it('should return json string', function() {
