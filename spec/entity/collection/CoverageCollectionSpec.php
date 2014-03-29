@@ -15,6 +15,16 @@ use coverallskit\entity\Coverage;
 use coverallskit\entity\collection\CoverageCollection;
 
 describe('CoverageCollection', function() {
+
+    describe('isEmpty', function() {
+        context('when covergae empty', function() {
+            it('should return true', function() {
+                $coverages = new CoverageCollection(10);
+                expect($coverages->isEmpty())->toBeTrue();
+            });
+        });
+    });
+
     describe('add', function() {
         before(function() {
             $this->coverages = new CoverageCollection(1);

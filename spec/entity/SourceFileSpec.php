@@ -31,6 +31,17 @@ describe('SourceFile', function() {
             });
         });
     });
+    describe('isEmpty', function() {
+        context('when the contents of the source file is empty', function() {
+            before(function() {
+                $this->emptySourcePath = realpath(__DIR__ . '/../fixtures/empty.php');
+                $this->emptySourceFile = new SourceFile($this->emptySourcePath);
+            });
+            it('should return true', function() {
+                expect($this->emptySourceFile->isEmpty())->toBeTrue();
+            });
+        });
+    });
     describe('getName', function() {
         it('should return file name', function() {
             expect($this->sourceFile->getName())->toBe($this->path);

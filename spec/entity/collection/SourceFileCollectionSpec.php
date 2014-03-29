@@ -29,6 +29,18 @@ describe('SourceFileCollection', function() {
         $this->sources = new SourceFileCollection();
         $this->sources->add( $this->source );
     });
+
+    describe('isEmpty', function() {
+        context('when the source files is empty', function() {
+            before(function() {
+                $this->emptySources = new SourceFileCollection();
+            });
+            it('should return true', function() {
+                expect($this->emptySources->isEmpty())->toBeTrue();
+            });
+        });
+    });
+
     describe('has', function() {
         context('when file exists', function() {
             it('should return true', function() {

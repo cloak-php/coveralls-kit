@@ -17,6 +17,20 @@ describe('Remote', function() {
     before(function() {
         $this->remote = new Remote('origin', 'https://github.com/holyshared/coverallskit-kit.git');
     });
+    describe('__construct', function() {
+        it('should be initialized', function () {
+            expect($this->remote->getName())->toEqual('origin');
+            expect($this->remote->getURL())->toEqual('https://github.com/holyshared/coverallskit-kit.git');
+        });
+    });
+    describe('isEmpty', function() {
+        context('when remote empty', function() {
+            it('should return true', function () {
+                $remote = new Remote();
+                expect($remote->isEmpty())->toBeTrue();
+            });
+        });
+    });
     describe('toArray', function() {
         it('should return array value', function () {
             $value = $this->remote->toArray();

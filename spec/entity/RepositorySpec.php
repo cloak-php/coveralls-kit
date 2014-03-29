@@ -18,6 +18,16 @@ describe('Repository', function() {
         $this->directory = realpath(__DIR__ . '/../../');
         $this->repository = new Repository($this->directory);
     });
+
+    describe('isEmpty', function() {
+        context('when repository is not empty', function() {
+            it('should return false', function () {
+                $repository = new Repository($this->directory);
+                expect($repository->isEmpty())->toBeFalse();
+            });
+        });
+    });
+
     describe('getCommit', function() {
         it('should return head commit', function() {
             expect($this->repository->getCommit())->toBeAnInstanceOf('coverallskit\entity\repository\Commit');

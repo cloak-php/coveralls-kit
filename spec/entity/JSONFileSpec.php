@@ -45,6 +45,15 @@ describe('JSONFile', function() {
         $this->prophet->checkPredictions();
     });
 
+    describe('isEmpty', function() {
+        context('when empty', function() {
+            it('should return true', function () {
+                $jsonFile = new JSONFile();
+                expect($jsonFile->isEmpty())->toBeTrue();
+            });
+        });
+    });
+
     describe('token', function() {
         it('should return repository token string', function() {
             expect($this->jsonFile->token)->toBe('foo');

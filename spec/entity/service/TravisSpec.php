@@ -22,6 +22,16 @@ describe('Travis', function() {
     after(function() {
         putenv('TRAVIS_JOB_ID=' . $this->jobId);
     });
+
+    describe('isEmpty', function() {
+        context('when service name is empty', function() {
+            it('should return true', function () {
+                $travis = new Travis(null);
+                expect($travis->isEmpty())->toBeTrue();
+            });
+        });
+    });
+
     describe('getServiceJobId', function() {
         it('should return job id', function() {
             expect($this->service->getServiceJobId())->toEqual('10');
