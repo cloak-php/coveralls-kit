@@ -26,11 +26,11 @@ describe('ReportUpLoader', function() {
     });
     describe('getClient', function() {
         before(function() {
-            $this->jsonFileUpLoder = new ReportUpLoader();
+            $this->uploader = new ReportUpLoader();
         });
         context('When not specified client', function() {
             it('should return Guzzle\Http\Client instance', function() {
-                $client = $this->jsonFileUpLoder->getClient();
+                $client = $this->uploader->getClient();
                 expect($client)->toBeAnInstanceOf('Guzzle\Http\Client');
             });
         });
@@ -44,7 +44,7 @@ describe('ReportUpLoader', function() {
                 'service_name' => 'travis-ci'
             ]);
 
-            $this->jsonFile = new Report([
+            $this->report = new Report([
                 'name' => 'path/to/coverage.json',
                 'token' => 'foo',
                 'repository' => new Repository(__DIR__ . '/../'),
@@ -59,10 +59,10 @@ describe('ReportUpLoader', function() {
             $this->client = $this->prophet->prophesize('Guzzle\Http\ClientInterface');
             $this->client->post(ReportUpLoader::ENDPOINT_URL)->shouldBeCalled()->willReturn($this->request->reveal());
 
-            $this->jsonFileUpLoder = new ReportUpLoader($this->client->reveal());
+            $this->uploader = new ReportUpLoader($this->client->reveal());
         });
-        it('should upload json file', function() {
-            $this->jsonFileUpLoder->upload($this->jsonFile);
+        it('should upload report file', function() {
+            $this->uploader->upload($this->report);
         });
     });
 });
