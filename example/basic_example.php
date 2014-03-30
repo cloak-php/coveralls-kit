@@ -43,7 +43,8 @@ foreach ($result as $file => $coverage) {
             $source->addCoverage(Coverage::unused($line));
         }
     }
+
+    $builder->addSource($source);
 }
 
-$builder->addSource($source);
 $builder->build()->saveAs(__DIR__ . '/tmp/coverage.json');
