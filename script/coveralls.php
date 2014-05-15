@@ -28,7 +28,7 @@ xdebug_stop_code_coverage();
  * Generate a json file
  */
 $builder = new ReportBuilder();
-$builder->token('N852hqDzBRTjy2U9hxQ0HzGblXC9ASCTQ')
+$builder->token(getenv('COVERALLS_REPO_TOKEN'))
     ->service(Travis::travisCI())
     ->repository(new Repository(__DIR__ . '/../'));
 

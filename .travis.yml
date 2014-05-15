@@ -8,5 +8,3 @@ before_install:
 script:
   - ./vendor/bin/pho
 after_script: php script/coveralls.php
-env:
-  - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=N852hqDzBRTjy2U9hxQ0HzGblXC9ASCTQ
