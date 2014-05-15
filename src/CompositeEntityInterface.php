@@ -11,12 +11,6 @@
 
 namespace coverallskit;
 
-interface ArrayConvertible
+interface CompositeEntityInterface extends EntityInterface, ArrayConvertible
 {
-
-    /**
-     * @return array
-     */
-    public function toArray();  
-
 }

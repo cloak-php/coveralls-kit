@@ -1,22 +1,22 @@
 <?php
 
-namespace coveralls\example;
+namespace coverallskit\example;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use coveralls\JSONFileBuilder;
-use coveralls\service\TravisCI;
-use coveralls\jsonfile\Coverage;
-use coveralls\jsonfile\Repository;
-use coveralls\jsonfile\SourceFile;
-use Guzzle\Http\Client;
+use coverallskit\JSONFileBuilder;
+use coverallskit\entity\service\Travis;
+use coverallskit\entity\Coverage;
+use coverallskit\entity\Repository;
+use coverallskit\entity\SourceFile;
+use coverallskit\exception\LineOutOfRangeException;
 
 /**
  * Get the code coverage
  */
 xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
 
-$argv = array('../vendor/bin/pho', '--reporter', 'spec');
+$argv = array('../vendor/bin/pho');
 
 require_once __DIR__ . "/../vendor/bin/pho";
 
@@ -29,7 +29,7 @@ xdebug_stop_code_coverage();
  */
 $builder = new JSONFileBuilder();
 $builder->token(getenv('COVERALLS_REPO_TOKEN'))
-    ->service(TravisCI::ci())
+    ->service(Travis::travisCI())
     ->repository(new Repository(__DIR__ . '/../'));
 
 foreach ($result as $file => $coverage) {
@@ -38,13 +38,17 @@ foreach ($result as $file => $coverage) {
     }
 
     $source = new SourceFile($file);
-    $coverages = $source->getCoverages();
 
     foreach ($coverage as $line => $status) {
-        if ($status === 1) {
-            $coverages->add(Coverage::executed($line));
-        } else if ($status === -1) {
-            $coverages->add(Coverage::unused($line));
+        try {
+            if ($status === 1) {
+                $source->addCoverage(Coverage::executed($line));
+            } else if ($status === -1) {
+                $source->addCoverage(Coverage::unused($line));
+            }
+        } catch (LineOutOfRangeException $exception) {
+            echo $source->getName() . PHP_EOL;
+            echo $exception->getMessage() . PHP_EOL;
         }
     }
 
@@ -53,12 +57,4 @@ foreach ($result as $file => $coverage) {
 
 $coverageFile = __DIR__ . '/coverage.json';
 
-$builder->build()->saveAs($coverageFile);
-
-$client = new Client();
-$request = $client->post('https://coveralls.io/api/v1/jobs')
-    ->addPostFiles(array(
-        'json_file' => realpath($coverageFile)
-    ));
-
-$request->send();
+$builder->build()->saveAs($coverageFile)->upload();

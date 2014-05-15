@@ -14,12 +14,12 @@ namespace coverallskit\exception;
 use Exception;
 use UnexpectedValueException;
 
-class FileNotFoundException extends UnexpectedValueException
+class BadAttributeException extends UnexpectedValueException
 {
 
-    public function __construct($path, $code = 0, Exception $previous = null)
+    public function __construct($attributeName, $code = 0, Exception $previous = null)
     {
-        parent::__construct("Can not find the file $path", $code, $previous);
+        parent::__construct("Can not find the attributes $attributeName", $code, $previous);
     }
 
 }

@@ -43,7 +43,7 @@ Specify **repository token**, **service name**, **the directory of the repositor
 
 	$builder = new JSONFileBuilder();
 	$builder->token('your repository token')
-		->service(TravisCI::ci())
+		->service(Travis::travisCI())
 		->repository(new Repository(__DIR__ . '/../'));
 
 
@@ -55,47 +55,35 @@ Please look at the [xdebug_get_code_coverage](http://xdebug.org/docs/code_covera
 
 	foreach ($result as $file => $coverage) {
     	if (preg_match('/vendor/', $file) || preg_match('/spec/', $file)) {
-			continue;
+        	continue;
 	    }
 
 	    $source = new SourceFile($file);
-    	$coverages = $source->getCoverages();
 
 	    foreach ($coverage as $line => $status) {
-    	    if ($status === 1) {
-        	    $coverages->add(Coverage::executed($line));
-	        } else if ($status === -1) {
-    	        $coverages->add(Coverage::unused($line));
-        	}
-	    }
+    	    try {
+        	    if ($status === 1) {
+            	    $source->addCoverage(Coverage::executed($line));
+            	} else if ($status === -1) {
+                	$source->addCoverage(Coverage::unused($line));
+	            }
+    	    } catch (LineOutOfRangeException $exception) {
+        	    echo $source->getName() . PHP_EOL;
+            	echo $exception->getMessage() . PHP_EOL;
+	        }
+    	}
 
 	    $builder->addSource($source);
 	}
 
-
-Dump the json file
+Dump of a json file, and upload 
 ---------------------------------------
 
 Dump the file by specifying a path.  
 Please look at the specifications of the json file of [coveralls](https://coveralls.io/docs/api_reference) for more information.
 
 	$coverageFile = __DIR__ . '/coverage.json';
-	$builder->build()->saveAs($coverageFile);
-
-
-Send a json file
----------------------------------------
-
-Sent using the api json file.  
-This is an example to be sent using the [Guzzle](https://github.com/guzzle/guzzle).
-
-	$client = new Client();
-	$request = $client->post('https://coveralls.io/api/v1/jobs')
-		->addPostFiles(array(
-			'json_file' => realpath($coverageFile)
-    	));
-
-	$request->send();
+	$builder->build()->saveAs($coverageFile)->upload();
 
 
 Update the .travis.yml

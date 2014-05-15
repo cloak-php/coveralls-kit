@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coveralls;
+namespace coverallskit;
 
-use coveralls\JSONFile;
-use coveralls\jsonfile\Repository;
-use coveralls\jsonfile\SourceFile;
-use coveralls\jsonfile\SourceFileCollection;
-use coveralls\service\ServiceInterface;
+use coverallskit\entity\JSONFile;
+use coverallskit\entity\RepositoryInterface;
+use coverallskit\entity\SourceFile;
+use coverallskit\entity\collection\SourceFileCollection;
+use coverallskit\entity\service\ServiceInterface;
 
 class JSONFileBuilder
 {
@@ -42,7 +42,7 @@ class JSONFileBuilder
         return $this;
     }
 
-    public function repository(Repository $repository)
+    public function repository(RepositoryInterface $repository)
     {
         $this->repository = $repository;
         return $this;

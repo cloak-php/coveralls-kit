@@ -11,12 +11,22 @@
 
 namespace coverallskit;
 
-interface ArrayConvertible
+interface EntityInterface
 {
 
     /**
-     * @return array
+     * @param array
      */
-    public function toArray();  
+    public function populate(array $values);
+
+    /**
+     * @return boolean
+     */
+    public function isEmpty();  
+
+    /**
+     * @return string
+     */
+    public function __toString();  
 
 }

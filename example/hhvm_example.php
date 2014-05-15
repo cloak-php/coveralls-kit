@@ -13,12 +13,12 @@ use coverallskit\entity\SourceFile;
 /**
  * Get the code coverage
  */
-xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
+fb_enable_code_coverage();
 
 require_once __DIR__ . '/basic/example.php';
 
-$result = xdebug_get_code_coverage();
-xdebug_stop_code_coverage();
+$result = fb_get_code_coverage(true);
+fb_disable_code_coverage();
 
 
 /**
@@ -47,4 +47,4 @@ foreach ($result as $file => $coverage) {
     $builder->addSource($source);
 }
 
-$builder->build()->saveAs(__DIR__ . '/tmp/coverage.json');
+$builder->build()->saveAs(__DIR__ . '/tmp/hhvm_coverage.json');
