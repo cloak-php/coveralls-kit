@@ -11,7 +11,7 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\JSONFileBuilder;
+use coverallskit\ReportBuilder;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\repository\Commit;
 use coverallskit\entity\repository\Branch;
@@ -19,7 +19,7 @@ use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
 use Prophecy\Prophet;
 
-describe('JSONFileBuilder', function() {
+describe('ReportBuilder', function() {
     describe('build', function() {
         before(function() {
             $this->prophet = new Prophet();
@@ -40,7 +40,10 @@ describe('JSONFileBuilder', function() {
                 'name' => 'master',
                 'remote' => false
             ]);
-            $remote = new Remote('origin', 'https://github.com/holyshared/coverallskit-kit.git');
+            $remote = new Remote([
+                'name' => 'origin',
+                'url' => 'https://github.com/holyshared/coverallskit-kit.git'
+            ]);
             $this->remotes = new RemoteCollection([ $remote ]);
 
             $this->repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
@@ -51,33 +54,37 @@ describe('JSONFileBuilder', function() {
             $this->foo = realpath(__DIR__ . '/fixtures/foo.php');
             $this->bar = realpath(__DIR__ . '/fixtures/bar.php');
 
-            $this->builder = new JSONFileBuilder();
+            $this->builder = new ReportBuilder();
+            $this->builder->name(__DIR__  . '/tmp/coverage.json');
             $this->builder->token('foo');
             $this->builder->repository($this->repository->reveal());
             $this->builder->service($this->service->reveal());
             $this->builder->addSource(new SourceFile($this->foo));
             $this->builder->addSource(new SourceFile($this->bar));
 
-            $this->jsonFile = $this->builder->build();
+            $this->report = $this->builder->build();
         });
         after(function() {
             $this->prophet->checkPredictions();
         });
+        it('should set the file name', function() {
+            expect($this->report->name)->toBe(__DIR__  . '/tmp/coverage.json');
+        });
         it('should set the repository token', function() {
-            expect($this->jsonFile->token)->toBe('foo');
+            expect($this->report->token)->toBe('foo');
         });
         it('should set the service environment', function() {
-            expect($this->jsonFile->service->getServiceJobId())->toBe('10');
-            expect($this->jsonFile->service->getServiceName())->toBe('travis-ci');
+            expect($this->report->service->getServiceJobId())->toBe('10');
+            expect($this->report->service->getServiceName())->toBe('travis-ci');
         });
         it('should set the commit log', function() {
-            expect($this->jsonFile->repository->getCommit())->toBe($this->commit);
-            expect($this->jsonFile->repository->getBranch())->toBe($this->branch);
-            expect($this->jsonFile->repository->getRemotes())->toBe($this->remotes);
+            expect($this->report->repository->getCommit())->toBe($this->commit);
+            expect($this->report->repository->getBranch())->toBe($this->branch);
+            expect($this->report->repository->getRemotes())->toBe($this->remotes);
         });
         it('should add the source file', function() {
-            expect($this->jsonFile->sourceFiles->has($this->foo))->toBeTrue();
-            expect($this->jsonFile->sourceFiles->has($this->bar))->toBeTrue();
+            expect($this->report->sourceFiles->has($this->foo))->toBeTrue();
+            expect($this->report->sourceFiles->has($this->bar))->toBeTrue();
         });
     });
 });
