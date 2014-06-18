@@ -1,7 +1,7 @@
 {
     "name": "holyshared/coverallskit",
     "description": "CoverallsKit is the library for transmitting the report of code coverage to coveralls.",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "keywords": [
         "coveralls", "code coverage", "report"
     ],
@@ -9,7 +9,7 @@
         "danielstjules/pho": "1.0.0",
         "jaz303/phake": "0.6.0",
         "phpspec/prophecy": "1.1.*",
-        "jasonlewis/resource-watcher": "1.1.*"        
+        "jasonlewis/resource-watcher": "1.1.*"
     },
     "license": "MIT",
     "authors": [
