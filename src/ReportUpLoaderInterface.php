@@ -11,10 +11,10 @@
 
 namespace coverallskit;
 
-use coverallskit\entity\JSONFileInterface;
+use coverallskit\entity\ReportInterface;
 use Guzzle\Http\ClientInterface;
 
-interface JSONFileUpLoaderInterface
+interface ReportUpLoaderInterface
 {
 
     const ENDPOINT_URL = 'https://coveralls.io/api/v1/jobs';
@@ -31,8 +31,8 @@ interface JSONFileUpLoaderInterface
     public function getClient();
 
     /**
-     * @param entity\JSONFileInterface $jsonFile
+     * @param entity\ReportInterface $jsonFile
      */
-    public function upload(JSONFileInterface $jsonFile);
+    public function upload(ReportInterface $report);
 
 }

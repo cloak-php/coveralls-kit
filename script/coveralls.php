@@ -4,7 +4,7 @@ namespace coverallskit\example;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use coverallskit\JSONFileBuilder;
+use coverallskit\ReportBuilder;
 use coverallskit\entity\service\Travis;
 use coverallskit\entity\Coverage;
 use coverallskit\entity\Repository;
@@ -27,8 +27,8 @@ xdebug_stop_code_coverage();
 /**
  * Generate a json file
  */
-$builder = new JSONFileBuilder();
-$builder->token('N852hqDzBRTjy2U9hxQ0HzGblXC9ASCTQ')
+$builder = new ReportBuilder();
+$builder->token(getenv('COVERALLS_REPO_TOKEN'))
     ->service(Travis::travisCI())
     ->repository(new Repository(__DIR__ . '/../'));
 

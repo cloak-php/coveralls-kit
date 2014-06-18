@@ -11,11 +11,11 @@
 
 namespace coverallskit\entity;
 
-use coverallskit\JSONFileUpLoader;
-use coverallskit\JSONFileUpLoaderInterface;
+use coverallskit\ReportUpLoader;
+use coverallskit\ReportUpLoaderInterface;
 use coverallskit\AttributePopulatable;
 
-class JSONFile implements JSONFileInterface
+class Report implements ReportInterface
 {
 
     use AttributePopulatable;
@@ -33,6 +33,7 @@ class JSONFile implements JSONFileInterface
      */
     public function __construct(array $values = [])
     {
+        $this->name = getcwd() . '/' . static::DEFAULT_NAME;
         $this->populate($values);
     }
 
@@ -43,16 +44,15 @@ class JSONFile implements JSONFileInterface
 
     public function saveAs($path)
     {
-        if ($this->getName() === null) {
-            $this->name = $path;         
-        }
+        $this->name = $path;
+
         $content = (string) $this;
         file_put_contents($path, $content);
 
         return $this; 
     }
 
-    public function setUpLoader(JSONFileUpLoaderInterface $uploader)
+    public function setUpLoader(ReportUpLoaderInterface $uploader)
     {
         $this->uploader = $uploader;
     }
@@ -60,7 +60,7 @@ class JSONFile implements JSONFileInterface
     public function getUpLoader()
     {
         if ($this->uploader === null) {
-            $this->uploader = new JSONFileUpLoader();
+            $this->uploader = new ReportUpLoader();
         }
 
         return $this->uploader;
@@ -68,9 +68,12 @@ class JSONFile implements JSONFileInterface
 
     public function upload()
     {
-        if ($this->getName() === null) {
-            $this->saveAs(getcwd() . '/' . static::DEFAULT_NAME);
+        $fileName = $this->getName();
+
+        if (file_exists($fileName) === false) {
+            $this->saveAs($fileName);
         }
+
         $this->getUpLoader()->upload($this);
     }
 

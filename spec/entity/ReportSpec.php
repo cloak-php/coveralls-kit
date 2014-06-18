@@ -11,13 +11,13 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\entity\JSONFile;
+use coverallskit\entity\Report;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\TravisInterface;
 use Prophecy\Prophet;
 
-describe('JSONFile', function() {
+describe('Report', function() {
     before(function() {
         mkdir(__DIR__ . '/tmp');
 
@@ -31,7 +31,7 @@ describe('JSONFile', function() {
 
         $this->path = __DIR__ . '/tmp/coverage.json';
 
-        $this->jsonFile = new JSONFile([
+        $this->report = new Report([
             'token' => 'foo',
             'repository' => new Repository(__DIR__ . '/../../'),
             'service' => $this->service->reveal(),
@@ -48,30 +48,30 @@ describe('JSONFile', function() {
     describe('isEmpty', function() {
         context('when empty', function() {
             it('should return true', function () {
-                $jsonFile = new JSONFile();
-                expect($jsonFile->isEmpty())->toBeTrue();
+                $report = new Report();
+                expect($report->isEmpty())->toBeTrue();
             });
         });
     });
 
     describe('token', function() {
         it('should return repository token string', function() {
-            expect($this->jsonFile->token)->toBe('foo');
+            expect($this->report->token)->toBe('foo');
         });
     });
     describe('repository', function() {
         it('should return repository', function() {
-            expect($this->jsonFile->repository)->toBeAnInstanceOf('coverallskit\entity\Repository');
+            expect($this->report->repository)->toBeAnInstanceOf('coverallskit\entity\Repository');
         });
     });
     describe('sourceFiles', function() {
         it('should return sources file collection', function() {
-            expect($this->jsonFile->sourceFiles)->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
+            expect($this->report->sourceFiles)->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
         });
     });
     describe('saveAs', function() {
         before(function() {
-            $this->jsonFile->saveAs($this->path);
+            $this->report->saveAs($this->path);
             $this->jsonResult = json_decode(file_get_contents($this->path));
         });
         after(function() {
@@ -89,47 +89,47 @@ describe('JSONFile', function() {
     describe('upload', function() {
         context('when not saved file', function() {
             before(function() {
-                $this->notSavedJsonFile = new JSONFile([
+                $this->notSavedReport = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
                     'service' => $this->service->reveal(),
                     'sourceFiles' => new SourceFileCollection()
                 ]);
 
-                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\JSONFileUpLoaderInterface');
-                $this->notSavedFileUpLoader->upload($this->notSavedJsonFile)->shouldBeCalled();
+                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportUpLoaderInterface');
+                $this->notSavedFileUpLoader->upload($this->notSavedReport)->shouldBeCalled();
 
-                $this->notSavedJsonFile->setUpLoader($this->notSavedFileUpLoader->reveal());
-                $this->notSavedJsonFile->upload();
+                $this->notSavedReport->setUpLoader($this->notSavedFileUpLoader->reveal());
+                $this->notSavedReport->upload();
             });
             after(function() {
-                unlink($this->notSavedJsonFile->getName());
+                unlink($this->notSavedReport->getName());
             });
             it('should use the default name', function() {
-                expect($this->notSavedJsonFile->getName())->toEqual(getcwd() . '/' . JSONFile::DEFAULT_NAME);
+                expect($this->notSavedReport->getName())->toEqual(getcwd() . '/' . Report::DEFAULT_NAME);
             });
         });
         context('when not saved file', function() {
             before(function() {
-                $this->savedJsonFile = new JSONFile([
+                $this->savedReport = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
                     'service' => $this->service->reveal(),
                     'sourceFiles' => new SourceFileCollection()
                 ]);
-                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\JSONFileUpLoaderInterface');
-                $this->savedFileUpLoader->upload($this->savedJsonFile)->shouldBeCalled();
+                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportUpLoaderInterface');
+                $this->savedFileUpLoader->upload($this->savedReport)->shouldBeCalled();
 
-                $this->savedJsonFile->setUpLoader($this->savedFileUpLoader->reveal());
+                $this->savedReport->setUpLoader($this->savedFileUpLoader->reveal());
 
-                $this->savedJsonFile->saveAs($this->path);
-                $this->savedJsonFile->upload();
+                $this->savedReport->saveAs($this->path);
+                $this->savedReport->upload();
             });
             after(function() {
-                unlink($this->savedJsonFile->getName());
+                unlink($this->savedReport->getName());
             });
-            it('should upload the json file', function() {
-                expect($this->savedJsonFile->getName())->toEqual($this->path);
+            it('should upload the report file', function() {
+                expect($this->savedReport->getName())->toEqual($this->path);
             });
         });
     });

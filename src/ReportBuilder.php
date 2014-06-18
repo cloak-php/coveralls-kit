@@ -11,15 +11,16 @@
 
 namespace coverallskit;
 
-use coverallskit\entity\JSONFile;
+use coverallskit\entity\Report;
 use coverallskit\entity\RepositoryInterface;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\ServiceInterface;
 
-class JSONFileBuilder
+class ReportBuilder
 {
 
+    protected $name = null;
     protected $token = null;
     protected $service = null;
     protected $repository = null;
@@ -28,6 +29,12 @@ class JSONFileBuilder
     public function __construct()
     {
         $this->sourceFiles = new SourceFileCollection();
+    }
+
+    public function name($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 
     public function token($repositoryToken)
@@ -56,7 +63,8 @@ class JSONFileBuilder
 
     public function build()
     {
-        return new JSONFile([
+        return new Report([
+            'name' => $this->name,
             'token' => $this->token,
             'repository' => $this->repository,
             'service' => $this->service,
