@@ -56,19 +56,19 @@ class Repository implements RepositoryInterface
         $commit = $this->repository->getHeadCommit();
         $branches = $this->repository->getReferences()->resolveBranches($commit);
 
-        $localBranch = null;
+        $resolveBranch = $this->getDefaultBranch();
 
         foreach ($branches as $branch) {
             if ($branch->isRemote() === true) {
                 continue;
             }
-            $localBranch = $branch;
+            $resolveBranch = new Branch([
+                'name' => $branch->getName(),
+                'remote' => $branch->isRemote()
+            ]);
         }
 
-        $this->branch = new Branch([
-            'name' => $localBranch->getName(),
-            'remote' => $localBranch->isRemote()
-        ]);
+        $this->branch = $resolveBranch;
 
         return $this;
     }
@@ -107,11 +107,24 @@ class Repository implements RepositoryInterface
     }
 
     /**
+     * @return coverallskit\entity\repository\Branch
+     */
+    protected function getDefaultBranch()
+    {
+        $branch = new Branch([
+            'name' => 'master',
+            'remote' => false
+        ]);
+
+        return $branch;
+    }
+
+    /**
      * @return coverallskit\entity\repository\Commit
      */
     public function getCommit()
     {
-        return $this->head; 
+        return $this->head;
     }
 
     /**
@@ -119,7 +132,7 @@ class Repository implements RepositoryInterface
      */
     public function getBranch()
     {
-        return $this->branch; 
+        return $this->branch;
     }
 
     /**
@@ -127,7 +140,7 @@ class Repository implements RepositoryInterface
      */
     public function getRemotes()
     {
-        return $this->remotes; 
+        return $this->remotes;
     }
 
     public function isEmpty()
@@ -149,7 +162,7 @@ class Repository implements RepositoryInterface
 
     public function __toString()
     {
-        return json_encode($this->toArray()); 
+        return json_encode($this->toArray());
     }
 
 }
