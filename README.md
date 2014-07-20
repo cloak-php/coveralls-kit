@@ -23,7 +23,7 @@ You can generate a json file using the **coverallskit/JSONFileBuilder**.
 You just set the code coverage of rows that have been executed.  
 Code coverage can be obtained easily by using the **HHVM** and **xdebug**.
 
-	$builder = new JSONFileBuilder();
+	$builder = new ReportBuilder();
 	$builder->token('your repository token')
 		->service(Travis::travisCI())
 		->repository(new Repository(__DIR__ . '/../'));
