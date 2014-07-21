@@ -11,6 +11,8 @@ use coverallskit\entity\Repository;
 use coverallskit\entity\SourceFile;
 use coverallskit\exception\LineOutOfRangeException;
 
+echo "COVERALLS_REPO_TOKEN=" . getenv('COVERALLS_REPO_TOKEN');
+
 /**
  * Get the code coverage
  */
