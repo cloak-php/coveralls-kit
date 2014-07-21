@@ -23,9 +23,12 @@ class ReportBuilderFactory
      */
     private $loader;
 
-    public function __construct()
+    /**
+     * @param ConfigurationLoaderInterface $loader
+     */
+    public function __construct(ConfigurationLoaderInterface $loader)
     {
-        $this->loader = new ConfigurationLoader();
+        $this->loader = $loader;
     }
 
     /**

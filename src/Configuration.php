@@ -19,7 +19,7 @@ use coverallskit\entity\RepositoryInterface;
  * Class Configuration
  * @package coverallskit
  */
-class Configuration
+class Configuration implements ConfigurationInterface
 {
 
     use AttributePopulatable;
