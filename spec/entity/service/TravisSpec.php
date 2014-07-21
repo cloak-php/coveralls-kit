@@ -27,6 +27,9 @@ describe('Travis', function() {
 
         $this->service = new Travis();
     });
+    after(function () {
+        putenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY);
+    });
     describe('isEmpty', function() {
         context('when service name is empty', function() {
             it('should return true', function () {
