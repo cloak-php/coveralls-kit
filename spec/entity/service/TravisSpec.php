@@ -15,12 +15,15 @@ use coverallskit\entity\service\Travis;
 
 describe('Travis', function() {
     before(function() {
-        $this->jobId = getenv('TRAVIS_JOB_ID');
-        putenv('TRAVIS_JOB_ID=10');
+        $this->jobId = getenv(Travis::ENV_JOB_ID);
+        $this->coverallsToken = getenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY);
+        putenv(Travis::ENV_JOB_ID . '=10');
+        putenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY . '=token');
         $this->service = new Travis();
     });
     after(function() {
-        putenv('TRAVIS_JOB_ID=' . $this->jobId);
+        putenv(Travis::ENV_JOB_ID . '=' . $this->jobId);
+        putenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY . '=' . $this->coverallsToken);
     });
 
     describe('isEmpty', function() {
@@ -40,6 +43,11 @@ describe('Travis', function() {
     describe('getServiceName', function() {
         it('should return the service name', function() {
             expect($this->service->getServiceName())->toEqual('travis-ci');
+        });
+    });
+    describe('getCoverallsToken', function() {
+        it('should return the coveralls api token', function() {
+            expect($this->service->getCoverallsToken())->toEqual('token');
         });
     });
     describe('travisCI', function() {

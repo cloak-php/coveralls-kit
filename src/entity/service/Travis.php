@@ -37,6 +37,11 @@ class Travis implements TravisInterface
         return $this->serviceName;
     }
 
+    public function getCoverallsToken()
+    {
+        return getenv(static::ENV_COVERALLS_REPO_TOKEN_KEY);
+    }
+
     public function isEmpty()
     {
         $serviceName = $this->getServiceName();
