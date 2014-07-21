@@ -12,7 +12,7 @@
 namespace coverallskit;
 
 use coverallskit\entity\service\ServiceInterface;
-use coverallskit\exception\BadAttributeException;
+use coverallskit\entity\RepositoryInterface;
 
 /**
  * Class Configuration
@@ -39,9 +39,9 @@ class Configuration
     private $service;
 
     /**
-     * @var string
+     * @var \coverallskit\entity\RepositoryInterface
      */
-    private $repositoryDirectory;
+    private $repository;
 
     /**
      * @param array $values
@@ -57,6 +57,14 @@ class Configuration
     private function setService(ServiceInterface $service)
     {
         $this->service = $service;
+    }
+
+    /**
+     * @param RepositoryInterface $service
+     */
+    private function setRepository(RepositoryInterface $repository)
+    {
+        $this->repository = $repository;
     }
 
     /**
@@ -86,9 +94,9 @@ class Configuration
     /**
      * @return string
      */
-    public function getRepositoryDirectory()
+    public function getRepository()
     {
-        return $this->repositoryDirectory;
+        return $this->repository;
     }
 
 }

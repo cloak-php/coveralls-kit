@@ -15,6 +15,7 @@ use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
 use coverallskit\entity\service\Travis;
 use Symfony\Component\Yaml\Yaml;
+use coverallskit\entity\Repository;
 
 /**
  * Class ConfigurationLoader
@@ -55,6 +56,12 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
             $attributes['service'] = $this->serviceFromString($values['service']);
         }
 
+        if (isset($values['repositoryDirectory'])) {
+            $path = $values['repositoryDirectory'];
+            $attributes['repository'] = $this->repositoryFromPath($path);
+            unset($attributes['repositoryDirectory']);
+        }
+
         return new Configuration($attributes);
     }
 
@@ -87,6 +94,18 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
         } else if ($serviveName === 'travis-pro') {
             return Travis::travisPro();
         }
+    }
+
+    /**
+     * @param string $path
+     * @return \coverallskit\entity\Repository
+     */
+    private function repositoryFromPath($path)
+    {
+        $directory = realpath($path . '/');
+        $repository = new Repository($directory);
+
+        return $repository;
     }
 
 }

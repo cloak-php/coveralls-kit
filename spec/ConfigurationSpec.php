@@ -25,11 +25,16 @@ describe('Configuration', function() {
                 $this->service->getServiceJobId()->shouldNotBeCalled();
                 $this->service->getServiceName()->shouldNotBeCalled();
 
+                $this->repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
+                $this->repository->getCommit()->shouldNotBeCalled();
+                $this->repository->getBranch()->shouldNotBeCalled();
+                $this->repository->getRemotes()->shouldNotBeCalled();
+
                 $this->configration = new Configuration([
                     'name' => 'coveralls.json',
                     'token' => 'api-token',
                     'service' => $this->service->reveal(),
-                    'repositoryDirectory' => __DIR__
+                    'repository' => $this->repository->reveal()
                 ]);
             });
             after(function() {
@@ -44,8 +49,8 @@ describe('Configuration', function() {
             it('should set the service instance', function() {
                 expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\service\ServiceInterface');
             });
-            it('should set the repository directory', function() {
-                expect($this->configration->getRepositoryDirectory())->toEqual(__DIR__);
+            it('should set the repository', function() {
+                expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryInterface');
             });
         });
         context('when specify an attribute that does not exist', function() {
