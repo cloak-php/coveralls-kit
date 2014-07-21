@@ -11,6 +11,13 @@
 
 namespace coverallskit;
 
+use coverallskit\entity\service\ServiceInterface;
+use coverallskit\exception\BadAttributeException;
+
+/**
+ * Class Configuration
+ * @package coverallskit
+ */
 class Configuration
 {
 
@@ -39,12 +46,15 @@ class Configuration
      */
     public function __construct(array $values)
     {
-        foreach ($values as $key => $value) {
-            if (property_exists($this, $key) === false) {
-                continue;
-            }
-            $this->$key = $value;
-        }
+        $this->populate($values);
+    }
+
+    /**
+     * @param ServiceInterface $service
+     */
+    private function setService(ServiceInterface $service)
+    {
+        $this->service = $service;
     }
 
     /**
@@ -77,6 +87,26 @@ class Configuration
     public function getRepositoryDirectory()
     {
         return $this->repositoryDirectory;
+    }
+
+    /**
+     * @param array $values
+     */
+    private function populate(array $values)
+    {
+        foreach ($values as $key => $value) {
+            if (property_exists($this, $key) === false) {
+                throw new BadAttributeException($key);
+            }
+
+            $setter = 'set' . ucfirst($key);
+
+            if (method_exists($this, $setter)) {
+                $this->$setter($value);
+            } else {
+                $this->$key = $value;
+            }
+        }
     }
 
 }
