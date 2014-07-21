@@ -87,10 +87,10 @@ describe('Configuration', function() {
             ]);
 
             $builder = $this->prophet->prophesize('\coverallskit\ReportBuilderInterface');
-            $builder->name('coveralls.json')->shouldBeCalled();
-            $builder->token('api-token')->shouldBeCalled();
-            $builder->service($this->service)->shouldBeCalled();
-            $builder->repository($this->repository)->shouldBeCalled();
+            $builder->name('coveralls.json')->willReturn($builder);
+            $builder->token('api-token')->willReturn($builder);
+            $builder->service($this->service)->willReturn($builder);
+            $builder->repository($this->repository)->willReturn($builder);
             $builder->build()->shouldNotBeCalled();
 
             $this->builder = $builder->reveal();
@@ -98,7 +98,7 @@ describe('Configuration', function() {
         after(function() {
             $this->prophet->checkPredictions();
         });
-        it('', function() {
+        it('should apply configration', function() {
             $this->configration->applyTo($this->builder);
         });
     });

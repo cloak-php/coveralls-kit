@@ -105,10 +105,10 @@ class Configuration
      */
     public function applyTo(ReportBuilderInterface $builder)
     {
-        $builder->name($this->getName());
-        $builder->token($this->getToken());
-        $builder->service($this->getService());
-        $builder->repository($this->getRepository());
+        $builder->name($this->getName())
+            ->token($this->getToken())
+            ->service($this->getService())
+            ->repository($this->getRepository());
     }
 
 }
