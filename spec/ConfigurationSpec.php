@@ -103,36 +103,4 @@ describe('Configuration', function() {
         });
     });
 
-    describe('createReportBuilder', function() {
-        before(function() {
-            $this->prophet = new Prophet();
-
-            $service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
-            $service->getServiceJobId()->shouldNotBeCalled();
-            $service->getServiceName()->shouldNotBeCalled();
-
-            $this->service = $service->reveal();
-
-            $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
-            $repository->getCommit()->shouldNotBeCalled();
-            $repository->getBranch()->shouldNotBeCalled();
-            $repository->getRemotes()->shouldNotBeCalled();
-
-            $this->repository = $repository->reveal();
-
-            $this->configration = new Configuration([
-                'name' => 'coveralls.json',
-                'token' => 'api-token',
-                'service' => $this->service,
-                'repository' => $this->repository
-            ]);
-        });
-        after(function() {
-            $this->prophet->checkPredictions();
-        });
-        it('should return \coverallskit\ReportBuilderInterface instance', function() {
-            expect($this->configration->createReportBuilder())->toBeAnInstanceOf('\coverallskit\ReportBuilderInterface');
-        });
-    });
-
 });
