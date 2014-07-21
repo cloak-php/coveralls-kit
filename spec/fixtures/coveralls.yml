@@ -1,4 +1,4 @@
 name: coveralls.json
-repository: .
+repositoryDirectory: .
 service: travis-ci
 token:

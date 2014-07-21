@@ -11,6 +11,10 @@
 
 namespace coverallskit;
 
+use coverallskit\exception\FileNotFoundException;
+use coverallskit\entity\service\Travis;
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Class ConfigurationLoader
  * @package coverallskit
@@ -21,17 +25,68 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     /**
      * @param string $file
      * @return Configuration
+     * @throws FileNotFoundException
      */
     public function loadFromFile($file)
     {
+        if ($this->fileExists($file) === false) {
+            throw new FileNotFoundException($file);
+        }
+
+        if ($this->isYamlFile($file)) {
+            return $this->loadFromYamlFile($file);
+        }
     }
 
     /**
      * @param string $file
      * @return Configuration
+     * @throws FileNotFoundException
      */
     public function loadFromYamlFile($file)
     {
+        if ($this->fileExists($file) === false) {
+            throw new FileNotFoundException($file);
+        }
+
+        $attributes = $values = Yaml::parse($file);
+
+        if (isset($values['service'])) {
+            $attributes['service'] = $this->serviceFromString($values['service']);
+        }
+
+        return new Configuration($attributes);
+    }
+
+    /**
+     * @param $file
+     * @return boolean
+     */
+    private function fileExists($file)
+    {
+        return file_exists($file);
+    }
+
+    /**
+     * @param $file
+     * @return boolean
+     */
+    private function isYamlFile($file)
+    {
+        return preg_match('/(\.yml|yaml)$/', $file) === 1;
+    }
+
+    /**
+     * @param string $serviveName
+     * @return \coverallskit\entity\service\ServiceInterface
+     */
+    private function serviceFromString($serviveName)
+    {
+        if ($serviveName === 'travis-ci') {
+            return Travis::travisCI();
+        } else if ($serviveName === 'travis-pro') {
+            return Travis::travisPro();
+        }
     }
 
 }

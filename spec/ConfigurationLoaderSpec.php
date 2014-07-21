@@ -26,10 +26,10 @@ describe('ConfigurationLoader', function() {
             });
         });
         context('when the file not exists', function() {
-            it('should throw NotFoundConfigurationFileException', function() {
+            it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
                     $this->loader->loadFromYamlFile(__DIR__ . '/fixtures/not_found_coveralls.yml');
-                })->toThrow('coverallskit\exception\ConfigurationFileNotExistException');
+                })->toThrow('coverallskit\exception\FileNotFoundException');
             });
         });
     });
@@ -45,10 +45,10 @@ describe('ConfigurationLoader', function() {
             });
         });
         context('when the file not exists', function() {
-            it('should throw coverallskit\exception\ConfigurationFileNotExistException', function() {
+            it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
                     $this->loader->loadFromYamlFile(__DIR__ . '/fixtures/not_found_coveralls.yml');
-                })->toThrow('coverallskit\exception\ConfigurationFileNotExistException');
+                })->toThrow('coverallskit\exception\FileNotFoundException');
             });
         });
     });
