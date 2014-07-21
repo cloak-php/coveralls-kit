@@ -57,4 +57,6 @@ foreach ($result as $file => $coverage) {
     $builder->addSource($source);
 }
 
+echo "COVERALLS_REPO_TOKEN=" . getenv('COVERALLS_REPO_TOKEN') . "\n";
+
 $builder->build()->save()->upload();
