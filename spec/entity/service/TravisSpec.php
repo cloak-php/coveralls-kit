@@ -16,14 +16,14 @@ use coverallskit\entity\service\Travis;
 describe('Travis', function() {
     before(function() {
         $this->jobId = getenv(Travis::ENV_JOB_ID);
-        $this->coverallsToken = getenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY);
+//        $this->coverallsToken = getenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY);
         putenv(Travis::ENV_JOB_ID . '=10');
-        putenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY . '=token');
+  //      putenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY . '=token');
         $this->service = new Travis();
     });
     after(function() {
         putenv(Travis::ENV_JOB_ID . '=' . $this->jobId);
-        putenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY . '=' . $this->coverallsToken);
+    //    putenv(Travis::ENV_COVERALLS_REPO_TOKEN_KEY . '=' . $this->coverallsToken);
     });
 
     describe('isEmpty', function() {
@@ -45,11 +45,11 @@ describe('Travis', function() {
             expect($this->service->getServiceName())->toEqual('travis-ci');
         });
     });
-    describe('getCoverallsToken', function() {
-        it('should return the coveralls api token', function() {
-            expect($this->service->getCoverallsToken())->toEqual('token');
-        });
-    });
+//    describe('getCoverallsToken', function() {
+  //      it('should return the coveralls api token', function() {
+    //        expect($this->service->getCoverallsToken())->toEqual('token');
+      //  });
+//    });
     describe('travisCI', function() {
         it('should return travis-ci service', function() {
             expect(Travis::travisCI()->getServiceName())->toEqual('travis-ci');
