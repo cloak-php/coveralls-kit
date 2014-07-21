@@ -30,7 +30,6 @@ xdebug_stop_code_coverage();
 $factory = new ReportBuilderFactory(new ConfigurationLoader());
 
 $builder = $factory->createFromConfigurationFile(__DIR__ . '/../coveralls.yml');
-$builder->token(getenv('COVERALLS_REPO_TOKEN'));
 
 foreach ($result as $file => $coverage) {
     if (preg_match('/vendor/', $file) || preg_match('/spec/', $file)) {
