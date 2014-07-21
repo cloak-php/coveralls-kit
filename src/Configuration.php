@@ -114,12 +114,4 @@ class Configuration implements ConfigurationInterface
         return $builder;
     }
 
-    /**
-     * @return ReportBuilder
-     */
-    public function createReportBuilder()
-    {
-        return $this->applyTo(new ReportBuilder());
-    }
-
 }
