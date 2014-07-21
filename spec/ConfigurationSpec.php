@@ -62,4 +62,45 @@ describe('Configuration', function() {
         });
     });
 
+    describe('applyTo', function() {
+        before(function() {
+            $this->prophet = new Prophet();
+
+            $service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
+            $service->getServiceJobId()->shouldNotBeCalled();
+            $service->getServiceName()->shouldNotBeCalled();
+
+            $this->service = $service->reveal();
+
+            $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
+            $repository->getCommit()->shouldNotBeCalled();
+            $repository->getBranch()->shouldNotBeCalled();
+            $repository->getRemotes()->shouldNotBeCalled();
+
+            $this->repository = $repository->reveal();
+
+            $this->configration = new Configuration([
+                'name' => 'coveralls.json',
+                'token' => 'api-token',
+                'service' => $this->service,
+                'repository' => $this->repository
+            ]);
+
+            $builder = $this->prophet->prophesize('\coverallskit\ReportBuilderInterface');
+            $builder->name('coveralls.json')->shouldBeCalled();
+            $builder->token('api-token')->shouldBeCalled();
+            $builder->service($this->service)->shouldBeCalled();
+            $builder->repository($this->repository)->shouldBeCalled();
+            $builder->build()->shouldNotBeCalled();
+
+            $this->builder = $builder->reveal();
+        });
+        after(function() {
+            $this->prophet->checkPredictions();
+        });
+        it('', function() {
+            $this->configration->applyTo($this->builder);
+        });
+    });
+
 });

@@ -13,6 +13,7 @@ namespace coverallskit;
 
 use coverallskit\entity\service\ServiceInterface;
 use coverallskit\entity\RepositoryInterface;
+use coverallskit\ReportBuilderInterface;
 
 /**
  * Class Configuration
@@ -97,6 +98,17 @@ class Configuration
     public function getRepository()
     {
         return $this->repository;
+    }
+
+    /**
+     * @param ReportBuilderInterface $builder
+     */
+    public function applyTo(ReportBuilderInterface $builder)
+    {
+        $builder->name($this->getName());
+        $builder->token($this->getToken());
+        $builder->service($this->getService());
+        $builder->repository($this->getRepository());
     }
 
 }
