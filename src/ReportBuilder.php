@@ -70,6 +70,10 @@ class ReportBuilder implements ReportBuilderInterface
      */
     public function build()
     {
+        if (empty($this->token)) {
+            $this->token = $this->service->getCoverallsToken();
+        }
+
         return new Report([
             'name' => $this->name,
             'token' => $this->token,
