@@ -6,7 +6,7 @@
         "coveralls", "code coverage", "report"
     ],
     "require-dev": {
-        "danielstjules/pho": "1.0.*",
+        "danielstjules/pho": "dev-master",
         "jaz303/phake": "0.6.*",
         "phpspec/prophecy": "1.1.*",
         "jasonlewis/resource-watcher": "1.1.*"
