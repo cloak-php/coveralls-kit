@@ -25,7 +25,7 @@ class Configuration
     private $token;
 
     /**
-     * @var \coverallskit\entity\service\ServiceUnterface
+     * @var \coverallskit\entity\service\ServiceInterface
      */
     private $service;
 
@@ -35,10 +35,24 @@ class Configuration
     private $repositoryDirectory;
 
     /**
+     * @param array $values
+     */
+    public function __construct(array $values)
+    {
+        foreach ($values as $key => $value) {
+            if (property_exists($this, $key) === false) {
+                continue;
+            }
+            $this->$key = $value;
+        }
+    }
+
+    /**
      * @return string
      */
     public function getName()
     {
+        return $this->name;
     }
 
     /**
@@ -46,6 +60,7 @@ class Configuration
      */
     public function getToken()
     {
+        return $this->token;
     }
 
     /**
@@ -53,6 +68,7 @@ class Configuration
      */
     public function getService()
     {
+        return $this->service;
     }
 
     /**
@@ -60,6 +76,7 @@ class Configuration
      */
     public function getRepositoryDirectory()
     {
+        return $this->repositoryDirectory;
     }
 
 }

@@ -18,7 +18,7 @@ describe('Configuration', function() {
     before(function() {
         $this->prophet = new Prophet();
 
-        $this->service = $this->prophet->prophesize('\coverallskit\entity\service\ServiceInterface');
+        $this->service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
         $this->service->getServiceJobId()->shouldNotBeCalled();
         $this->service->getServiceName()->shouldNotBeCalled();
 
@@ -28,7 +28,6 @@ describe('Configuration', function() {
             'service' => $this->service->reveal(),
             'repositoryDirectory' => __DIR__
         ]);
-
     });
     after(function() {
         $this->prophet->checkPredictions();
@@ -45,7 +44,7 @@ describe('Configuration', function() {
     });
     describe('getService', function() {
         it('should return service instance', function() {
-            expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\service\ServiceUnterface');
+            expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\service\ServiceInterface');
         });
     });
     describe('getRepositoryDirectory', function() {
