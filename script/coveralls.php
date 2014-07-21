@@ -11,8 +11,6 @@ use coverallskit\entity\Repository;
 use coverallskit\entity\SourceFile;
 use coverallskit\exception\LineOutOfRangeException;
 
-echo "COVERALLS_REPO_TOKEN=" . getenv('COVERALLS_REPO_TOKEN') . "\n";
-
 /**
  * Get the code coverage
  */
@@ -24,8 +22,6 @@ require_once __DIR__ . "/../vendor/bin/pho";
 
 $result = xdebug_get_code_coverage();
 xdebug_stop_code_coverage();
-
-echo "COVERALLS_REPO_TOKEN=" . getenv('COVERALLS_REPO_TOKEN') . "\n";
 
 /**
  * Generate a json file
@@ -56,7 +52,5 @@ foreach ($result as $file => $coverage) {
 
     $builder->addSource($source);
 }
-
-echo "COVERALLS_REPO_TOKEN=" . getenv('COVERALLS_REPO_TOKEN') . "\n";
 
 $builder->build()->save()->upload();
