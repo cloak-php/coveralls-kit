@@ -24,11 +24,30 @@ use coverallskit\entity\service\ServiceInterface;
 class ReportBuilder implements ReportBuilderInterface
 {
 
-    protected $name = null;
-    protected $token = null;
-    protected $service = null;
-    protected $repository = null;
-    protected $sourceFiles = null;
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $token;
+
+    /**
+     * @var \coverallskit\entity\service\ServiceInterface
+     */
+    protected $service;
+
+    /**
+     * @var \coverallskit\entity\RepositoryInterface
+     */
+    protected $repository;
+
+    /**
+     * @var \coverallskit\entity\collection\SourceFileCollection
+     */
+    protected $sourceFiles;
 
     public function __construct()
     {
