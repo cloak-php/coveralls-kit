@@ -25,9 +25,19 @@ describe('Travis', function() {
             });
         });
     });
+    describe('getServiceJobId', function() {
+        it('should return job id', function() {
+            expect($this->service->getServiceJobId())->not()->toBeEmpty();
+        });
+    });
     describe('getServiceName', function() {
         it('should return the service name', function() {
             expect($this->service->getServiceName())->toEqual('travis-ci');
+        });
+    });
+    describe('getCoverallsToken', function() {
+        it('should return the coveralls api token', function() {
+            expect($this->service->getCoverallsToken())->not()->toBeEmpty();
         });
     });
     describe('travisCI', function() {
