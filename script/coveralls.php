@@ -28,13 +28,11 @@ xdebug_stop_code_coverage();
 /**
  * Generate a json file
  */
-$builder = new ReportBuilder();
-$builder->token(getenv('COVERALLS_REPO_TOKEN'));
-
 $loader = new ConfigurationLoader();
-
 $config = $loader->loadFromFile(__DIR__ . '/../coveralls.yml');
-$config->applyTo($builder);
+
+$builder = $config->createReportBuilder();
+$builder->token(getenv('COVERALLS_REPO_TOKEN'));
 
 foreach ($result as $file => $coverage) {
     if (preg_match('/vendor/', $file) || preg_match('/spec/', $file)) {
