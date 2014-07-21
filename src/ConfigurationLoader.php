@@ -12,6 +12,7 @@
 namespace coverallskit;
 
 use coverallskit\exception\FileNotFoundException;
+use coverallskit\exception\NotSupportFileTypeException;
 use coverallskit\entity\service\Travis;
 use Symfony\Component\Yaml\Yaml;
 
@@ -36,6 +37,8 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
         if ($this->isYamlFile($file)) {
             return $this->loadFromYamlFile($file);
         }
+
+        throw new NotSupportFileTypeException($file);
     }
 
     /**
@@ -43,11 +46,8 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
      * @return Configuration
      * @throws FileNotFoundException
      */
-    public function loadFromYamlFile($file)
+    private function loadFromYamlFile($file)
     {
-        if ($this->fileExists($file) === false) {
-            throw new FileNotFoundException($file);
-        }
 
         $attributes = $values = Yaml::parse($file);
 

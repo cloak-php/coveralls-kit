@@ -20,35 +20,31 @@ describe('ConfigurationLoader', function() {
             $this->loader = new ConfigurationLoader();
         });
         context('when the file exists', function() {
-            it('should return coverallskit\Configuration instance', function() {
-                $config = $this->loader->loadFromFile(__DIR__ . '/fixtures/coveralls.yml');
-                expect($config)->toBeAnInstanceOf('coverallskit\Configuration');
+            context('when .yml', function() {
+                it('should return coverallskit\Configuration instance', function() {
+                    $config = $this->loader->loadFromFile(__DIR__ . '/fixtures/coveralls.yml');
+                    expect($config)->toBeAnInstanceOf('coverallskit\Configuration');
+                });
+            });
+            context('when .yaml', function() {
+                it('should return coverallskit\Configuration instance', function() {
+                    $config = $this->loader->loadFromFile(__DIR__ . '/fixtures/coveralls.yaml');
+                    expect($config)->toBeAnInstanceOf('coverallskit\Configuration');
+                });
             });
         });
         context('when the file not exists', function() {
             it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
-                    $this->loader->loadFromYamlFile(__DIR__ . '/fixtures/not_found_coveralls.yml');
+                    $this->loader->loadFromFile(__DIR__ . '/fixtures/not_found_coveralls.yml');
                 })->toThrow('coverallskit\exception\FileNotFoundException');
             });
         });
-    });
-
-    describe('loadFromYamlFile', function() {
-        before(function() {
-            $this->loader = new ConfigurationLoader();
-        });
-        context('when the file exists', function() {
-            it('should return coverallskit\Configuration instance', function() {
-                $config = $this->loader->loadFromYamlFile(__DIR__ . '/fixtures/coveralls.yml');
-                expect($config)->toBeAnInstanceOf('coverallskit\Configuration');
-            });
-        });
-        context('when the file not exists', function() {
-            it('should throw coverallskit\exception\FileNotFoundException', function() {
+        context('when the file not support', function() {
+            it('should throw coverallskit\exception\NotSupportFileTypeException', function() {
                 expect(function() {
-                    $this->loader->loadFromYamlFile(__DIR__ . '/fixtures/not_found_coveralls.yml');
-                })->toThrow('coverallskit\exception\FileNotFoundException');
+                    $this->loader->loadFromFile(__DIR__ . '/fixtures/coveralls.ini');
+                })->toThrow('coverallskit\exception\NotSupportFileTypeException');
             });
         });
     });
