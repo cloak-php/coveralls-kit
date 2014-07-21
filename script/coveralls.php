@@ -23,7 +23,6 @@ require_once __DIR__ . "/../vendor/bin/pho";
 $result = xdebug_get_code_coverage();
 xdebug_stop_code_coverage();
 
-
 /**
  * Generate a json file
  */
@@ -53,5 +52,9 @@ foreach ($result as $file => $coverage) {
 
     $builder->addSource($source);
 }
+
+echo getenv('COVERALLS_REPO_TOKEN' . "\n");
+echo getenv('TRAVIS_BUILD_ID' . "\n");
+echo getenv('TRAVIS_BUILD_NUMBER' . "\n");
 
 $builder->build()->save()->upload();
