@@ -4,9 +4,8 @@ namespace coverallskit\example;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use coverallskit\ReportBuilder;
 use coverallskit\ConfigurationLoader;
-use coverallskit\entity\service\Travis;
+use coverallskit\ReportBuilderFactory;
 use coverallskit\entity\Coverage;
 use coverallskit\entity\Repository;
 use coverallskit\entity\SourceFile;
@@ -28,10 +27,9 @@ xdebug_stop_code_coverage();
 /**
  * Generate a json file
  */
-$loader = new ConfigurationLoader();
-$config = $loader->loadFromFile(__DIR__ . '/../coveralls.yml');
+$factory = new ReportBuilderFactory(new ConfigurationLoader());
 
-$builder = $config->createReportBuilder();
+$builder = $factory->createFromConfigurationFile(__DIR__ . '/../coveralls.yml');
 $builder->token(getenv('COVERALLS_REPO_TOKEN'));
 
 foreach ($result as $file => $coverage) {
