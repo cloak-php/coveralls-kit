@@ -16,7 +16,7 @@ use coverallskit\exception\BadAttributeException;
 trait AttributePopulatable
 {
 
-    public function populate(array $values)
+    private function populate(array $values)
     {
         foreach ($values as $key => $value) {
             $setter = 'set' . ucfirst($key);
