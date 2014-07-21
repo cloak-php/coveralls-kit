@@ -17,7 +17,11 @@ use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\ServiceInterface;
 
-class ReportBuilder
+/**
+ * Class ReportBuilder
+ * @package coverallskit
+ */
+class ReportBuilder implements ReportBuilderInterface
 {
 
     protected $name = null;
@@ -61,6 +65,9 @@ class ReportBuilder
         return $this;
     }
 
+    /**
+     * @return \coverallskit\entity\ReportInterface
+     */
     public function build()
     {
         return new Report([
