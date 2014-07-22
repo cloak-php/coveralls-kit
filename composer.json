@@ -1,13 +1,13 @@
 {
     "name": "holyshared/coverallskit",
     "description": "CoverallsKit is the library for transmitting the report of code coverage to coveralls.",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "keywords": [
         "coveralls", "code coverage", "report"
     ],
     "require-dev": {
-        "danielstjules/pho": "1.0.0",
-        "jaz303/phake": "0.6.0",
+        "danielstjules/pho": "dev-master",
+        "jaz303/phake": "0.6.*",
         "phpspec/prophecy": "1.1.*",
         "jasonlewis/resource-watcher": "1.1.*"
     },
@@ -20,9 +20,10 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "phpcollection/phpcollection": "0.3.*",
-        "guzzle/guzzle": "3.8.*",
-        "gitonomy/gitlib": "0.1.*"
+        "phpcollection/phpcollection": "0.4.*",
+        "guzzle/guzzle": "3.9.*",
+        "gitonomy/gitlib": "0.1.*",
+        "symfony/yaml": "2.5.2"
     },
     "autoload": {
         "psr-4": { "coverallskit\\": "src/" }

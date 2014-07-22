@@ -5,6 +5,7 @@ CoverallsKit
 [![Stories in Ready](https://badge.waffle.io/holyshared/coveralls-kit.png?label=ready&title=Ready)](https://waffle.io/holyshared/coveralls-kit)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/holyshared/coveralls-kit/badges/quality-score.png?s=659a62f282026153701b67aadcb2398529c9495d)](https://scrutinizer-ci.com/g/holyshared/coveralls-kit/)
 [![Coverage Status](https://coveralls.io/repos/holyshared/coveralls-kit/badge.png?branch=master)](https://coveralls.io/r/holyshared/coveralls-kit?branch=master)
+[![Dependencies Status](https://depending.in/holyshared/coveralls-kit.png)](http://depending.in/holyshared/coveralls-kit)
 
 **CoverallsKit** is the library for transmitting the report of code coverage to **coveralls**.  
 This library works with **PHP5.4** or more.
@@ -22,7 +23,7 @@ You can generate a json file using the **coverallskit/JSONFileBuilder**.
 You just set the code coverage of rows that have been executed.  
 Code coverage can be obtained easily by using the **HHVM** and **xdebug**.
 
-	$builder = new JSONFileBuilder();
+	$builder = new ReportBuilder();
 	$builder->token('your repository token')
 		->service(Travis::travisCI())
 		->repository(new Repository(__DIR__ . '/../'));

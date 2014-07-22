@@ -17,14 +17,37 @@ use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\ServiceInterface;
 
-class ReportBuilder
+/**
+ * Class ReportBuilder
+ * @package coverallskit
+ */
+class ReportBuilder implements ReportBuilderInterface
 {
 
-    protected $name = null;
-    protected $token = null;
-    protected $service = null;
-    protected $repository = null;
-    protected $sourceFiles = null;
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $token;
+
+    /**
+     * @var \coverallskit\entity\service\ServiceInterface
+     */
+    protected $service;
+
+    /**
+     * @var \coverallskit\entity\RepositoryInterface
+     */
+    protected $repository;
+
+    /**
+     * @var \coverallskit\entity\collection\SourceFileCollection
+     */
+    protected $sourceFiles;
 
     public function __construct()
     {
@@ -61,8 +84,15 @@ class ReportBuilder
         return $this;
     }
 
+    /**
+     * @return \coverallskit\entity\ReportInterface
+     */
     public function build()
     {
+        if (empty($this->token)) {
+            $this->token = $this->service->getCoverallsToken();
+        }
+
         return new Report([
             'name' => $this->name,
             'token' => $this->token,

@@ -20,10 +20,12 @@ class Travis implements TravisInterface
 
     protected $serviceJobId;
     protected $serviceName;
+    protected $coverallsToken;
 
     public function __construct($serviceName = self::SERVICE_CI)
     {
-        $this->serviceJobId = getenv(self::ENV_JOB_ID);
+        $this->serviceJobId = getenv(static::ENV_JOB_ID);
+        $this->coverallsToken = getenv(static::ENV_COVERALLS_REPO_TOKEN_KEY);
         $this->serviceName = $serviceName;
     }
 
@@ -35,6 +37,11 @@ class Travis implements TravisInterface
     public function getServiceName()
     {
         return $this->serviceName;
+    }
+
+    public function getCoverallsToken()
+    {
+        return $this->coverallsToken;
     }
 
     public function isEmpty()
