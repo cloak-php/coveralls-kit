@@ -9,16 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coverallskit\entity\service\travisci;
+namespace coverallskit\entity\service\travis;
 
-use coverallskit\entity\service\TravisCI as TravisCIBase;
+use coverallskit\entity\service\Travis;
 use coverallskit\AttributePopulatable;
 
 /**
  * Class TravisCI
  * @package coverallskit\entity\service
  */
-class TravisCI extends TravisCIBase
+class TravisCI extends Travis
 {
 
     use AttributePopulatable;

@@ -13,7 +13,8 @@ namespace coverallskit;
 
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
-use coverallskit\entity\service\Travis;
+use coverallskit\entity\service\travis\TravisCI;
+use coverallskit\entity\service\travis\TravisPro;
 use Symfony\Component\Yaml\Yaml;
 use coverallskit\entity\Repository;
 
@@ -89,10 +90,12 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
      */
     private function serviceFromString($serviveName)
     {
+        $env = new Environment($_SERVER);
+
         if ($serviveName === 'travis-ci') {
-            return Travis::travisCI();
+            return new TravisCI($env);
         } else if ($serviveName === 'travis-pro') {
-            return Travis::travisPro();
+            return new TravisPro($env);
         }
     }
 
