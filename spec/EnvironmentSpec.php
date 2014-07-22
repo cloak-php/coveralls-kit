@@ -11,11 +11,11 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\Env;
+use coverallskit\Environment;
 
-describe('Env', function() {
+describe('Environment', function() {
     before(function() {
-        $this->env = new Env([
+        $this->env = new Environment([
             'foo' => 'bar'
         ]);
     });

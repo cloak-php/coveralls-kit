@@ -12,23 +12,23 @@
 namespace coverallskit;
 
 /**
- * Class Env
+ * Class Environment
  * @package coverallskit
  */
-class Env
+class Environment
 {
 
     /**
      * @var array
      */
-    private $env;
+    private $variables;
 
     /**
      * @param array $env
      */
-    public function __construct(array $env = array())
+    public function __construct(array $variables = array())
     {
-        $this->env = $env;
+        $this->variables = $variables;
     }
 
     /**
@@ -36,11 +36,11 @@ class Env
      */
     public function get($key)
     {
-        if (array_key_exists($key, $this->env) === false) {
+        if (array_key_exists($key, $this->variables) === false) {
             return null;
         }
 
-        return $this->env[$key];
+        return $this->variables[$key];
     }
 
 }
