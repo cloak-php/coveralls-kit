@@ -67,6 +67,18 @@ describe('SourceFile', function() {
             expect($this->retrieveCoverage)->toEqual($this->coverage);
         });
     });
+
+    describe('removeCoverage', function() {
+        before(function() {
+            $this->coverage = Coverage::unused(3);
+            $this->sourceFile->addCoverage($this->coverage);
+        });
+        it('should add coverage', function() {
+            $this->sourceFile->removeCoverage($this->coverage);
+            expect($this->sourceFile->getCoverage(3))->toBeNull();
+        });
+    });
+
     describe('toArray', function() {
         it('should return array values', function() {
             $values = $this->sourceFile->toArray();
