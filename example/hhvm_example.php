@@ -26,7 +26,7 @@ fb_disable_code_coverage();
  */
 $builder = new ReportBuilder();
 $builder->token('foo')
-    ->service(Travis::travisCI())
+    ->service(new TravisCI( new Environment($_SERVER) ))
     ->repository(new Repository(__DIR__ . '/../'));
 
 foreach ($result as $file => $coverage) {

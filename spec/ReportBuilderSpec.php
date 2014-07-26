@@ -99,18 +99,6 @@ describe('ReportBuilder', function() {
             after(function() {
                 Mockery::close();
             });
-            context('when not specify reportFilePath' , function() {
-                before(function() {
-                    $this->builder = new ReportBuilder();
-                    $this->builder->repository($this->repository);
-                    $this->builder->service($this->service);
-                });
-                it('should throw coverallskit\exception\RequiredException', function() {
-                    expect(function() {
-                        $this->builder->build();
-                    })->toThrow('coverallskit\exception\RequiredException');
-                });
-            });
             context('when not specify service' , function() {
                 before(function() {
                     $this->builder = new ReportBuilder();

@@ -5,7 +5,8 @@ namespace coverallskit\example;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use coverallskit\ReportBuilder;
-use coverallskit\entity\service\Travis;
+use coverallskit\entity\service\Travis\TravisCI;
+use coverallskit\Environment;
 use coverallskit\entity\Repository;
 use coverallskit\entity\Coverage;
 use coverallskit\entity\SourceFile;
@@ -26,7 +27,7 @@ xdebug_stop_code_coverage();
  */
 $builder = new ReportBuilder();
 $builder->token('foo')
-    ->service(Travis::travisCI())
+    ->service(new TravisCI( new Environment($_SERVER) ))
     ->repository(new Repository(__DIR__ . '/../'));
 
 foreach ($result as $file => $coverage) {

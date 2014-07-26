@@ -43,7 +43,7 @@ Specify **repository token**, **service name**, **the directory of the repositor
 
 	$builder = new ReportBuilder();
 	$builder->token('your repository token')
-		->service(new TravisCI())
+	    ->service(new TravisCI( new Environment($_SERVER) ))
 		->repository(new Repository(__DIR__ . '/../'));
 
 

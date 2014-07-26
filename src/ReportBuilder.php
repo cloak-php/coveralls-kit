@@ -95,10 +95,6 @@ class ReportBuilder implements ReportBuilderInterface
      */
     protected function validate()
     {
-        if (empty($this->reportFilePath)) {
-            throw new RequiredException('reportFilePath');
-        }
-
         if (empty($this->repository)) {
             throw new RequiredException('repository');
         }

@@ -25,7 +25,7 @@ Code coverage can be obtained easily by using the **HHVM** and **xdebug**.
 
 	$builder = new ReportBuilder();
 	$builder->token('your repository token')
-		->service(new TravisCI())
+	    ->service(new TravisCI( new Environment($_SERVER) ))
 		->repository(new Repository(__DIR__ . '/../'));
 
 	$source = new SourceFile('path/to/file');
