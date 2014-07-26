@@ -26,32 +26,48 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
 {
 
     /**
-     * @param string $file
-     * @return Configuration
-     * @throws FileNotFoundException
+     * @var string
      */
-    public function loadFromFile($file)
-    {
-        if ($this->fileExists($file) === false) {
-            throw new FileNotFoundException($file);
-        }
+    private $filePath;
 
-        if ($this->isYamlFile($file)) {
-            return $this->loadFromYamlFile($file);
-        }
+    /**
+     * @var string
+     */
+    private $directoryPath;
 
-        throw new NotSupportFileTypeException($file);
-    }
 
     /**
      * @param string $file
      * @return Configuration
      * @throws FileNotFoundException
      */
-    private function loadFromYamlFile($file)
+    public function loadFromFile($file)
+    {
+        $this->setConfigurationFilePath($file);
+
+        if ($this->fileExists() === false) {
+            throw new FileNotFoundException($this->filePath);
+        }
+
+        if ($this->isYamlFile()) {
+            return $this->loadFromYamlFile();
+        }
+
+        throw new NotSupportFileTypeException($this->filePath);
+    }
+
+    /**
+     * @return Configuration
+     * @throws FileNotFoundException
+     */
+    private function loadFromYamlFile()
     {
 
-        $attributes = $values = Yaml::parse($file);
+        $attributes = $values = Yaml::parse($this->filePath);
+
+        if (isset($values['name'])) {
+            $attributes['name'] = $this->resolvePath($values['name']);
+        }
 
         if (isset($values['service'])) {
             $attributes['service'] = $this->serviceFromString($values['service']);
@@ -67,21 +83,28 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     }
 
     /**
-     * @param $file
-     * @return boolean
+     * @param string $path
      */
-    private function fileExists($file)
+    private function setConfigurationFilePath($path)
     {
-        return file_exists($file);
+        $this->filePath = $path;
+        $this->directoryPath = dirname(realpath($this->filePath)) . DIRECTORY_SEPARATOR;
     }
 
     /**
-     * @param $file
      * @return boolean
      */
-    private function isYamlFile($file)
+    private function fileExists()
     {
-        return preg_match('/(\.yml|yaml)$/', $file) === 1;
+        return file_exists($this->filePath);
+    }
+
+    /**
+     * @return boolean
+     */
+    private function isYamlFile()
+    {
+        return preg_match('/(\.yml|yaml)$/', $this->filePath) === 1;
     }
 
     /**
@@ -102,10 +125,20 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
      */
     private function repositoryFromPath($path)
     {
-        $directory = realpath($path . '/');
+        $directory = $this->resolvePath($path);
         $repository = new Repository($directory);
 
         return $repository;
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    private function resolvePath($name)
+    {
+        $relativePath = preg_replace('/^(\\/|\\.\\/)*(.+)/', '$2', $name);
+        return realpath($this->directoryPath . $relativePath);
     }
 
 }
