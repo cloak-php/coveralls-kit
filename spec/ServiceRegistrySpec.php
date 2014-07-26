@@ -28,5 +28,13 @@ describe('ServiceRegistry', function() {
                 expect($this->registry->get('travis-pro'))->toBeAnInstanceOf('coverallskit\entity\service\travis\TravisPro');
             });
         });
+        context('when key not exist', function() {
+            it('should return coverallskit\exception\NotSupportServiceException instance', function() {
+                expect(function() {
+                    $this->registry->get('foo');
+                })->toThrow('coverallskit\exception\NotSupportServiceException');
+            });
+        });
     });
+
 });

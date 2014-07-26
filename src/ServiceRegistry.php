@@ -12,7 +12,7 @@
 namespace coverallskit;
 
 use ReflectionClass;
-use ReflectionException;
+use coverallskit\exception\NotSupportServiceException;
 
 /**
  * Class ServiceRegistry
@@ -40,8 +40,7 @@ class ServiceRegistry
     public function get($name)
     {
         if (array_key_exists($name, $this->services) === false) {
-            //FIXME throw exception
-            return null;
+            throw new NotSupportServiceException($name);
         }
 
         $reflection = $this->services[$name];
@@ -55,12 +54,7 @@ class ServiceRegistry
      */
     protected function registerService($name, $serviceClass)
     {
-        try {
-            $reflection = new ReflectionClass($serviceClass);
-        } catch (ReflectionException $exception) {
-            //FIXME throw exception
-        }
-
+        $reflection = new ReflectionClass($serviceClass);
         $this->services[$name] = $reflection;
     }
 
