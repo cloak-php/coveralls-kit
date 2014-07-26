@@ -73,6 +73,14 @@ describe('SourceFile', function() {
                 })->toThrow('coverallskit\exception\LineOutOfRangeException');
             });
         });
+        context('when the blank line of the last', function() {
+            it('should add coverage', function() {
+                $coverage = Coverage::unused(4);
+                $this->sourceFile->addCoverage($coverage);
+
+                expect($this->sourceFile->getCoverage(4))->toBeNull();
+            });
+        });
     });
 
     describe('removeCoverage', function() {
