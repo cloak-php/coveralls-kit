@@ -20,6 +20,13 @@ describe('Branch', function() {
             'remote' => false
         ]);
     });
+    describe('isRemote', function() {
+        context('when not remote branch', function() {
+            it('should return false', function () {
+                expect($this->branch->isRemote())->toBeFalse();
+            });
+        });
+    });
     describe('__toString', function() {
         it('should return string value', function () {
             $value = (string) $this->branch;
