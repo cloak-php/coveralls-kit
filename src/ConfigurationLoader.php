@@ -90,13 +90,10 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
      */
     private function serviceFromString($serviveName)
     {
-        $env = new Environment($_SERVER);
+        $registry = new ServiceRegistry();
+        $service = $registry->get($serviveName);
 
-        if ($serviveName === 'travis-ci') {
-            return new TravisCI($env);
-        } else if ($serviveName === 'travis-pro') {
-            return new TravisPro($env);
-        }
+        return $service;
     }
 
     /**
