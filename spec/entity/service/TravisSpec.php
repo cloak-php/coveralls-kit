@@ -11,26 +11,22 @@
 
 namespace coverallskit\spec;
 
-use Prophecy\Prophet;
 use coverallskit\Environment;
+use Mockery;
 
 describe('Travis', function() {
 
     before(function() {
-        $this->prophet = new Prophet();
-
-        $travis = $this->prophet->prophesize('coverallskit\entity\service\Travis');
-        $travis->willBeConstructedWith([
-            new Environment([
-                'TRAVIS_JOB_ID' => '10',
-                'COVERALLS_REPO_TOKEN' => 'token'
-            ])
+        $className  = 'coverallskit\entity\service\Travis';
+        $environment = new Environment([
+            'TRAVIS_JOB_ID' => '10',
+            'COVERALLS_REPO_TOKEN' => 'token'
         ]);
-
-        $this->service = $travis->reveal();
+        $this->service = Mockery::mock($className, [$environment])->makePartial();
+        $this->service->shouldReceive('getServiceName')->andReturn('travis-ci');
     });
     after(function() {
-        $this->prophet->checkPredictions();
+        Mockery::close();
     });
     describe('getServiceJobId', function() {
         it('should return the service job id', function() {
