@@ -13,8 +13,6 @@ namespace coverallskit;
 
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
-use coverallskit\entity\service\travis\TravisCI;
-use coverallskit\entity\service\travis\TravisPro;
 use Symfony\Component\Yaml\Yaml;
 use coverallskit\entity\Repository;
 
@@ -63,10 +61,15 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     private function loadFromYamlFile()
     {
 
-        $attributes = $values = Yaml::parse($this->filePath);
+        $attributes = [];
+        $values = Yaml::parse($this->filePath);
 
         if (isset($values['name'])) {
             $attributes['name'] = $this->resolvePath($values['name']);
+        }
+
+        if (isset($values['token'])) {
+            $attributes['token'] = $values['token'];
         }
 
         if (isset($values['service'])) {
@@ -76,7 +79,6 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
         if (isset($values['repositoryDirectory'])) {
             $path = $values['repositoryDirectory'];
             $attributes['repository'] = $this->repositoryFromPath($path);
-            unset($attributes['repositoryDirectory']);
         }
 
         return new Configuration($attributes);
