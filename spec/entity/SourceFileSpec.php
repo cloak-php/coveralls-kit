@@ -13,8 +13,6 @@ namespace coverallskit\spec;
 
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\Coverage;
-use coverallskit\entity\collection\CoverageCollection;
-use coverallskit\exception\FileNotFoundException;
 
 describe('SourceFile', function() {
     before(function() {
@@ -65,6 +63,15 @@ describe('SourceFile', function() {
         });
         it('should add coverage', function() {
             expect($this->retrieveCoverage)->toEqual($this->coverage);
+        });
+
+        context('when line out of range', function() {
+            it('should add coverage', function() {
+                expect(function() {
+                    $coverage = Coverage::unused(999);
+                    $this->sourceFile->addCoverage($coverage);
+                })->toThrow('coverallskit\exception\LineOutOfRangeException');
+            });
         });
     });
 
