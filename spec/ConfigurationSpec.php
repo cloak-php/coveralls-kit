@@ -31,7 +31,7 @@ describe('Configuration', function() {
                 $this->repository->getRemotes()->shouldNotBeCalled();
 
                 $this->configration = new Configuration([
-                    'name' => 'coveralls.json',
+                    'reportFile' => 'coveralls.json',
                     'token' => 'api-token',
                     'service' => $this->service->reveal(),
                     'repository' => $this->repository->reveal()
@@ -41,7 +41,7 @@ describe('Configuration', function() {
                 $this->prophet->checkPredictions();
             });
             it('should set the name', function() {
-                expect($this->configration->getName())->toEqual('coveralls.json');
+                expect($this->configration->getReportFileName())->toEqual('coveralls.json');
             });
             it('should set the coveralls api token', function() {
                 expect($this->configration->getToken())->toEqual('api-token');
@@ -80,7 +80,7 @@ describe('Configuration', function() {
             $this->repository = $repository->reveal();
 
             $this->configration = new Configuration([
-                'name' => 'coveralls.json',
+                'reportFile' => 'coveralls.json',
                 'token' => 'api-token',
                 'service' => $this->service,
                 'repository' => $this->repository

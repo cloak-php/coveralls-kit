@@ -21,7 +21,7 @@ interface ConfigurationInterface
     /**
      * @return string
      */
-    public function getName();
+    public function getReportFileName();
 
     /**
      * @return string

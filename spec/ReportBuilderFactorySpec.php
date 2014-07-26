@@ -31,7 +31,7 @@ describe('ReportBuilderFactory', function() {
 
             $configration = $this->prophet->prophesize('coverallskit\ConfigurationInterface');
 
-            $configration->getName()->shouldNotBeCalled();
+            $configration->getReportFileName()->shouldNotBeCalled();
             $configration->getToken()->shouldNotBeCalled();
             $configration->getService()->shouldNotBeCalled();
             $configration->getRepository()->shouldNotBeCalled();

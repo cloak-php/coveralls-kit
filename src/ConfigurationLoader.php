@@ -64,8 +64,8 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
         $attributes = [];
         $values = Yaml::parse($this->filePath);
 
-        if (isset($values['name'])) {
-            $attributes['name'] = $this->resolvePath($values['name']);
+        if (isset($values['reportFile'])) {
+            $attributes['reportFile'] = $this->resolvePath($values['reportFile']);
         }
 
         if (isset($values['token'])) {

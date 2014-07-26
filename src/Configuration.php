@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @var string
      */
-    private $name;
+    private $reportFile;
 
     /**
      * @var string
@@ -71,9 +71,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getReportFileName()
     {
-        return $this->name;
+        return $this->reportFile;
     }
 
     /**
@@ -106,7 +106,7 @@ class Configuration implements ConfigurationInterface
      */
     public function applyTo(ReportBuilderInterface $builder)
     {
-        $builder->name($this->getName())
+        $builder->name($this->getReportFileName())
             ->token($this->getToken())
             ->service($this->getService())
             ->repository($this->getRepository());
