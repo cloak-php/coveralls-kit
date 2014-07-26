@@ -16,6 +16,7 @@ use coverallskit\entity\RepositoryInterface;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\ServiceInterface;
+use coverallskit\exception\RequiredException;
 
 /**
  * Class ReportBuilder
@@ -48,6 +49,7 @@ class ReportBuilder implements ReportBuilderInterface
      * @var \coverallskit\entity\collection\SourceFileCollection
      */
     protected $sourceFiles;
+
 
     public function __construct()
     {
@@ -89,13 +91,37 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
-     * @return \coverallskit\entity\ReportInterface
+     * @throws RequiredException
      */
-    public function build()
+    protected function validate()
+    {
+        if (empty($this->reportFilePath)) {
+            throw new RequiredException('reportFilePath');
+        }
+
+        if (empty($this->repository)) {
+            throw new RequiredException('repository');
+        }
+
+        if (empty($this->service)) {
+            throw new RequiredException('service');
+        }
+    }
+
+    protected function prepareBuild()
     {
         if (empty($this->token)) {
             $this->token = $this->service->getCoverallsToken();
         }
+    }
+
+    /**
+     * @return \coverallskit\entity\ReportInterface
+     */
+    public function build()
+    {
+        $this->validate();
+        $this->prepareBuild();
 
         return new Report([
             'name' => $this->reportFilePath,

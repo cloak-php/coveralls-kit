@@ -18,8 +18,10 @@ use coverallskit\entity\repository\Branch;
 use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
 use Prophecy\Prophet;
+use Mockery;
 
 describe('ReportBuilder', function() {
+
     describe('build', function() {
         before(function() {
             $this->prophet = new Prophet();
@@ -86,5 +88,57 @@ describe('ReportBuilder', function() {
             expect($this->report->sourceFiles->has($this->foo))->toBeTrue();
             expect($this->report->sourceFiles->has($this->bar))->toBeTrue();
         });
+
+        context('when not specify the required values' , function() {
+            before(function() {
+                $this->service = Mockery::mock('coverallskit\entity\service\TravisInterface');
+                $this->service->shouldReceive('getServiceJobId');
+                $this->service->shouldReceive('getServiceName');
+
+                $this->repository = Mockery::mock('coverallskit\entity\RepositoryInterface');
+                $this->repository->shouldReceive('getCommit');
+                $this->repository->shouldReceive('getBranch');
+            });
+            after(function() {
+                Mockery::close();
+            });
+            context('when not specify reportFilePath' , function() {
+                before(function() {
+                    $this->builder = new ReportBuilder();
+                    $this->builder->repository($this->repository);
+                    $this->builder->service($this->service);
+                });
+                it('should throw coverallskit\exception\RequiredException', function() {
+                    expect(function() {
+                        $this->builder->build();
+                    })->toThrow('coverallskit\exception\RequiredException');
+                });
+            });
+            context('when not specify service' , function() {
+                before(function() {
+                    $this->builder = new ReportBuilder();
+                    $this->builder->reportFilePath(__DIR__  . '/tmp/coverage.json');
+                    $this->builder->repository($this->repository);
+                });
+                it('should throw coverallskit\exception\RequiredException', function() {
+                    expect(function() {
+                        $this->builder->build();
+                    })->toThrow('coverallskit\exception\RequiredException');
+                });
+            });
+            context('when not specify repository' , function() {
+                before(function() {
+                    $this->builder = new ReportBuilder();
+                    $this->builder->reportFilePath(__DIR__  . '/tmp/coverage.json');
+                    $this->builder->service($this->service);
+                });
+                it('should throw coverallskit\exception\RequiredException', function() {
+                    expect(function() {
+                        $this->builder->build();
+                    })->toThrow('coverallskit\exception\RequiredException');
+                });
+            });
+        });
+
     });
 });
