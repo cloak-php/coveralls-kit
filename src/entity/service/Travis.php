@@ -11,30 +11,41 @@
 
 namespace coverallskit\entity\service;
 
-use coverallskit\AttributePopulatable;
+use coverallskit\Environment;
 
-class Travis implements TravisInterface
+/**
+ * Class Travis
+ * @package coverallskit\entity\service
+ */
+abstract class Travis implements TravisInterface
 {
 
-    use AttributePopulatable;
+    /**
+     * @var \coverallskit\Environment
+     */
+    protected $environment;
 
-    protected $serviceJobId;
-    protected $serviceName;
-
-    public function __construct($serviceName = self::SERVICE_CI)
+    /**
+     * @param Environment $environment
+     */
+    public function __construct(Environment $environment)
     {
-        $this->serviceJobId = getenv(self::ENV_JOB_ID);
-        $this->serviceName = $serviceName;
+        $this->environment = $environment;
     }
 
     public function getServiceJobId()
     {
-        return $this->serviceJobId;
+        return $this->environment->get(static::ENV_JOB_ID);
     }
 
     public function getServiceName()
     {
-        return $this->serviceName;
+        return static::NAME;
+    }
+
+    public function getCoverallsToken()
+    {
+        return $this->environment->get(static::ENV_COVERALLS_REPO_TOKEN_KEY);
     }
 
     public function isEmpty()
@@ -56,16 +67,6 @@ class Travis implements TravisInterface
     public function __toString()
     {
         return json_encode($this->toArray());
-    }
-
-    public static function travisCI()
-    {
-        return new static();
-    }
-
-    public static function travisPro()
-    {
-        return new static(self::SERVICE_PRO);
     }
 
 }

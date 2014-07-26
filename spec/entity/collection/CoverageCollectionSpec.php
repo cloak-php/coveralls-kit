@@ -50,6 +50,19 @@ describe('CoverageCollection', function() {
             });
         });
     });
+
+    describe('remove', function() {
+        before(function() {
+            $this->coverage = Coverage::unused(1);
+            $this->coverages = new CoverageCollection(1);
+            $this->coverages->add($this->coverage);
+        });
+        it('should remove coverage', function() {
+            $this->coverages->remove($this->coverage);
+            expect($this->coverages->at(1))->toBeNull();
+        });
+    });
+
     describe('at', function() {
         before(function() {
             $this->coverages = new CoverageCollection(1);

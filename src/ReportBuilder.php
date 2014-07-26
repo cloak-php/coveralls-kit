@@ -16,24 +16,53 @@ use coverallskit\entity\RepositoryInterface;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\ServiceInterface;
+use coverallskit\exception\RequiredException;
 
-class ReportBuilder
+/**
+ * Class ReportBuilder
+ * @package coverallskit
+ */
+class ReportBuilder implements ReportBuilderInterface
 {
 
-    protected $name = null;
-    protected $token = null;
-    protected $service = null;
-    protected $repository = null;
-    protected $sourceFiles = null;
+    /**
+     * @var string
+     */
+    protected $reportFilePath;
+
+    /**
+     * @var string
+     */
+    protected $token;
+
+    /**
+     * @var \coverallskit\entity\service\ServiceInterface
+     */
+    protected $service;
+
+    /**
+     * @var \coverallskit\entity\RepositoryInterface
+     */
+    protected $repository;
+
+    /**
+     * @var \coverallskit\entity\collection\SourceFileCollection
+     */
+    protected $sourceFiles;
+
 
     public function __construct()
     {
         $this->sourceFiles = new SourceFileCollection();
     }
 
-    public function name($name)
+    /**
+     * @param string $reportFilePath
+     * @return $this
+     */
+    public function reportFilePath($reportFilePath)
     {
-        $this->name = $name;
+        $this->reportFilePath = $reportFilePath;
         return $this;
     }
 
@@ -61,10 +90,37 @@ class ReportBuilder
         return $this;
     }
 
+    /**
+     * @throws RequiredException
+     */
+    protected function validate()
+    {
+        if (empty($this->repository)) {
+            throw new RequiredException('repository');
+        }
+
+        if (empty($this->service)) {
+            throw new RequiredException('service');
+        }
+    }
+
+    protected function prepareBuild()
+    {
+        if (empty($this->token)) {
+            $this->token = $this->service->getCoverallsToken();
+        }
+    }
+
+    /**
+     * @return \coverallskit\entity\ReportInterface
+     */
     public function build()
     {
+        $this->validate();
+        $this->prepareBuild();
+
         return new Report([
-            'name' => $this->name,
+            'name' => $this->reportFilePath,
             'token' => $this->token,
             'repository' => $this->repository,
             'service' => $this->service,

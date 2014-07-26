@@ -20,10 +20,17 @@ class AttributePopulatableObject
 
     protected $name = null;
     protected $content = null;
+    protected $setterCalled = false;
+
+    public function __construct(array $values)
+    {
+        $this->populate($values);
+    }
 
     public function setContent($content)
     {
         $this->content = $content;
+        $this->setterCalled = true;
     }
 
     public function __get($name)
@@ -34,43 +41,23 @@ class AttributePopulatableObject
 }
 
 describe('AttributePopulatable', function() {
-    before(function() {
-        $this->prophet = new Prophet();
-        $this->subject = new AttributePopulatableObject();
-    });
-    after(function() {
-        $this->prophet->checkPredictions();
-    });
     describe('populate', function() {
-        context('', function() {
-            before(function() {
-                $subject = $this->prophet->prophesize('coverallskit\spec\AttributePopulatableObject');
-                $subject->setContent('bar')->shouldBeCalled();
-
-                $this->subject->populate([ 'content' => 'bar' ]);
-            });
-            it('should call the setter', function() {
-                expect($this->subject->content)->toEqual('bar');
-            });
-        });
         context('when the specified attribute', function() {
             before(function() {
-                $this->subject = new AttributePopulatableObject();
-                $this->subject->populate([ 'name' => 'foo' ]);
+                $this->subject = new AttributePopulatableObject([ 'name' => 'foo', 'content' => 'bar' ]);
             });
             it('should populate object attributes', function() {
                 expect($this->subject->name)->toEqual('foo');
             });
+            it('should call the setter', function() {
+                expect($this->subject->content)->toEqual('bar');
+                expect($this->subject->setterCalled)->toBeTrue();
+            });
         });
         context('when the specified attribute that does not exist', function() {
-            before(function() {
-                $this->subject = new AttributePopulatableObject();
-            });
             it('should throw coverallskit\exception\BadAttributeException', function() {
                 expect(function() {
-                    $this->subject->populate([
-                        'description' => 'foo'
-                    ]);
+                    new AttributePopulatableObject([ 'description' => 'foo' ]);
                 })->toThrow('coverallskit\exception\BadAttributeException');
             });
         });

@@ -19,13 +19,13 @@ Requirements
 Basic usage
 ------------------------------------
 
-You can generate a json file using the **coverallskit/JSONFileBuilder**.  
+You can generate a json file using the **coverallskit/ReportBuilder**.  
 You just set the code coverage of rows that have been executed.  
 Code coverage can be obtained easily by using the **HHVM** and **xdebug**.
 
-	$builder = new JSONFileBuilder();
+	$builder = new ReportBuilder();
 	$builder->token('your repository token')
-		->service(Travis::travisCI())
+	    ->service(new TravisCI( new Environment($_SERVER) ))
 		->repository(new Repository(__DIR__ . '/../'));
 
 	$source = new SourceFile('path/to/file');

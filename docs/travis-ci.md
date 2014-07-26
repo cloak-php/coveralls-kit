@@ -41,9 +41,9 @@ Specify **repository token**, **service name**, **the directory of the repositor
 
 ### Example in the case of TravisCI
 
-	$builder = new JSONFileBuilder();
+	$builder = new ReportBuilder();
 	$builder->token('your repository token')
-		->service(Travis::travisCI())
+	    ->service(new TravisCI( new Environment($_SERVER) ))
 		->repository(new Repository(__DIR__ . '/../'));
 
 
@@ -92,5 +92,3 @@ Update the .travis.yml
 Please add to the script **after_script** that you created.
 
 	after_script: php script/coveralls.php
-	env:
-	  - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=[your repository token]

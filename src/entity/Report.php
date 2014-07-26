@@ -45,11 +45,16 @@ class Report implements ReportInterface
     public function saveAs($path)
     {
         $this->name = $path;
-
-        $content = (string) $this;
-        file_put_contents($path, $content);
+        $this->save();
 
         return $this; 
+    }
+
+    public function save()
+    {
+        $content = (string) $this;
+        file_put_contents($this->name, $content);
+        return $this;
     }
 
     public function setUpLoader(ReportUpLoaderInterface $uploader)

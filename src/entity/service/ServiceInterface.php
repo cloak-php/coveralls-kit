@@ -16,6 +16,8 @@ use coverallskit\CompositeEntityInterface;
 interface ServiceInterface extends CompositeEntityInterface
 {
 
+    const ENV_COVERALLS_REPO_TOKEN_KEY = 'COVERALLS_REPO_TOKEN';
+
     /**
      * @return string
      */
@@ -25,6 +27,11 @@ interface ServiceInterface extends CompositeEntityInterface
      * @return string
      */
     public function getServiceName();
+
+    /**
+     * @return string|null
+     */
+    public function getCoverallsToken();
 
 }
 

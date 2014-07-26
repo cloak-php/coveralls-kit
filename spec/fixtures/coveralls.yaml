@@ -1,0 +1,4 @@
+reportFile: coveralls.json
+repositoryDirectory: ./../../
+service: travis-ci
+token:
