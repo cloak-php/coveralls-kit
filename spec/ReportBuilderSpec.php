@@ -69,22 +69,22 @@ describe('ReportBuilder', function() {
         after(function() {
             $this->prophet->checkPredictions();
         });
-        it('should set the file name', function() {
+        it('should same as that specifies the name of the result report', function() {
             expect($this->report->name)->toBe(__DIR__  . '/tmp/coverage.json');
         });
-        it('should set the repository token', function() {
+        it('should same as that specifies the token of the result report', function() {
             expect($this->report->token)->toBe('foo');
         });
-        it('should set the service environment', function() {
+        it('should same as that specifies the service of the result report', function() {
             expect($this->report->service->getServiceJobId())->toBe('10');
             expect($this->report->service->getServiceName())->toBe('travis-ci');
         });
-        it('should set the commit log', function() {
+        it('should same as that specifies the repository of the result report', function() {
             expect($this->report->repository->getCommit())->toBe($this->commit);
             expect($this->report->repository->getBranch())->toBe($this->branch);
             expect($this->report->repository->getRemotes())->toBe($this->remotes);
         });
-        it('should add the source file', function() {
+        it('should same as that specifies the sources of the result report', function() {
             expect($this->report->sourceFiles->has($this->foo))->toBeTrue();
             expect($this->report->sourceFiles->has($this->bar))->toBeTrue();
         });
