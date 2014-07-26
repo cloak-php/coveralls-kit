@@ -27,7 +27,7 @@ class ReportBuilder implements ReportBuilderInterface
     /**
      * @var string
      */
-    protected $name;
+    protected $reportFilePath;
 
     /**
      * @var string
@@ -54,9 +54,13 @@ class ReportBuilder implements ReportBuilderInterface
         $this->sourceFiles = new SourceFileCollection();
     }
 
-    public function name($name)
+    /**
+     * @param string $reportFilePath
+     * @return $this
+     */
+    public function reportFilePath($reportFilePath)
     {
-        $this->name = $name;
+        $this->reportFilePath = $reportFilePath;
         return $this;
     }
 
@@ -94,7 +98,7 @@ class ReportBuilder implements ReportBuilderInterface
         }
 
         return new Report([
-            'name' => $this->name,
+            'name' => $this->reportFilePath,
             'token' => $this->token,
             'repository' => $this->repository,
             'service' => $this->service,

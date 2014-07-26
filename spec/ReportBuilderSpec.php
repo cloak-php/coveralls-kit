@@ -55,7 +55,7 @@ describe('ReportBuilder', function() {
             $this->bar = realpath(__DIR__ . '/fixtures/bar.php');
 
             $this->builder = new ReportBuilder();
-            $this->builder->name(__DIR__  . '/tmp/coverage.json');
+            $this->builder->reportFilePath(__DIR__  . '/tmp/coverage.json');
             $this->builder->token('foo');
             $this->builder->repository($this->repository->reveal());
             $this->builder->service($this->service->reveal());

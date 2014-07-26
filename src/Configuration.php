@@ -106,7 +106,7 @@ class Configuration implements ConfigurationInterface
      */
     public function applyTo(ReportBuilderInterface $builder)
     {
-        $builder->name($this->getReportFileName())
+        $builder->reportFilePath($this->getReportFileName())
             ->token($this->getToken())
             ->service($this->getService())
             ->repository($this->getRepository());

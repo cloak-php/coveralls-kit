@@ -87,7 +87,7 @@ describe('Configuration', function() {
             ]);
 
             $builder = $this->prophet->prophesize('\coverallskit\ReportBuilderInterface');
-            $builder->name('coveralls.json')->willReturn($builder);
+            $builder->reportFilePath('coveralls.json')->willReturn($builder);
             $builder->token('api-token')->willReturn($builder);
             $builder->service($this->service)->willReturn($builder);
             $builder->repository($this->repository)->willReturn($builder);

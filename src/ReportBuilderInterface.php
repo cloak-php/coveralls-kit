@@ -22,10 +22,10 @@ interface ReportBuilderInterface
 {
 
     /**
-     * @param string
+     * @param string $reportFilePath
      * @return $this;
      */
-    public function name($name);
+    public function reportFilePath($reportFilePath);
 
     /**
      * @param string
