@@ -11,18 +11,30 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\entity\service\Travis;
+use Prophecy\Prophet;
+use coverallskit\Environment;
 
 describe('Travis', function() {
+
     before(function() {
-        $this->service = new Travis();
+        $this->prophet = new Prophet();
+
+        $travis = $this->prophet->prophesize('coverallskit\entity\service\Travis');
+        $travis->willBeConstructedWith([
+            new Environment([
+                'TRAVIS_JOB_ID' => '10',
+                'COVERALLS_REPO_TOKEN' => 'token'
+            ])
+        ]);
+
+        $this->service = $travis->reveal();
     });
-    describe('isEmpty', function() {
-        context('when service name is empty', function() {
-            it('should return true', function () {
-                $travis = new Travis(null);
-                expect($travis->isEmpty())->toBeTrue();
-            });
+    after(function() {
+        $this->prophet->checkPredictions();
+    });
+    describe('getServiceJobId', function() {
+        it('should return the service job id', function() {
+            expect($this->service->getServiceJobId())->toEqual('10');
         });
     });
     describe('getServiceName', function() {
@@ -30,14 +42,28 @@ describe('Travis', function() {
             expect($this->service->getServiceName())->toEqual('travis-ci');
         });
     });
-    describe('travisCI', function() {
-        it('should return travis-ci service', function() {
-            expect(Travis::travisCI()->getServiceName())->toEqual('travis-ci');
+    describe('getCoverallsToken', function() {
+        it('should return the coveralls api token', function() {
+            expect($this->service->getCoverallsToken())->toEqual('token');
         });
     });
-    describe('travisPro', function() {
-        it('should return travis-pro service', function() {
-            expect(Travis::travisPro()->getServiceName())->toEqual('travis-pro');
+    describe('isEmpty', function() {
+        it('should return false', function () {
+            expect($this->service->isEmpty())->toBeFalse();
+        });
+    });
+    describe('toArray', function() {
+        before(function() {
+            $this->values = $this->service->toArray();
+        });
+        it('should return array value', function () {
+            expect($this->values)->toBeAn('array');
+        });
+        it('should array have service_job_id', function () {
+            expect($this->values)->toHaveKey('service_job_id');
+        });
+        it('should array have service_name', function () {
+            expect($this->values)->toHaveKey('service_name');
         });
     });
 });
