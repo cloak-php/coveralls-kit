@@ -16,6 +16,16 @@ Requirements
 * PHP >= 5.4
 * Xdebug >= 2.2.2
 
+
+Install
+------------------------------------
+
+Please add the following to composer.json.  
+Then please run the composer install.
+
+	"holyshared/coverallskit": "1.2.2"
+
+
 Basic usage
 ------------------------------------
 
