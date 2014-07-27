@@ -140,7 +140,7 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     private function resolvePath($name)
     {
         $relativePath = preg_replace('/^(\\/|\\.\\/)*(.+)/', '$2', $name);
-        return realpath($this->directoryPath . $relativePath);
+        return $this->directoryPath . $relativePath;
     }
 
 }
