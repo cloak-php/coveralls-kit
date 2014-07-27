@@ -21,15 +21,25 @@ describe('ConfigurationLoader', function() {
         });
         context('when the file exists', function() {
             context('when .yml', function() {
+                before(function() {
+                    $this->config = $this->loader->loadFromFile(__DIR__ . '/fixtures/coveralls.yml');
+                });
                 it('should return coverallskit\Configuration instance', function() {
-                    $config = $this->loader->loadFromFile(__DIR__ . '/fixtures/coveralls.yml');
-                    expect($config)->toBeAnInstanceOf('coverallskit\Configuration');
+                    expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');
+                });
+                it('should configration has report name', function() {
+                    expect($this->config->getReportFileName())->toEqual(__DIR__  . '/fixtures/coveralls.json');
                 });
             });
             context('when .yaml', function() {
+                before(function() {
+                    $this->config = $this->loader->loadFromFile(__DIR__ . '/fixtures/coveralls.yaml');
+                });
                 it('should return coverallskit\Configuration instance', function() {
-                    $config = $this->loader->loadFromFile(__DIR__ . '/fixtures/coveralls.yaml');
-                    expect($config)->toBeAnInstanceOf('coverallskit\Configuration');
+                    expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');
+                });
+                it('should configration has report name', function() {
+                    expect($this->config->getReportFileName())->toEqual(__DIR__  . '/fixtures/coveralls.json');
                 });
             });
         });
