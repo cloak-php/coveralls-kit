@@ -1,7 +1,7 @@
 {
     "name": "holyshared/coverallskit",
     "description": "CoverallsKit is the library for transmitting the report of code coverage to coveralls.",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "keywords": [
         "coveralls", "code coverage", "report"
     ],

@@ -23,7 +23,7 @@ Install
 Please add the following to composer.json.  
 Then please run the composer install.
 
-	"holyshared/coverallskit": "1.2.2"
+	"holyshared/coverallskit": "1.2.3"
 
 
 Basic usage
