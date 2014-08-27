@@ -24,7 +24,7 @@
         "phpcollection/phpcollection": "0.4.*",
         "guzzle/guzzle": "3.9.*",
         "gitonomy/gitlib": "0.1.*",
-        "symfony/yaml": "2.5.2"
+        "symfony/yaml": "2.5.*"
     },
     "autoload": {
         "psr-4": { "coverallskit\\": "src/" }
