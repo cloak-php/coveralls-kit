@@ -57,15 +57,19 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     /**
      * @return Configuration
      * @throws FileNotFoundException
+     * FIXME use ZendConfig?
      */
     private function loadFromYamlFile()
     {
-
         $attributes = [];
         $values = Yaml::parse($this->filePath);
 
         if (isset($values['reportFile'])) {
-            $attributes['reportFile'] = $this->resolvePath($values['reportFile']);
+            $repotFile = $values['reportFile'];
+
+            if (isset($repotFile['output'])) {
+                $attributes['reportFile'] = $this->resolvePath($repotFile['output']);
+            }
         }
 
         if (isset($values['token'])) {
@@ -80,7 +84,6 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
             $path = $values['repositoryDirectory'];
             $attributes['repository'] = $this->repositoryFromPath($path);
         }
-
         return new Configuration($attributes);
     }
 

@@ -1,3 +1,4 @@
-reportFile: script/coveralls.json
 service: travis-ci
+reportFile:
+  output: script/coveralls.json
 repositoryDirectory: .
