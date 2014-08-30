@@ -17,6 +17,7 @@ use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\Coverage;
 use Zend\Dom\Query;
 use Zend\Dom\NodeList;
+use Exception;
 
 
 /**
@@ -57,10 +58,15 @@ class CloverReportParser implements ReportParserInterface
             $source = new SourceFile($fileName);
 
             $query = new Query($this->reportContent);
-            $lines = $query->execute("file[name='$name'] line");
+            $lines = $query->execute("file[name='$fileName'] line");
 
             $coverages = static::parseLineNodes($lines);
-            $source->getCoverages()->addAll($coverages);
+
+            try {
+                $source->getCoverages()->addAll($coverages);
+            } catch (Exception $e) {
+
+            }
         }
 
         return $sources;

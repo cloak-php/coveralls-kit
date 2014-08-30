@@ -16,9 +16,19 @@ use coverallskit\report\parser\CloverReportParser;
 describe('CloverReportParser', function() {
     describe('parse', function() {
         before(function() {
-            //$content = file_get_contents(__DIR__ . '/../../fixtures/clover.xml');
+            $this->tmpDirectory = __DIR__ . '/../../tmp/';
+            $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
+            $this->cloverReportFile = $this->tmpDirectory . 'clover.xml';
 
-            $this->parser = new CloverReportParser(__DIR__ . '/../../fixtures/clover.xml');
+            $content = file_get_contents($this->fixtureDirectory . 'clover.xml');
+            $content = sprintf($content, getcwd(), getcwd());
+
+            file_put_contents($this->cloverReportFile, $content);
+
+            $this->parser = new CloverReportParser($this->cloverReportFile);
+        });
+        after(function() {
+            unlink($this->cloverReportFile);
         });
         it('return source files result', function() {
             $result = $this->parser->parse();
