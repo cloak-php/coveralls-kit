@@ -41,6 +41,9 @@ class CloverReportParser implements ReportParserInterface
         $this->reportContent = file_get_contents($reportFilePath);
     }
 
+    /**
+     * @return SourceFileCollection
+     */
     public function parse()
     {
         $query = new Query($this->reportContent);
@@ -49,6 +52,10 @@ class CloverReportParser implements ReportParserInterface
         return $this->parseFileNodes($files);
     }
 
+    /**
+     * @param NodeList $files
+     * @return SourceFileCollection
+     */
     private function parseFileNodes(NodeList $files)
     {
         $sources = new SourceFileCollection();
@@ -72,6 +79,11 @@ class CloverReportParser implements ReportParserInterface
         return $sources;
     }
 
+
+    /**
+     * @param NodeList $lines
+     * @return array
+     */
     private static function parseLineNodes(NodeList $lines)
     {
         $coverages = [];
