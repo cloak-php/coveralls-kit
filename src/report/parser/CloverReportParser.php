@@ -17,7 +17,7 @@ use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\Coverage;
 use Zend\Dom\Query;
 use Zend\Dom\NodeList;
-use Exception;
+use coverallskit\exception\LineOutOfRangeException;
 
 
 /**
@@ -32,7 +32,6 @@ class CloverReportParser implements ReportParserInterface
      */
     private $reportContent;
 
-
     /**
      * @param string $reportFilePath
      */
@@ -46,10 +45,27 @@ class CloverReportParser implements ReportParserInterface
      */
     public function parse()
     {
-        $query = new Query($this->reportContent);
-        $files = $query->execute('file');
-
+        $files = $this->findFiles();
         return $this->parseFileNodes($files);
+    }
+
+    /**
+     * @return NodeList
+     */
+    private function findFiles()
+    {
+        $query = new Query($this->reportContent);
+        return $query->execute('file');
+    }
+
+    /**
+     * @param string $fileName
+     * @return NodeList
+     */
+    private function findCoverages($fileName)
+    {
+        $query = new Query($this->reportContent);
+        return $query->execute("file[name='$fileName'] line");
     }
 
     /**
@@ -62,29 +78,26 @@ class CloverReportParser implements ReportParserInterface
 
         foreach($files as $file) {
             $fileName = (string) $file->getAttribute('name');
+
             $source = new SourceFile($fileName);
 
-            $query = new Query($this->reportContent);
-            $lines = $query->execute("file[name='$fileName'] line");
-
-            $coverages = static::parseLineNodes($lines);
+            $lines = $this->findCoverages($fileName);
+            $coverages = $this->parseLineNodes($lines);
 
             try {
                 $source->getCoverages()->addAll($coverages);
-            } catch (Exception $e) {
-
+            } catch (LineOutOfRangeException $exception) {
             }
         }
 
         return $sources;
     }
 
-
     /**
      * @param NodeList $lines
      * @return array
      */
-    private static function parseLineNodes(NodeList $lines)
+    private function parseLineNodes(NodeList $lines)
     {
         $coverages = [];
 
