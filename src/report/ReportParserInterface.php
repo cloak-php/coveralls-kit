@@ -14,6 +14,6 @@ namespace coverallskit\report;
 interface ReportParserInterface
 {
 
-    public function parseReport($reportFilePath);
+    public function parse();
 
 }

@@ -14,7 +14,15 @@ namespace coverallskit\spec\report\parser;
 use coverallskit\report\parser\CloverReportParser;
 
 describe('CloverReportParser', function() {
-    describe('parseReport', function() {
-        it('return coverage result');
+    describe('parse', function() {
+        before(function() {
+            //$content = file_get_contents(__DIR__ . '/../../fixtures/clover.xml');
+
+            $this->parser = new CloverReportParser(__DIR__ . '/../../fixtures/clover.xml');
+        });
+        it('return source files result', function() {
+            $result = $this->parser->parse();
+            expect($result)->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
+        });
     });
 });
