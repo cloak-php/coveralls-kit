@@ -32,6 +32,7 @@ class CloverReportParser implements ReportParserInterface
      */
     private $reportContent;
 
+
     /**
      * @param string $reportFilePath
      */
@@ -74,6 +75,7 @@ class CloverReportParser implements ReportParserInterface
      */
     private function parseFileNodes(NodeList $files)
     {
+        $parseErrors = [];
         $sources = new SourceFileCollection();
 
         foreach($files as $file) {
@@ -87,10 +89,13 @@ class CloverReportParser implements ReportParserInterface
             try {
                 $source->getCoverages()->addAll($coverages);
             } catch (LineOutOfRangeException $exception) {
+                $parseErrors[] = $exception;
             }
         }
 
-        return $sources;
+        $result = new Result($sources, $parseErrors);
+
+        return $result;
     }
 
     /**

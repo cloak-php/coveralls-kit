@@ -30,9 +30,9 @@ describe('CloverReportParser', function() {
         after(function() {
             unlink($this->cloverReportFile);
         });
-        it('return source files result', function() {
+        it('return coverallskit\report\parser\Result', function() {
             $result = $this->parser->parse();
-            expect($result)->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
+            expect($result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
         });
     });
 });
