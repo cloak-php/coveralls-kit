@@ -14,6 +14,9 @@ namespace coverallskit\report;
 interface ReportParserInterface
 {
 
+    /**
+     * @return \coverallskit\report\parser\Result
+     */
     public function parse();
 
 }

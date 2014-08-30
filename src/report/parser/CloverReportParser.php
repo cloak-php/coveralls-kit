@@ -42,7 +42,7 @@ class CloverReportParser implements ReportParserInterface
     }
 
     /**
-     * @return SourceFileCollection
+     * @return Result
      */
     public function parse()
     {
@@ -71,7 +71,7 @@ class CloverReportParser implements ReportParserInterface
 
     /**
      * @param NodeList $files
-     * @return SourceFileCollection
+     * @return Result
      */
     private function parseFileNodes(NodeList $files)
     {
