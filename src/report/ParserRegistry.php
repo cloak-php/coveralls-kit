@@ -34,6 +34,11 @@ class ParserRegistry
         $this->registry->register('clover', '\coverallskit\report\parser\CloverReportParser');
     }
 
+    /**
+     * @param $name
+     * @return \coverallskit\report\ReportParserInterface
+     * @throws \coverallskit\exception\RegistryNotFoundException
+     */
     public function get($name)
     {
         return $this->registry->get($name);
