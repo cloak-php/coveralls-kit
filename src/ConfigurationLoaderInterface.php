@@ -25,6 +25,6 @@ interface ConfigurationLoaderInterface
      * @param string $file
      * @return Configuration
      */
-    public function loadFromFile($file);
+    public static function loadFromFile($file);
 
 }
