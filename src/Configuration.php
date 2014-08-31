@@ -32,7 +32,10 @@ class Configuration implements ConfigurationInterface
      */
     public function __construct(Config $config)
     {
-        $this->config = $config;
+        $current = $this->getDefaultConfigration();
+        $current->merge($config);
+
+        $this->config = $current;
     }
 
     /**
@@ -125,6 +128,21 @@ class Configuration implements ConfigurationInterface
         $relativePath = preg_replace('/^(\\/|\\.\\/)*(.+)/', '$2', $name);
 
         return $directoryPath . $relativePath;
+    }
+
+
+    protected function getDefaultConfigration()
+    {
+        $config = new Config([
+            'token' => null,
+            'service' => 'travis-ci',
+            'reportFile' => [
+                'output' => 'coveralls.json'
+            ],
+            'repositoryDirectory' => '.'
+        ]);
+
+        return $config;
     }
 
 }
