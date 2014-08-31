@@ -58,7 +58,6 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     /**
      * @return Configuration
      * @throws FileNotFoundException
-     * FIXME use ZendConfig?
      */
     private function loadFromYamlFile()
     {
