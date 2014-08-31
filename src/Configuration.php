@@ -43,8 +43,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getReportFileName()
     {
-        $reportFile = $this->config->get('reportFile');
-        $path = $reportFile->get('output');
+        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
+        $path = $reportFile->get(self::OUTPUT_REPORT_FILE_KEY);
         return $this->resolvePath($path);
     }
 
@@ -53,7 +53,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getToken()
     {
-        return $this->config->get('token');
+        return $this->config->get(self::TOKEN_KEY);
     }
 
     /**
@@ -61,7 +61,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getService()
     {
-        $serviceName = $this->config->get('service');
+        $serviceName = $this->config->get(self::SERVICE_KEY);
         $service = $this->serviceFromString($serviceName);
 
         return $service;
@@ -72,7 +72,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getRepository()
     {
-        $directory = $this->config->get('repositoryDirectory');
+        $directory = $this->config->get(self::REPOSITORY_DIRECTORY_KEY);
         $repository = $this->repositoryFromPath($directory);
 
         return $repository;
@@ -122,7 +122,7 @@ class Configuration implements ConfigurationInterface
      */
     private function resolvePath($name)
     {
-        $directoryPath = $this->config->get('configurationFileDirectory', getcwd());
+        $directoryPath = $this->config->get(self::CONFIG_DIRECTORY_KEY, getcwd());
         $directoryPath = realpath($directoryPath) . DIRECTORY_SEPARATOR;
 
         $relativePath = preg_replace('/^(\\/|\\.\\/)*(.+)/', '$2', $name);
@@ -136,12 +136,12 @@ class Configuration implements ConfigurationInterface
     protected function getDefaultConfigration()
     {
         $config = new Config([
-            'token' => null,
-            'service' => 'travis-ci',
-            'reportFile' => [
-                'output' => 'coveralls.json'
+            self::TOKEN_KEY => null,
+            self::SERVICE_KEY => 'travis-ci',
+            self::REPORT_FILE_KEY => [
+                self::OUTPUT_REPORT_FILE_KEY => 'coveralls.json'
             ],
-            'repositoryDirectory' => '.'
+            self::REPOSITORY_DIRECTORY_KEY => '.'
         ]);
 
         return $config;

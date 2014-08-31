@@ -65,8 +65,8 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
         $config = new Config($values);
 
         $config->merge(new Config([
-            'configurationFile' => $this->filePath,
-            'configurationFileDirectory' => $this->directoryPath
+            self::CONFIG_FILE_KEY => $this->filePath,
+            self::CONFIG_DIRECTORY_KEY => $this->directoryPath
         ]));
 
         return new Configuration($config);

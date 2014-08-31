@@ -18,6 +18,9 @@ namespace coverallskit;
 interface ConfigurationLoaderInterface
 {
 
+    const CONFIG_FILE_KEY = 'configurationFile';
+    const CONFIG_DIRECTORY_KEY = 'configurationFileDirectory';
+
     /**
      * @param string $file
      * @return Configuration
