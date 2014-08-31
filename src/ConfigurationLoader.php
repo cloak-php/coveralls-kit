@@ -15,6 +15,7 @@ use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
 use Symfony\Component\Yaml\Yaml;
 use coverallskit\entity\Repository;
+use Zend\Config\Config;
 
 /**
  * Class ConfigurationLoader
@@ -61,30 +62,15 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
      */
     private function loadFromYamlFile()
     {
-        $attributes = [];
         $values = Yaml::parse($this->filePath);
+        $config = new Config($values);
 
-        if (isset($values['reportFile'])) {
-            $repotFile = $values['reportFile'];
+        $config->merge(new Config([
+            'configurationFile' => $this->filePath,
+            'configurationFileDirectory' => $this->directoryPath
+        ]));
 
-            if (isset($repotFile['output'])) {
-                $attributes['reportFile'] = $this->resolvePath($repotFile['output']);
-            }
-        }
-
-        if (isset($values['token'])) {
-            $attributes['token'] = $values['token'];
-        }
-
-        if (isset($values['service'])) {
-            $attributes['service'] = $this->serviceFromString($values['service']);
-        }
-
-        if (isset($values['repositoryDirectory'])) {
-            $path = $values['repositoryDirectory'];
-            $attributes['repository'] = $this->repositoryFromPath($path);
-        }
-        return new Configuration($attributes);
+        return new Configuration($config);
     }
 
     /**
@@ -110,40 +96,6 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     private function isYamlFile()
     {
         return preg_match('/(\.yml|yaml)$/', $this->filePath) === 1;
-    }
-
-    /**
-     * @param string $serviveName
-     * @return \coverallskit\entity\service\ServiceInterface
-     */
-    private function serviceFromString($serviveName)
-    {
-        $registry = new ServiceRegistry();
-        $service = $registry->get($serviveName);
-
-        return $service;
-    }
-
-    /**
-     * @param string $path
-     * @return \coverallskit\entity\Repository
-     */
-    private function repositoryFromPath($path)
-    {
-        $directory = $this->resolvePath($path);
-        $repository = new Repository($directory);
-
-        return $repository;
-    }
-
-    /**
-     * @param string $name
-     * @return string
-     */
-    private function resolvePath($name)
-    {
-        $relativePath = preg_replace('/^(\\/|\\.\\/)*(.+)/', '$2', $name);
-        return $this->directoryPath . $relativePath;
     }
 
 }
