@@ -130,7 +130,9 @@ class Configuration implements ConfigurationInterface
         return $directoryPath . $relativePath;
     }
 
-
+    /**
+     * @return Config
+     */
     protected function getDefaultConfigration()
     {
         $config = new Config([
