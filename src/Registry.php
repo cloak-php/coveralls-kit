@@ -19,7 +19,7 @@ use ReflectionClass;
  * Class Registry
  * @package coverallskit
  */
-abstract class Registry
+class Registry
 {
 
     /**
@@ -29,8 +29,11 @@ abstract class Registry
 
     /**
      * @param string $name
+     * @param array $arguments
+     * @return mixed
+     * @throws exception\RegistryNotFoundException
      */
-    public function get($name)
+    public function get($name, array $arguments = [])
     {
         if (isset($this->classReflections[$name]) === false) {
             throw new RegistryNotFoundException("$name not found registry");
@@ -38,14 +41,14 @@ abstract class Registry
 
         $reflection = $this->classReflections[$name];
 
-        return $reflection->newInstanceArgs();
+        return $reflection->newInstanceArgs($arguments);
     }
 
     /**
      * @param string $name
      * @param string $class
      */
-    protected function register($name, $class)
+    public function register($name, $class)
     {
         $reflection = new ReflectionClass($class);
         $this->classReflections[$name] = $reflection;

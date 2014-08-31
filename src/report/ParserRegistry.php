@@ -18,15 +18,25 @@ use coverallskit\Registry;
  * Class ParserRegistry
  * @package coverallskit\report
  */
-class ParserRegistry extends Registry
+class ParserRegistry
 {
+    /**
+     * @var Registry
+     */
+    private $registry;
 
     /**
      * @param string $parserType
      */
     public function __construct()
     {
-        $this->register('clover', '\coverallskit\report\parser\CloverReportParser');
+        $this->registry = new Registry();
+        $this->registry->register('clover', '\coverallskit\report\parser\CloverReportParser');
+    }
+
+    public function get($name)
+    {
+        return $this->registry->get($name);
     }
 
 }
