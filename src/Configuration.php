@@ -54,9 +54,7 @@ class Configuration implements ConfigurationInterface
 
     public function getCoverageReportFileType()
     {
-        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-        $reportFileType = $reportFile->get(self::INPUT_REPORT_FILE_KEY);
-
+        $reportFileType = $this->getCodeCoverageReport();
         $type = $reportFileType->get(self::INPUT_REPORT_FILE_TYPE_KEY);
 
         return $type;
@@ -64,8 +62,7 @@ class Configuration implements ConfigurationInterface
 
     public function getCoverageReportFilePath()
     {
-        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-        $reportFileType = $reportFile->get(self::INPUT_REPORT_FILE_KEY);
+        $reportFileType = $this->getCodeCoverageReport();
         $filePath = $reportFileType->get(self::INPUT_REPORT_FILE_PATH_KEY);
 
         return $this->resolvePath($filePath);
@@ -168,6 +165,18 @@ class Configuration implements ConfigurationInterface
         ]);
 
         return $config;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    private function getCodeCoverageReport()
+    {
+        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
+        $reportFileType = $reportFile->get(self::INPUT_REPORT_FILE_KEY);
+
+        return $reportFileType;
     }
 
 }
