@@ -15,8 +15,9 @@ interface ReportParserInterface
 {
 
     /**
+     * @param $reportContent
      * @return \coverallskit\report\parser\Result
      */
-    public function parse();
+    public function parse($reportContent);
 
 }

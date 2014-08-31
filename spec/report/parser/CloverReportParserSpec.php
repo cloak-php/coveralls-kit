@@ -21,17 +21,12 @@ describe('CloverReportParser', function() {
             $this->cloverReportFile = $this->tmpDirectory . 'clover.xml';
 
             $content = file_get_contents($this->fixtureDirectory . 'clover.xml');
-            $content = sprintf($content, getcwd(), getcwd());
+            $this->content = sprintf($content, getcwd(), getcwd());
 
-            file_put_contents($this->cloverReportFile, $content);
-
-            $this->parser = new CloverReportParser($this->cloverReportFile);
-        });
-        after(function() {
-            unlink($this->cloverReportFile);
+            $this->parser = new CloverReportParser();
         });
         it('return coverallskit\report\parser\Result', function() {
-            $result = $this->parser->parse();
+            $result = $this->parser->parse($this->content);
             expect($result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
         });
     });
