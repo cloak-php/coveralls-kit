@@ -20,6 +20,9 @@ interface ConfigurationInterface extends ConfigurationLoaderInterface
     const TOKEN_KEY = 'token';
     const SERVICE_KEY = 'service';
     const REPORT_FILE_KEY = 'reportFile';
+    const INPUT_REPORT_FILE_KEY = 'input';
+    const INPUT_REPORT_FILE_TYPE_KEY = 'type';
+    const INPUT_REPORT_FILE_PATH_KEY = 'file';
     const OUTPUT_REPORT_FILE_KEY = 'output';
     const REPOSITORY_DIRECTORY_KEY = 'repositoryDirectory';
 

@@ -23,6 +23,10 @@ describe('Configuration', function() {
             before(function() {
                 $config = new Config([
                     'reportFile' => [
+                        'input' => [
+                            'type' => 'clover',
+                            'file' => 'clover.xml'
+                        ],
                         'output' => 'coveralls.json'
                     ],
                     'token' => 'api-token',
@@ -34,6 +38,13 @@ describe('Configuration', function() {
             });
             it('should set the name', function() {
                 expect($this->configration->getReportFileName())->toEqual(getcwd() . '/coveralls.json');
+            });
+            it('return code coverage report file type', function() {
+                expect($this->configration->getCoverageReportFileType())->toEqual('clover');
+            });
+            it('return code coverage report file name', function() {
+                $filePath = realpath(__DIR__ . '/../') . '/clover.xml';
+                expect($this->configration->getCoverageReportFilePath())->toEqual($filePath);
             });
             it('should set the coveralls api token', function() {
                 expect($this->configration->getToken())->toEqual('api-token');

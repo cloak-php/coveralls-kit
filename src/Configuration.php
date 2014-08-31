@@ -52,6 +52,25 @@ class Configuration implements ConfigurationInterface
         return $this->resolvePath($path);
     }
 
+    public function getCoverageReportFileType()
+    {
+        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
+        $reportFileType = $reportFile->get(self::INPUT_REPORT_FILE_KEY);
+
+        $type = $reportFileType->get(self::INPUT_REPORT_FILE_TYPE_KEY);
+
+        return $type;
+    }
+
+    public function getCoverageReportFilePath()
+    {
+        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
+        $reportFileType = $reportFile->get(self::INPUT_REPORT_FILE_KEY);
+        $filePath = $reportFileType->get(self::INPUT_REPORT_FILE_PATH_KEY);
+
+        return $this->resolvePath($filePath);
+    }
+
     /**
      * @return string
      */
