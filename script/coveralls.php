@@ -27,9 +27,7 @@ xdebug_stop_code_coverage();
  * Generate a json file
  */
 $configuration = Configuration::loadFromFile(__DIR__ . '/../coveralls.yml');
-
-$builder = new ReportBuilder();
-$configuration->applyTo($builder);
+$builder = ReportBuilder::fromConfiguration($configuration);
 
 foreach ($result as $file => $coverage) {
     if (preg_match('/vendor/', $file) || preg_match('/spec/', $file)) {
