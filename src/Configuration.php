@@ -12,6 +12,7 @@
 namespace coverallskit;
 
 use coverallskit\entity\Repository;
+use coverallskit\report\ParserRegistry;
 use coverallskit\configuration\ConfigurationLoadable;
 use Zend\Config\Config;
 
@@ -109,6 +110,8 @@ class Configuration implements ConfigurationInterface
             ->service($this->getService())
             ->repository($this->getRepository());
 
+        $this->applyReportResult($builder);
+
         return $builder;
     }
 
@@ -175,8 +178,32 @@ class Configuration implements ConfigurationInterface
     {
         $reportFile = $this->config->get(self::REPORT_FILE_KEY);
         $reportFileType = $reportFile->get(self::INPUT_REPORT_FILE_KEY);
+        $reportFileType = $reportFileType ?: new Config([]);
 
         return $reportFileType;
+    }
+
+    /**
+     * @param ReportBuilderInterface $builder
+     */
+    private function applyReportResult(ReportBuilderInterface $builder)
+    {
+        $path = $this->getCoverageReportFilePath();
+        $reportType = $this->getCoverageReportFileType();
+
+        if (file_exists($path) === false) {
+            return;
+        }
+
+        if (is_null($reportType)) {
+            return;
+        }
+
+        $registry = new ParserRegistry();
+        $parser = $registry->get($reportType);
+        $parseResult = $parser->parse(file_get_contents($path));
+
+        $builder->addSources($parseResult->getSources());
     }
 
 }

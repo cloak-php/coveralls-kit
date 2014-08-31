@@ -92,6 +92,14 @@ class ReportBuilder implements ReportBuilderInterface
         return $this;
     }
 
+    public function addSources(SourceFileCollection $sources)
+    {
+        foreach ($sources as $source) {
+            $this->addSource($source);
+        }
+        return $this;
+    }
+
     /**
      * @throws RequiredException
      */
