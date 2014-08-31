@@ -12,7 +12,7 @@
 namespace coverallskit\spec;
 
 use coverallskit\Configuration;
-use Prophecy\Prophet;
+use coverallskit\ReportBuilder;
 use Prophecy\Argument;
 use Zend\Config\Config;
 
@@ -60,10 +60,12 @@ describe('Configuration', function() {
 
     describe('applyTo', function() {
         before(function() {
-            $this->prophet = new Prophet();
-
             $config = new Config([
                 'reportFile' => [
+                    'input' => [
+                        'type' => 'clover',
+                        'file' => 'clover.xml'
+                    ],
                     'output' => 'coveralls.json'
                 ],
                 'token' => 'api-token',
@@ -73,21 +75,19 @@ describe('Configuration', function() {
 
             $this->configration = new Configuration($config);
 
-            $builder = $this->prophet->prophesize('\coverallskit\ReportBuilderInterface');
-            $builder->reportFilePath(getcwd() . '/coveralls.json')->willReturn($builder);
-            $builder->token('api-token')->willReturn($builder);
-            $builder->service(Argument::type('coverallskit\entity\service\ServiceInterface'))->willReturn($builder);
-            $builder->repository(Argument::type('coverallskit\entity\RepositoryInterface'))->willReturn($builder);
-
-            $builder->build()->shouldNotBeCalled();
-
-            $this->builder = $builder->reveal();
-        });
-        after(function() {
-            $this->prophet->checkPredictions();
-        });
-        it('should apply configration', function() {
+            $this->builder = new ReportBuilder();
             $this->configration->applyTo($this->builder);
+
+            $this->report = $this->builder->build();
+        });
+        it('apply report name config', function() {
+            expect($this->report->name)->toEqual(realpath(__DIR__ . '/../') . '/coveralls.json');
+        });
+        it('apply service config', function() {
+            expect($this->report->service)->toBeAnInstanceOf('coverallskit\entity\service\ServiceInterface');
+        });
+        it('apply repository config', function() {
+            expect($this->report->repository)->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
         });
     });
 
