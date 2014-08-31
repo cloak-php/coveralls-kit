@@ -11,8 +11,8 @@
 
 namespace coverallskit;
 
-use coverallskit\entity\service\ServiceInterface;
-use coverallskit\entity\RepositoryInterface;
+use coverallskit\entity\Repository;
+use Zend\Config\Config;
 
 
 /**
@@ -22,50 +22,17 @@ use coverallskit\entity\RepositoryInterface;
 class Configuration implements ConfigurationInterface
 {
 
-    use AttributePopulatable;
-
     /**
-     * @var string
+     * @var \Zend\Config\Config
      */
-    private $reportFile;
-
-    /**
-     * @var string
-     */
-    private $token;
-
-    /**
-     * @var \coverallskit\entity\service\ServiceInterface
-     */
-    private $service;
-
-    /**
-     * @var \coverallskit\entity\RepositoryInterface
-     */
-    private $repository;
+    private $config;
 
     /**
      * @param array $values
      */
-    public function __construct(array $values)
+    public function __construct(Config $config)
     {
-        $this->populate($values);
-    }
-
-    /**
-     * @param ServiceInterface $service
-     */
-    private function setService(ServiceInterface $service)
-    {
-        $this->service = $service;
-    }
-
-    /**
-     * @param RepositoryInterface $service
-     */
-    private function setRepository(RepositoryInterface $repository)
-    {
-        $this->repository = $repository;
+        $this->config = $config;
     }
 
     /**
@@ -73,7 +40,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getReportFileName()
     {
-        return $this->reportFile;
+        $reportFile = $this->config->get('reportFile');
+        $path = $reportFile->get('output');
+        return $this->resolvePath($path);
     }
 
     /**
@@ -81,7 +50,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getToken()
     {
-        return $this->token;
+        return $this->config->get('token');
     }
 
     /**
@@ -89,15 +58,21 @@ class Configuration implements ConfigurationInterface
      */
     public function getService()
     {
-        return $this->service;
+        $serviceName = $this->config->get('service');
+        $service = $this->serviceFromString($serviceName);
+
+        return $service;
     }
 
     /**
-     * @return string
+     * @return entity\Repository
      */
     public function getRepository()
     {
-        return $this->repository;
+        $directory = $this->config->get('repositoryDirectory');
+        $repository = $this->repositoryFromPath($directory);
+
+        return $repository;
     }
 
     /**
@@ -112,6 +87,44 @@ class Configuration implements ConfigurationInterface
             ->repository($this->getRepository());
 
         return $builder;
+    }
+
+    /**
+     * @param string $serviceName
+     * @return \coverallskit\entity\service\ServiceInterface
+     */
+    private function serviceFromString($serviceName)
+    {
+        $registry = new ServiceRegistry();
+        $service = $registry->get($serviceName);
+
+        return $service;
+    }
+
+    /**
+     * @param string $path
+     * @return \coverallskit\entity\Repository
+     */
+    private function repositoryFromPath($path)
+    {
+        $directory = $this->resolvePath($path);
+        $repository = new Repository($directory);
+
+        return $repository;
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    private function resolvePath($name)
+    {
+        $directoryPath = $this->config->get('configurationFileDirectory', getcwd());
+        $directoryPath = realpath($directoryPath) . DIRECTORY_SEPARATOR;
+
+        $relativePath = preg_replace('/^(\\/|\\.\\/)*(.+)/', '$2', $name);
+
+        return $directoryPath . $relativePath;
     }
 
 }
