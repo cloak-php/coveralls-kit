@@ -25,7 +25,8 @@
         "guzzle/guzzle": "3.9.*",
         "gitonomy/gitlib": "0.1.*",
         "symfony/yaml": "2.5.*",
-        "zendframework/zend-dom": "2.3.*"
+        "zendframework/zend-dom": "2.3.*",
+        "zendframework/zend-config": "2.3.*"
     },
     "autoload": {
         "psr-4": { "coverallskit\\": "src/" }
