@@ -35,10 +35,13 @@ class CloverReportParser implements ReportParserInterface
 
     /**
      * @param string $reportFilePath
+     * FIXME dirty!!!!!
      */
-    public function __construct($reportFilePath)
+    public function __construct($reportFilePath = null)
     {
-        $this->reportContent = file_get_contents($reportFilePath);
+        if ($reportFilePath !== null) {
+            $this->reportContent = file_get_contents($reportFilePath);
+        }
     }
 
     /**
