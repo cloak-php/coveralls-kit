@@ -12,6 +12,7 @@
 namespace coverallskit;
 
 use coverallskit\entity\Repository;
+use coverallskit\configuration\ConfigurationLoadable;
 use Zend\Config\Config;
 
 
@@ -21,6 +22,7 @@ use Zend\Config\Config;
  */
 class Configuration implements ConfigurationInterface
 {
+    use ConfigurationLoadable;
 
     /**
      * @var \Zend\Config\Config

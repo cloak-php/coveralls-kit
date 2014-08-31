@@ -27,76 +27,30 @@ trait ConfigurationLoadable
 {
 
     /**
-     * @var string
-     */
-    private $filePath;
-
-    /**
-     * @var string
-     */
-    private $directoryPath;
-
-
-    /**
      * @param string $file
      * @return Configuration
-     * @throws FileNotFoundException
+     * @throws \coverallskit\exception\NotSupportFileTypeException
+     * @throws \coverallskit\exception\FileNotFoundException
      */
-    public function loadFromFile($file)
+    public static function loadFromFile($file)
     {
-        $this->setConfigurationFilePath($file);
-
-        if ($this->fileExists() === false) {
-            throw new FileNotFoundException($this->filePath);
+        if (file_exists($file) === false) {
+            throw new FileNotFoundException($file);
         }
 
-        if ($this->isYamlFile()) {
-            return $this->loadFromYamlFile();
+        if (preg_match('/(\.yml|yaml)$/', $file) !== 1) {
+            throw new NotSupportFileTypeException($file);
         }
 
-        throw new NotSupportFileTypeException($this->filePath);
-    }
-
-    /**
-     * @return Configuration
-     * @throws FileNotFoundException
-     */
-    private function loadFromYamlFile()
-    {
-        $values = Yaml::parse($this->filePath);
+        $values = Yaml::parse($file);
         $config = new Config($values);
 
         $config->merge(new Config([
-            self::CONFIG_FILE_KEY => $this->filePath,
-            self::CONFIG_DIRECTORY_KEY => $this->directoryPath
+            self::CONFIG_FILE_KEY => $file,
+            self::CONFIG_DIRECTORY_KEY => dirname(realpath($file)) . DIRECTORY_SEPARATOR
         ]));
 
         return new Configuration($config);
-    }
-
-    /**
-     * @param string $path
-     */
-    private function setConfigurationFilePath($path)
-    {
-        $this->filePath = $path;
-        $this->directoryPath = dirname(realpath($this->filePath)) . DIRECTORY_SEPARATOR;
-    }
-
-    /**
-     * @return boolean
-     */
-    private function fileExists()
-    {
-        return file_exists($this->filePath);
-    }
-
-    /**
-     * @return boolean
-     */
-    private function isYamlFile()
-    {
-        return preg_match('/(\.yml|yaml)$/', $this->filePath) === 1;
     }
 
 }

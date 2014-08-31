@@ -23,13 +23,10 @@ class Loader implements ConfigurationLoaderInterface {
 describe('ConfigurationLoadable', function() {
 
     describe('loadFromFile', function() {
-        before(function() {
-            $this->loader = new Loader();
-        });
         context('when the file exists', function() {
             context('when .yml', function() {
                 before(function() {
-                    $this->config = $this->loader->loadFromFile(__DIR__ . '/../fixtures/coveralls.yml');
+                    $this->config = Loader::loadFromFile(__DIR__ . '/../fixtures/coveralls.yml');
                 });
                 it('should return coverallskit\Configuration instance', function() {
                     expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');
@@ -41,7 +38,7 @@ describe('ConfigurationLoadable', function() {
             });
             context('when .yaml', function() {
                 before(function() {
-                    $this->config = $this->loader->loadFromFile(__DIR__ . '/../fixtures/coveralls.yaml');
+                    $this->config = Loader::loadFromFile(__DIR__ . '/../fixtures/coveralls.yaml');
                 });
                 it('should return coverallskit\Configuration instance', function() {
                     expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');
@@ -55,14 +52,14 @@ describe('ConfigurationLoadable', function() {
         context('when the file not exists', function() {
             it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
-                    $this->loader->loadFromFile(__DIR__ . '/../fixtures/not_found_coveralls.yml');
+                    Loader::loadFromFile(__DIR__ . '/../fixtures/not_found_coveralls.yml');
                 })->toThrow('coverallskit\exception\FileNotFoundException');
             });
         });
         context('when the file not support', function() {
             it('should throw coverallskit\exception\NotSupportFileTypeException', function() {
                 expect(function() {
-                    $this->loader->loadFromFile(__DIR__ . '/../fixtures/coveralls.ini');
+                    Loader::loadFromFile(__DIR__ . '/../fixtures/coveralls.ini');
                 })->toThrow('coverallskit\exception\NotSupportFileTypeException');
             });
         });

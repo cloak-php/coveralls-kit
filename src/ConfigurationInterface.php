@@ -15,11 +15,8 @@ namespace coverallskit;
  * Interface Configuration
  * @package coverallskit
  */
-interface ConfigurationInterface
+interface ConfigurationInterface extends ConfigurationLoaderInterface
 {
-    const CONFIG_FILE_KEY = 'configurationFile';
-    const CONFIG_DIRECTORY_KEY = 'configurationFileDirectory';
-
     const TOKEN_KEY = 'token';
     const SERVICE_KEY = 'service';
     const REPORT_FILE_KEY = 'reportFile';
