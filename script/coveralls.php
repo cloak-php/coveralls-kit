@@ -4,8 +4,8 @@ namespace coverallskit\example;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use coverallskit\ConfigurationLoader;
-use coverallskit\ReportBuilderFactory;
+use coverallskit\Configuration;
+use coverallskit\ReportBuilder;
 use coverallskit\entity\Coverage;
 use coverallskit\entity\Repository;
 use coverallskit\entity\SourceFile;
@@ -26,9 +26,10 @@ xdebug_stop_code_coverage();
 /**
  * Generate a json file
  */
-$factory = new ReportBuilderFactory(new ConfigurationLoader());
+$configuration = Configuration::loadFromFile(__DIR__ . '/../coveralls.yml');
 
-$builder = $factory->createFromConfigurationFile(__DIR__ . '/../coveralls.yml');
+$builder = new ReportBuilder();
+$configuration->applyTo($builder);
 
 foreach ($result as $file => $coverage) {
     if (preg_match('/vendor/', $file) || preg_match('/spec/', $file)) {
