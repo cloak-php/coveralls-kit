@@ -60,11 +60,21 @@ describe('Configuration', function() {
 
     describe('applyTo', function() {
         before(function() {
+            $this->rootDirectory = realpath(__DIR__ . '/../');
+            $this->tmpDirectory = $this->rootDirectory . '/spec/tmp/';
+            $this->fixtureDirectory = $this->rootDirectory . '/spec/fixtures/';
+            $this->cloverReportFile = $this->tmpDirectory . 'clover.xml';
+
+            $content = file_get_contents($this->fixtureDirectory . 'clover.xml');
+            $content = sprintf($content, $this->rootDirectory, $this->rootDirectory);
+
+            file_put_contents($this->cloverReportFile, $content);
+
             $config = new Config([
                 'reportFile' => [
                     'input' => [
                         'type' => 'clover',
-                        'file' => 'clover.xml'
+                        'file' => 'spec/tmp/clover.xml'
                     ],
                     'output' => 'coveralls.json'
                 ],
@@ -88,6 +98,10 @@ describe('Configuration', function() {
         });
         it('apply repository config', function() {
             expect($this->report->repository)->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
+        });
+        it('apply clover report config', function() {
+            $sourceFiles = $this->report->sourceFiles;
+            expect($sourceFiles->isEmpty())->toBeFalse();
         });
     });
 
