@@ -14,8 +14,9 @@ namespace coverallskit\exception;
 use Exception;
 use Iterator;
 use ArrayIterator;
+use Countable;
 
-class ExceptionCollection extends Exception implements Iterator
+class ExceptionCollection extends Exception implements Iterator, Countable
 {
 
     /**
@@ -57,6 +58,11 @@ class ExceptionCollection extends Exception implements Iterator
     public function valid()
     {
         return $this->exceptions->valid();
+    }
+
+    public function count()
+    {
+        return $this->exceptions->count();
     }
 
 }

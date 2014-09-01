@@ -12,9 +12,53 @@
 namespace coverallskit\spec;
 
 use coverallskit\exception\ExceptionCollection;
+use Exception;
 
 describe('ExceptionCollection', function() {
+    before(function() {
+        $this->exceptions = new ExceptionCollection();
+        $this->exceptions->add(new Exception('exception'));
+    });
+
     describe('getMessage', function() {
         it('return message');
     });
+
+    describe('add', function() {
+        it('add exception', function() {
+            expect($this->exceptions->count())->toEqual(1);
+        });
+    });
+
+    describe('current', function() {
+        it('return current exception', function() {
+            expect($this->exceptions->current())->toBeAnInstanceOf('Exception');
+        });
+    });
+
+    describe('key', function() {
+        it('return current key', function() {
+            expect($this->exceptions->key())->toEqual(0);
+        });
+    });
+
+    describe('next', function() {
+        before(function() {
+            $this->exceptions->next();
+        });
+        it('move next', function() {
+            expect($this->exceptions->valid())->toBeFalse();
+        });
+    });
+
+    describe('rewind', function() {
+        before(function() {
+            $this->exceptions->next();
+            $this->exceptions->rewind();
+        });
+        it('move next', function() {
+            expect($this->exceptions->valid())->toBeTrue();
+        });
+    });
+
 });
