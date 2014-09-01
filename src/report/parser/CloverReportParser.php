@@ -86,6 +86,8 @@ class CloverReportParser implements ReportParserInterface
             } catch (ExceptionCollection $exception) {
                 $parseErrors = $exception;
             }
+
+            $sources->add($source);
         }
 
         $result = new Result($sources, $parseErrors);
