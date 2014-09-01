@@ -20,10 +20,6 @@ describe('ExceptionCollection', function() {
         $this->exceptions->add(new Exception('exception'));
     });
 
-    describe('getMessage', function() {
-        it('return message');
-    });
-
     describe('add', function() {
         it('add exception', function() {
             expect($this->exceptions->count())->toEqual(1);
