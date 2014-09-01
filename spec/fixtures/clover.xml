@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <coverage generated="1409385321">
     <project timestamp="1409385321">
-        <package name="Preview">
+        <package name="coverallskit">
             <file name="%s/spec/fixtures/bar.php">
                 <class name="Bar" namespace="coverallskit">
                     <metrics methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="3" elements="7" coveredelements="5"/>
