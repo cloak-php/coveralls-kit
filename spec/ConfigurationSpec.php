@@ -12,36 +12,39 @@
 namespace coverallskit\spec;
 
 use coverallskit\Configuration;
-use Prophecy\Prophet;
+use coverallskit\ReportBuilder;
+use Prophecy\Argument;
+use Zend\Config\Config;
 
 describe('Configuration', function() {
 
     describe('__construct', function() {
         context('when specify the attribute', function() {
             before(function() {
-                $this->prophet = new Prophet();
-
-                $this->service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
-                $this->service->getServiceJobId()->shouldNotBeCalled();
-                $this->service->getServiceName()->shouldNotBeCalled();
-
-                $this->repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
-                $this->repository->getCommit()->shouldNotBeCalled();
-                $this->repository->getBranch()->shouldNotBeCalled();
-                $this->repository->getRemotes()->shouldNotBeCalled();
-
-                $this->configration = new Configuration([
-                    'reportFile' => 'coveralls.json',
+                $config = new Config([
+                    'reportFile' => [
+                        'input' => [
+                            'type' => 'clover',
+                            'file' => 'clover.xml'
+                        ],
+                        'output' => 'coveralls.json'
+                    ],
                     'token' => 'api-token',
-                    'service' => $this->service->reveal(),
-                    'repository' => $this->repository->reveal()
+                    'service' => 'travis-ci',
+                    'repository' => __DIR__ . '/../'
                 ]);
-            });
-            after(function() {
-                $this->prophet->checkPredictions();
+
+                $this->configration = new Configuration($config);
             });
             it('should set the name', function() {
-                expect($this->configration->getReportFileName())->toEqual('coveralls.json');
+                expect($this->configration->getReportFileName())->toEqual(getcwd() . '/coveralls.json');
+            });
+            it('return code coverage report file type', function() {
+                expect($this->configration->getCoverageReportFileType())->toEqual('clover');
+            });
+            it('return code coverage report file name', function() {
+                $filePath = realpath(__DIR__ . '/../') . '/clover.xml';
+                expect($this->configration->getCoverageReportFilePath())->toEqual($filePath);
             });
             it('should set the coveralls api token', function() {
                 expect($this->configration->getToken())->toEqual('api-token');
@@ -53,53 +56,38 @@ describe('Configuration', function() {
                 expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryInterface');
             });
         });
-        context('when specify an attribute that does not exist', function() {
-            it('should throw coverallskit\exception\BadAttributeException', function() {
-                expect(function() {
-                    new Configuration([ 'does not exist' => 'foo' ]);
-                })->toThrow('coverallskit\exception\BadAttributeException');
-            });
-        });
     });
 
     describe('applyTo', function() {
         before(function() {
-            $this->prophet = new Prophet();
-
-            $service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
-            $service->getServiceJobId()->shouldNotBeCalled();
-            $service->getServiceName()->shouldNotBeCalled();
-
-            $this->service = $service->reveal();
-
-            $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
-            $repository->getCommit()->shouldNotBeCalled();
-            $repository->getBranch()->shouldNotBeCalled();
-            $repository->getRemotes()->shouldNotBeCalled();
-
-            $this->repository = $repository->reveal();
-
-            $this->configration = new Configuration([
-                'reportFile' => 'coveralls.json',
+            $config = new Config([
+                'reportFile' => [
+                    'input' => [
+                        'type' => 'clover',
+                        'file' => 'clover.xml'
+                    ],
+                    'output' => 'coveralls.json'
+                ],
                 'token' => 'api-token',
-                'service' => $this->service,
-                'repository' => $this->repository
+                'service' => 'travis-ci',
+                'repository' => __DIR__ . '/../'
             ]);
 
-            $builder = $this->prophet->prophesize('\coverallskit\ReportBuilderInterface');
-            $builder->reportFilePath('coveralls.json')->willReturn($builder);
-            $builder->token('api-token')->willReturn($builder);
-            $builder->service($this->service)->willReturn($builder);
-            $builder->repository($this->repository)->willReturn($builder);
-            $builder->build()->shouldNotBeCalled();
+            $this->configration = new Configuration($config);
 
-            $this->builder = $builder->reveal();
-        });
-        after(function() {
-            $this->prophet->checkPredictions();
-        });
-        it('should apply configration', function() {
+            $this->builder = new ReportBuilder();
             $this->configration->applyTo($this->builder);
+
+            $this->report = $this->builder->build();
+        });
+        it('apply report name config', function() {
+            expect($this->report->name)->toEqual(realpath(__DIR__ . '/../') . '/coveralls.json');
+        });
+        it('apply service config', function() {
+            expect($this->report->service)->toBeAnInstanceOf('coverallskit\entity\service\ServiceInterface');
+        });
+        it('apply repository config', function() {
+            expect($this->report->repository)->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
         });
     });
 

@@ -78,7 +78,7 @@ describe('SourceFile', function() {
                 $coverage = Coverage::unused(4);
                 $this->sourceFile->addCoverage($coverage);
 
-                expect($this->sourceFile->getCoverage(4))->toBeNull();
+                expect($this->sourceFile->getCoverage(21))->toBeNull();
             });
         });
     });
@@ -112,7 +112,10 @@ describe('SourceFile', function() {
             $json = [
                 'name' => $this->relativePath,
                 'source' => trim(file_get_contents($this->path)),
-                'coverage' => [null,null,null]
+                'coverage' => [
+                    null,null,null,null,null,null,null,null,null,null,null,null,
+                    null,null,null,null,null,null,null,null
+                ]
             ];
             expect((string) $this->sourceFile)->toEqual(json_encode($json));
         });

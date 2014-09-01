@@ -9,15 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coverallskit\report;
+namespace coverallskit\exception;
 
-interface ReportParserInterface
+use UnexpectedValueException;
+
+class RegistryNotFoundException extends UnexpectedValueException
 {
-
-    /**
-     * @param $reportContent
-     * @return \coverallskit\report\parser\Result
-     */
-    public function parse($reportContent);
-
 }

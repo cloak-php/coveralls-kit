@@ -17,6 +17,8 @@ use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\ServiceInterface;
 use coverallskit\exception\RequiredException;
+use coverallskit\Configuration;
+
 
 /**
  * Class ReportBuilder
@@ -90,6 +92,14 @@ class ReportBuilder implements ReportBuilderInterface
         return $this;
     }
 
+    public function addSources(SourceFileCollection $sources)
+    {
+        foreach ($sources as $source) {
+            $this->addSource($source);
+        }
+        return $this;
+    }
+
     /**
      * @throws RequiredException
      */
@@ -127,6 +137,15 @@ class ReportBuilder implements ReportBuilderInterface
             'sourceFiles' => $this->sourceFiles,
             'runAt' => date('Y-m-d H:i:s O') ////2013-02-18 00:52:48 -0800
         ]);
+    }
+
+    /**
+     * @param ConfigurationInterface $config
+     * @return ReportBuilderInterface
+     */
+    public static function fromConfiguration(ConfigurationInterface $config)
+    {
+        return $config->applyTo(new static());
     }
 
 }

@@ -11,8 +11,11 @@
 
 namespace coverallskit;
 
+use coverallskit\entity\SourceFile;
+use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\RepositoryInterface;
 use coverallskit\entity\service\ServiceInterface;
+
 
 /**
  * Interface ReportBuilderInterface
@@ -44,6 +47,18 @@ interface ReportBuilderInterface
      * @return $this;
      */
     public function repository(RepositoryInterface $repository);
+
+    /**
+     * @param SourceFile $source
+     * @return $this;
+     */
+    public function addSource(SourceFile $source);
+
+    /**
+     * @param SourceFileCollection $sources
+     * @return $this;
+     */
+    public function addSources(SourceFileCollection $sources);
 
     /**
      * @return \coverallskit\entity\ReportInterface

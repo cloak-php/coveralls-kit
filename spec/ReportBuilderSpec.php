@@ -11,6 +11,7 @@
 
 namespace coverallskit\spec;
 
+use coverallskit\Configuration;
 use coverallskit\ReportBuilder;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\repository\Commit;
@@ -126,4 +127,14 @@ describe('ReportBuilder', function() {
         });
 
     });
+
+    describe('fromConfiguration', function() {
+        before(function() {
+            $this->builder = ReportBuilder::fromConfiguration(new Configuration());
+        });
+        it('return coverallskit\ReportBuilder instance', function() {
+            expect($this->builder)->toBeAnInstanceOf('coverallskit\ReportBuilder');
+        });
+    });
+
 });

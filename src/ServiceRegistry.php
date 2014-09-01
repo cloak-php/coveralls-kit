@@ -11,8 +11,9 @@
 
 namespace coverallskit;
 
-use ReflectionClass;
+use coverallskit\exception\RegistryNotFoundException;
 use coverallskit\exception\NotSupportServiceException;
+
 
 /**
  * Class ServiceRegistry
@@ -22,15 +23,16 @@ class ServiceRegistry
 {
 
     /**
-     * @var array
+     * @var Registry
      */
-    private $services;
+    private $registry;
 
 
     public function __construct()
     {
-        $this->registerService('travis-ci', 'coverallskit\entity\service\travis\TravisCI');
-        $this->registerService('travis-pro', 'coverallskit\entity\service\travis\TravisPro');
+        $this->registry = new Registry();
+        $this->registry->register('travis-ci', 'coverallskit\entity\service\travis\TravisCI');
+        $this->registry->register('travis-pro', 'coverallskit\entity\service\travis\TravisPro');
     }
 
     /**
@@ -39,23 +41,13 @@ class ServiceRegistry
      */
     public function get($name)
     {
-        if (array_key_exists($name, $this->services) === false) {
+        try {
+            $instance = $this->registry->get($name, [ new Environment($_SERVER) ]);
+        } catch (RegistryNotFoundException $exception) {
             throw new NotSupportServiceException($name);
         }
 
-        $reflection = $this->services[$name];
-
-        return $reflection->newInstanceArgs([ new Environment($_SERVER) ]);
-    }
-
-    /**
-     * @param string $name
-     * @param string $serviceClass
-     */
-    protected function registerService($name, $serviceClass)
-    {
-        $reflection = new ReflectionClass($serviceClass);
-        $this->services[$name] = $reflection;
+        return $instance;
     }
 
 }
