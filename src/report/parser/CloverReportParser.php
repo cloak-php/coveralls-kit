@@ -18,6 +18,7 @@ use coverallskit\entity\Coverage;
 use Zend\Dom\Query;
 use Zend\Dom\NodeList;
 use coverallskit\exception\LineOutOfRangeException;
+use coverallskit\exception\ExceptionCollection;
 
 
 /**
@@ -69,7 +70,7 @@ class CloverReportParser implements ReportParserInterface
      */
     private function parseFileNodes(NodeList $files)
     {
-        $parseErrors = [];
+        $parseErrors = new ExceptionCollection();
         $sources = new SourceFileCollection();
 
         foreach($files as $file) {
@@ -82,8 +83,8 @@ class CloverReportParser implements ReportParserInterface
 
             try {
                 $source->getCoverages()->addAll($coverages);
-            } catch (LineOutOfRangeException $exception) {
-                $parseErrors[] = $exception;
+            } catch (ExceptionCollection $exception) {
+                $parseErrors = $exception;
             }
         }
 
