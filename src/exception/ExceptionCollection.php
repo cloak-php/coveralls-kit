@@ -12,19 +12,51 @@
 namespace coverallskit\exception;
 
 use Exception;
+use Iterator;
+use ArrayIterator;
 
-class ExceptionCollection extends Exception
+class ExceptionCollection extends Exception implements Iterator
 {
 
     /**
-     * @var array
+     * @var ArrayIterator
      */
     private $exceptions;
 
-    public  function __construct($message = '', $code = 0, Exception $previous = null)
+    public function __construct($message = '', $code = 0, Exception $previous = null)
     {
-        $this->exceptions = [];
+        $this->exceptions = new ArrayIterator();
         parent::__construct($message, $code, $previous);
+    }
+
+    public function add(Exception $exception)
+    {
+        $this->exceptions->append($exception);
+    }
+
+    public function current()
+    {
+        return $this->exceptions->current();
+    }
+
+    public function key()
+    {
+        return $this->exceptions->key();
+    }
+
+    public function next()
+    {
+        $this->exceptions->next();
+    }
+
+    public function rewind()
+    {
+        $this->exceptions->rewind();
+    }
+
+    public function valid()
+    {
+        return $this->exceptions->valid();
     }
 
 }
