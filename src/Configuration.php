@@ -185,6 +185,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param ReportBuilderInterface $builder
+     * FIXME throw exception
      */
     private function applyReportResult(ReportBuilderInterface $builder)
     {
