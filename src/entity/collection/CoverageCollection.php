@@ -11,20 +11,18 @@
 
 namespace coverallskit\entity\collection;
 
-use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\CoverageInterface;
 use coverallskit\value\LineRange;
 use coverallskit\AttributePopulatable;
 use coverallskit\exception\LineOutOfRangeException;
 use PhpCollection\Map;
 use coverallskit\exception\ExceptionCollection;
-use IteratorAggregate;
 
 /**
  * Class CoverageCollection
  * @package coverallskit\entity\collection
  */
-class CoverageCollection implements CompositeEntityInterface, IteratorAggregate
+class CoverageCollection implements CompositeEntityCollectionInterface
 {
 
     use AttributePopulatable;

@@ -11,18 +11,16 @@
 
 namespace coverallskit\entity\collection;
 
-use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\SourceFile;
 use PhpCollection\Sequence;
 use coverallskit\AttributePopulatable;
-use IteratorAggregate;
 
 
 /**
  * Class SourceFileCollection
  * @package coverallskit\entity\collection
  */
-class SourceFileCollection implements CompositeEntityInterface, IteratorAggregate
+class SourceFileCollection implements CompositeEntityCollectionInterface
 {
 
     use AttributePopulatable;

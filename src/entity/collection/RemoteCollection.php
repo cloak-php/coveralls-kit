@@ -2,17 +2,15 @@
 
 namespace coverallskit\entity\collection;
 
-use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\repository\Remote;
 use PhpCollection\Sequence;
 use coverallskit\AttributePopulatable;
-use IteratorAggregate;
 
 /**
  * Class RemoteCollection
  * @package coverallskit\entity\collection
  */
-class RemoteCollection implements CompositeEntityInterface, IteratorAggregate
+class RemoteCollection implements CompositeEntityCollectionInterface
 {
 
     use AttributePopulatable;
