@@ -16,7 +16,6 @@ use coverallskit\entity\SourceFile;
 use PhpCollection\Sequence;
 use coverallskit\AttributePopulatable;
 use IteratorAggregate;
-use ArrayIterator;
 
 
 /**
@@ -76,7 +75,7 @@ class SourceFileCollection implements CompositeEntityInterface, IteratorAggregat
     }
 
     /**
-     * @return ArrayIterator|\Traversable
+     * @return \ArrayIterator|\Traversable
      */
     public function getIterator()
     {
