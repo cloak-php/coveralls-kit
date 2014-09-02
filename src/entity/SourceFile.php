@@ -119,6 +119,14 @@ class SourceFile implements CompositeEntityInterface
     }
 
     /**
+     * @return CoverageCollection
+     */
+    public function getEmptyCoverages()
+    {
+        return $this->coverages->newInstance();
+    }
+
+    /**
      * @param CoverageInterface $coverage
      * @throws \coverallskit\exception\LineOutOfRangeException
      * @throws \Exception

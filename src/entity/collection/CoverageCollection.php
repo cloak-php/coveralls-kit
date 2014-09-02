@@ -113,6 +113,22 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     }
 
     /**
+     * @return int
+     */
+    public function getLastLineNumber()
+    {
+        return $this->lineRange->getLastLineNumber();
+    }
+
+    /**
+     * @return CoverageCollection
+     */
+    public function newInstance()
+    {
+        return new self($this->getLastLineNumber());
+    }
+
+    /**
      * @return bool
      */
     public function isEmpty()
