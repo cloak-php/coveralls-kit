@@ -11,6 +11,10 @@
 
 namespace coverallskit\report;
 
+/**
+ * Interface ReportParserInterface
+ * @package coverallskit\report
+ */
 interface ReportParserInterface
 {
 
