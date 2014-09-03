@@ -16,7 +16,7 @@ $reporter = new PHP_CodeCoverage_Report_Clover();
 
 $coverage->start('default');
 
-$argv = ['../vendor/bin/pho'];
+$argv = ['../vendor/bin/pho', '--stop'];
 require_once __DIR__ . "/../vendor/bin/pho";
 
 $coverage->stop();
