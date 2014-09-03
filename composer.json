@@ -10,7 +10,8 @@
         "jaz303/phake": "0.6.*",
         "phpspec/prophecy": "1.2.*",
         "mockery/mockery": "0.9.*",
-        "jasonlewis/resource-watcher": "1.1.*"
+        "jasonlewis/resource-watcher": "1.1.*",
+        "phpunit/php-code-coverage": "1.2.*"
     },
     "license": "MIT",
     "authors": [
