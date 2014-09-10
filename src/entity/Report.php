@@ -11,8 +11,6 @@
 
 namespace coverallskit\entity;
 
-use coverallskit\ReportTransfer;
-use coverallskit\ReportTransferInterface;
 use coverallskit\AttributePopulatable;
 use coverallskit\ReportTransferAwareTrait;
 
@@ -56,11 +54,6 @@ class Report implements ReportInterface
      */
     protected $runAt;
 
-    /**
-     * @var \coverallskit\ReportTransferInterface
-     */
-    protected $uploader;
-
 
     /**
      * @param array $values
@@ -101,26 +94,6 @@ class Report implements ReportInterface
         return $this;
     }
 
-    /**
-     * @param ReportTransferInterface $uploader
-     */
-    public function setUpLoader(ReportTransferInterface $uploader)
-    {
-        $this->uploader = $uploader;
-    }
-
-    /**
-     * @return ReportTransfer|null
-     */
-    public function getUpLoader()
-    {
-        if ($this->uploader === null) {
-            $this->uploader = new ReportTransfer();
-        }
-
-        return $this->uploader;
-    }
-
     public function upload()
     {
         $fileName = $this->getName();
@@ -129,7 +102,7 @@ class Report implements ReportInterface
             $this->saveAs($fileName);
         }
 
-        $this->getUpLoader()->upload($this);
+        $this->getReportTransfer()->upload($this);
     }
 
     /**

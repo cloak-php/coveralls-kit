@@ -14,8 +14,8 @@ namespace coverallskit\spec;
 use coverallskit\entity\Report;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\service\TravisInterface;
 use Prophecy\Prophet;
+
 
 describe('Report', function() {
     before(function() {
@@ -101,7 +101,7 @@ describe('Report', function() {
                 $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
                 $this->notSavedFileUpLoader->upload($this->notSavedReport)->shouldBeCalled();
 
-                $this->notSavedReport->setUpLoader($this->notSavedFileUpLoader->reveal());
+                $this->notSavedReport->setReportTransfer($this->notSavedFileUpLoader->reveal());
                 $this->notSavedReport->upload();
             });
             after(function() {
@@ -127,7 +127,7 @@ describe('Report', function() {
                 $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
                 $this->savedFileUpLoader->upload($this->savedReport)->shouldBeCalled();
 
-                $this->savedReport->setUpLoader($this->savedFileUpLoader->reveal());
+                $this->savedReport->setReportTransfer($this->savedFileUpLoader->reveal());
 
                 $this->savedReport->saveAs($this->path);
                 $this->savedReport->upload();
