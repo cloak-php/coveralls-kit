@@ -24,8 +24,7 @@ trait ReportTransferAwareTrait
     protected $reportTransfer;
 
     /**
-     * @param ReportTransferInterface $reportTransfer
-     * @return $this
+     * {@inheritdoc}
      */
     public function setReportTransfer(ReportTransferInterface $reportTransfer)
     {
