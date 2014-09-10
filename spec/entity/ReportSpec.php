@@ -89,6 +89,8 @@ describe('Report', function() {
     describe('upload', function() {
         context('when not saved file', function() {
             before(function() {
+                $this->prophet = new Prophet();
+
                 $this->notSavedReport = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
@@ -108,9 +110,14 @@ describe('Report', function() {
             it('should use the default name', function() {
                 expect($this->notSavedReport->getName())->toEqual(getcwd() . '/' . Report::DEFAULT_NAME);
             });
+            it('upload the report file', function() {
+                $this->prophet->checkPredictions();
+            });
         });
-        context('when not saved file', function() {
+        context('when saved file', function() {
             before(function() {
+                $this->prophet = new Prophet();
+
                 $this->savedReport = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
@@ -128,8 +135,11 @@ describe('Report', function() {
             after(function() {
                 unlink($this->savedReport->getName());
             });
-            it('should upload the report file', function() {
+            it('use a file name that you specify', function() {
                 expect($this->savedReport->getName())->toEqual($this->path);
+            });
+            it('upload the report file', function() {
+                $this->prophet->checkPredictions();
             });
         });
     });
