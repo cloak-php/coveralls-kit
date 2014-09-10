@@ -3,6 +3,8 @@ Change Log
 
 1.3.0
 -----------------------------------
+* add **ReportTransferAwareTrait**, **ReportTransferAwareInterface**
+* changed to **setReportTransfer** / **getReportTransfer** and **setUploader** / **getUploader** method of **Report** class
 * **ReportUploaderInterface** to **ReportTransferInterface**
 * **ReportUploader** to **ReportTransfer**
 * support **clover.xml** report file
