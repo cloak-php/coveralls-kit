@@ -17,7 +17,6 @@ use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\ServiceInterface;
 use coverallskit\exception\RequiredException;
-use coverallskit\Configuration;
 
 
 /**

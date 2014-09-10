@@ -31,7 +31,7 @@ class Configuration implements ConfigurationInterface
     private $config;
 
     /**
-     * @param array $values
+     * @param Config $config
      */
     public function __construct(Config $config = null)
     {

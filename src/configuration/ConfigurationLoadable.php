@@ -15,7 +15,6 @@ use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
 use coverallskit\Configuration;
 use Symfony\Component\Yaml\Yaml;
-use coverallskit\entity\Repository;
 use Zend\Config\Config;
 
 

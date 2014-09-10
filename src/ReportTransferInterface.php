@@ -26,6 +26,7 @@ interface ReportTransferInterface
 
     /**
      * @param \Guzzle\Http\ClientInterface $client
+     * @return void
      */
     public function setClient(ClientInterface $client);
 
@@ -36,6 +37,7 @@ interface ReportTransferInterface
 
     /**
      * @param entity\ReportInterface $jsonFile
+     * @return void
      */
     public function upload(ReportInterface $report);
 

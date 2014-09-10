@@ -39,6 +39,9 @@ interface ReportInterface extends CompositeEntityInterface, ReportTransferAwareI
      */
     public function saveAs($path);
 
+    /**
+     * @return void
+     */
     public function upload();
 
 }

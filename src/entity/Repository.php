@@ -28,6 +28,9 @@ class Repository implements RepositoryInterface
     protected $branch = null;
     protected $remotes = null;
 
+    /**
+     * @param string $directory
+     */
     public function __construct($directory)
     {
         $this->repository = new GitRepository(realpath($directory));
@@ -107,7 +110,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @return coverallskit\entity\repository\Branch
+     * @return \coverallskit\entity\repository\Branch
      */
     protected function getDefaultBranch()
     {
@@ -120,7 +123,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @return coverallskit\entity\repository\Commit
+     * @return \coverallskit\entity\repository\Commit
      */
     public function getCommit()
     {
@@ -128,7 +131,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @return coverallskit\entity\repository\Branch
+     * @return \coverallskit\entity\repository\Branch
      */
     public function getBranch()
     {
@@ -136,19 +139,25 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @return coverallskit\entity\collection\RemoteCollection;
+     * @return \coverallskit\entity\collection\RemoteCollection;
      */
     public function getRemotes()
     {
         return $this->remotes;
     }
 
+    /**
+     * @return bool
+     */
     public function isEmpty()
     {
         $commit = $this->getCommit();
         return empty($commit);
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $values = [
@@ -160,6 +169,9 @@ class Repository implements RepositoryInterface
         return $values;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return json_encode($this->toArray());
