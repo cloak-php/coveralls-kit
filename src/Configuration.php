@@ -35,7 +35,7 @@ class Configuration implements ConfigurationInterface
      */
     public function __construct(Config $config = null)
     {
-        $userConfig = $config ?: new Config();
+        $userConfig = $config ?: new Config([]);
 
         $current = $this->getDefaultConfigration();
         $current->merge($userConfig);
