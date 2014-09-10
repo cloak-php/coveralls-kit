@@ -38,7 +38,7 @@ describe('SourceFileCollection', function() {
             before(function() {
                 $this->emptySources = new SourceFileCollection();
             });
-            it('should return true', function() {
+            it('return true', function() {
                 expect($this->emptySources->isEmpty())->toBeTrue();
             });
         });
@@ -46,19 +46,30 @@ describe('SourceFileCollection', function() {
 
     describe('has', function() {
         context('when file exists', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 expect($this->sources->has($this->path))->toBeTrue();
             });
         });
     });
     describe('toArray', function() {
-        it('should return array value', function() {
+        it('return array value', function() {
             expect($this->sources->toArray())->toEqual($this->values);
         });
     });
+
     describe('__toString', function() {
         it('should return json string', function() {
             expect((string) $this->sources)->toEqual(json_encode($this->values));
         });
     });
+
+    describe('getIterator', function() {
+        before(function() {
+            $this->iterator = $this->sources->getIterator();
+        });
+        it('return ArrayIterator', function() {
+            expect($this->iterator)->toBeAnInstanceOf('ArrayIterator');
+        });
+    });
+
 });

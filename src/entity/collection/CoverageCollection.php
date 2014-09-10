@@ -11,20 +11,31 @@
 
 namespace coverallskit\entity\collection;
 
-use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\CoverageInterface;
 use coverallskit\value\LineRange;
 use coverallskit\AttributePopulatable;
 use coverallskit\exception\LineOutOfRangeException;
 use PhpCollection\Map;
+use coverallskit\exception\ExceptionCollection;
 
-class CoverageCollection implements CompositeEntityInterface
+/**
+ * Class CoverageCollection
+ * @package coverallskit\entity\collection
+ */
+class CoverageCollection implements CompositeEntityCollectionInterface
 {
 
     use AttributePopulatable;
 
-    protected $lineRange = null;
-    protected $lineCoverages = null;
+    /**
+     * @var \coverallskit\value\LineRange
+     */
+    protected $lineRange;
+
+    /**
+     * @var \PhpCollection\Map
+     */
+    protected $lineCoverages;
 
     /**
      * @param integer $lineCount
@@ -35,6 +46,10 @@ class CoverageCollection implements CompositeEntityInterface
         $this->lineCoverages = new Map();
     }
 
+    /**
+     * @param CoverageInterface $coverage
+     * @throws \coverallskit\exception\LineOutOfRangeException
+     */
     public function add(CoverageInterface $coverage)
     {
         if ($this->lineRange->contains($coverage->getLineNumber()) === false) {
@@ -43,23 +58,49 @@ class CoverageCollection implements CompositeEntityInterface
         $this->lineCoverages->set($coverage->getLineNumber(), $coverage);
     }
 
+    /**
+     * @param array $coverages
+     * @throws \coverallskit\exception\ExceptionCollection
+     */
     public function addAll(array $coverages)
     {
+        $exceptions = new ExceptionCollection();
+
         foreach ($coverages as $coverage) {
-            $this->add($coverage);
+            try {
+                $this->add($coverage);
+            } catch (LineOutOfRangeException $exception) {
+                $exceptions->add($exception);
+            }
         }
+
+        if ($exceptions->count() <= 0) {
+            return;
+        }
+
+        throw $exceptions;
     }
 
+    /**
+     * @param CoverageInterface $coverage
+     */
     public function remove(CoverageInterface $coverage)
     {
         $this->removeAt($coverage->getLineNumber());
     }
 
+    /**
+     * @param $lineNumber
+     */
     public function removeAt($lineNumber)
     {
         $this->lineCoverages->remove($lineNumber);
     }
 
+    /**
+     * @param $lineAt
+     * @return null|void
+     */
     public function at($lineAt)
     {
         $coverage = $this->lineCoverages->get($lineAt);
@@ -71,11 +112,41 @@ class CoverageCollection implements CompositeEntityInterface
         return $coverage->get();
     }
 
+    /**
+     * @return int
+     */
+    public function getLastLineNumber()
+    {
+        return $this->lineRange->getLastLineNumber();
+    }
+
+    /**
+     * @return CoverageCollection
+     */
+    public function newInstance()
+    {
+        return new self($this->getLastLineNumber());
+    }
+
+    /**
+     * @return bool
+     */
     public function isEmpty()
     {
         return $this->lineCoverages->isEmpty();
     }
 
+    /**
+     * @return \ArrayIterator|\Traversable
+     */
+    public function getIterator()
+    {
+        return $this->lineCoverages->getIterator();
+    }
+
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $results = array_pad([], $this->lineRange->getLastLineNumber(), null);
@@ -88,6 +159,9 @@ class CoverageCollection implements CompositeEntityInterface
         return $results;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return json_encode($this->toArray());

@@ -1,4 +1,7 @@
 service: travis-ci
 reportFile:
+  input:
+    type: clover
+    file: script/clover.xml
   output: script/coveralls.json
 repositoryDirectory: .

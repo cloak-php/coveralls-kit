@@ -84,4 +84,17 @@ describe('CoverageCollection', function() {
             expect((string) $this->coverages)->toEqual($coverage);
         });
     });
+
+    describe('getIterator', function() {
+        before(function() {
+            $this->coverage = Coverage::unused(1);
+            $this->coverages = new CoverageCollection(1);
+            $this->coverages->add($this->coverage);
+            $this->iterator = $this->coverages->getIterator();
+        });
+        it('return ArrayIterator', function() {
+            expect($this->iterator)->toBeAnInstanceOf('ArrayIterator');
+        });
+    });
+
 });

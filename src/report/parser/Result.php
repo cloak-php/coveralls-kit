@@ -12,6 +12,7 @@
 namespace coverallskit\report\parser;
 
 use coverallskit\entity\collection\SourceFileCollection;
+use coverallskit\exception\ExceptionCollection;
 
 /**
  * Class Result
@@ -26,14 +27,14 @@ class Result
     private $sources;
 
     /**
-     * @var array
+     * @var \coverallskit\exception\ExceptionCollection
      */
     private $parseErrors;
 
     /**
      * @param SourceFileCollection $sources
      */
-    public function __construct(SourceFileCollection $sources, array $parseErrors)
+    public function __construct(SourceFileCollection $sources, ExceptionCollection $parseErrors)
     {
         $this->sources = $sources;
         $this->parseErrors = $parseErrors;

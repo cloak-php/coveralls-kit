@@ -11,28 +11,42 @@
 
 namespace coverallskit\entity\collection;
 
-use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\SourceFile;
 use PhpCollection\Sequence;
 use coverallskit\AttributePopulatable;
 
-class SourceFileCollection implements CompositeEntityInterface
+
+/**
+ * Class SourceFileCollection
+ * @package coverallskit\entity\collection
+ */
+class SourceFileCollection implements CompositeEntityCollectionInterface
 {
 
     use AttributePopulatable;
 
-    protected $sources = null; 
+    /**
+     * @var \PhpCollection\Sequence
+     */
+    protected $sources;
 
     public function __construct()
     {
         $this->sources = new Sequence();
     }
 
+    /**
+     * @param SourceFile $source
+     */
     public function add(SourceFile $source)
     {
         $this->sources->add($source);
     }
 
+    /**
+     * @param $source
+     * @return bool
+     */
     public function has($source)
     {
         $querySource = $source;
@@ -50,11 +64,25 @@ class SourceFileCollection implements CompositeEntityInterface
         return $results->isEmpty() === false;
     }
 
+    /**
+     * @return bool
+     */
     public function isEmpty()
     {
         return $this->sources->isEmpty();
     }
 
+    /**
+     * @return \ArrayIterator|\Traversable
+     */
+    public function getIterator()
+    {
+        return $this->sources->getIterator();
+    }
+
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $values = [];
@@ -67,6 +95,9 @@ class SourceFileCollection implements CompositeEntityInterface
         return $values;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return json_encode($this->toArray());
