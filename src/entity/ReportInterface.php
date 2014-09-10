@@ -12,12 +12,13 @@
 namespace coverallskit\entity;
 
 use coverallskit\CompositeEntityInterface;
+use coverallskit\ReportTransferAwareInterface;
 
 /**
  * Interface ReportInterface
  * @package coverallskit\entity
  */
-interface ReportInterface extends CompositeEntityInterface
+interface ReportInterface extends CompositeEntityInterface, ReportTransferAwareInterface
 {
 
     const DEFAULT_NAME = 'coverage.json';

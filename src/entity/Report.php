@@ -14,6 +14,7 @@ namespace coverallskit\entity;
 use coverallskit\ReportTransfer;
 use coverallskit\ReportTransferInterface;
 use coverallskit\AttributePopulatable;
+use coverallskit\ReportTransferAwareTrait;
 
 /**
  * Class Report
@@ -23,6 +24,7 @@ class Report implements ReportInterface
 {
 
     use AttributePopulatable;
+    use ReportTransferAwareTrait;
 
     /**
      * @var string
