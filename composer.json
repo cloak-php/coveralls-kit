@@ -1,10 +1,20 @@
 {
-    "name": "cloak-php/coverallskit",
+    "name": "cloak/coverallskit",
     "description": "CoverallsKit is the library for transmitting the report of code coverage to coveralls.",
     "version": "1.2.3",
     "keywords": [
         "coveralls", "code coverage", "report"
     ],
+    "require": {
+        "php": ">=5.4.0",
+        "phpcollection/phpcollection": "0.4.*",
+        "guzzle/guzzle": "3.9.*",
+        "gitonomy/gitlib": "0.1.*",
+        "symfony/yaml": "2.5.*",
+        "zendframework/zend-dom": "2.3.*",
+        "zendframework/zend-config": "2.3.*",
+        "zendframework/zend-console": "2.3.*"
+    },
     "require-dev": {
         "danielstjules/pho": "dev-master",
         "jaz303/phake": "0.6.*",
@@ -20,16 +30,6 @@
             "email": "holy.shared.design@gmail.com"
         }
     ],
-    "require": {
-        "php": ">=5.4.0",
-        "phpcollection/phpcollection": "0.4.*",
-        "guzzle/guzzle": "3.9.*",
-        "gitonomy/gitlib": "0.1.*",
-        "symfony/yaml": "2.5.*",
-        "zendframework/zend-dom": "2.3.*",
-        "zendframework/zend-config": "2.3.*",
-        "zendframework/zend-console": "2.3.*"
-    },
     "autoload": {
         "psr-4": { "coverallskit\\": "src/" }
     }
