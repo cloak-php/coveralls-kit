@@ -13,13 +13,29 @@ namespace coverallskit\entity;
 
 use coverallskit\CompositeEntityInterface;
 
+/**
+ * Interface ReportInterface
+ * @package coverallskit\entity
+ */
 interface ReportInterface extends CompositeEntityInterface
 {
 
     const DEFAULT_NAME = 'coverage.json';
 
+    /**
+     * @return string
+     */
     public function getName();
 
+    /**
+     * @return $this
+     */
+    public function save();
+
+    /**
+     * @param string $path
+     * @return $this
+     */
     public function saveAs($path);
 
     public function upload();
