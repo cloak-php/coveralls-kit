@@ -24,7 +24,7 @@ class Environment
     private $variables;
 
     /**
-     * @param array $env
+     * @param array $variables
      */
     public function __construct(array $variables = array())
     {

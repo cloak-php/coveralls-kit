@@ -25,9 +25,6 @@ class ParserRegistry
      */
     private $registry;
 
-    /**
-     * @param string $parserType
-     */
     public function __construct()
     {
         $this->registry = new Registry();

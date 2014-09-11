@@ -14,8 +14,8 @@ namespace coverallskit\spec;
 use coverallskit\entity\Report;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\service\TravisInterface;
 use Prophecy\Prophet;
+
 
 describe('Report', function() {
     before(function() {
@@ -89,6 +89,8 @@ describe('Report', function() {
     describe('upload', function() {
         context('when not saved file', function() {
             before(function() {
+                $this->prophet = new Prophet();
+
                 $this->notSavedReport = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
@@ -96,10 +98,10 @@ describe('Report', function() {
                     'sourceFiles' => new SourceFileCollection()
                 ]);
 
-                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportUpLoaderInterface');
+                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
                 $this->notSavedFileUpLoader->upload($this->notSavedReport)->shouldBeCalled();
 
-                $this->notSavedReport->setUpLoader($this->notSavedFileUpLoader->reveal());
+                $this->notSavedReport->setReportTransfer($this->notSavedFileUpLoader->reveal());
                 $this->notSavedReport->upload();
             });
             after(function() {
@@ -108,19 +110,24 @@ describe('Report', function() {
             it('should use the default name', function() {
                 expect($this->notSavedReport->getName())->toEqual(getcwd() . '/' . Report::DEFAULT_NAME);
             });
+            it('upload the report file', function() {
+                $this->prophet->checkPredictions();
+            });
         });
-        context('when not saved file', function() {
+        context('when saved file', function() {
             before(function() {
+                $this->prophet = new Prophet();
+
                 $this->savedReport = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
                     'service' => $this->service->reveal(),
                     'sourceFiles' => new SourceFileCollection()
                 ]);
-                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportUpLoaderInterface');
+                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
                 $this->savedFileUpLoader->upload($this->savedReport)->shouldBeCalled();
 
-                $this->savedReport->setUpLoader($this->savedFileUpLoader->reveal());
+                $this->savedReport->setReportTransfer($this->savedFileUpLoader->reveal());
 
                 $this->savedReport->saveAs($this->path);
                 $this->savedReport->upload();
@@ -128,8 +135,11 @@ describe('Report', function() {
             after(function() {
                 unlink($this->savedReport->getName());
             });
-            it('should upload the report file', function() {
+            it('use a file name that you specify', function() {
                 expect($this->savedReport->getName())->toEqual($this->path);
+            });
+            it('upload the report file', function() {
+                $this->prophet->checkPredictions();
             });
         });
     });

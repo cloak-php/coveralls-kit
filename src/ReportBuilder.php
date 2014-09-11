@@ -17,7 +17,6 @@ use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\ServiceInterface;
 use coverallskit\exception\RequiredException;
-use coverallskit\Configuration;
 
 
 /**
@@ -68,30 +67,50 @@ class ReportBuilder implements ReportBuilderInterface
         return $this;
     }
 
+    /**
+     * @param string $repositoryToken
+     * @return $this
+     */
     public function token($repositoryToken)
     {
         $this->token = $repositoryToken;
         return $this;
     }
 
+    /**
+     * @param ServiceInterface $service
+     * @return $this
+     */
     public function service(ServiceInterface $service)
     {
         $this->service = $service;
         return $this;
     }
 
+    /**
+     * @param RepositoryInterface $repository
+     * @return $this
+     */
     public function repository(RepositoryInterface $repository)
     {
         $this->repository = $repository;
         return $this;
     }
 
+    /**
+     * @param SourceFile $source
+     * @return $this
+     */
     public function addSource(SourceFile $source)
     {
         $this->sourceFiles->add($source);
         return $this;
     }
 
+    /**
+     * @param SourceFileCollection $sources
+     * @return $this
+     */
     public function addSources(SourceFileCollection $sources)
     {
         foreach ($sources as $source) {

@@ -17,7 +17,6 @@ use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\Coverage;
 use Zend\Dom\Query;
 use Zend\Dom\NodeList;
-use coverallskit\exception\LineOutOfRangeException;
 use coverallskit\exception\ExceptionCollection;
 
 
@@ -33,8 +32,8 @@ class CloverReportParser implements ReportParserInterface
      */
     private $reportContent;
 
-
     /**
+     * @param string $reportContent
      * @return Result
      */
     public function parse($reportContent)

@@ -31,11 +31,11 @@ class Configuration implements ConfigurationInterface
     private $config;
 
     /**
-     * @param array $values
+     * @param Config $config
      */
     public function __construct(Config $config = null)
     {
-        $userConfig = $config ?: new Config();
+        $userConfig = $config ?: new Config([]);
 
         $current = $this->getDefaultConfigration();
         $current->merge($userConfig);
