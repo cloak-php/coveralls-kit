@@ -24,10 +24,11 @@ describe('LcovReportParser', function() {
             $this->content = sprintf($content, getcwd(), getcwd());
 
             $this->parser = new LcovReportParser();
+            $this->result = $this->parser->parse($this->content);
+
         });
         it('return coverallskit\report\parser\Result', function() {
-            $result = $this->parser->parse($this->content);
-            expect($result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
+            expect($this->result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
         });
     });
 });
