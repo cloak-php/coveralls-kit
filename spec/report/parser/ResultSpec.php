@@ -14,6 +14,8 @@ namespace coverallskit\spec\report\parser;
 use coverallskit\report\parser\Result;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
+use coverallskit\exception\ExceptionCollection;
+use Exception;
 
 describe('Result', function() {
     describe('getSources', function() {
@@ -26,11 +28,65 @@ describe('Result', function() {
 
             $this->originalSources = $sources;
 
-            $this->result = new Result($sources, []);
+            $collection = new ExceptionCollection();
+            $collection->add(new Exception('parse error'));
+
+            $this->result = new Result($sources, $collection);
             $this->sources = $this->result->getSources();
         });
         it('return coverallskit\entity\collection\SourceFileCollection', function() {
             expect($this->sources)->toEqual($this->originalSources);
+        });
+    });
+
+    describe('getParseErrors', function() {
+        before(function() {
+            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
+
+            $source = new SourceFile($this->path);
+
+            $this->sources = new SourceFileCollection();
+            $this->sources->add($source);
+
+            $collection = new ExceptionCollection();
+            $collection->add(new Exception('parse error'));
+
+            $this->result = new Result($this->sources, $collection);
+        });
+        it('return coverallskit\exception\ExceptionCollection', function() {
+            expect($this->result->getParseErrors())->toBeAnInstanceOf('coverallskit\exception\ExceptionCollection');
+        });
+    });
+
+    describe('hasParseError', function() {
+        before(function() {
+            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
+
+            $source = new SourceFile($this->path);
+
+            $this->sources = new SourceFileCollection();
+            $this->sources->add($source);
+        });
+        context('when have parse errors', function() {
+            before(function() {
+                $collection = new ExceptionCollection();
+                $collection->add(new Exception('parse error'));
+
+                $this->result = new Result($this->sources, $collection);
+            });
+
+            it('return true', function() {
+                expect($this->result->hasParseError())->toBeTrue();
+            });
+        });
+        context('when have not parse errors', function() {
+            before(function() {
+                $collection = new ExceptionCollection();
+                $this->result = new Result($this->sources, $collection);
+            });
+            it('return false', function() {
+                expect($this->result->hasParseError())->toBeFalse();
+            });
         });
     });
 });
