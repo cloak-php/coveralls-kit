@@ -17,6 +17,8 @@ describe('LcovReportParser', function() {
     describe('parse', function() {
         before(function() {
             $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
+            $this->sourcePath1 = $this->fixtureDirectory . 'bar.php';
+            $this->sourcePath2 = $this->fixtureDirectory . 'foo.php';
 
             $content = file_get_contents($this->fixtureDirectory . 'report.lcov');
             $this->content = sprintf($content, getcwd(), getcwd());
@@ -28,8 +30,23 @@ describe('LcovReportParser', function() {
         it('return coverallskit\report\parser\Result', function() {
             expect($this->result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
         });
-        it('result have sources', function() {
-            expect(count($this->sources))->toEqual(2);
+        describe('Result', function() {
+            before(function() {
+                $source = $this->sources->get(realpath($this->sourcePath1));
+                $this->coverageCount1 = $source->getCoverages()->count();
+
+                $source = $this->sources->get(realpath($this->sourcePath2));
+                $this->coverageCount2 = $source->getCoverages()->count();
+            });
+            it('have sources', function() {
+                expect(count($this->sources))->toEqual(2);
+            });
+            describe('Source', function() {
+                it('have coverage', function() {
+                    expect($this->coverageCount1)->toEqual(7);
+                    expect($this->coverageCount2)->toEqual(5);
+                });
+            });
         });
     });
 });
