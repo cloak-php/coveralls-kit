@@ -12,8 +12,8 @@
 namespace coverallskit\entity\collection;
 
 use coverallskit\entity\SourceFile;
-use PhpCollection\Sequence;
 use coverallskit\AttributePopulatable;
+use PhpCollection\Map;
 
 
 /**
@@ -26,13 +26,13 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
     use AttributePopulatable;
 
     /**
-     * @var \PhpCollection\Sequence
+     * @var \PhpCollection\Map
      */
     protected $sources;
 
     public function __construct()
     {
-        $this->sources = new Sequence();
+        $this->sources = new Map();
     }
 
     /**
@@ -40,45 +40,37 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
      */
     public function add(SourceFile $source)
     {
-        $this->sources->add($source);
+        $key = $source->getName();
+        $this->sources->set($key, $source);
     }
 
     /**
-     * @param $source
+     * @param string|\coverallskit\entity\SourceFile $source
      * @return bool
      */
     public function has($source)
     {
-        $querySource = $source;
+        $path = (gettype($source) === 'string')
+            ? realpath($source) : $source->getName();
 
-        if (gettype($source) === 'string') {
-            $querySource = new SourceFile($source);
-        }
-
-        $applyFilter = function(SourceFile $element) use ($querySource) {
-            return $element->getName() === $querySource->getName();
-        };
-
-        $results = $this->sources->filter($applyFilter);
-
-        return $results->isEmpty() === false;
+        return $this->sources->containsKey($path);
     }
 
-
+    /**
+     * @param string $source
+     * @return null|void
+     */
     public function get($source)
     {
-        $querySource = new SourceFile($source);
+        $path = realpath($source);
+        $result = $this->sources->get($path);
 
-        $applyFilter = function(SourceFile $element) use ($querySource) {
-            return $element->getName() === $querySource->getName();
-        };
+        if ($result->isEmpty()) {
+            return null;
+        }
 
-        $results = $this->sources->filter($applyFilter);
-        $result = $results->first()->get();
-
-        return $result;
+        return $result->get();
     }
-
 
     /**
      * @return bool
