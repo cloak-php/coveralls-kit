@@ -81,6 +81,14 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
     }
 
     /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->sources->count();
+    }
+
+    /**
      * @return array
      */
     public function toArray()

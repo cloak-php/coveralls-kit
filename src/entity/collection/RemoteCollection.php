@@ -50,6 +50,14 @@ class RemoteCollection implements CompositeEntityCollectionInterface
     }
 
     /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->remotes->count();
+    }
+
+    /**
      * @return array
      */
     public function toArray()
