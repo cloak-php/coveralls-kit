@@ -58,11 +58,13 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
 
     /**
      * @param string $source
-     * @return null|void
+     * @return null|\coverallskit\entity\SourceFile
      */
     public function get($source)
     {
         $path = realpath($source);
+        $path = $path ?: '';
+
         $result = $this->sources->get($path);
 
         if ($result->isEmpty()) {

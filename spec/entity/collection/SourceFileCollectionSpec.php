@@ -53,10 +53,15 @@ describe('SourceFileCollection', function() {
     });
 
     describe('get', function() {
-        context('when source file name', function() {
+        context('when source file exists', function() {
             it('return coverallskit\entity\SourceFile', function() {
                 $name = $this->source->getName();
                 expect($this->sources->get($name))->toBeAnInstanceOf('coverallskit\entity\SourceFile');
+            });
+        });
+        context('when source file not exists', function() {
+            it('return null', function() {
+                expect($this->sources->get('foo'))->toBeNull();
             });
         });
     });
