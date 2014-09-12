@@ -26,37 +26,6 @@ describe('ExceptionCollection', function() {
         });
     });
 
-    describe('current', function() {
-        it('return current exception', function() {
-            expect($this->exceptions->current())->toBeAnInstanceOf('Exception');
-        });
-    });
-
-    describe('key', function() {
-        it('return current key', function() {
-            expect($this->exceptions->key())->toEqual(0);
-        });
-    });
-
-    describe('next', function() {
-        before(function() {
-            $this->exceptions->next();
-        });
-        it('move next', function() {
-            expect($this->exceptions->valid())->toBeFalse();
-        });
-    });
-
-    describe('rewind', function() {
-        before(function() {
-            $this->exceptions->next();
-            $this->exceptions->rewind();
-        });
-        it('move next', function() {
-            expect($this->exceptions->valid())->toBeTrue();
-        });
-    });
-
     describe('merge', function() {
         before(function() {
             $exceptions = new ExceptionCollection();
