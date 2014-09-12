@@ -51,6 +51,16 @@ describe('SourceFileCollection', function() {
             });
         });
     });
+
+    describe('get', function() {
+        context('when source file name', function() {
+            it('return coverallskit\entity\SourceFile', function() {
+                $name = $this->source->getName();
+                expect($this->sources->get($name))->toBeAnInstanceOf('coverallskit\entity\SourceFile');
+            });
+        });
+    });
+
     describe('toArray', function() {
         it('return array value', function() {
             expect($this->sources->toArray())->toEqual($this->values);

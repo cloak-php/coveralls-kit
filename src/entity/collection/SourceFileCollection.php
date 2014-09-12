@@ -64,6 +64,22 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
         return $results->isEmpty() === false;
     }
 
+
+    public function get($source)
+    {
+        $querySource = new SourceFile($source);
+
+        $applyFilter = function(SourceFile $element) use ($querySource) {
+            return $element->getName() === $querySource->getName();
+        };
+
+        $results = $this->sources->filter($applyFilter);
+        $result = $results->first()->get();
+
+        return $result;
+    }
+
+
     /**
      * @return bool
      */
