@@ -57,4 +57,17 @@ describe('ExceptionCollection', function() {
         });
     });
 
+    describe('merge', function() {
+        before(function() {
+            $exceptions = new ExceptionCollection();
+            $exceptions->add(new Exception('exception'));
+
+            $this->exceptions = new ExceptionCollection();
+            $this->exceptions->merge($exceptions);
+        });
+        it('merge exceptions', function() {
+            expect(count($this->exceptions))->toEqual(1);
+        });
+    });
+
 });

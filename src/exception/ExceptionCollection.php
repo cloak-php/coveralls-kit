@@ -85,4 +85,12 @@ class ExceptionCollection extends Exception implements Iterator, Countable
         return $this->exceptions->count();
     }
 
+    public function merge(ExceptionCollection $exceptions)
+    {
+        foreach ($exceptions as $exception) {
+            $this->add($exception);
+        }
+        return $this;
+    }
+
 }
