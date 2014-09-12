@@ -69,8 +69,8 @@ class CloverReportParser implements ReportParserInterface
      */
     private function parseFileNodes(NodeList $files)
     {
-        $parseErrors = new ExceptionCollection();
         $sources = new SourceFileCollection();
+        $parseErrors = new ExceptionCollection();
 
         foreach($files as $file) {
             $fileName = (string) $file->getAttribute('name');
@@ -82,8 +82,8 @@ class CloverReportParser implements ReportParserInterface
 
             try {
                 $source->getCoverages()->addAll($coverages);
-            } catch (ExceptionCollection $exception) {
-                $parseErrors = $exception;
+            } catch (ExceptionCollection $exceptionCollection) {
+                $parseErrors->merge($exceptionCollection);
             }
 
             $sources->add($source);
