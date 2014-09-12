@@ -20,6 +20,26 @@ describe('ExceptionCollection', function() {
         $this->exceptions->add(new Exception('exception'));
     });
 
+    describe('isEmpty', function() {
+        context('when empty', function() {
+            before(function() {
+                $this->exceptions = new ExceptionCollection();
+            });
+            it('return true', function() {
+                expect($this->exceptions->isEmpty())->toBeTrue();
+            });
+        });
+        context('when not empty', function() {
+            before(function() {
+                $this->exceptions = new ExceptionCollection();
+                $this->exceptions->add(new Exception('exception'));
+            });
+            it('return false', function() {
+                expect($this->exceptions->isEmpty())->toBeFalse();
+            });
+        });
+    });
+                                    
     describe('add', function() {
         it('add exception', function() {
             expect($this->exceptions->count())->toEqual(1);

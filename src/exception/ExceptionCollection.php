@@ -52,6 +52,11 @@ class ExceptionCollection extends Exception implements IteratorAggregate, Counta
         return $this->exceptions->count();
     }
 
+    public function isEmpty()
+    {
+        return $this->count() <= 0;
+    }
+
     public function getIterator()
     {
         return new ArrayIterator($this->exceptions->getArrayCopy());
