@@ -16,19 +16,20 @@ use coverallskit\report\parser\LcovReportParser;
 describe('LcovReportParser', function() {
     describe('parse', function() {
         before(function() {
-            $this->tmpDirectory = __DIR__ . '/../../tmp/';
             $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
-            $this->LcovReportFile = $this->tmpDirectory . 'report.lcov';
 
-            $content = file_get_contents($this->fixtureDirectory . 'report.xml');
+            $content = file_get_contents($this->fixtureDirectory . 'report.lcov');
             $this->content = sprintf($content, getcwd(), getcwd());
 
             $this->parser = new LcovReportParser();
             $this->result = $this->parser->parse($this->content);
-
+            $this->sources = $this->result->getSources();
         });
         it('return coverallskit\report\parser\Result', function() {
             expect($this->result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
+        });
+        it('result have sources', function() {
+            expect(count($this->sources))->toEqual(2);
         });
     });
 });
