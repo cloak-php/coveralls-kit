@@ -166,6 +166,34 @@ class SourceFile implements CompositeEntityInterface
         return $this->coverages->at($lineNumber);
     }
 
+    public function getExecutedLineCount()
+    {
+        $executedCount = 0;
+
+        foreach ($this->coverages as $coverage) {
+            if ($coverage->isExecuted() === false) {
+                continue;
+            }
+            $executedCount++;
+        }
+
+        return $executedCount;
+    }
+
+    public function getUnusedLineCount()
+    {
+        $unusedCount = 0;
+
+        foreach ($this->coverages as $coverage) {
+            if ($coverage->isUnused() === false) {
+                continue;
+            }
+            $unusedCount++;
+        }
+
+        return $unusedCount;
+    }
+
     /**
      * @return bool
      */

@@ -22,6 +22,9 @@ describe('SourceFile', function() {
     });
     describe('__construct', function() {
         context('when the file does not exist', function() {
+            before(function() {
+                $this->sourceFile = new SourceFile($this->path);
+            });
             it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
                     $source = new SourceFile('bar.php');
@@ -29,6 +32,7 @@ describe('SourceFile', function() {
             });
         });
     });
+
     describe('isEmpty', function() {
         context('when the contents of the source file is empty', function() {
             before(function() {
@@ -41,16 +45,25 @@ describe('SourceFile', function() {
         });
     });
     describe('getName', function() {
+        before(function() {
+            $this->sourceFile = new SourceFile($this->path);
+        });
         it('should return file name', function() {
             expect($this->sourceFile->getName())->toBe($this->path);
         });
     });
     describe('getContent', function() {
+        before(function() {
+            $this->sourceFile = new SourceFile($this->path);
+        });
         it('should return file content', function() {
             expect($this->sourceFile->getContent())->toBe(trim(file_get_contents($this->path)));
         });
     });
     describe('getCoverages', function() {
+        before(function() {
+            $this->sourceFile = new SourceFile($this->path);
+        });
         it('should return coverallskit\entity\collection\CoverageCollection instance', function() {
             expect($this->sourceFile->getCoverages())->toBeAnInstanceOf('coverallskit\entity\collection\CoverageCollection');
         });
@@ -58,6 +71,7 @@ describe('SourceFile', function() {
     describe('addCoverage', function() {
         before(function() {
             $this->coverage = Coverage::unused(1);
+            $this->sourceFile = new SourceFile($this->path);
             $this->sourceFile->addCoverage($this->coverage);
             $this->retrieveCoverage = $this->sourceFile->getCoverage(1);
         });
@@ -94,7 +108,32 @@ describe('SourceFile', function() {
         });
     });
 
+    describe('getExecutedLineCount', function() {
+        before(function() {
+            $this->sourceFile = new SourceFile($this->path);
+            $this->sourceFile->addCoverage(Coverage::executed(12));
+            $this->sourceFile->addCoverage(Coverage::unused(17));
+        });
+        it('return executed line count', function() {
+            expect($this->sourceFile->getExecutedLineCount())->toEqual(1);
+        });
+    });
+
+    describe('getUnusedLineCount', function() {
+        before(function() {
+            $this->sourceFile = new SourceFile($this->path);
+            $this->sourceFile->addCoverage(Coverage::executed(12));
+            $this->sourceFile->addCoverage(Coverage::unused(17));
+        });
+        it('return unused line count', function() {
+            expect($this->sourceFile->getUnusedLineCount())->toEqual(1);
+        });
+    });
+
     describe('toArray', function() {
+        before(function() {
+            $this->sourceFile = new SourceFile($this->path);
+        });
         it('should return array values', function() {
             $values = $this->sourceFile->toArray();
             expect($values['name'])->toEqual($this->sourceFile->getPathFromCurrentDirectory());
@@ -102,6 +141,7 @@ describe('SourceFile', function() {
             expect($values['coverage'])->toEqual($this->sourceFile->getCoverages()->toArray());
         });
     });
+
     describe('__toString', function() {
         before(function() {
             $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
