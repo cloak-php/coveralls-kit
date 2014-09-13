@@ -107,11 +107,7 @@ class LcovReportParser implements ReportParserInterface
     private function coverage($line)
     {
         $coverage = new LcovCoverage($line);
-
-        $lineNumber = $coverage->getLineNumber();
-        $analysisResult = ($coverage->getExecuteCount() >= 1) ? Coverage::EXECUTED : Coverage::UNUSED;
-
-        $this->coverages[] = new Coverage($lineNumber, $analysisResult);
+        $this->coverages[] = $coverage->toEntity();
     }
 
 }

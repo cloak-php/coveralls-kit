@@ -11,6 +11,8 @@
 
 namespace coverallskit\report\lcov;
 
+use coverallskit\entity\Coverage as EntityCoverage;
+
 /**
  * Class Coverage
  * @package coverallskit\report\lcov
@@ -56,6 +58,33 @@ final class Coverage extends AbstractRecord
     public function getExecuteCount()
     {
         return $this->executeCount;
+    }
+
+    /**
+     * @return EntityCoverage
+     */
+    public function toEntity()
+    {
+        return new EntityCoverage(
+            $this->getLineNumber(),
+            $this->getAnalysisResult()
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExecuted()
+    {
+        return $this->getExecuteCount() >= 1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAnalysisResult()
+    {
+        return ($this->isExecuted()) ? EntityCoverage::EXECUTED : EntityCoverage::UNUSED;
     }
 
     /**
