@@ -18,6 +18,7 @@ use coverallskit\entity\Coverage;
 use Zend\Dom\Query;
 use Zend\Dom\NodeList;
 use coverallskit\exception\ExceptionCollection;
+use coverallskit\exception\LineOutOfRangeException;
 
 
 /**
@@ -31,6 +32,39 @@ class CloverReportParser implements ReportParserInterface
      * @var string
      */
     private $reportContent;
+
+    /**
+     * @var SourceFile
+     */
+    private $source;
+
+    /**
+     * @var CoverageCollection
+     */
+    private $sourceCollection;
+
+    /**
+     * @var \coverallskit\entity\collection\CoverageCollection
+     */
+    private $coverages;
+
+    /**
+     * @var ExceptionCollection
+     */
+    private $coveragesErrors;
+
+    /**
+     * @var ExceptionCollection
+     */
+    private $reportParseErrors;
+
+
+    public function __construct()
+    {
+        $this->sourceCollection = new SourceFileCollection();
+        $this->reportParseErrors = new ExceptionCollection();
+    }
+
 
     /**
      * @param string $reportContent
@@ -69,39 +103,30 @@ class CloverReportParser implements ReportParserInterface
      */
     private function parseFileNodes(NodeList $files)
     {
-        $sources = new SourceFileCollection();
-        $parseErrors = new ExceptionCollection();
-
         foreach($files as $file) {
             $fileName = (string) $file->getAttribute('name');
 
-            $source = new SourceFile($fileName);
+            $this->source = new SourceFile($fileName);
+            $this->coverages = $this->source->getEmptyCoverages();
+            $this->coveragesErrors = new ExceptionCollection($fileName);
 
             $lines = $this->findCoverages($fileName);
-            $coverages = $this->parseLineNodes($lines);
-
-            try {
-                $source->getCoverages()->addAll($coverages);
-            } catch (ExceptionCollection $exceptionCollection) {
-                $parseErrors->merge($exceptionCollection);
-            }
-
-            $sources->add($source);
+            $this->parseLineNodes($lines);
         }
 
-        $result = new Result($sources, $parseErrors);
+        $result = new Result(
+            $this->sourceCollection,
+            $this->reportParseErrors
+        );
 
         return $result;
     }
 
     /**
      * @param NodeList $lines
-     * @return array
      */
     private function parseLineNodes(NodeList $lines)
     {
-        $coverages = [];
-
         foreach ($lines as $line) {
             $lineNumber = (int) $line->getAttribute('num');
             $executeCount = (int) $line->getAttribute('count');
@@ -110,10 +135,17 @@ class CloverReportParser implements ReportParserInterface
                 ? Coverage::EXECUTED : Coverage::UNUSED;
 
             $coverage = new Coverage($lineNumber, $analysisResult);
-            $coverages[] = $coverage;
+
+            try {
+                $this->coverages->add($coverage);
+            } catch (LineOutOfRangeException $exception) {
+                $this->coveragesErrors->add($exception);
+            }
         }
 
-        return $coverages;
+        $this->source->addCoverages($this->coverages);
+        $this->reportParseErrors->merge($this->coveragesErrors);
+        $this->sourceCollection->add($this->source);
     }
 
 }

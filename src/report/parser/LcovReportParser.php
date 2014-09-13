@@ -35,12 +35,12 @@ class LcovReportParser implements ReportParserInterface
     private $source;
 
     /**
-     * @var SourceFileCollection
+     * @var \coverallskit\entity\collection\SourceFileCollection
      */
     private $sourceCollection;
 
     /**
-     * @var array
+     * @var \coverallskit\entity\collection\CoverageCollection
      */
     private $coverages;
 
