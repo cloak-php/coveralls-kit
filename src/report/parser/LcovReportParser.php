@@ -33,7 +33,7 @@ class LcovReportParser implements ReportParserInterface
     /**
      * @var SourceFile
      */
-    private $currentSource;
+    private $source;
 
     /**
      * @var SourceFileCollection
@@ -41,15 +41,14 @@ class LcovReportParser implements ReportParserInterface
     private $sourceCollection;
 
     /**
+     * @var array
+     */
+    private $coverages;
+
+    /**
      * @var ExceptionCollection
      */
     private $parseErrors;
-
-    /**
-     * @var array
-     */
-    private $currentCoverages;
-
 
     /**
      * @param string $reportContent
@@ -82,18 +81,18 @@ class LcovReportParser implements ReportParserInterface
     private function startSource($line)
     {
         $name = preg_replace('/^SF:(.+)$/', '$1', $line);
-        $this->currentSource = new SourceFile($name);
-        $this->currentCoverages = [];
+        $this->source = new SourceFile($name);
+        $this->coverages = [];
     }
 
     private function endSource()
     {
         try {
-            $this->currentSource->getCoverages()->addAll($this->currentCoverages);
+            $this->source->getCoverages()->addAll($this->coverages);
         } catch (ExceptionCollection $exception) {
             $this->parseErrors->merge($exception);
         }
-        $this->sourceCollection->add($this->currentSource);
+        $this->sourceCollection->add($this->source);
     }
 
     /**
@@ -108,7 +107,7 @@ class LcovReportParser implements ReportParserInterface
         $lineNumber = (int) $lineNumber;
         $analysisResult = ((int) $executeCount >= 1) ? Coverage::EXECUTED : Coverage::UNUSED;
 
-        $this->currentCoverages[] = new Coverage($lineNumber, $analysisResult);
+        $this->coverages[] = new Coverage($lineNumber, $analysisResult);
     }
 
 }
