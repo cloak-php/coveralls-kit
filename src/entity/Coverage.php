@@ -11,6 +11,8 @@
 
 namespace coverallskit\entity;
 
+use UnexpectedValueException;
+
 /**
  * Class Coverage
  * @package coverallskit\entity
@@ -35,8 +37,9 @@ class Coverage implements CoverageInterface
      */
     public function __construct($lineAt, $analysisResult)
     {
-        $this->lineAt = $lineAt;
-        $this->analysisResult = $analysisResult;
+        $this->lineAt = (int) $lineAt;
+        $this->analysisResult = (int) $analysisResult;
+        $this->validateAnalysisResult();
     }
 
     /**
@@ -104,6 +107,22 @@ class Coverage implements CoverageInterface
     public function valueOf()
     {
         return $this->getAnalysisResult();
+    }
+
+    /**
+     * @throws \UnexpectedValueException
+     */
+    protected function validateAnalysisResult()
+    {
+        $resultTypes = [static::UNUSED, static::EXECUTED];
+        $result = $this->getAnalysisResult();
+
+        if (in_array($result, $resultTypes) === true) {
+            return;
+        }
+
+        $message = sprintf("Value of the analysis results is invalid.\nMust specify a 0 or 1 (got: %d)", $result);
+        throw new UnexpectedValueException($message);
     }
 
 }
