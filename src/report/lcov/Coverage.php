@@ -15,7 +15,7 @@ namespace coverallskit\report\lcov;
  * Class Coverage
  * @package coverallskit\report\lcov
  */
-class Coverage extends Record
+final class Coverage extends AbstractRecord
 {
 
     const PATTURN = '/^DA:(\d+),(\d+)/';

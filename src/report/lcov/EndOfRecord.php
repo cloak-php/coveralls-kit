@@ -12,31 +12,13 @@
 namespace coverallskit\report\lcov;
 
 /**
- * Class SourceFile
+ * Class EndOfRecord
  * @package coverallskit\report\lcov
  */
-final class SourceFile extends AbstractRecord
+final class EndOfRecord implements RecordInterface
 {
 
-    const PATTURN = '/^SF:(.+)$/';
-
-    /**
-     * @var string
-     */
-    private $fileName;
-
-    protected function parse()
-    {
-        $this->fileName = preg_replace(self::PATTURN, '$1', $this->record);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->fileName;
-    }
+    const PATTURN = '/^end_of_record$/';
 
     /**
      * @param string $record

@@ -12,32 +12,16 @@
 namespace coverallskit\report\lcov;
 
 /**
- * Class Record
+ * Interface RecordInterface
  * @package coverallskit\report\lcov
  */
-abstract class Record
+interface RecordInterface
 {
-
-    /**
-     * @var string
-     */
-    protected $record;
-
-    /**
-     * @param string $record
-     */
-    public function __construct($record)
-    {
-        $this->record = $record;
-        $this->parse();
-    }
-
-    abstract protected function parse();
 
     /**
      * @param string $record
      * @return bool
      */
-    abstract public static function match($record);
+    public static function match($record);
 
 }
