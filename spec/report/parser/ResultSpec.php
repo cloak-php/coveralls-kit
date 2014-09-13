@@ -19,10 +19,12 @@ use coverallskit\exception\ExceptionCollection;
 use Exception;
 
 describe('Result', function() {
+    before(function() {
+        $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
+    });
+
     describe('getSources', function() {
         before(function() {
-            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
-
             $source = new SourceFile($this->path);
             $sources = new SourceFileCollection();
             $sources->add($source);
@@ -41,8 +43,6 @@ describe('Result', function() {
     });
     describe('getExecutedLineCount', function() {
         before(function() {
-            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
-
             $source = new SourceFile($this->path);
             $source->addCoverage(Coverage::executed(12));
 
@@ -58,8 +58,6 @@ describe('Result', function() {
     });
     describe('getUnusedLineCount', function() {
         before(function() {
-            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
-
             $source = new SourceFile($this->path);
             $source->addCoverage(Coverage::unused(12));
 
@@ -75,8 +73,6 @@ describe('Result', function() {
     });
     describe('getParseErrors', function() {
         before(function() {
-            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
-
             $source = new SourceFile($this->path);
 
             $this->sources = new SourceFileCollection();
@@ -93,8 +89,6 @@ describe('Result', function() {
     });
     describe('hasParseError', function() {
         before(function() {
-            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
-
             $source = new SourceFile($this->path);
 
             $this->sources = new SourceFileCollection();
