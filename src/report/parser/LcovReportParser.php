@@ -13,7 +13,7 @@ namespace coverallskit\report\parser;
 
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\Coverage;
+use coverallskit\report\lcov\RecordLexer;
 use coverallskit\report\lcov\EndOfRecord;
 use coverallskit\report\lcov\SourceFile as LcovSourceFile;
 use coverallskit\report\lcov\Coverage as LcovCoverage;
@@ -27,11 +27,6 @@ use coverallskit\exception\ExceptionCollection;
  */
 class LcovReportParser implements ReportParserInterface
 {
-
-    /**
-     * @var string
-     */
-    private $reportContent;
 
     /**
      * @var SourceFile
@@ -65,16 +60,15 @@ class LcovReportParser implements ReportParserInterface
      */
     public function parse($reportContent)
     {
-        $this->reportContent = $reportContent;
-        $lines = explode(PHP_EOL, $this->reportContent);
+        $recordLexer = new RecordLexer($reportContent);
 
-        foreach ($lines as $line) {
-            if (LcovSourceFile::match($line)) {
-                $this->startSource($line);
-            } else if (EndOfRecord::match($line)) {
+        foreach ($recordLexer as $record) {
+            if ($record instanceof LcovSourceFile) {
+                $this->startSource($record);
+            } elseif ($record instanceof EndOfRecord) {
                 $this->endSource();
-            } else if (LcovCoverage::match($line)) {
-                $this->coverage($line);
+            } elseif ($record instanceof LcovCoverage) {
+                $this->coverage($record);
             }
         }
 
@@ -82,11 +76,10 @@ class LcovReportParser implements ReportParserInterface
     }
 
     /**
-     * @param string $line
+     * @param LcovSourceFile $source
      */
-    private function startSource($line)
+    private function startSource(LcovSourceFile $source)
     {
-        $source = new LcovSourceFile($line);
         $this->source = new SourceFile($source->getName());
         $this->coverages = [];
     }
@@ -102,11 +95,10 @@ class LcovReportParser implements ReportParserInterface
     }
 
     /**
-     * @param string $line
+     * @param LcovCoverage $coverage
      */
-    private function coverage($line)
+    private function coverage(LcovCoverage $coverage)
     {
-        $coverage = new LcovCoverage($line);
         $this->coverages[] = $coverage->toEntity();
     }
 

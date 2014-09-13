@@ -12,10 +12,12 @@
 namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\parser\LcovReportParser;
+use Guzzle\Tests\Http\Exception\ExceptionTest;
 
 describe('LcovReportParser', function() {
     describe('parse', function() {
         before(function() {
+            try {
             $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
             $this->sourcePath1 = $this->fixtureDirectory . 'bar.php';
             $this->sourcePath2 = $this->fixtureDirectory . 'foo.php';
@@ -26,6 +28,11 @@ describe('LcovReportParser', function() {
             $this->parser = new LcovReportParser();
             $this->result = $this->parser->parse($this->content);
             $this->sources = $this->result->getSources();
+        } catch (\Exception $e) {
+var_dump($e);
+        }
+
+
         });
         it('return coverallskit\report\parser\Result', function() {
             expect($this->result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
