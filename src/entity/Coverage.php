@@ -11,15 +11,27 @@
 
 namespace coverallskit\entity;
 
+/**
+ * Class Coverage
+ * @package coverallskit\entity
+ */
 class Coverage implements CoverageInterface 
 {
 
-    protected $lineAt = null;
-    protected $analysisResult = null;
+    /**
+     * @var int
+     */
+    private $lineAt;
 
     /**
-     * @param integer $lineAt
-     * @param integer $analysisResult
+     * @var int
+     */
+    private $analysisResult;
+
+
+    /**
+     * @param int $lineAt
+     * @param int $analysisResult
      */
     public function __construct($lineAt, $analysisResult)
     {
@@ -27,52 +39,71 @@ class Coverage implements CoverageInterface
         $this->analysisResult = $analysisResult;
     }
 
+    /**
+     * @return int
+     */
     public function getLineNumber()
     {
         return $this->lineAt;
     }
 
+    /**
+     * @return int
+     */
     public function getAnalysisResult()
     {
         return $this->analysisResult;
     }
 
+    /**
+     * @return bool
+     */
     public function isUnused()
     {
         return $this->getAnalysisResult() === static::UNUSED;
     }
 
+    /**
+     * @return bool
+     */
     public function isExecuted()
     {
         return $this->getAnalysisResult() === static::EXECUTED;
     }
 
+    /**
+     * @param int $lineCount
+     * @return bool
+     */
     public function isValidLine($lineCount)
     {
         return $this->getLineNumber() >= 1 && $this->getLineNumber() <= $lineCount;
     }
 
+    /**
+     * @param int $lineAt
+     * @return Coverage
+     */
     public static function unused($lineAt)
     {
-        return new static($lineAt, static::UNUSED);
+        return new self($lineAt, static::UNUSED);
     }
 
+    /**
+     * @param int $lineAt
+     * @return Coverage
+     */
     public static function executed($lineAt)
     {
-        return new static($lineAt, static::EXECUTED);
+        return new self($lineAt, static::EXECUTED);
     }
 
+    /**
+     * @return int
+     */
     public function valueOf()
     {
-        $value = null;
-
-        if ($this->isExecuted()) {
-            $value = static::EXECUTED;
-        } else if ($this->isUnused()) {
-            $value = static::UNUSED;
-        }
-
-        return $value;
+        return $this->getAnalysisResult();
     }
 
 }
