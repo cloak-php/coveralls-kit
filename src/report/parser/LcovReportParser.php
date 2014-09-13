@@ -53,7 +53,7 @@ class LcovReportParser implements ReportParserInterface
                 try {
                     $sourceFile->getCoverages()->addAll($coverages);
                 } catch (ExceptionCollection $exception) {
-                    $parseErrors = $exception;
+                    $parseErrors->merge($exception);
                 }
                 $sourceCollection->add($sourceFile);
             } else if (preg_match('/DA:/', $line) === 1) {

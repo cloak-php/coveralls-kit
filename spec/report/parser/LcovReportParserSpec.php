@@ -31,21 +31,15 @@ describe('LcovReportParser', function() {
             expect($this->result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
         });
         describe('Result', function() {
-            before(function() {
-                $source = $this->sources->get(realpath($this->sourcePath1));
-                $this->coverageCount1 = $source->getCoverages()->count();
-
-                $source = $this->sources->get(realpath($this->sourcePath2));
-                $this->coverageCount2 = $source->getCoverages()->count();
+            it('have execute line coverage', function() {
+                expect($this->result->getExecutedLineCount())->toEqual(10);
             });
-            it('have sources', function() {
-                expect(count($this->sources))->toEqual(2);
+            it('have unused line coverage', function() {
+                expect($this->result->getUnusedLineCount())->toEqual(2);
             });
-            describe('Source', function() {
-                it('have coverage', function() {
-                    expect($this->coverageCount1)->toEqual(7);
-                    expect($this->coverageCount2)->toEqual(5);
-                });
+            it('have parse error', function() {
+                $errors = $this->result->getParseErrors();
+                expect(count($errors))->toEqual(2);
             });
         });
     });
