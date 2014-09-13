@@ -50,6 +50,12 @@ class LcovReportParser implements ReportParserInterface
      */
     private $parseErrors;
 
+    public function __construct()
+    {
+        $this->parseErrors = new ExceptionCollection();
+        $this->sourceCollection = new SourceFileCollection();
+    }
+
     /**
      * @param string $reportContent
      * @return Result
@@ -58,9 +64,6 @@ class LcovReportParser implements ReportParserInterface
     {
         $this->reportContent = $reportContent;
         $lines = explode(PHP_EOL, $this->reportContent);
-
-        $this->sourceCollection = new SourceFileCollection();
-        $this->parseErrors = new ExceptionCollection();
 
         foreach ($lines as $line) {
             if (preg_match('/SF:/', $line) === 1) {
