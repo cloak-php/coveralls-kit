@@ -31,6 +31,12 @@ class LcovReportParser implements ReportParserInterface
     private $reportContent;
 
     /**
+     * @var SourceFile
+     */
+    private $currentSource;
+
+
+    /**
      * @param string $reportContent
      * @return Result
      */
@@ -47,15 +53,15 @@ class LcovReportParser implements ReportParserInterface
         foreach ($lines as $line) {
             if (preg_match('/SF:/', $line) === 1) {
                 $name = preg_replace('/^SF:(.+)$/', '$1', $line);
-                $sourceFile = new SourceFile($name);
+                $this->currentSource = new SourceFile($name);
                 $coverages = [];
             } else if (preg_match('/end_of_record/', $line) === 1) {
                 try {
-                    $sourceFile->getCoverages()->addAll($coverages);
+                    $this->currentSource->getCoverages()->addAll($coverages);
                 } catch (ExceptionCollection $exception) {
                     $parseErrors->merge($exception);
                 }
-                $sourceCollection->add($sourceFile);
+                $sourceCollection->add($this->currentSource);
             } else if (preg_match('/DA:/', $line) === 1) {
                 $line = preg_replace('/DA:/', '', $line);
                 $params = explode(',', $line);
