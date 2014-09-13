@@ -22,10 +22,22 @@ describe('CloverReportParser', function() {
             $this->content = sprintf($content, getcwd(), getcwd());
 
             $this->parser = new CloverReportParser();
+            $this->result = $this->parser->parse($this->content);
         });
         it('return coverallskit\report\parser\Result', function() {
-            $result = $this->parser->parse($this->content);
-            expect($result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
+            expect($this->result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
+        });
+        describe('Result', function() {
+            it('have execute line coverage', function() {
+                expect($this->result->getExecutedLineCount())->toEqual(10);
+            });
+            it('have unused line coverage', function() {
+                expect($this->result->getUnusedLineCount())->toEqual(2);
+            });
+            it('have parse error', function() {
+                $errors = $this->result->getParseErrors();
+                expect(count($errors))->toEqual(2);
+            });
         });
     });
 });
