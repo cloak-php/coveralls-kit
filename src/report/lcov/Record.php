@@ -12,10 +12,10 @@
 namespace coverallskit\report\lcov;
 
 /**
- * Class Line
+ * Class Record
  * @package coverallskit\report\lcov
  */
-abstract class Line
+abstract class Record
 {
 
     /**

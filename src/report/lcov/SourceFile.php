@@ -15,7 +15,7 @@ namespace coverallskit\report\lcov;
  * Class SourceFile
  * @package coverallskit\report\lcov
  */
-class SourceFile extends Line
+class SourceFile extends Record
 {
 
     const PATTURN = '/^SF:(.+)$/';

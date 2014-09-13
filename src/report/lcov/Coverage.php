@@ -15,7 +15,7 @@ namespace coverallskit\report\lcov;
  * Class Coverage
  * @package coverallskit\report\lcov
  */
-class Coverage extends Line
+class Coverage extends Record
 {
 
     const PATTURN = '/^DA:(\d+),(\d+)/';
