@@ -104,7 +104,10 @@ class CloverReportParser implements ReportParserInterface
 
         foreach ($lines as $line) {
             $lineNumber = (int) $line->getAttribute('num');
-            $analysisResult = (int) $line->getAttribute('count');
+            $executeCount = (int) $line->getAttribute('count');
+
+            $analysisResult = ($executeCount >= 1)
+                ? Coverage::EXECUTED : Coverage::UNUSED;
 
             $coverage = new Coverage($lineNumber, $analysisResult);
             $coverages[] = $coverage;
