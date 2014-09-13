@@ -48,4 +48,14 @@ class Result
         return $this->sources;
     }
 
+    public function getParseErrors()
+    {
+        return $this->parseErrors;
+    }
+
+    public function hasParseError()
+    {
+        return $this->parseErrors->isEmpty() === false;
+    }
+
 }

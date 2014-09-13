@@ -12,11 +12,11 @@
 namespace coverallskit\exception;
 
 use Exception;
-use Iterator;
 use ArrayIterator;
 use Countable;
+use IteratorAggregate;
 
-class ExceptionCollection extends Exception implements Iterator, Countable
+class ExceptionCollection extends Exception implements IteratorAggregate, Countable
 {
 
     /**
@@ -41,40 +41,7 @@ class ExceptionCollection extends Exception implements Iterator, Countable
     public function add(Exception $exception)
     {
         $this->exceptions->append($exception);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function current()
-    {
-        return $this->exceptions->current();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function key()
-    {
-        return $this->exceptions->key();
-    }
-
-    public function next()
-    {
-        $this->exceptions->next();
-    }
-
-    public function rewind()
-    {
-        $this->exceptions->rewind();
-    }
-
-    /**
-     * @return bool
-     */
-    public function valid()
-    {
-        return $this->exceptions->valid();
+        return $this;
     }
 
     /**
@@ -83,6 +50,24 @@ class ExceptionCollection extends Exception implements Iterator, Countable
     public function count()
     {
         return $this->exceptions->count();
+    }
+
+    public function isEmpty()
+    {
+        return $this->count() <= 0;
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator($this->exceptions->getArrayCopy());
+    }
+
+    public function merge(ExceptionCollection $exceptions)
+    {
+        foreach ($exceptions as $exception) {
+            $this->add($exception);
+        }
+        return $this;
     }
 
 }

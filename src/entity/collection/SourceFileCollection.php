@@ -12,8 +12,8 @@
 namespace coverallskit\entity\collection;
 
 use coverallskit\entity\SourceFile;
-use PhpCollection\Sequence;
 use coverallskit\AttributePopulatable;
+use PhpCollection\Map;
 
 
 /**
@@ -26,13 +26,13 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
     use AttributePopulatable;
 
     /**
-     * @var \PhpCollection\Sequence
+     * @var \PhpCollection\Map
      */
     protected $sources;
 
     public function __construct()
     {
-        $this->sources = new Sequence();
+        $this->sources = new Map();
     }
 
     /**
@@ -40,28 +40,38 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
      */
     public function add(SourceFile $source)
     {
-        $this->sources->add($source);
+        $key = $source->getName();
+        $this->sources->set($key, $source);
     }
 
     /**
-     * @param $source
+     * @param string|\coverallskit\entity\SourceFile $source
      * @return bool
      */
     public function has($source)
     {
-        $querySource = $source;
+        $path = (gettype($source) === 'string')
+            ? realpath($source) : $source->getName();
 
-        if (gettype($source) === 'string') {
-            $querySource = new SourceFile($source);
+        return $this->sources->containsKey($path);
+    }
+
+    /**
+     * @param string $source
+     * @return null|\coverallskit\entity\SourceFile
+     */
+    public function get($source)
+    {
+        $path = realpath($source);
+        $path = $path ?: '';
+
+        $result = $this->sources->get($path);
+
+        if ($result->isEmpty()) {
+            return null;
         }
 
-        $applyFilter = function(SourceFile $element) use ($querySource) {
-            return $element->getName() === $querySource->getName();
-        };
-
-        $results = $this->sources->filter($applyFilter);
-
-        return $results->isEmpty() === false;
+        return $result->get();
     }
 
     /**
@@ -78,6 +88,14 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
     public function getIterator()
     {
         return $this->sources->getIterator();
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->sources->count();
     }
 
     /**

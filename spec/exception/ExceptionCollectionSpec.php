@@ -20,40 +20,42 @@ describe('ExceptionCollection', function() {
         $this->exceptions->add(new Exception('exception'));
     });
 
+    describe('isEmpty', function() {
+        context('when empty', function() {
+            before(function() {
+                $this->exceptions = new ExceptionCollection();
+            });
+            it('return true', function() {
+                expect($this->exceptions->isEmpty())->toBeTrue();
+            });
+        });
+        context('when not empty', function() {
+            before(function() {
+                $this->exceptions = new ExceptionCollection();
+                $this->exceptions->add(new Exception('exception'));
+            });
+            it('return false', function() {
+                expect($this->exceptions->isEmpty())->toBeFalse();
+            });
+        });
+    });
+                                    
     describe('add', function() {
         it('add exception', function() {
             expect($this->exceptions->count())->toEqual(1);
         });
     });
 
-    describe('current', function() {
-        it('return current exception', function() {
-            expect($this->exceptions->current())->toBeAnInstanceOf('Exception');
-        });
-    });
-
-    describe('key', function() {
-        it('return current key', function() {
-            expect($this->exceptions->key())->toEqual(0);
-        });
-    });
-
-    describe('next', function() {
+    describe('merge', function() {
         before(function() {
-            $this->exceptions->next();
-        });
-        it('move next', function() {
-            expect($this->exceptions->valid())->toBeFalse();
-        });
-    });
+            $exceptions = new ExceptionCollection();
+            $exceptions->add(new Exception('exception'));
 
-    describe('rewind', function() {
-        before(function() {
-            $this->exceptions->next();
-            $this->exceptions->rewind();
+            $this->exceptions = new ExceptionCollection();
+            $this->exceptions->merge($exceptions);
         });
-        it('move next', function() {
-            expect($this->exceptions->valid())->toBeTrue();
+        it('merge exceptions', function() {
+            expect(count($this->exceptions))->toEqual(1);
         });
     });
 

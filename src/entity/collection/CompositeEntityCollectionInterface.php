@@ -13,11 +13,12 @@ namespace coverallskit\entity\collection;
 
 use coverallskit\CompositeEntityInterface;
 use IteratorAggregate;
+use Countable;
 
 /**
  * Interface CompositeEntityCollectionInterface
  * @package coverallskit\entity\collection
  */
-interface CompositeEntityCollectionInterface extends CompositeEntityInterface, IteratorAggregate
+interface CompositeEntityCollectionInterface extends CompositeEntityInterface, IteratorAggregate, Countable
 {
 }

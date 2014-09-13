@@ -145,6 +145,14 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     }
 
     /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->lineCoverages->count();
+    }
+
+    /**
      * @return array
      */
     public function toArray()
