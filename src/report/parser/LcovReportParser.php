@@ -19,6 +19,7 @@ use coverallskit\report\lcov\SourceFile as LcovSourceFile;
 use coverallskit\report\lcov\Coverage as LcovCoverage;
 use coverallskit\report\ReportParserInterface;
 use coverallskit\exception\ExceptionCollection;
+use coverallskit\exception\LineOutOfRangeException;
 
 
 /**
@@ -46,12 +47,18 @@ class LcovReportParser implements ReportParserInterface
     /**
      * @var ExceptionCollection
      */
-    private $parseErrors;
+    private $coveragesErrors;
+
+    /**
+     * @var ExceptionCollection
+     */
+    private $reportParseErrors;
+
 
     public function __construct()
     {
-        $this->parseErrors = new ExceptionCollection();
         $this->sourceCollection = new SourceFileCollection();
+        $this->reportParseErrors = new ExceptionCollection();
     }
 
     /**
@@ -72,7 +79,7 @@ class LcovReportParser implements ReportParserInterface
             }
         }
 
-        return new Result($this->sourceCollection, $this->parseErrors);
+        return new Result($this->sourceCollection, $this->reportParseErrors);
     }
 
     /**
@@ -81,20 +88,15 @@ class LcovReportParser implements ReportParserInterface
     private function startSource(LcovSourceFile $source)
     {
         $this->source = new SourceFile($source->getName());
-        $this->coverages = [];
+        $this->coverages = $this->source->getEmptyCoverages();
+        $this->coveragesErrors = new ExceptionCollection($source->getName());
     }
 
     private function endSource()
     {
-        $coverages = $this->source->getEmptyCoverages();
-
-        try {
-            $coverages->addAll($this->coverages);
-        } catch (ExceptionCollection $exception) {
-            $this->parseErrors->merge($exception);
-        }
-        $this->source->addCoverages($coverages);
+        $this->source->addCoverages($this->coverages);
         $this->sourceCollection->add($this->source);
+        $this->reportParseErrors->merge($this->coveragesErrors);
     }
 
     /**
@@ -102,7 +104,11 @@ class LcovReportParser implements ReportParserInterface
      */
     private function coverage(LcovCoverage $coverage)
     {
-        $this->coverages[] = $coverage->toEntity();
+        try {
+            $this->coverages->add($coverage->toEntity());
+        } catch (LineOutOfRangeException $exception) {
+            $this->coveragesErrors->add($exception);
+        }
     }
 
 }
