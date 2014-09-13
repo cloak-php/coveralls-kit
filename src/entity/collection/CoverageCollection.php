@@ -18,6 +18,7 @@ use coverallskit\exception\LineOutOfRangeException;
 use PhpCollection\Map;
 use coverallskit\exception\ExceptionCollection;
 
+
 /**
  * Class CoverageCollection
  * @package coverallskit\entity\collection
@@ -118,6 +119,47 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     public function getLastLineNumber()
     {
         return $this->lineRange->getLastLineNumber();
+    }
+
+    /**
+     * @return int
+     */
+    public function getExecutedLineCount()
+    {
+        $filter = function(CoverageInterface $coverage) {
+            return $coverage->isExecuted();
+        };
+        return $this->matchCount($filter);
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnusedLineCount()
+    {
+        $filter = function(CoverageInterface $coverage) {
+            return $coverage->isUnused();
+        };
+        return $this->matchCount($filter);
+    }
+
+    /**
+     * @param callable $filter
+     * @return int
+     */
+    protected function matchCount(callable $filter)
+    {
+        $matchLines = $this->filter($filter);
+        return $matchLines->count();
+    }
+
+    /**
+     * @param callable $filter
+     * @return \PhpCollection\AbstractMap
+     */
+    protected function filter(callable $filter)
+    {
+        return $this->lineCoverages->filter($filter);
     }
 
     /**
