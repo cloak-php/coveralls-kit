@@ -62,6 +62,14 @@ describe('Coverage', function() {
             expect($this->coverage->getAnalysisResult())->toEqual(Coverage::EXECUTED);
         });
     });
+    describe('valudOf', function() {
+        before(function() {
+            $this->coverage = new Coverage(1, Coverage::EXECUTED);
+        });
+        it('return analysis result', function() {
+            expect($this->coverage->valueOf())->toEqual(Coverage::EXECUTED);
+        });
+    });
     describe('isExecuted', function() {
         context('when executed', function() {
             before(function() {
