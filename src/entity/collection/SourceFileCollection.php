@@ -75,6 +75,32 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
     }
 
     /**
+     * @return int
+     */
+    public function getExecutedLineCount()
+    {
+        $totalCount = 0;
+
+        foreach ($this->sources as $source) {
+            $totalCount += $source->getExecutedLineCount();
+        }
+        return $totalCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnusedLineCount()
+    {
+        $totalCount = 0;
+
+        foreach ($this->sources as $source) {
+            $totalCount += $source->getUnusedLineCount();
+        }
+        return $totalCount;
+    }
+
+    /**
      * @return bool
      */
     public function isEmpty()
