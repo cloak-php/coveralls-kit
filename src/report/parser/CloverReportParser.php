@@ -19,6 +19,7 @@ use Zend\Dom\Query;
 use Zend\Dom\NodeList;
 use coverallskit\exception\ExceptionCollection;
 use coverallskit\exception\LineOutOfRangeException;
+use DOMElement;
 
 
 /**
@@ -107,8 +108,6 @@ class CloverReportParser implements ReportParserInterface
             $fileName = (string) $file->getAttribute('name');
 
             $this->source = new SourceFile($fileName);
-            $this->coverages = $this->source->getEmptyCoverages();
-            $this->coveragesErrors = new ExceptionCollection($fileName);
 
             $lines = $this->findCoverages($fileName);
             $this->parseLineNodes($lines);
@@ -127,25 +126,37 @@ class CloverReportParser implements ReportParserInterface
      */
     private function parseLineNodes(NodeList $lines)
     {
+        $this->coverages = $this->source->getEmptyCoverages();
+        $this->coveragesErrors = new ExceptionCollection($this->source->getName());
+
         foreach ($lines as $line) {
-            $lineNumber = (int) $line->getAttribute('num');
-            $executeCount = (int) $line->getAttribute('count');
-
-            $analysisResult = ($executeCount >= 1)
-                ? Coverage::EXECUTED : Coverage::UNUSED;
-
-            $coverage = new Coverage($lineNumber, $analysisResult);
-
-            try {
-                $this->coverages->add($coverage);
-            } catch (LineOutOfRangeException $exception) {
-                $this->coveragesErrors->add($exception);
-            }
+            $this->parseLine($line);
         }
 
         $this->source->addCoverages($this->coverages);
-        $this->reportParseErrors->merge($this->coveragesErrors);
         $this->sourceCollection->add($this->source);
+
+        $this->reportParseErrors->merge($this->coveragesErrors);
+    }
+
+    /**
+     * @param $line
+     */
+    private function parseLine(DOMElement $line)
+    {
+        $lineNumber = (int) $line->getAttribute('num');
+        $executeCount = (int) $line->getAttribute('count');
+
+        $analysisResult = ($executeCount >= 1)
+            ? Coverage::EXECUTED : Coverage::UNUSED;
+
+        $coverage = new Coverage($lineNumber, $analysisResult);
+
+        try {
+            $this->coverages->add($coverage);
+        } catch (LineOutOfRangeException $exception) {
+            $this->coveragesErrors->add($exception);
+        }
     }
 
 }
