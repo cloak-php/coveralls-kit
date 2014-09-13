@@ -14,9 +14,12 @@ namespace coverallskit\report\parser;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\Coverage;
-use coverallskit\entity\collection\CoverageCollection;
+use coverallskit\report\lcov\EndOfRecord;
+use coverallskit\report\lcov\SourceFile as LcovSourceFile;
+use coverallskit\report\lcov\Coverage as LcovCoverage;
 use coverallskit\report\ReportParserInterface;
 use coverallskit\exception\ExceptionCollection;
+
 
 /**
  * Class LcovReportParser
@@ -66,11 +69,11 @@ class LcovReportParser implements ReportParserInterface
         $lines = explode(PHP_EOL, $this->reportContent);
 
         foreach ($lines as $line) {
-            if (preg_match('/SF:/', $line) === 1) {
+            if (LcovSourceFile::match($line)) {
                 $this->startSource($line);
-            } else if (preg_match('/end_of_record/', $line) === 1) {
+            } else if (EndOfRecord::match($line)) {
                 $this->endSource();
-            } else if (preg_match('/DA:/', $line) === 1) {
+            } else if (LcovCoverage::match($line)) {
                 $this->coverage($line);
             }
         }
@@ -83,8 +86,8 @@ class LcovReportParser implements ReportParserInterface
      */
     private function startSource($line)
     {
-        $name = preg_replace('/^SF:(.+)$/', '$1', $line);
-        $this->source = new SourceFile($name);
+        $source = new LcovSourceFile($line);
+        $this->source = new SourceFile($source->getName());
         $this->coverages = [];
     }
 
@@ -103,12 +106,10 @@ class LcovReportParser implements ReportParserInterface
      */
     private function coverage($line)
     {
-        $line = preg_replace('/DA:/', '', $line);
-        $params = explode(',', $line);
-        list($lineNumber, $executeCount) = $params;
+        $coverage = new LcovCoverage($line);
 
-        $lineNumber = (int) $lineNumber;
-        $analysisResult = ((int) $executeCount >= 1) ? Coverage::EXECUTED : Coverage::UNUSED;
+        $lineNumber = $coverage->getLineNumber();
+        $analysisResult = ($coverage->getExecuteCount() >= 1) ? Coverage::EXECUTED : Coverage::UNUSED;
 
         $this->coverages[] = new Coverage($lineNumber, $analysisResult);
     }
