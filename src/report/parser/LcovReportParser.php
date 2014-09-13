@@ -45,8 +45,8 @@ class LcovReportParser implements ReportParserInterface
         $coverages = [];
 
         foreach ($lines as $line) {
-            if (preg_match('/FN:/', $line) === 1) {
-                $name = preg_replace('/^FN:(.+)$/', '$1', $line);
+            if (preg_match('/SF:/', $line) === 1) {
+                $name = preg_replace('/^SF:(.+)$/', '$1', $line);
                 $sourceFile = new SourceFile($name);
                 $coverages = [];
             } else if (preg_match('/end_of_record/', $line) === 1) {
