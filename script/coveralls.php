@@ -9,5 +9,4 @@ use coverallskit\ReportBuilder;
 
 $configration = Configuration::loadFromFile('.coveralls.yml');
 $builder = ReportBuilder::fromConfiguration($configration);
-//$builder->build()->save()->upload();
-$builder->build()->save();
+$builder->build()->save()->upload();
