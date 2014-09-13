@@ -148,8 +148,7 @@ class SourceFile implements CompositeEntityInterface
      */
     public function addCoverages(CoverageCollection $coverages)
     {
-        $coverageArray = $coverages->getIterator()->getArrayCopy();
-        $this->coverages->addAll($coverageArray);
+        $this->coverages->merge($coverages);
     }
 
     /**

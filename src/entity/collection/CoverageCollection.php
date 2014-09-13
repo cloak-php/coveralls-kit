@@ -83,6 +83,18 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     }
 
     /**
+     * @param CoverageCollection $coverages
+     */
+    public function merge(CoverageCollection $collection)
+    {
+        $coverages = $collection->values();
+
+        foreach ($coverages as $coverage) {
+            $this->add($coverage);
+        }
+    }
+
+    /**
      * @param CoverageInterface $coverage
      */
     public function remove(CoverageInterface $coverage)
@@ -192,6 +204,14 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     public function count()
     {
         return $this->lineCoverages->count();
+    }
+
+    /**
+     * @return array
+     */
+    public function values()
+    {
+        return $this->lineCoverages->values();
     }
 
     /**
