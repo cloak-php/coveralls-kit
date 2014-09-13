@@ -86,11 +86,14 @@ class LcovReportParser implements ReportParserInterface
 
     private function endSource()
     {
+        $coverages = $this->source->getEmptyCoverages();
+
         try {
-            $this->source->getCoverages()->addAll($this->coverages);
+            $coverages->addAll($this->coverages);
         } catch (ExceptionCollection $exception) {
             $this->parseErrors->merge($exception);
         }
+        $this->source->addCoverages($coverages);
         $this->sourceCollection->add($this->source);
     }
 
