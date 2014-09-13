@@ -11,7 +11,9 @@
 
 namespace coverallskit\entity;
 
+use coverallskit\value\LineRange;
 use UnexpectedValueException;
+
 
 /**
  * Class Coverage
@@ -81,6 +83,15 @@ class Coverage implements CoverageInterface
     public function isValidLine($lineCount)
     {
         return $this->getLineNumber() >= 1 && $this->getLineNumber() <= $lineCount;
+    }
+
+    /**
+     * @param LineRange $lineRange
+     * @return bool
+     */
+    public function contains(LineRange $lineRange)
+    {
+        return $lineRange->contains($this);
     }
 
     /**

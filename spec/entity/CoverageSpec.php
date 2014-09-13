@@ -11,6 +11,7 @@
 
 namespace coverallskit\spec;
 
+use coverallskit\value\LineRange;
 use coverallskit\entity\Coverage;
 
 describe('Coverage', function() {
@@ -112,6 +113,29 @@ describe('Coverage', function() {
             });
         });
     });
+
+    describe('contains', function() {
+        before(function() {
+            $this->lineRange = new LineRange(1, 100);
+        });
+        context('when contains line number', function() {
+            before(function() {
+                $this->coverage = Coverage::unused(100);
+            });
+            it('return true', function() {
+                expect($this->coverage->contains($this->lineRange))->toBeTrue();
+            });
+        });
+        context('when not contains line number', function() {
+            before(function() {
+                $this->coverage = Coverage::unused(101);
+            });
+            it('return false', function() {
+                expect($this->coverage->contains($this->lineRange))->toBeFalse();
+            });
+        });
+    });
+
     describe('unused', function() {
         before(function() {
             $this->coverage = Coverage::unused(1);
