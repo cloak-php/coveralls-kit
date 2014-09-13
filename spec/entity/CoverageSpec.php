@@ -98,22 +98,6 @@ describe('Coverage', function() {
             });
         });
     });
-    describe('isValidLine', function() {
-        before(function() {
-            $this->coverage = Coverage::unused(100);
-        });
-        context('when contains line number', function() {
-            it('return true', function() {
-                expect($this->coverage->isValidLine(100))->toBeTrue();
-            });
-        });
-        context('when not contains line number', function() {
-            it('return false', function() {
-                expect($this->coverage->isValidLine(99))->toBeFalse();
-            });
-        });
-    });
-
     describe('contains', function() {
         before(function() {
             $this->lineRange = new LineRange(1, 100);

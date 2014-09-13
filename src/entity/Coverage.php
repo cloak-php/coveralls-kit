@@ -77,15 +77,6 @@ class Coverage implements CoverageInterface
     }
 
     /**
-     * @param int $lineCount
-     * @return bool
-     */
-    public function isValidLine($lineCount)
-    {
-        return $this->getLineNumber() >= 1 && $this->getLineNumber() <= $lineCount;
-    }
-
-    /**
      * @param LineRange $lineRange
      * @return bool
      */

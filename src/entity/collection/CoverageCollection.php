@@ -53,7 +53,7 @@ class CoverageCollection implements CompositeEntityCollectionInterface
      */
     public function add(CoverageInterface $coverage)
     {
-        if ($this->lineRange->contains($coverage->getLineNumber()) === false) {
+        if ($coverage->contains($this->lineRange) === false) {
             throw new LineOutOfRangeException($coverage, $this->lineRange);
         }
         $this->lineCoverages->set($coverage->getLineNumber(), $coverage);
