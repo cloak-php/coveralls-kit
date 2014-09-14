@@ -17,6 +17,7 @@ use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
 use Gitonomy\Git\Repository as GitRepository;
 use coverallskit\AttributePopulatable;
+use PhpCollection\Map;
 
 /**
  * Class Repository
@@ -123,29 +124,26 @@ class Repository implements RepositoryInterface
      */
     protected function collectRemotes()
     {
-        $remotes = $this->repository->run('remote', array('-v'));
-        $remotes = explode(PHP_EOL, $remotes);
+        $remoteString = $this->repository->run('remote', array('-v'));
+        $remoteResults = explode(PHP_EOL, $remoteString);
 
-        $remoteResults = [];
+        $remotes = new Map();
 
-        foreach ($remotes as $remote) {
-            if (empty($remote) === true) {
+        foreach ($remoteResults as $remoteResult) {
+            $result = preg_match("/(.+)\s(.+\.git)/", $remoteResult, $matches);
+
+            if ($result !== 1 || is_array($matches) === false) {
                 continue;
             }
-            preg_match("/(.+)\s(.+\.git)/", $remote, $matches);
+            list($name, $url) = array_slice($matches, 1, 2);
 
-            $name = $matches[1];
-            $url = $matches[2];
-
-            $remoteResults[$name] = [
+            $remotes->set($name, [
                 'name' => $name,
                 'url' => $url
-            ];
+            ]);
         }
 
-        $remoteValues = array_values($remoteResults);
-
-        return $remoteValues;
+        return $remotes->values();
     }
 
     /**
