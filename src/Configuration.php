@@ -154,6 +154,19 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * The directory path where the configuration file
+     *
+     * @return string
+     */
+    public function getDirectoryPath()
+    {
+        $directoryPath = $this->config->get(self::CONFIG_DIRECTORY_KEY, getcwd());
+        $directoryPath = realpath($directoryPath) . DIRECTORY_SEPARATOR;
+
+        return $directoryPath;
+    }
+
+    /**
      * @return Config
      */
     protected function getDefaultConfigration()
