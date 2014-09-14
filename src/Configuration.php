@@ -13,9 +13,10 @@ namespace coverallskit;
 
 use coverallskit\entity\Repository;
 use coverallskit\report\ParserRegistry;
-use coverallskit\configuration\ConfigurationLoadable;
+use coverallskit\exception\FileNotFoundException;
+use coverallskit\exception\NotSupportFileTypeException;
 use Zend\Config\Config;
-
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class Configuration
@@ -23,7 +24,6 @@ use Zend\Config\Config;
  */
 class Configuration implements RootConfigurationInterface
 {
-    use ConfigurationLoadable;
 
     /**
      * @var \Zend\Config\Config
@@ -218,6 +218,33 @@ class Configuration implements RootConfigurationInterface
         $parseResult = $parser->parse(file_get_contents($path));
 
         $builder->addSources($parseResult->getSources());
+    }
+
+    /**
+     * @param string $file
+     * @return Configuration
+     * @throws \coverallskit\exception\NotSupportFileTypeException
+     * @throws \coverallskit\exception\FileNotFoundException
+     */
+    public static function loadFromFile($file)
+    {
+        if (file_exists($file) === false) {
+            throw new FileNotFoundException($file);
+        }
+
+        if (preg_match('/(\.yml|yaml)$/', $file) !== 1) {
+            throw new NotSupportFileTypeException($file);
+        }
+
+        $values = Yaml::parse($file);
+        $config = new Config($values);
+
+        $config->merge(new Config([
+            self::CONFIG_FILE_KEY => $file,
+            self::CONFIG_DIRECTORY_KEY => dirname(realpath($file)) . DIRECTORY_SEPARATOR
+        ]));
+
+        return new Configuration($config);
     }
 
 }
