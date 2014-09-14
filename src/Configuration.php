@@ -50,25 +50,26 @@ class Configuration implements RootConfigurationInterface
      */
     public function getReportFileName()
     {
-        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-        $path = $reportFile->get(self::OUTPUT_REPORT_FILE_KEY);
-        return $this->resolvePath($path);
+        $reportFileConfig = $this->getReportConfiguration();
+        return $reportFileConfig->getReportFileName();
     }
 
+    /**
+     * @return string
+     */
     public function getCoverageReportFileType()
     {
-        $reportFileType = $this->getCodeCoverageReport();
-        $type = $reportFileType->get(self::INPUT_REPORT_FILE_TYPE_KEY);
-
-        return $type;
+        $reportFileConfig = $this->getReportConfiguration();
+        return $reportFileConfig->getCoverageReportFileType();
     }
 
+    /**
+     * @return string
+     */
     public function getCoverageReportFilePath()
     {
-        $reportFileType = $this->getCodeCoverageReport();
-        $filePath = $reportFileType->get(self::INPUT_REPORT_FILE_PATH_KEY);
-
-        return $this->resolvePath($filePath);
+        $reportFileConfig = $this->getReportConfiguration();
+        return $reportFileConfig->getCoverageReportFilePath();
     }
 
     /**
@@ -107,8 +108,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function applyTo(ReportBuilderInterface $builder)
     {
-        $builder->reportFilePath($this->getReportFileName())
-            ->token($this->getToken())
+        $builder->token($this->getToken())
             ->service($this->getService())
             ->repository($this->getRepository());
 
@@ -184,19 +184,6 @@ class Configuration implements RootConfigurationInterface
         ]);
 
         return $config;
-    }
-
-
-    /**
-     * @return mixed
-     */
-    private function getCodeCoverageReport()
-    {
-        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-        $reportFileType = $reportFile->get(self::INPUT_REPORT_FILE_KEY);
-        $reportFileType = $reportFileType ?: new Config([]);
-
-        return $reportFileType;
     }
 
     /**
