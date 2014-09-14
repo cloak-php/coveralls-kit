@@ -16,7 +16,6 @@ use coverallskit\entity\Repository;
 use Zend\Config\Config;
 use Eloquent\Pathogen\RelativePath;
 use Eloquent\Pathogen\AbsolutePath;
-use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Exception\NonRelativePathException;
 
 
@@ -33,14 +32,14 @@ abstract class AbstractConfiguration implements ConfigurationInterface
     private $config;
 
     /**
-     * @var \Eloquent\Pathogen\PathInterface
+     * @var \Eloquent\Pathogen\AbsolutePath
      */
     private $rootPath;
 
     /**
      * @param Config $config
      */
-    public function __construct(Config $config, PathInterface $rootPath)
+    public function __construct(Config $config, AbsolutePath $rootPath)
     {
         $this->config = $config;
         $this->rootPath = $rootPath;
