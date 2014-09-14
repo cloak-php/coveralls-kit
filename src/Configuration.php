@@ -158,8 +158,9 @@ class Configuration implements RootConfigurationInterface
         }
 
         $values = Yaml::parse($file);
-        $config = new Config($values);
+        $values = (is_array($values) === true) ?: [];
 
+        $config = new Config($values);
         $config->merge(new Config([
             self::CONFIG_FILE_KEY => $file,
             self::CONFIG_DIRECTORY_KEY => dirname(realpath($file)) . DIRECTORY_SEPARATOR
