@@ -117,10 +117,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function applyTo(ReportBuilderInterface $builder)
     {
-        $builder->token($this->getToken())
-            ->service($this->getService())
-            ->repository($this->getRepository());
-
+        $this->base->applyTo($builder);
         $this->report->applyTo($builder);
 
         return $builder;
