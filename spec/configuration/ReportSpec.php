@@ -26,13 +26,8 @@ describe('Report', function() {
         $this->fixtureDirectory = $this->rootDirectory . '/spec/fixtures/';
         $this->cloverReportFile = $this->tmpDirectory . 'clover.xml';
 
-//        $this->rootConfig = new Configuration([
-  //          Configuration::CONFIG_DIRECTORY_KEY => $this->configDirectory
-    //    ]);
-
         $factory = PathFactory::instance();
         $rootPath = $factory->create($this->configDirectory);
-
 
         $configValues = [
             Report::INPUT_REPORT_FILE_KEY => [
