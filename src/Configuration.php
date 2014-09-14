@@ -112,7 +112,8 @@ class Configuration implements RootConfigurationInterface
             ->service($this->getService())
             ->repository($this->getRepository());
 
-        $this->applyReportResult($builder);
+        $report = $this->getReportConfiguration();
+        $report->applyTo($builder);
 
         return $builder;
     }
@@ -199,14 +200,12 @@ class Configuration implements RootConfigurationInterface
     }
 
     /**
-     * @param ReportBuilderInterface $builder
+     * @return Report
      */
-    private function applyReportResult(ReportBuilderInterface $builder)
+    private function getReportConfiguration()
     {
         $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-
-        $report = new Report($reportFile, $this);
-        $report->applyTo($builder);
+        return new Report($reportFile, $this);
     }
 
     /**
