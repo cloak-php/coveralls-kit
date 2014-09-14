@@ -14,6 +14,7 @@ namespace coverallskit;
 use coverallskit\entity\Repository;
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
+use coverallskit\configuration\Base;
 use coverallskit\configuration\Report;
 use Zend\Config\Config;
 use Symfony\Component\Yaml\Yaml;
@@ -28,14 +29,20 @@ class Configuration implements RootConfigurationInterface
 {
 
     /**
-     * @var \Zend\Config\Config
+     * @var configuration\Base
      */
-    private $config;
+    private $base;
 
     /**
      * @var configuration\Report
      */
     private $report;
+
+    /**
+     * @var \Eloquent\Pathogen\PathInterface
+     */
+    private $directoryPath;
+
 
     /**
      * @param Config $config
@@ -47,10 +54,13 @@ class Configuration implements RootConfigurationInterface
         $current = $this->getDefaultConfigration();
         $current->merge($userConfig);
 
-        $this->config = $current;
+        $directoryPath = $current->get(self::CONFIG_DIRECTORY_KEY, getcwd());
+        $this->directoryPath = PathFactory::instance()->create($directoryPath);
 
-        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-        $this->report = new Report($reportFile, $this->getDirectoryPath());
+        $this->base = new Base($current, $this->directoryPath);
+
+        $reportFile = $current->get(self::REPORT_FILE_KEY);
+        $this->report = new Report($reportFile, $this->directoryPath);
     }
 
     /**
@@ -82,7 +92,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function getToken()
     {
-        return $this->config->get(self::TOKEN_KEY);
+        return $this->base->getToken();
     }
 
     /**
@@ -90,10 +100,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function getService()
     {
-        $serviceName = $this->config->get(self::SERVICE_KEY);
-        $service = $this->serviceFromString($serviceName);
-
-        return $service;
+        return $this->base->getService();
     }
 
     /**
@@ -101,10 +108,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function getRepository()
     {
-        $directory = $this->config->get(self::REPOSITORY_DIRECTORY_KEY);
-        $repository = $this->repositoryFromPath($directory);
-
-        return $repository;
+        return $this->base->getRepository();
     }
 
     /**
@@ -123,66 +127,18 @@ class Configuration implements RootConfigurationInterface
     }
 
     /**
-     * @param string $serviceName
-     * @return \coverallskit\entity\service\ServiceInterface
-     */
-    private function serviceFromString($serviceName)
-    {
-        $registry = new ServiceRegistry();
-        $service = $registry->get($serviceName);
-
-        return $service;
-    }
-
-    /**
-     * @param string $path
-     * @return \coverallskit\entity\Repository
-     */
-    private function repositoryFromPath($path)
-    {
-        $directory = $this->resolvePath($path);
-        $repository = new Repository($directory);
-
-        return $repository;
-    }
-
-    /**
-     * @param string $name
-     * @return string
-     */
-    private function resolvePath($name)
-    {
-        $directoryPath = $this->config->get(self::CONFIG_DIRECTORY_KEY, getcwd());
-        $directoryPath = realpath($directoryPath) . DIRECTORY_SEPARATOR;
-
-        $relativePath = preg_replace('/^(\\/|\\.\\/)*(.+)/', '$2', $name);
-
-        return $directoryPath . $relativePath;
-    }
-
-    /**
-     * The directory path where the configuration file
-     *
-     * @return \Eloquent\Pathogen\PathInterface
-     */
-    private function getDirectoryPath()
-    {
-        $directoryPath = $this->config->get(self::CONFIG_DIRECTORY_KEY, getcwd());
-        return PathFactory::instance()->create($directoryPath);
-    }
-
-    /**
      * @return Config
      */
     protected function getDefaultConfigration()
     {
+
         $config = new Config([
-            self::TOKEN_KEY => null,
-            self::SERVICE_KEY => 'travis-ci',
+            BASE::TOKEN_KEY => null,
+            BASE::SERVICE_KEY => 'travis-ci',
             self::REPORT_FILE_KEY => [
-                self::OUTPUT_REPORT_FILE_KEY => 'coveralls.json'
+                Report::OUTPUT_REPORT_FILE_KEY => 'coveralls.json'
             ],
-            self::REPOSITORY_DIRECTORY_KEY => '.'
+            BASE::REPOSITORY_DIRECTORY_KEY => '.'
         ]);
 
         return $config;
