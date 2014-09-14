@@ -15,7 +15,7 @@ namespace coverallskit;
  * Interface RootConfigurationInterface
  * @package coverallskit
  */
-interface RootConfigurationInterface extends ConfigurationLoaderInterface
+interface RootConfigurationInterface extends ConfigurationInterface, ConfigurationLoaderInterface
 {
 
     const TOKEN_KEY = 'token';
@@ -46,11 +46,5 @@ interface RootConfigurationInterface extends ConfigurationLoaderInterface
      * @return string
      */
     public function getRepository();
-
-    /**
-     * @param ReportBuilderInterface $builder
-     * @return ReportBuilderInterface
-     */
-    public function applyTo(ReportBuilderInterface $builder);
 
 }

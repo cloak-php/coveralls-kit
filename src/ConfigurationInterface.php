@@ -15,36 +15,8 @@ namespace coverallskit;
  * Interface Configuration
  * @package coverallskit
  */
-interface ConfigurationInterface extends ConfigurationLoaderInterface
+interface ConfigurationInterface
 {
-    const TOKEN_KEY = 'token';
-    const SERVICE_KEY = 'service';
-    const REPORT_FILE_KEY = 'reportFile';
-    const INPUT_REPORT_FILE_KEY = 'input';
-    const INPUT_REPORT_FILE_TYPE_KEY = 'type';
-    const INPUT_REPORT_FILE_PATH_KEY = 'file';
-    const OUTPUT_REPORT_FILE_KEY = 'output';
-    const REPOSITORY_DIRECTORY_KEY = 'repositoryDirectory';
-
-    /**
-     * @return string
-     */
-    public function getReportFileName();
-
-    /**
-     * @return string
-     */
-    public function getToken();
-
-    /**
-     * @return \coverallskit\entity\service\ServiceInterface
-     */
-    public function getService();
-
-    /**
-     * @return string
-     */
-    public function getRepository();
 
     /**
      * @param ReportBuilderInterface $builder
