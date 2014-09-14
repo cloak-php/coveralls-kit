@@ -11,22 +11,16 @@
 
 namespace coverallskit\configuration;
 
-use coverallskit\ConfigurationInterface;
-use coverallskit\RootConfigurationInterface;
 use coverallskit\ReportBuilderInterface;
 use coverallskit\entity\Repository;
 use coverallskit\ServiceRegistry;
-use Zend\Config\Config;
-use Eloquent\Pathogen\Factory\PathFactory;
-use Eloquent\Pathogen\RelativePath;
-use Eloquent\Pathogen\AbsolutePath;
-use Eloquent\Pathogen\Exception\NonRelativePathException;
+
 
 /**
  * Class Base
  * @package coverallskit
  */
-class Base implements ConfigurationInterface
+class Base extends AbstractConfiguration
 {
 
     const TOKEN_KEY = 'token';
@@ -34,30 +28,11 @@ class Base implements ConfigurationInterface
     const REPOSITORY_DIRECTORY_KEY = 'repositoryDirectory';
 
     /**
-     * @var \coverallskit\RootConfigurationInterface
-     */
-    private $rootConfig;
-
-    /**
-     * @var \Zend\Config\Config
-     */
-    private $baseConfig;
-
-    /**
-     * @param Config $config
-     */
-    public function __construct(Config $baseConfig, RootConfigurationInterface $rootConfig)
-    {
-        $this->rootConfig = $rootConfig;
-        $this->baseConfig = $baseConfig;
-    }
-
-    /**
      * @return string
      */
     public function getToken()
     {
-        return $this->baseConfig->get(self::TOKEN_KEY);
+        return $this->get(self::TOKEN_KEY);
     }
 
     /**
@@ -65,7 +40,7 @@ class Base implements ConfigurationInterface
      */
     public function getService()
     {
-        $serviceName = $this->baseConfig->get(self::SERVICE_KEY);
+        $serviceName = $this->get(self::SERVICE_KEY);
         $service = $this->serviceFromString($serviceName);
 
         return $service;
@@ -76,7 +51,7 @@ class Base implements ConfigurationInterface
      */
     public function getRepository()
     {
-        $directory = $this->baseConfig->get(self::REPOSITORY_DIRECTORY_KEY);
+        $directory = $this->get(self::REPOSITORY_DIRECTORY_KEY);
         $repository = $this->repositoryFromPath($directory);
 
         return $repository;
@@ -117,27 +92,6 @@ class Base implements ConfigurationInterface
         $repository = new Repository($directory);
 
         return $repository;
-    }
-
-    /**
-     * @param string $name
-     * @return string
-     */
-    private function resolvePath($name)
-    {
-        $directoryPath = $this->rootConfig->getDirectoryPath();
-
-        $factory = PathFactory::instance();
-        $rootPath = $factory->create($directoryPath);
-
-        try {
-            $path = RelativePath::fromString($name);
-        } catch (NonRelativePathException $exception) {
-            $path = AbsolutePath::fromString($name);
-        }
-        $resultPath = $rootPath->resolve($path);
-
-        return $resultPath->normalize()->string();
     }
 
 }
