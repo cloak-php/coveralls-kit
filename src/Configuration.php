@@ -33,6 +33,11 @@ class Configuration implements RootConfigurationInterface
     private $config;
 
     /**
+     * @var configuration\Report
+     */
+    private $report;
+
+    /**
      * @param Config $config
      */
     public function __construct(Config $config = null)
@@ -43,6 +48,9 @@ class Configuration implements RootConfigurationInterface
         $current->merge($userConfig);
 
         $this->config = $current;
+
+        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
+        $this->report = new Report($reportFile, $this);
     }
 
     /**
@@ -50,8 +58,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function getReportFileName()
     {
-        $reportFileConfig = $this->getReportConfiguration();
-        return $reportFileConfig->getReportFileName();
+        return $this->report->getReportFileName();
     }
 
     /**
@@ -59,8 +66,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function getCoverageReportFileType()
     {
-        $reportFileConfig = $this->getReportConfiguration();
-        return $reportFileConfig->getCoverageReportFileType();
+        return $this->report->getCoverageReportFileType();
     }
 
     /**
@@ -68,8 +74,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function getCoverageReportFilePath()
     {
-        $reportFileConfig = $this->getReportConfiguration();
-        return $reportFileConfig->getCoverageReportFilePath();
+        return $this->report->getCoverageReportFilePath();
     }
 
     /**
@@ -112,8 +117,7 @@ class Configuration implements RootConfigurationInterface
             ->service($this->getService())
             ->repository($this->getRepository());
 
-        $report = $this->getReportConfiguration();
-        $report->applyTo($builder);
+        $this->report->applyTo($builder);
 
         return $builder;
     }
@@ -184,15 +188,6 @@ class Configuration implements RootConfigurationInterface
         ]);
 
         return $config;
-    }
-
-    /**
-     * @return Report
-     */
-    private function getReportConfiguration()
-    {
-        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-        return new Report($reportFile, $this);
     }
 
     /**
