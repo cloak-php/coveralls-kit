@@ -15,6 +15,7 @@ use coverallskit\ReportBuilder;
 use coverallskit\Configuration;
 use coverallskit\configuration\Report;
 use Zend\Config\Config;
+use Eloquent\Pathogen\Factory\PathFactory;
 
 
 describe('Report', function() {
@@ -25,9 +26,13 @@ describe('Report', function() {
         $this->fixtureDirectory = $this->rootDirectory . '/spec/fixtures/';
         $this->cloverReportFile = $this->tmpDirectory . 'clover.xml';
 
-        $this->rootConfig = new Configuration([
-            Configuration::CONFIG_DIRECTORY_KEY => $this->configDirectory
-        ]);
+//        $this->rootConfig = new Configuration([
+  //          Configuration::CONFIG_DIRECTORY_KEY => $this->configDirectory
+    //    ]);
+
+        $factory = PathFactory::instance();
+        $rootPath = $factory->create($this->configDirectory);
+
 
         $configValues = [
             Report::INPUT_REPORT_FILE_KEY => [
@@ -38,7 +43,7 @@ describe('Report', function() {
         ];
         $reportConfig = new Config($configValues);
 
-        $this->reportConfig = new Report($reportConfig, $this->rootConfig);
+        $this->reportConfig = new Report($reportConfig, $rootPath);
     });
     describe('getReportFileName', function() {
         before(function() {

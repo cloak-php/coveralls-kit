@@ -12,12 +12,12 @@
 namespace coverallskit;
 
 use coverallskit\entity\Repository;
-use coverallskit\report\ParserRegistry;
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
 use coverallskit\configuration\Report;
 use Zend\Config\Config;
 use Symfony\Component\Yaml\Yaml;
+use Eloquent\Pathogen\Factory\PathFactory;
 
 
 /**
@@ -50,7 +50,7 @@ class Configuration implements RootConfigurationInterface
         $this->config = $current;
 
         $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-        $this->report = new Report($reportFile, $this);
+        $this->report = new Report($reportFile, $this->getDirectoryPath());
     }
 
     /**
@@ -163,14 +163,12 @@ class Configuration implements RootConfigurationInterface
     /**
      * The directory path where the configuration file
      *
-     * @return string
+     * @return \Eloquent\Pathogen\PathInterface
      */
-    public function getDirectoryPath()
+    private function getDirectoryPath()
     {
         $directoryPath = $this->config->get(self::CONFIG_DIRECTORY_KEY, getcwd());
-        $directoryPath = realpath($directoryPath) . DIRECTORY_SEPARATOR;
-
-        return $directoryPath;
+        return PathFactory::instance()->create($directoryPath);
     }
 
     /**

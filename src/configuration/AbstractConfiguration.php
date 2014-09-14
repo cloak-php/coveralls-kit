@@ -12,13 +12,13 @@
 namespace coverallskit\configuration;
 
 use coverallskit\ConfigurationInterface;
-use coverallskit\RootConfigurationInterface;
 use coverallskit\entity\Repository;
 use Zend\Config\Config;
-use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\RelativePath;
 use Eloquent\Pathogen\AbsolutePath;
+use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Exception\NonRelativePathException;
+
 
 /**
  * Class AbstractConfiguration
@@ -33,26 +33,17 @@ abstract class AbstractConfiguration implements ConfigurationInterface
     private $config;
 
     /**
-     * @var \coverallskit\RootConfigurationInterface
+     * @var \Eloquent\Pathogen\PathInterface
      */
-    private $rootConfig;
-
+    private $rootPath;
 
     /**
      * @param Config $config
      */
-    public function __construct(Config $config, RootConfigurationInterface $rootConfig)
+    public function __construct(Config $config, PathInterface $rootPath)
     {
         $this->config = $config;
-        $this->rootConfig = $rootConfig;
-    }
-
-    /**
-     * @return RootConfigurationInterface
-     */
-    public function getRoot()
-    {
-        return $this->rootConfig;
+        $this->rootPath = $rootPath;
     }
 
     /**
@@ -71,17 +62,12 @@ abstract class AbstractConfiguration implements ConfigurationInterface
      */
     protected function resolvePath($name)
     {
-        $directoryPath = $this->rootConfig->getDirectoryPath();
-
-        $factory = PathFactory::instance();
-        $rootPath = $factory->create($directoryPath);
-
         try {
             $path = RelativePath::fromString($name);
         } catch (NonRelativePathException $exception) {
             $path = AbsolutePath::fromString($name);
         }
-        $resultPath = $rootPath->resolve($path);
+        $resultPath = $this->rootPath->resolve($path);
 
         return $resultPath->normalize()->string();
     }

@@ -15,15 +15,20 @@ use coverallskit\Configuration;
 use coverallskit\configuration\Base;
 use coverallskit\ReportBuilder;
 use Zend\Config\Config;
+use Eloquent\Pathogen\Factory\PathFactory;
+
 
 describe('Base', function() {
 
     before(function() {
         $this->configDirectory = __DIR__ . '/../fixtures/';
 
-        $this->rootConfig = new Configuration([
-            Configuration::CONFIG_DIRECTORY_KEY => $this->configDirectory
-        ]);
+//        $this->rootConfig = new Configuration([
+  //          Configuration::CONFIG_DIRECTORY_KEY => $this->configDirectory
+    //    ]);
+
+        $factory = PathFactory::instance();
+        $rootPath = $factory->create($this->configDirectory);
 
         $config = new Config([
             Base::TOKEN_KEY => 'api-token',
@@ -31,7 +36,7 @@ describe('Base', function() {
             Base::REPOSITORY_DIRECTORY_KEY => __DIR__ . '/../../'
         ]);
 
-        $this->configration = new Base($config, $this->rootConfig);
+        $this->configration = new Base($config, $rootPath);
     });
 
     describe('__construct', function() {
