@@ -12,6 +12,7 @@
 namespace coverallskit\configuration;
 
 use coverallskit\Configuration;
+use coverallskit\ConfigurationInterface;
 use coverallskit\ReportBuilderInterface;
 use coverallskit\report\ParserRegistry;
 use Zend\Config\Config;
@@ -23,7 +24,7 @@ use Eloquent\Pathogen\RelativePath;
  * Class Report
  * @package coverallskit\configuration
  */
-class Report
+class Report implements ConfigurationInterface
 {
 
     const INPUT_REPORT_FILE_KEY = 'input';
