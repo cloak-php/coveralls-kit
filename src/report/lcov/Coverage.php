@@ -35,10 +35,10 @@ final class Coverage extends AbstractRecord
 
     protected function parse()
     {
-        $matches = [];
-        preg_match(self::PATTURN, $this->record, $matches);
-        array_shift($matches);
-        list($lineNumber, $executeCount) = $matches;
+        $value = preg_replace(self::PATTURN, '$1,$2', $this->record);
+        $coverageValues = explode(',', $value);
+
+        list($lineNumber, $executeCount) = $coverageValues;
 
         $this->lineNumber = (int) $lineNumber;
         $this->executeCount = (int) $executeCount;
