@@ -18,8 +18,6 @@ namespace coverallskit;
 interface RootConfigurationInterface extends ConfigurationInterface, ConfigurationLoaderInterface
 {
 
-    const REPORT_FILE_KEY = 'reportFile';
-
     /**
      * @return string
      */

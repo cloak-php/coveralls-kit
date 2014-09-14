@@ -24,6 +24,7 @@ use Zend\Config\Config;
 class Report extends AbstractConfiguration
 {
 
+    const REPORT_FILE_KEY = 'reportFile';
     const INPUT_REPORT_FILE_KEY = 'input';
     const INPUT_REPORT_FILE_TYPE_KEY = 'type';
     const INPUT_REPORT_FILE_PATH_KEY = 'file';

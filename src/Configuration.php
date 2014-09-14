@@ -59,7 +59,7 @@ class Configuration implements RootConfigurationInterface
 
         $this->base = new Base($current, $this->directoryPath);
 
-        $reportFile = $current->get(self::REPORT_FILE_KEY);
+        $reportFile = $current->get(Report::REPORT_FILE_KEY);
         $this->report = new Report($reportFile, $this->directoryPath);
     }
 
@@ -133,12 +133,12 @@ class Configuration implements RootConfigurationInterface
     {
 
         $config = new Config([
-            BASE::TOKEN_KEY => null,
-            BASE::SERVICE_KEY => 'travis-ci',
-            self::REPORT_FILE_KEY => [
+            Base::TOKEN_KEY => null,
+            Base::SERVICE_KEY => 'travis-ci',
+            Report::REPORT_FILE_KEY => [
                 Report::OUTPUT_REPORT_FILE_KEY => 'coveralls.json'
             ],
-            BASE::REPOSITORY_DIRECTORY_KEY => '.'
+            Base::REPOSITORY_DIRECTORY_KEY => '.'
         ]);
 
         return $config;
