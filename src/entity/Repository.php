@@ -130,6 +130,7 @@ class Repository implements RepositoryInterface
         $remotes = new Map();
 
         foreach ($remoteResults as $remoteResult) {
+            $matches = [];
             $result = preg_match("/(.+)\s(.+\.git)/", $remoteResult, $matches);
 
             if ($result !== 1 || is_array($matches) === false) {
