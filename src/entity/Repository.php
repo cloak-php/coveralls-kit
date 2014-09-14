@@ -107,28 +107,8 @@ class Repository implements RepositoryInterface
      */
     protected function resolveRemotes()
     {
-        $remotes = $this->repository->run('remote', array('-v'));
-        $remotes = explode("\n", $remotes);
-
-        $remoteMap = array();
-
-        foreach ($remotes as $remote) {
-            if (empty($remote) === true) {
-                continue;
-            }
-            preg_match("/(.+)\s(.+\.git)/", $remote, $mathes);
-
-            $name = $mathes[1];
-            $url = $mathes[2];
-
-            $remoteMap[$name] = array(
-                'name' => $name,
-                'url' => $url
-            );
-        }
-
-        $remoteValues = array_values($remoteMap);
         $remotes = new RemoteCollection();
+        $remoteValues = $this->collectRemotes();
 
         foreach ($remoteValues as $remote) {
             $remotes->add( new Remote($remote) );
@@ -136,6 +116,36 @@ class Repository implements RepositoryInterface
         $this->remotes = $remotes;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    protected function collectRemotes()
+    {
+        $remotes = $this->repository->run('remote', array('-v'));
+        $remotes = explode(PHP_EOL, $remotes);
+
+        $remoteResults = [];
+
+        foreach ($remotes as $remote) {
+            if (empty($remote) === true) {
+                continue;
+            }
+            preg_match("/(.+)\s(.+\.git)/", $remote, $matches);
+
+            $name = $matches[1];
+            $url = $matches[2];
+
+            $remoteResults[$name] = [
+                'name' => $name,
+                'url' => $url
+            ];
+        }
+
+        $remoteValues = array_values($remoteResults);
+
+        return $remoteValues;
     }
 
     /**
