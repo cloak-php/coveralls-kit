@@ -13,7 +13,9 @@ namespace coverallskit\configuration;
 
 use coverallskit\Configuration;
 use coverallskit\ReportBuilderInterface;
+use coverallskit\report\ParserRegistry;
 use Zend\Config\Config;
+
 
 /**
  * Class Report
@@ -103,10 +105,38 @@ class Report
 
     /**
      * @param ReportBuilderInterface $builder
+     * FIXME throw exception
+     */
+    private function applyReportResult(ReportBuilderInterface $builder)
+    {
+        $path = $this->getCoverageReportFilePath();
+        $reportType = $this->getCoverageReportFileType();
+
+        if (file_exists($path) === false) {
+            return;
+        }
+
+        if (is_null($reportType)) {
+            return;
+        }
+
+        $registry = new ParserRegistry();
+        $parser = $registry->get($reportType);
+        $parseResult = $parser->parse(file_get_contents($path));
+
+        $builder->addSources($parseResult->getSources());
+
+        return $builder;
+    }
+
+    /**
+     * @param ReportBuilderInterface $builder
      * @return ReportBuilderInterface
      */
     public function applyTo(ReportBuilderInterface $builder)
     {
+        $builder->reportFilePath($this->getReportFileName());
+        return $this->applyReportResult($builder);
     }
 
 }

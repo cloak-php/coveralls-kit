@@ -11,6 +11,7 @@
 
 namespace coverallskit\spec;
 
+use coverallskit\ReportBuilder;
 use coverallskit\Configuration;
 use coverallskit\configuration\Report;
 use Zend\Config\Config;
@@ -59,7 +60,16 @@ describe('Report', function() {
         });
     });
     describe('applyTo', function() {
-        it('apply configration');
+        before(function() {
+            $this->directory = realpath($this->configDirectory) . DIRECTORY_SEPARATOR;
+            $this->reportFile = $this->directory . 'report.json';
+
+            $this->reportBuilder = new ReportBuilder();
+            $this->reportConfig->applyTo($this->reportBuilder);
+        });
+        it('apply report file configration', function() {
+            expect($this->reportBuilder->reportFilePath)->toEqual($this->reportFile);
+        });
     });
 });
 
