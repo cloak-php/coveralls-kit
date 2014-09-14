@@ -122,7 +122,7 @@ describe('Configuration', function() {
             });
             context('when .yaml', function() {
                 before(function() {
-                    $this->config = Loader::loadFromFile(__DIR__ . '/fixtures/coveralls.yaml');
+                    $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.yaml');
                 });
                 it('should return coverallskit\Configuration instance', function() {
                     expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');
