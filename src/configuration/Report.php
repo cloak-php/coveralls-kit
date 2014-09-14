@@ -12,19 +12,16 @@
 namespace coverallskit\configuration;
 
 use coverallskit\Configuration;
-use coverallskit\ConfigurationInterface;
 use coverallskit\ReportBuilderInterface;
 use coverallskit\report\ParserRegistry;
 use Zend\Config\Config;
-use Eloquent\Pathogen\Factory\PathFactory;
-use Eloquent\Pathogen\RelativePath;
 
 
 /**
  * Class Report
  * @package coverallskit\configuration
  */
-class Report implements ConfigurationInterface
+class Report extends AbstractConfiguration
 {
 
     const INPUT_REPORT_FILE_KEY = 'input';
@@ -33,31 +30,11 @@ class Report implements ConfigurationInterface
     const OUTPUT_REPORT_FILE_KEY = 'output';
 
     /**
-     * @var \coverallskit\Configuration
-     */
-    private $rootConfig;
-
-    /**
-     * @var \Zend\Config\Config
-     */
-    private $reportConfig;
-
-
-    /**
-     * @param Config $config
-     */
-    public function __construct(Config $reportConfig, Configuration $rootConfig)
-    {
-        $this->rootConfig = $rootConfig;
-        $this->reportConfig = $reportConfig;
-    }
-
-    /**
      * @return \Zend\Config\Config
      */
     private function getCodeCoverageReport()
     {
-        $reportFileType = $this->reportConfig->get(self::INPUT_REPORT_FILE_KEY);
+        $reportFileType = $this->get(self::INPUT_REPORT_FILE_KEY);
         $reportFileType = $reportFileType ?: new Config([]);
 
         return $reportFileType;
@@ -79,7 +56,7 @@ class Report implements ConfigurationInterface
      */
     public function getReportFileName()
     {
-        $path = $this->reportConfig->get(self::OUTPUT_REPORT_FILE_KEY);
+        $path = $this->get(self::OUTPUT_REPORT_FILE_KEY);
         return $this->resolvePath($path);
     }
 
@@ -96,21 +73,6 @@ class Report implements ConfigurationInterface
         }
 
         return $this->resolvePath($filePath);
-    }
-
-    /**
-     * @param string $name
-     * @return string
-     */
-    private function resolvePath($name)
-    {
-        $directoryPath = $this->rootConfig->getDirectoryPath();
-
-        $factory = PathFactory::instance();
-        $path = $factory->create($directoryPath);
-        $resultPath = $path->resolve(RelativePath::fromString($name));
-
-        return $resultPath->normalize()->string();
     }
 
     /**
