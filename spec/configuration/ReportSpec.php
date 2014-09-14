@@ -19,7 +19,11 @@ use Zend\Config\Config;
 
 describe('Report', function() {
     before(function() {
+        $this->rootDirectory = realpath(__DIR__ . '/../../');
         $this->configDirectory = __DIR__ . '/../fixtures/';
+        $this->tmpDirectory = $this->rootDirectory . '/spec/tmp/';
+        $this->fixtureDirectory = $this->rootDirectory . '/spec/fixtures/';
+        $this->cloverReportFile = $this->tmpDirectory . 'clover.xml';
 
         $this->rootConfig = new Configuration([
             Configuration::CONFIG_DIRECTORY_KEY => $this->configDirectory
@@ -38,9 +42,6 @@ describe('Report', function() {
     });
     describe('getReportFileName', function() {
         before(function() {
-            $this->rootDirectory = realpath(__DIR__ . '/../../');
-            $this->tmpDirectory = $this->rootDirectory . '/spec/tmp/';
-
             $this->reportFile = $this->tmpDirectory . 'report.json';
         });
         it('return report file path', function() {
@@ -53,21 +54,12 @@ describe('Report', function() {
         });
     });
     describe('getCoverageReportFilePath', function() {
-        before(function() {
-            $this->rootDirectory = realpath(__DIR__ . '/../../');
-            $this->reportFile = $this->rootDirectory . '/' . 'spec/tmp/clover.xml';
-        });
         it('return cpverage report type', function() {
-            expect($this->reportConfig->getCoverageReportFilePath())->toEqual($this->reportFile);
+            expect($this->reportConfig->getCoverageReportFilePath())->toEqual($this->cloverReportFile);
         });
     });
     describe('applyTo', function() {
         before(function() {
-            $this->rootDirectory = realpath(__DIR__ . '/../../');
-            $this->tmpDirectory = $this->rootDirectory . '/spec/tmp/';
-            $this->fixtureDirectory = $this->rootDirectory . '/spec/fixtures/';
-            $this->cloverReportFile = $this->tmpDirectory . 'clover.xml';
-
             $content = file_get_contents($this->fixtureDirectory . 'clover.xml');
             $content = sprintf($content, $this->rootDirectory, $this->rootDirectory);
 
