@@ -21,7 +21,7 @@ use Zend\Config\Config;
  * Class Configuration
  * @package coverallskit
  */
-class Configuration implements ConfigurationInterface
+class Configuration implements RootConfigurationInterface
 {
     use ConfigurationLoadable;
 
