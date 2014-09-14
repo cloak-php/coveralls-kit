@@ -35,12 +35,12 @@ class CloverReportParser implements ReportParserInterface
     private $reportContent;
 
     /**
-     * @var SourceFile
+     * @var \coverallskit\entity\SourceFile
      */
     private $source;
 
     /**
-     * @var CoverageCollection
+     * @var \coverallskit\entity\collection\SourceFileCollection
      */
     private $sourceCollection;
 
@@ -99,7 +99,7 @@ class CloverReportParser implements ReportParserInterface
     }
 
     /**
-     * @param NodeList $files
+     * @param \Zend\Dom\NodeList $files
      * @return Result
      */
     private function parseFileNodes(NodeList $files)
@@ -122,7 +122,7 @@ class CloverReportParser implements ReportParserInterface
     }
 
     /**
-     * @param NodeList $lines
+     * @param \Zend\Dom\NodeList $lines
      */
     private function parseLineNodes(NodeList $lines)
     {
@@ -140,7 +140,7 @@ class CloverReportParser implements ReportParserInterface
     }
 
     /**
-     * @param $line
+     * @param DOMElement $line
      */
     private function parseLine(DOMElement $line)
     {
