@@ -18,15 +18,35 @@ use coverallskit\entity\collection\RemoteCollection;
 use Gitonomy\Git\Repository as GitRepository;
 use coverallskit\AttributePopulatable;
 
+/**
+ * Class Repository
+ * @package coverallskit\entity
+ */
 class Repository implements RepositoryInterface
 {
 
     use AttributePopulatable;
 
-    protected $repository = null;
-    protected $head = null;
-    protected $branch = null;
-    protected $remotes = null;
+    /**
+     * @var \Gitonomy\Git\Repository
+     */
+    protected $repository;
+
+    /**
+     * @var \coverallskit\entity\repository\Commit
+     */
+    protected $head;
+
+    /**
+     * @var \coverallskit\entity\repository\Branch
+     */
+    protected $branch;
+
+    /**
+     * @var \coverallskit\entity\collection\RemoteCollection
+     */
+    protected $remotes;
+
 
     /**
      * @param string $directory
@@ -39,6 +59,9 @@ class Repository implements RepositoryInterface
             ->resolveRemotes();
     }
 
+    /**
+     * @return $this
+     */
     protected function resolveHeadCommit()
     {
         $headCommit = $this->repository->getHeadCommit();
@@ -54,6 +77,9 @@ class Repository implements RepositoryInterface
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function resolveBranch()
     {
         $commit = $this->repository->getHeadCommit();
@@ -76,6 +102,9 @@ class Repository implements RepositoryInterface
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function resolveRemotes()
     {
         $remotes = $this->repository->run('remote', array('-v'));
