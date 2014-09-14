@@ -15,8 +15,10 @@ use coverallskit\entity\Repository;
 use coverallskit\report\ParserRegistry;
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
+use coverallskit\configuration\Report;
 use Zend\Config\Config;
 use Symfony\Component\Yaml\Yaml;
+
 
 /**
  * Class Configuration
@@ -198,26 +200,13 @@ class Configuration implements RootConfigurationInterface
 
     /**
      * @param ReportBuilderInterface $builder
-     * FIXME throw exception
      */
     private function applyReportResult(ReportBuilderInterface $builder)
     {
-        $path = $this->getCoverageReportFilePath();
-        $reportType = $this->getCoverageReportFileType();
+        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
 
-        if (file_exists($path) === false) {
-            return;
-        }
-
-        if (is_null($reportType)) {
-            return;
-        }
-
-        $registry = new ParserRegistry();
-        $parser = $registry->get($reportType);
-        $parseResult = $parser->parse(file_get_contents($path));
-
-        $builder->addSources($parseResult->getSources());
+        $report = new Report($reportFile, $this);
+        $report->applyTo($builder);
     }
 
     /**

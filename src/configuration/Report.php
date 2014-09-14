@@ -91,6 +91,10 @@ class Report implements ConfigurationInterface
         $reportFileType = $this->getCodeCoverageReport();
         $filePath = $reportFileType->get(self::INPUT_REPORT_FILE_PATH_KEY);
 
+        if (empty($filePath)) {
+            return '';
+        }
+
         return $this->resolvePath($filePath);
     }
 
