@@ -66,11 +66,7 @@ class Report extends AbstractConfiguration
     public function getCoverageReportFilePath()
     {
         $reportFileType = $this->getCodeCoverageReport();
-        $filePath = $reportFileType->get(self::INPUT_REPORT_FILE_PATH_KEY);
-
-        if (empty($filePath)) {
-            return '';
-        }
+        $filePath = $reportFileType->get(self::INPUT_REPORT_FILE_PATH_KEY, '');
 
         return $this->resolvePath($filePath);
     }
