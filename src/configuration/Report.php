@@ -15,6 +15,8 @@ use coverallskit\Configuration;
 use coverallskit\ReportBuilderInterface;
 use coverallskit\report\ParserRegistry;
 use Zend\Config\Config;
+use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\RelativePath;
 
 
 /**
@@ -30,14 +32,14 @@ class Report
     const OUTPUT_REPORT_FILE_KEY = 'output';
 
     /**
-     * @var \Zend\Config\Config
-     */
-    private $reportConfig;
-
-    /**
      * @var \coverallskit\Configuration
      */
     private $rootConfig;
+
+    /**
+     * @var \Zend\Config\Config
+     */
+    private $reportConfig;
 
 
     /**
@@ -98,9 +100,12 @@ class Report
     private function resolvePath($name)
     {
         $directoryPath = $this->rootConfig->getDirectoryPath();
-        $relativePath = preg_replace('/^(\\/|\\.\\/)*(.+)/', '$2', $name);
 
-        return $directoryPath . $relativePath;
+        $factory = PathFactory::instance();
+        $path = $factory->create($directoryPath);
+        $resultPath = $path->resolve(RelativePath::fromString($name));
+
+        return $resultPath->normalize()->string();
     }
 
     /**

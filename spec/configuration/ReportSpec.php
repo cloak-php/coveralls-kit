@@ -27,10 +27,10 @@ describe('Report', function() {
 
         $configValues = [
             Report::INPUT_REPORT_FILE_KEY => [
-                Report::INPUT_REPORT_FILE_TYPE_KEY => 'lcov',
-                Report::INPUT_REPORT_FILE_PATH_KEY => 'report.lcov',
+                Report::INPUT_REPORT_FILE_TYPE_KEY => 'clover',
+                Report::INPUT_REPORT_FILE_PATH_KEY => '../tmp/clover.xml',
             ],
-            Report::OUTPUT_REPORT_FILE_KEY => 'report.json'
+            Report::OUTPUT_REPORT_FILE_KEY => '../tmp/report.json'
         ];
         $reportConfig = new Config($configValues);
 
@@ -38,8 +38,10 @@ describe('Report', function() {
     });
     describe('getReportFileName', function() {
         before(function() {
-            $this->directory = realpath($this->configDirectory) . DIRECTORY_SEPARATOR;
-            $this->reportFile = $this->directory . 'report.json';
+            $this->rootDirectory = realpath(__DIR__ . '/../../');
+            $this->tmpDirectory = $this->rootDirectory . '/spec/tmp/';
+
+            $this->reportFile = $this->tmpDirectory . 'report.json';
         });
         it('return report file path', function() {
             expect($this->reportConfig->getReportFileName())->toEqual($this->reportFile);
@@ -47,13 +49,13 @@ describe('Report', function() {
     });
     describe('getCoverageReportFileType', function() {
         it('return cpverage report type', function() {
-            expect($this->reportConfig->getCoverageReportFileType())->toEqual('lcov');
+            expect($this->reportConfig->getCoverageReportFileType())->toEqual('clover');
         });
     });
     describe('getCoverageReportFilePath', function() {
         before(function() {
-            $this->directory = realpath($this->configDirectory) . DIRECTORY_SEPARATOR;
-            $this->reportFile = $this->directory . 'report.lcov';
+            $this->rootDirectory = realpath(__DIR__ . '/../../');
+            $this->reportFile = $this->rootDirectory . '/' . 'spec/tmp/clover.xml';
         });
         it('return cpverage report type', function() {
             expect($this->reportConfig->getCoverageReportFilePath())->toEqual($this->reportFile);
@@ -61,15 +63,26 @@ describe('Report', function() {
     });
     describe('applyTo', function() {
         before(function() {
-            $this->directory = realpath($this->configDirectory) . DIRECTORY_SEPARATOR;
-            $this->reportFile = $this->directory . 'report.json';
+            $this->rootDirectory = realpath(__DIR__ . '/../../');
+            $this->tmpDirectory = $this->rootDirectory . '/spec/tmp/';
+            $this->fixtureDirectory = $this->rootDirectory . '/spec/fixtures/';
+            $this->cloverReportFile = $this->tmpDirectory . 'clover.xml';
 
+            $content = file_get_contents($this->fixtureDirectory . 'clover.xml');
+            $content = sprintf($content, $this->rootDirectory, $this->rootDirectory);
+
+            file_put_contents($this->cloverReportFile, $content);
+
+            $this->reportFile = $this->tmpDirectory . 'report.json';
             $this->reportBuilder = new ReportBuilder();
             $this->reportConfig->applyTo($this->reportBuilder);
         });
         it('apply report file configration', function() {
             expect($this->reportBuilder->reportFilePath)->toEqual($this->reportFile);
         });
+        it('apply coverage report configration', function() {
+            $sourceFiles = $this->reportBuilder->sourceFiles;
+            expect($sourceFiles->isEmpty())->toBeFalse();
+        });
     });
 });
-
