@@ -31,7 +31,7 @@ class NotSupportFileTypeException extends UnexpectedValueException
         $filePath = $path;
         $fileType = preg_replace('/.+(\..+)$/', '$1', $filePath);
 
-        parent::__construct("The $fileType file type is not supported.", $code, $previous);
+        parent::__construct("The '$fileType' file type is not supported.", $code, $previous);
     }
 
 }

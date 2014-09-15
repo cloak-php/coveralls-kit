@@ -14,6 +14,9 @@ namespace coverallskit\configuration;
 use coverallskit\Configuration;
 use coverallskit\ReportBuilderInterface;
 use coverallskit\report\ParserRegistry;
+use coverallskit\exception\FileNotFoundException;
+use coverallskit\exception\RegistryNotFoundException;
+use coverallskit\exception\NotSupportFileTypeException;
 use Zend\Config\Config;
 
 
@@ -62,19 +65,32 @@ class Report extends AbstractConfiguration
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getCoverageReportFilePath()
     {
-        $reportFileType = $this->getCodeCoverageReport();
-        $filePath = $reportFileType->get(self::INPUT_REPORT_FILE_PATH_KEY, '');
+        $fileType = $this->getCodeCoverageReport();
+        $filePath = $fileType->get(self::INPUT_REPORT_FILE_PATH_KEY, null);
+
+        if (is_null($filePath) === true) {
+            return null;
+        }
 
         return $this->resolvePath($filePath);
     }
 
     /**
+     * @return bool
+     */
+    public function isCoverageReportEmpty()
+    {
+        $reportType = $this->getCoverageReportFileType();
+        $reportFilePath = $this->getCoverageReportFilePath();
+        return empty($reportType) || empty($reportFilePath);
+    }
+
+    /**
      * @param ReportBuilderInterface $builder
-     * FIXME throw exception
      */
     private function applyReportResult(ReportBuilderInterface $builder)
     {
@@ -82,20 +98,33 @@ class Report extends AbstractConfiguration
         $reportType = $this->getCoverageReportFileType();
 
         if (file_exists($path) === false) {
-            return;
+            throw new FileNotFoundException($path);
         }
 
-        if (is_null($reportType)) {
-            return;
-        }
-
-        $registry = new ParserRegistry();
-        $parser = $registry->get($reportType);
+        $parser = $this->detectReportParser($reportType);
         $parseResult = $parser->parse(file_get_contents($path));
 
         $builder->addSources($parseResult->getSources());
 
         return $builder;
+    }
+
+    /**
+     * @param string $reportType
+     * @return \coverallskit\report\ReportParserInterface
+     * @throws \coverallskit\exception\NotSupportFileTypeException
+     */
+    private function detectReportParser($reportType)
+    {
+        $registry = new ParserRegistry();
+
+        try {
+            $parser = $registry->get($reportType);
+        } catch (RegistryNotFoundException $exception) {
+            throw new NotSupportFileTypeException($reportType);
+        }
+
+        return $parser;
     }
 
     /**
@@ -105,6 +134,11 @@ class Report extends AbstractConfiguration
     public function applyTo(ReportBuilderInterface $builder)
     {
         $builder->reportFilePath($this->getReportFileName());
+
+        if ($this->isCoverageReportEmpty()) {
+            return $builder;
+        }
+
         return $this->applyReportResult($builder);
     }
 

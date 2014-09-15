@@ -19,7 +19,7 @@ class RequiredException extends UnexpectedValueException
 
     public function __construct($valueName, $code = 0, Exception $previous = null)
     {
-        parent::__construct("The $valueName is not supported.", $code, $previous);
+        parent::__construct("The '$valueName' is not supported.", $code, $previous);
     }
 
 }
