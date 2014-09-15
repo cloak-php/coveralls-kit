@@ -19,7 +19,7 @@ $builder->build()->save()->upload();
 |:--------------------|------------:|:---------------|:--------------------------------------------------|
 | token               | optional    | **COVERALLS_REPO_TOKEN** | [coveralls.io](https://coveralls.io/docs/api) api token.  If you do not specify, use the environment variable **COVERALLS_REPO_TOKEN**.                          |
 | service             | optional    | **travis-ci** | CI(Continuous Integration) service name. You can use the **travis-ci** or **travis-pro** |
-| reportFile          | optional    |               | [reportFile](reportFile) |
+| reportFile          | optional    |               | Please look at the **reportFile section**. |
 | repositoryDirectory | optional    | . | Directory path of the **git repository**.  Will specify a relative path from the directory containing the configuration file. |
 
 #### reportFile
@@ -35,5 +35,13 @@ $builder->build()->save()->upload();
 
 will specify the json file name to be sent to the [coveralls.io](https://coveralls.io/docs/api).  
 Will specify a relative path from the directory containing the configuration file.
+
+
+Using a CLI
+---------------------------------------------------------------------------------
+
+You can send a report from the command line using the **CLI package**.
+
+[https://github.com/cloak-php/coveralls-kit-cli](https://github.com/cloak-php/coveralls-kit-cli)
 
 Detailed documentation-----------------------------------* [Work with Travis-CI](docs/travis-ci.md)Run only unit test------------------------------------	vendor/bin/phoor	vendor/bin/phake spec:watchHow to run the example------------------------------------	vendor/bin/phake example:basic
