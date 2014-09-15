@@ -158,7 +158,7 @@ class Configuration implements RootConfigurationInterface
         }
 
         $values = Yaml::parse($file);
-        $values = (is_array($values) === true) ?: [];
+        $values = (is_array($values) === true) ? $values : [];
 
         $config = new Config($values);
         $config->merge(new Config([
