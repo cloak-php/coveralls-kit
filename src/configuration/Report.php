@@ -38,10 +38,9 @@ class Report extends AbstractConfiguration
      */
     private function getCodeCoverageReport()
     {
-        $reportFileType = $this->get(self::INPUT_REPORT_FILE_KEY);
-        $reportFileType = $reportFileType ?: new Config([]);
-
-        return $reportFileType;
+        $fileType = $this->get(self::INPUT_REPORT_FILE_KEY);
+        $fileType = (is_null($fileType)) ? new Config([]) : $fileType;
+        return $fileType;
     }
 
     /**

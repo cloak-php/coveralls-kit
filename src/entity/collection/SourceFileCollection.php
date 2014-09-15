@@ -63,7 +63,7 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
     public function get($source)
     {
         $path = realpath($source);
-        $path = $path ?: '';
+        $path = (is_null($path)) ? '' : $path;
 
         $result = $this->sources->get($path);
 

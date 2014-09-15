@@ -49,7 +49,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function __construct(Config $config = null)
     {
-        $userConfig = $config ?: new Config([]);
+        $userConfig = $config ? $config : new Config([]);
 
         $current = $this->getDefaultConfigration();
         $current->merge($userConfig);
