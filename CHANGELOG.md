@@ -1,6 +1,10 @@
 Change Log
 ===================================
 
+1.3.1
+-----------------------------------
+* Upgrade to guzzlehttp/guzzle
+
 1.3.0
 -----------------------------------
 * add **ReportTransferAwareTrait**, **ReportTransferAwareInterface**
