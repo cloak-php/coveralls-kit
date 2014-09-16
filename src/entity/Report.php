@@ -11,22 +11,49 @@
 
 namespace coverallskit\entity;
 
-use coverallskit\ReportUpLoader;
-use coverallskit\ReportUpLoaderInterface;
 use coverallskit\AttributePopulatable;
+use coverallskit\ReportTransferAwareTrait;
 
+/**
+ * Class Report
+ * @package coverallskit\entity
+ */
 class Report implements ReportInterface
 {
 
     use AttributePopulatable;
+    use ReportTransferAwareTrait;
 
-    protected $name = null;
-    protected $token = null;
-    protected $service = null;
-    protected $repository = null;
-    protected $sourceFiles = null;
-    protected $runAt = null;
-    protected $uploader = null;
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $token;
+
+    /**
+     * @var \coverallskit\entity\service\ServiceInterface
+     */
+    protected $service;
+
+    /**
+     * @var \coverallskit\entity\RepositoryInterface
+     */
+    protected $repository;
+
+    /**
+     * @var \coverallskit\entity\collection\SourceFileCollection
+     */
+    protected $sourceFiles;
+
+    /**
+     * @var string
+     */
+    protected $runAt;
+
 
     /**
      * @param array $values
@@ -37,11 +64,18 @@ class Report implements ReportInterface
         $this->populate($values);
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param string $path
+     * @return $this
+     */
     public function saveAs($path)
     {
         $this->name = $path;
@@ -50,25 +84,14 @@ class Report implements ReportInterface
         return $this; 
     }
 
+    /**
+     * @return $this
+     */
     public function save()
     {
         $content = (string) $this;
         file_put_contents($this->name, $content);
         return $this;
-    }
-
-    public function setUpLoader(ReportUpLoaderInterface $uploader)
-    {
-        $this->uploader = $uploader;
-    }
-
-    public function getUpLoader()
-    {
-        if ($this->uploader === null) {
-            $this->uploader = new ReportUpLoader();
-        }
-
-        return $this->uploader;
     }
 
     public function upload()
@@ -79,14 +102,20 @@ class Report implements ReportInterface
             $this->saveAs($fileName);
         }
 
-        $this->getUpLoader()->upload($this);
+        $this->getReportTransfer()->upload($this);
     }
 
+    /**
+     * @return bool
+     */
     public function isEmpty()
     {
         return $this->token === null || $this->service->isEmpty() || $this->sourceFiles->isEmpty();
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $values = array(
@@ -104,6 +133,9 @@ class Report implements ReportInterface
         return $values;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return json_encode($this->toArray());

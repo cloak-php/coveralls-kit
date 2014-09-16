@@ -11,50 +11,122 @@
 
 namespace coverallskit\entity\collection;
 
-use coverallskit\CompositeEntityInterface;
 use coverallskit\entity\SourceFile;
-use PhpCollection\Sequence;
 use coverallskit\AttributePopulatable;
+use PhpCollection\Map;
 
-class SourceFileCollection implements CompositeEntityInterface
+
+/**
+ * Class SourceFileCollection
+ * @package coverallskit\entity\collection
+ */
+class SourceFileCollection implements CompositeEntityCollectionInterface
 {
 
     use AttributePopulatable;
 
-    protected $sources = null; 
+    /**
+     * @var \PhpCollection\Map
+     */
+    protected $sources;
 
     public function __construct()
     {
-        $this->sources = new Sequence();
+        $this->sources = new Map();
     }
 
+    /**
+     * @param SourceFile $source
+     */
     public function add(SourceFile $source)
     {
-        $this->sources->add($source);
+        $key = $source->getName();
+        $this->sources->set($key, $source);
     }
 
+    /**
+     * @param string|\coverallskit\entity\SourceFile $source
+     * @return bool
+     */
     public function has($source)
     {
-        $querySource = $source;
+        $path = (gettype($source) === 'string')
+            ? realpath($source) : $source->getName();
 
-        if (gettype($source) === 'string') {
-            $querySource = new SourceFile($source);
-        }
-
-        $applyFilter = function(SourceFile $element) use ($querySource) {
-            return $element->getName() === $querySource->getName();
-        };
-
-        $results = $this->sources->filter($applyFilter);
-
-        return $results->isEmpty() === false;
+        return $this->sources->containsKey($path);
     }
 
+    /**
+     * @param string $source
+     * @return null|\coverallskit\entity\SourceFile
+     */
+    public function get($source)
+    {
+        $path = realpath($source);
+        $path = (is_null($path)) ? '' : $path;
+
+        $result = $this->sources->get($path);
+
+        if ($result->isEmpty()) {
+            return null;
+        }
+
+        return $result->get();
+    }
+
+    /**
+     * @return int
+     */
+    public function getExecutedLineCount()
+    {
+        $totalCount = 0;
+
+        foreach ($this->sources as $source) {
+            $totalCount += $source->getExecutedLineCount();
+        }
+        return $totalCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnusedLineCount()
+    {
+        $totalCount = 0;
+
+        foreach ($this->sources as $source) {
+            $totalCount += $source->getUnusedLineCount();
+        }
+        return $totalCount;
+    }
+
+    /**
+     * @return bool
+     */
     public function isEmpty()
     {
         return $this->sources->isEmpty();
     }
 
+    /**
+     * @return \ArrayIterator|\Traversable
+     */
+    public function getIterator()
+    {
+        return $this->sources->getIterator();
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->sources->count();
+    }
+
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $values = [];
@@ -67,6 +139,9 @@ class SourceFileCollection implements CompositeEntityInterface
         return $values;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return json_encode($this->toArray());

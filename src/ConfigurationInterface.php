@@ -19,26 +19,6 @@ interface ConfigurationInterface
 {
 
     /**
-     * @return string
-     */
-    public function getReportFileName();
-
-    /**
-     * @return string
-     */
-    public function getToken();
-
-    /**
-     * @return \coverallskit\entity\service\ServiceInterface
-     */
-    public function getService();
-
-    /**
-     * @return string
-     */
-    public function getRepository();
-
-    /**
      * @param ReportBuilderInterface $builder
      * @return ReportBuilderInterface
      */

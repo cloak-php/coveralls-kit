@@ -27,7 +27,7 @@ interface RepositoryInterface extends CompositeEntityInterface
     public function getBranch();
 
     /**
-     * @return collection\RemoteCollection;
+     * @return collection\RemoteCollection
      */
     public function getRemotes();
 

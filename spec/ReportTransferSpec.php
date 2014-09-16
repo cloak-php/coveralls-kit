@@ -11,13 +11,13 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\ReportUpLoader;
+use coverallskit\ReportTransfer;
 use coverallskit\entity\Report;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
 use Prophecy\Prophet;
 
-describe('ReportUpLoader', function() {
+describe('ReportTransfer', function() {
     before(function() {
         $this->prophet = new Prophet();
     });
@@ -26,7 +26,7 @@ describe('ReportUpLoader', function() {
     });
     describe('getClient', function() {
         before(function() {
-            $this->uploader = new ReportUpLoader();
+            $this->uploader = new ReportTransfer();
         });
         context('When not specified client', function() {
             it('should return Guzzle\Http\Client instance', function() {
@@ -53,13 +53,13 @@ describe('ReportUpLoader', function() {
             ]);
 
             $this->request = $this->prophet->prophesize('Guzzle\Http\Message\EntityEnclosingRequestInterface');
-            $this->request->addPostFiles([ ReportUpLoader::JSON_FILE_POST_FIELD_NAME => 'path/to/coverage.json' ])->shouldBeCalled();
+            $this->request->addPostFiles([ ReportTransfer::JSON_FILE_POST_FIELD_NAME => 'path/to/coverage.json' ])->shouldBeCalled();
             $this->request->send()->shouldBeCalled();
 
             $this->client = $this->prophet->prophesize('Guzzle\Http\ClientInterface');
-            $this->client->post(ReportUpLoader::ENDPOINT_URL)->shouldBeCalled()->willReturn($this->request->reveal());
+            $this->client->post(ReportTransfer::ENDPOINT_URL)->shouldBeCalled()->willReturn($this->request->reveal());
 
-            $this->uploader = new ReportUpLoader($this->client->reveal());
+            $this->uploader = new ReportTransfer($this->client->reveal());
         });
         it('should upload report file', function() {
             $this->uploader->upload($this->report);
