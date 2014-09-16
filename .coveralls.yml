@@ -1,7 +1,7 @@
 service: travis-ci
 reportFile:
   input:
-    type: clover
-    file: script/clover.xml
+    type: lcov
+    file: script/report.lcov
   output: script/coveralls.json
 repositoryDirectory: .

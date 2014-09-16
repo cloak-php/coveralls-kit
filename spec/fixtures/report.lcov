@@ -1,4 +1,4 @@
-FN:%s/spec/fixtures/bar.php
+SF:%s/spec/fixtures/bar.php
 DA:11,1
 DA:13,1
 DA:14,1
@@ -8,7 +8,7 @@ DA:21,0
 DA:23,0
 DA:27,1
 end_of_record
-FN:%s/spec/fixtures/foo.php
+SF:%s/spec/fixtures/foo.php
 DA:10,1
 DA:12,1
 DA:13,1

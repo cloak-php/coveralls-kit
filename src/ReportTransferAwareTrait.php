@@ -37,7 +37,10 @@ trait ReportTransferAwareTrait
      */
     public function getReportTransfer()
     {
-        $this->reportTransfer = $this->reportTransfer ?: new ReportTransfer();
+        $reportTransfer = $this->reportTransfer;
+        $reportTransfer = (is_null($reportTransfer)) ? new ReportTransfer() : $reportTransfer;
+        $this->reportTransfer = $reportTransfer;
+
         return $this->reportTransfer;
     }
 

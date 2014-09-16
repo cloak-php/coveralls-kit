@@ -11,6 +11,12 @@
 
 namespace coverallskit\entity;
 
+use coverallskit\value\LineRange;
+
+/**
+ * Interface CoverageInterface
+ * @package coverallskit\entity
+ */
 interface CoverageInterface
 {
 
@@ -21,6 +27,17 @@ interface CoverageInterface
      * @return integer
      */
     public function getLineNumber();
+
+    /**
+     * @return int
+     */
+    public function getAnalysisResult();
+
+    /**
+     * @param LineRange $lineRange
+     * @return bool
+     */
+    public function contains(LineRange $lineRange);
 
     /**
      * @return boolean

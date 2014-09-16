@@ -48,11 +48,33 @@ class Result
         return $this->sources;
     }
 
+    /**
+     * @return int
+     */
+    public function getExecutedLineCount()
+    {
+        return $this->sources->getExecutedLineCount();
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnusedLineCount()
+    {
+        return $this->sources->getUnusedLineCount();
+    }
+
+    /**
+     * @return ExceptionCollection
+     */
     public function getParseErrors()
     {
         return $this->parseErrors;
     }
 
+    /**
+     * @return bool
+     */
     public function hasParseError()
     {
         return $this->parseErrors->isEmpty() === false;

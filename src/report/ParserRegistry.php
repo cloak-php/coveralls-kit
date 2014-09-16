@@ -29,6 +29,7 @@ class ParserRegistry
     {
         $this->registry = new Registry();
         $this->registry->register('clover', '\coverallskit\report\parser\CloverReportParser');
+        $this->registry->register('lcov', '\coverallskit\report\parser\LcovReportParser');
     }
 
     /**

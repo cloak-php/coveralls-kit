@@ -144,6 +144,14 @@ class SourceFile implements CompositeEntityInterface
     }
 
     /**
+     * @param CoverageCollection $coverages
+     */
+    public function addCoverages(CoverageCollection $coverages)
+    {
+        $this->coverages->merge($coverages);
+    }
+
+    /**
      * @param $coverage
      */
     public function removeCoverage($coverage)
@@ -164,6 +172,22 @@ class SourceFile implements CompositeEntityInterface
     public function getCoverage($lineNumber)
     {
         return $this->coverages->at($lineNumber);
+    }
+
+    /**
+     * @return int
+     */
+    public function getExecutedLineCount()
+    {
+        return $this->coverages->getExecutedLineCount();
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnusedLineCount()
+    {
+        return $this->coverages->getUnusedLineCount();
     }
 
     /**

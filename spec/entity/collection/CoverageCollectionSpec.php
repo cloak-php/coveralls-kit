@@ -73,6 +73,29 @@ describe('CoverageCollection', function() {
             });
         });
     });
+
+    describe('getExecutedLineCount', function() {
+        before(function() {
+            $this->coverages = new CoverageCollection(3);
+            $this->coverages->add(Coverage::unused(1));
+            $this->coverages->add(Coverage::executed(2));
+        });
+        it('return executed line count', function() {
+            expect($this->coverages->getExecutedLineCount())->toEqual(1);
+        });
+    });
+
+    describe('getUnusedLineCount', function() {
+        before(function() {
+            $this->coverages = new CoverageCollection(3);
+            $this->coverages->add(Coverage::unused(1));
+            $this->coverages->add(Coverage::executed(2));
+        });
+        it('return unused line count', function() {
+            expect($this->coverages->getUnusedLineCount())->toEqual(1);
+        });
+    });
+
     describe('__toString', function() {
         before(function() {
             $this->coverages = new CoverageCollection(3);

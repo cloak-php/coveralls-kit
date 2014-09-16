@@ -17,16 +17,37 @@ use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
 use Gitonomy\Git\Repository as GitRepository;
 use coverallskit\AttributePopulatable;
+use PhpCollection\Map;
 
+/**
+ * Class Repository
+ * @package coverallskit\entity
+ */
 class Repository implements RepositoryInterface
 {
 
     use AttributePopulatable;
 
-    protected $repository = null;
-    protected $head = null;
-    protected $branch = null;
-    protected $remotes = null;
+    /**
+     * @var \Gitonomy\Git\Repository
+     */
+    protected $repository;
+
+    /**
+     * @var \coverallskit\entity\repository\Commit
+     */
+    protected $head;
+
+    /**
+     * @var \coverallskit\entity\repository\Branch
+     */
+    protected $branch;
+
+    /**
+     * @var \coverallskit\entity\collection\RemoteCollection
+     */
+    protected $remotes;
+
 
     /**
      * @param string $directory
@@ -39,6 +60,9 @@ class Repository implements RepositoryInterface
             ->resolveRemotes();
     }
 
+    /**
+     * @return $this
+     */
     protected function resolveHeadCommit()
     {
         $headCommit = $this->repository->getHeadCommit();
@@ -54,6 +78,9 @@ class Repository implements RepositoryInterface
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function resolveBranch()
     {
         $commit = $this->repository->getHeadCommit();
@@ -76,30 +103,13 @@ class Repository implements RepositoryInterface
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function resolveRemotes()
     {
-        $remotes = $this->repository->run('remote', array('-v'));
-        $remotes = explode("\n", $remotes);
-
-        $remoteMap = array();
-
-        foreach ($remotes as $remote) {
-            if (empty($remote) === true) {
-                continue;
-            }
-            preg_match("/(.+)\s(.+\.git)/", $remote, $mathes);
-
-            $name = $mathes[1];
-            $url = $mathes[2];
-
-            $remoteMap[$name] = array(
-                'name' => $name,
-                'url' => $url
-            );
-        }
-
-        $remoteValues = array_values($remoteMap);
         $remotes = new RemoteCollection();
+        $remoteValues = $this->collectRemotes();
 
         foreach ($remoteValues as $remote) {
             $remotes->add( new Remote($remote) );
@@ -107,6 +117,34 @@ class Repository implements RepositoryInterface
         $this->remotes = $remotes;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    protected function collectRemotes()
+    {
+        $remoteString = $this->repository->run('remote', array('-v'));
+        $remoteResults = explode(PHP_EOL, $remoteString);
+
+        $remotes = new Map();
+
+        foreach ($remoteResults as $remoteResult) {
+            $matches = [];
+            $result = preg_match("/(.+)\s(.+\.git)/", $remoteResult, $matches);
+
+            if ($result !== 1 || is_array($matches) === false) {
+                continue;
+            }
+            list($name, $url) = array_slice($matches, 1, 2);
+
+            $remotes->set($name, [
+                'name' => $name,
+                'url' => $url
+            ]);
+        }
+
+        return $remotes->values();
     }
 
     /**

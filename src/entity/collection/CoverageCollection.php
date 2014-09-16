@@ -18,6 +18,7 @@ use coverallskit\exception\LineOutOfRangeException;
 use PhpCollection\Map;
 use coverallskit\exception\ExceptionCollection;
 
+
 /**
  * Class CoverageCollection
  * @package coverallskit\entity\collection
@@ -52,7 +53,7 @@ class CoverageCollection implements CompositeEntityCollectionInterface
      */
     public function add(CoverageInterface $coverage)
     {
-        if ($this->lineRange->contains($coverage->getLineNumber()) === false) {
+        if ($coverage->contains($this->lineRange) === false) {
             throw new LineOutOfRangeException($coverage, $this->lineRange);
         }
         $this->lineCoverages->set($coverage->getLineNumber(), $coverage);
@@ -79,6 +80,18 @@ class CoverageCollection implements CompositeEntityCollectionInterface
         }
 
         throw $exceptions;
+    }
+
+    /**
+     * @param CoverageCollection $coverages
+     */
+    public function merge(CoverageCollection $collection)
+    {
+        $coverages = $collection->values();
+
+        foreach ($coverages as $coverage) {
+            $this->add($coverage);
+        }
     }
 
     /**
@@ -121,6 +134,47 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     }
 
     /**
+     * @return int
+     */
+    public function getExecutedLineCount()
+    {
+        $filter = function(CoverageInterface $coverage) {
+            return $coverage->isExecuted();
+        };
+        return $this->matchCount($filter);
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnusedLineCount()
+    {
+        $filter = function(CoverageInterface $coverage) {
+            return $coverage->isUnused();
+        };
+        return $this->matchCount($filter);
+    }
+
+    /**
+     * @param callable $filter
+     * @return int
+     */
+    protected function matchCount(callable $filter)
+    {
+        $matchLines = $this->filter($filter);
+        return $matchLines->count();
+    }
+
+    /**
+     * @param callable $filter
+     * @return \PhpCollection\AbstractMap
+     */
+    protected function filter(callable $filter)
+    {
+        return $this->lineCoverages->filter($filter);
+    }
+
+    /**
      * @return CoverageCollection
      */
     public function newInstance()
@@ -150,6 +204,14 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     public function count()
     {
         return $this->lineCoverages->count();
+    }
+
+    /**
+     * @return array
+     */
+    public function values()
+    {
+        return $this->lineCoverages->values();
     }
 
     /**

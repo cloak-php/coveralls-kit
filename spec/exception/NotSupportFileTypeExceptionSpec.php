@@ -20,7 +20,7 @@ describe('NotSupportFileTypeException', function() {
                 $this->exception = new NotSupportFileTypeException("path/to/config.ini");
             });
             it('should return message', function() {
-                $message = "The .ini file type is not supported.";
+                $message = "The '.ini' file type is not supported.";
                 expect($this->exception->getMessage())->toEqual($message);
             });
         });
@@ -29,7 +29,7 @@ describe('NotSupportFileTypeException', function() {
                 $this->exception = new NotSupportFileTypeException("path/to/config");
             });
             it('should return message', function() {
-                $message = "The path/to/config file type is not supported.";
+                $message = "The 'path/to/config' file type is not supported.";
                 expect($this->exception->getMessage())->toEqual($message);
             });
         });

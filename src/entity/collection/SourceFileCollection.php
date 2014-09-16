@@ -63,7 +63,7 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
     public function get($source)
     {
         $path = realpath($source);
-        $path = $path ?: '';
+        $path = (is_null($path)) ? '' : $path;
 
         $result = $this->sources->get($path);
 
@@ -72,6 +72,32 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
         }
 
         return $result->get();
+    }
+
+    /**
+     * @return int
+     */
+    public function getExecutedLineCount()
+    {
+        $totalCount = 0;
+
+        foreach ($this->sources as $source) {
+            $totalCount += $source->getExecutedLineCount();
+        }
+        return $totalCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnusedLineCount()
+    {
+        $totalCount = 0;
+
+        foreach ($this->sources as $source) {
+            $totalCount += $source->getUnusedLineCount();
+        }
+        return $totalCount;
     }
 
     /**

@@ -18,10 +18,14 @@ use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\service\ServiceInterface;
 use coverallskit\exception\RequiredException;
 
-
 /**
  * Class ReportBuilder
  * @package coverallskit
+ * @property string $reportFilePath
+ * @property string $token
+ * @property \coverallskit\entity\service\ServiceInterface $service
+ * @property \coverallskit\entity\RepositoryInterface $repository
+ * @property \coverallskit\entity\collection\SourceFileCollection $sourceFiles
  */
 class ReportBuilder implements ReportBuilderInterface
 {
@@ -165,6 +169,14 @@ class ReportBuilder implements ReportBuilderInterface
     public static function fromConfiguration(ConfigurationInterface $config)
     {
         return $config->applyTo(new static());
+    }
+
+    /**
+     * @param string $name
+     */
+    public function __get($name)
+    {
+        return $this->$name;
     }
 
 }

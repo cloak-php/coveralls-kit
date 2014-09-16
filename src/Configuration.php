@@ -12,35 +12,55 @@
 namespace coverallskit;
 
 use coverallskit\entity\Repository;
-use coverallskit\report\ParserRegistry;
-use coverallskit\configuration\ConfigurationLoadable;
+use coverallskit\exception\FileNotFoundException;
+use coverallskit\exception\NotSupportFileTypeException;
+use coverallskit\configuration\Base;
+use coverallskit\configuration\Report;
 use Zend\Config\Config;
+use Symfony\Component\Yaml\Yaml;
+use Eloquent\Pathogen\Factory\PathFactory;
 
 
 /**
  * Class Configuration
  * @package coverallskit
  */
-class Configuration implements ConfigurationInterface
+class Configuration implements RootConfigurationInterface
 {
-    use ConfigurationLoadable;
 
     /**
-     * @var \Zend\Config\Config
+     * @var configuration\Base
      */
-    private $config;
+    private $base;
+
+    /**
+     * @var configuration\Report
+     */
+    private $report;
+
+    /**
+     * @var \Eloquent\Pathogen\PathInterface
+     */
+    private $directoryPath;
+
 
     /**
      * @param Config $config
      */
     public function __construct(Config $config = null)
     {
-        $userConfig = $config ?: new Config([]);
+        $userConfig = $config ? $config : new Config([]);
 
         $current = $this->getDefaultConfigration();
         $current->merge($userConfig);
 
-        $this->config = $current;
+        $directoryPath = $current->get(self::CONFIG_DIRECTORY_KEY, getcwd());
+        $this->directoryPath = PathFactory::instance()->create($directoryPath);
+
+        $this->base = new Base($current, $this->directoryPath);
+
+        $reportFile = $current->get(Report::REPORT_FILE_KEY);
+        $this->report = new Report($reportFile, $this->directoryPath);
     }
 
     /**
@@ -48,25 +68,23 @@ class Configuration implements ConfigurationInterface
      */
     public function getReportFileName()
     {
-        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-        $path = $reportFile->get(self::OUTPUT_REPORT_FILE_KEY);
-        return $this->resolvePath($path);
+        return $this->report->getReportFileName();
     }
 
+    /**
+     * @return string
+     */
     public function getCoverageReportFileType()
     {
-        $reportFileType = $this->getCodeCoverageReport();
-        $type = $reportFileType->get(self::INPUT_REPORT_FILE_TYPE_KEY);
-
-        return $type;
+        return $this->report->getCoverageReportFileType();
     }
 
+    /**
+     * @return string
+     */
     public function getCoverageReportFilePath()
     {
-        $reportFileType = $this->getCodeCoverageReport();
-        $filePath = $reportFileType->get(self::INPUT_REPORT_FILE_PATH_KEY);
-
-        return $this->resolvePath($filePath);
+        return $this->report->getCoverageReportFilePath();
     }
 
     /**
@@ -74,7 +92,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getToken()
     {
-        return $this->config->get(self::TOKEN_KEY);
+        return $this->base->getToken();
     }
 
     /**
@@ -82,10 +100,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getService()
     {
-        $serviceName = $this->config->get(self::SERVICE_KEY);
-        $service = $this->serviceFromString($serviceName);
-
-        return $service;
+        return $this->base->getService();
     }
 
     /**
@@ -93,10 +108,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getRepository()
     {
-        $directory = $this->config->get(self::REPOSITORY_DIRECTORY_KEY);
-        $repository = $this->repositoryFromPath($directory);
-
-        return $repository;
+        return $this->base->getRepository();
     }
 
     /**
@@ -105,52 +117,10 @@ class Configuration implements ConfigurationInterface
      */
     public function applyTo(ReportBuilderInterface $builder)
     {
-        $builder->reportFilePath($this->getReportFileName())
-            ->token($this->getToken())
-            ->service($this->getService())
-            ->repository($this->getRepository());
-
-        $this->applyReportResult($builder);
+        $this->base->applyTo($builder);
+        $this->report->applyTo($builder);
 
         return $builder;
-    }
-
-    /**
-     * @param string $serviceName
-     * @return \coverallskit\entity\service\ServiceInterface
-     */
-    private function serviceFromString($serviceName)
-    {
-        $registry = new ServiceRegistry();
-        $service = $registry->get($serviceName);
-
-        return $service;
-    }
-
-    /**
-     * @param string $path
-     * @return \coverallskit\entity\Repository
-     */
-    private function repositoryFromPath($path)
-    {
-        $directory = $this->resolvePath($path);
-        $repository = new Repository($directory);
-
-        return $repository;
-    }
-
-    /**
-     * @param string $name
-     * @return string
-     */
-    private function resolvePath($name)
-    {
-        $directoryPath = $this->config->get(self::CONFIG_DIRECTORY_KEY, getcwd());
-        $directoryPath = realpath($directoryPath) . DIRECTORY_SEPARATOR;
-
-        $relativePath = preg_replace('/^(\\/|\\.\\/)*(.+)/', '$2', $name);
-
-        return $directoryPath . $relativePath;
     }
 
     /**
@@ -158,53 +128,45 @@ class Configuration implements ConfigurationInterface
      */
     protected function getDefaultConfigration()
     {
+
         $config = new Config([
-            self::TOKEN_KEY => null,
-            self::SERVICE_KEY => 'travis-ci',
-            self::REPORT_FILE_KEY => [
-                self::OUTPUT_REPORT_FILE_KEY => 'coveralls.json'
+            Base::TOKEN_KEY => null,
+            Base::SERVICE_KEY => 'travis-ci',
+            Report::REPORT_FILE_KEY => [
+                Report::OUTPUT_REPORT_FILE_KEY => 'coveralls.json'
             ],
-            self::REPOSITORY_DIRECTORY_KEY => '.'
+            Base::REPOSITORY_DIRECTORY_KEY => '.'
         ]);
 
         return $config;
     }
 
-
     /**
-     * @return mixed
+     * @param string $file
+     * @return Configuration
+     * @throws \coverallskit\exception\NotSupportFileTypeException
+     * @throws \coverallskit\exception\FileNotFoundException
      */
-    private function getCodeCoverageReport()
+    public static function loadFromFile($file)
     {
-        $reportFile = $this->config->get(self::REPORT_FILE_KEY);
-        $reportFileType = $reportFile->get(self::INPUT_REPORT_FILE_KEY);
-        $reportFileType = $reportFileType ?: new Config([]);
-
-        return $reportFileType;
-    }
-
-    /**
-     * @param ReportBuilderInterface $builder
-     * FIXME throw exception
-     */
-    private function applyReportResult(ReportBuilderInterface $builder)
-    {
-        $path = $this->getCoverageReportFilePath();
-        $reportType = $this->getCoverageReportFileType();
-
-        if (file_exists($path) === false) {
-            return;
+        if (file_exists($file) === false) {
+            throw new FileNotFoundException($file);
         }
 
-        if (is_null($reportType)) {
-            return;
+        if (preg_match('/(\.yml|yaml)$/', $file) !== 1) {
+            throw new NotSupportFileTypeException($file);
         }
 
-        $registry = new ParserRegistry();
-        $parser = $registry->get($reportType);
-        $parseResult = $parser->parse(file_get_contents($path));
+        $values = Yaml::parse($file);
+        $values = (is_array($values) === true) ? $values : [];
 
-        $builder->addSources($parseResult->getSources());
+        $config = new Config($values);
+        $config->merge(new Config([
+            self::CONFIG_FILE_KEY => $file,
+            self::CONFIG_DIRECTORY_KEY => dirname(realpath($file)) . DIRECTORY_SEPARATOR
+        ]));
+
+        return new Configuration($config);
     }
 
 }

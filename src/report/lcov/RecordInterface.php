@@ -9,19 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coverallskit;
+namespace coverallskit\report\lcov;
 
 /**
- * Interface Configuration
- * @package coverallskit
+ * Interface RecordInterface
+ * @package coverallskit\report\lcov
  */
-interface ConfigurationInterface
+interface RecordInterface
 {
 
     /**
-     * @param ReportBuilderInterface $builder
-     * @return ReportBuilderInterface
+     * @param string $record
+     * @return bool
      */
-    public function applyTo(ReportBuilderInterface $builder);
+    public static function match($record);
 
 }

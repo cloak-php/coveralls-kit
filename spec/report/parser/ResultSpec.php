@@ -13,15 +13,18 @@ namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\parser\Result;
 use coverallskit\entity\SourceFile;
+use coverallskit\entity\Coverage;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\exception\ExceptionCollection;
 use Exception;
 
 describe('Result', function() {
+    before(function() {
+        $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
+    });
+
     describe('getSources', function() {
         before(function() {
-            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
-
             $source = new SourceFile($this->path);
             $sources = new SourceFileCollection();
             $sources->add($source);
@@ -38,11 +41,38 @@ describe('Result', function() {
             expect($this->sources)->toEqual($this->originalSources);
         });
     });
+    describe('getExecutedLineCount', function() {
+        before(function() {
+            $source = new SourceFile($this->path);
+            $source->addCoverage(Coverage::executed(12));
 
+            $sources = new SourceFileCollection();
+            $sources->add($source);
+
+            $collection = new ExceptionCollection();
+            $this->result = new Result($sources, $collection);
+        });
+        it('return executed line count', function() {
+            expect($this->result->getExecutedLineCount())->toEqual(1);
+        });
+    });
+    describe('getUnusedLineCount', function() {
+        before(function() {
+            $source = new SourceFile($this->path);
+            $source->addCoverage(Coverage::unused(12));
+
+            $sources = new SourceFileCollection();
+            $sources->add($source);
+
+            $collection = new ExceptionCollection();
+            $this->result = new Result($sources, $collection);
+        });
+        it('return unused line count', function() {
+            expect($this->result->getUnusedLineCount())->toEqual(1);
+        });
+    });
     describe('getParseErrors', function() {
         before(function() {
-            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
-
             $source = new SourceFile($this->path);
 
             $this->sources = new SourceFileCollection();
@@ -57,11 +87,8 @@ describe('Result', function() {
             expect($this->result->getParseErrors())->toBeAnInstanceOf('coverallskit\exception\ExceptionCollection');
         });
     });
-
     describe('hasParseError', function() {
         before(function() {
-            $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
-
             $source = new SourceFile($this->path);
 
             $this->sources = new SourceFileCollection();
