@@ -17,10 +17,10 @@ use coverallskit\ServiceRegistry;
 
 
 /**
- * Class Base
+ * Class Basic
  * @package coverallskit
  */
-class Base extends AbstractConfiguration
+class Basic extends AbstractConfiguration
 {
 
     const TOKEN_KEY = 'token';
