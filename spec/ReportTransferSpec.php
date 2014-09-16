@@ -18,6 +18,7 @@ use coverallskit\entity\collection\SourceFileCollection;
 use Prophecy\Prophet;
 use Prophecy\Argument;
 
+
 describe('ReportTransfer', function() {
     before(function() {
         $this->prophet = new Prophet();

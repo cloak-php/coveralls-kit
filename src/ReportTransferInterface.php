@@ -12,7 +12,8 @@
 namespace coverallskit;
 
 use coverallskit\entity\ReportInterface;
-use Guzzle\Http\ClientInterface;
+use GuzzleHttp\ClientInterface;
+
 
 /**
  * Interface ReportTransferInterface
@@ -25,13 +26,13 @@ interface ReportTransferInterface
     const JSON_FILE_POST_FIELD_NAME = 'json_file';
 
     /**
-     * @param \Guzzle\Http\ClientInterface $client
+     * @param \GuzzleHttp\ClientInterface $client
      * @return void
      */
     public function setClient(ClientInterface $client);
 
     /**
-     * @return \Guzzle\Http\ClientInterface
+     * @return \GuzzleHttp\ClientInterface
      */
     public function getClient();
 
