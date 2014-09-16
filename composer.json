@@ -1,7 +1,7 @@
 {
     "name": "cloak/coverallskit",
     "description": "CoverallsKit is the library for transmitting the report of code coverage to coveralls.",
-    "version": "1.2.3",
+    "version": "1.3.0",
     "keywords": [
         "coveralls", "code coverage", "report"
     ],
