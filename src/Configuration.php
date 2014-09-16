@@ -14,7 +14,7 @@ namespace coverallskit;
 use coverallskit\entity\Repository;
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
-use coverallskit\configuration\Base;
+use coverallskit\configuration\Basic;
 use coverallskit\configuration\Report;
 use Zend\Config\Config;
 use Symfony\Component\Yaml\Yaml;
@@ -29,9 +29,9 @@ class Configuration implements RootConfigurationInterface
 {
 
     /**
-     * @var configuration\Base
+     * @var configuration\Basic
      */
-    private $base;
+    private $basic;
 
     /**
      * @var configuration\Report
@@ -57,7 +57,7 @@ class Configuration implements RootConfigurationInterface
         $directoryPath = $current->get(self::CONFIG_DIRECTORY_KEY, getcwd());
         $this->directoryPath = PathFactory::instance()->create($directoryPath);
 
-        $this->base = new Base($current, $this->directoryPath);
+        $this->basic = new Basic($current, $this->directoryPath);
 
         $reportFile = $current->get(Report::REPORT_FILE_KEY);
         $this->report = new Report($reportFile, $this->directoryPath);
@@ -92,7 +92,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function getToken()
     {
-        return $this->base->getToken();
+        return $this->basic->getToken();
     }
 
     /**
@@ -100,7 +100,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function getService()
     {
-        return $this->base->getService();
+        return $this->basic->getService();
     }
 
     /**
@@ -108,7 +108,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function getRepository()
     {
-        return $this->base->getRepository();
+        return $this->basic->getRepository();
     }
 
     /**
@@ -117,7 +117,7 @@ class Configuration implements RootConfigurationInterface
      */
     public function applyTo(ReportBuilderInterface $builder)
     {
-        $this->base->applyTo($builder);
+        $this->basic->applyTo($builder);
         $this->report->applyTo($builder);
 
         return $builder;
@@ -130,12 +130,12 @@ class Configuration implements RootConfigurationInterface
     {
 
         $config = new Config([
-            Base::TOKEN_KEY => null,
-            Base::SERVICE_KEY => 'travis-ci',
+            Basic::TOKEN_KEY => null,
+            Basic::SERVICE_KEY => 'travis-ci',
             Report::REPORT_FILE_KEY => [
                 Report::OUTPUT_REPORT_FILE_KEY => 'coveralls.json'
             ],
-            Base::REPOSITORY_DIRECTORY_KEY => '.'
+            Basic::REPOSITORY_DIRECTORY_KEY => '.'
         ]);
 
         return $config;
