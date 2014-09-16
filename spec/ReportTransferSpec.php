@@ -16,6 +16,8 @@ use coverallskit\entity\Report;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
 use Prophecy\Prophet;
+use Prophecy\Argument;
+
 
 describe('ReportTransfer', function() {
     before(function() {
@@ -31,7 +33,7 @@ describe('ReportTransfer', function() {
         context('When not specified client', function() {
             it('should return Guzzle\Http\Client instance', function() {
                 $client = $this->uploader->getClient();
-                expect($client)->toBeAnInstanceOf('Guzzle\Http\Client');
+                expect($client)->toBeAnInstanceOf('GuzzleHttp\Client');
             });
         });
     });
@@ -45,19 +47,20 @@ describe('ReportTransfer', function() {
             ]);
 
             $this->report = new Report([
-                'name' => 'path/to/coverage.json',
+                'name' => __DIR__ . '/fixtures/coveralls.json',
                 'token' => 'foo',
                 'repository' => new Repository(__DIR__ . '/../'),
                 'service' => $this->service->reveal(),
                 'sourceFiles' => new SourceFileCollection()
             ]);
 
-            $this->request = $this->prophet->prophesize('Guzzle\Http\Message\EntityEnclosingRequestInterface');
-            $this->request->addPostFiles([ ReportTransfer::JSON_FILE_POST_FIELD_NAME => 'path/to/coverage.json' ])->shouldBeCalled();
-            $this->request->send()->shouldBeCalled();
+            $url = ReportTransfer::ENDPOINT_URL;
+            $optionsCallback = Argument::that(function(array $options) {
+                return isset($options['body']);
+            });
 
-            $this->client = $this->prophet->prophesize('Guzzle\Http\ClientInterface');
-            $this->client->post(ReportTransfer::ENDPOINT_URL)->shouldBeCalled()->willReturn($this->request->reveal());
+            $this->client = $this->prophet->prophesize('GuzzleHttp\ClientInterface');
+            $this->client->post($url, $optionsCallback)->shouldBeCalled();
 
             $this->uploader = new ReportTransfer($this->client->reveal());
         });
