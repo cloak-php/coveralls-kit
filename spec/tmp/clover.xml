@@ -2,7 +2,7 @@
 <coverage generated="1409385321">
     <project timestamp="1409385321">
         <package name="coverallskit">
-            <file name="/Users/shared-hat/Documents/develop/coveralls-kit/spec/fixtures/bar.php">
+            <file name="/Users/horio_noritaka/Documents/var/sl/coveralls-kit/spec/fixtures/bar.php">
                 <class name="Bar" namespace="coverallskit">
                     <metrics methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="3" elements="7" coveredelements="5"/>
                 </class>
@@ -16,7 +16,7 @@
                 <line num="27" type="stmt" count="1"/>
                 <metrics loc="26" ncloc="26" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="3" elements="7" coveredelements="5"/>
             </file>
-            <file name="/Users/shared-hat/Documents/develop/coveralls-kit/spec/fixtures/foo.php">
+            <file name="/Users/horio_noritaka/Documents/var/sl/coveralls-kit/spec/fixtures/foo.php">
                 <class name="Foo" namespace="coverallskit">
                     <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
                 </class>

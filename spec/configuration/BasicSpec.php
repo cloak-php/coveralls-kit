@@ -12,31 +12,27 @@
 namespace coverallskit\spec;
 
 use coverallskit\Configuration;
-use coverallskit\configuration\Base;
+use coverallskit\configuration\Basic;
 use coverallskit\ReportBuilder;
 use Zend\Config\Config;
 use Eloquent\Pathogen\Factory\PathFactory;
 
 
-describe('Base', function() {
+describe('Basic', function() {
 
     before(function() {
         $this->configDirectory = __DIR__ . '/../fixtures/';
-
-//        $this->rootConfig = new Configuration([
-  //          Configuration::CONFIG_DIRECTORY_KEY => $this->configDirectory
-    //    ]);
 
         $factory = PathFactory::instance();
         $rootPath = $factory->create($this->configDirectory);
 
         $config = new Config([
-            Base::TOKEN_KEY => 'api-token',
-            Base::SERVICE_KEY => 'travis-ci',
-            Base::REPOSITORY_DIRECTORY_KEY => __DIR__ . '/../../'
+            Basic::TOKEN_KEY => 'api-token',
+            Basic::SERVICE_KEY => 'travis-ci',
+            Basic::REPOSITORY_DIRECTORY_KEY => __DIR__ . '/../../'
         ]);
 
-        $this->configration = new Base($config, $rootPath);
+        $this->configration = new Basic($config, $rootPath);
     });
 
     describe('__construct', function() {
