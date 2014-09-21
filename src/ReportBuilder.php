@@ -21,6 +21,11 @@ use coverallskit\exception\RequiredException;
 /**
  * Class ReportBuilder
  * @package coverallskit
+ * @property string $reportFilePath
+ * @property string $token
+ * @property \coverallskit\entity\service\ServiceInterface $service
+ * @property \coverallskit\entity\RepositoryInterface $repository
+ * @property \coverallskit\entity\collection\SourceFileCollection $sourceFiles
  */
 class ReportBuilder implements ReportBuilderInterface
 {
@@ -66,27 +71,55 @@ class ReportBuilder implements ReportBuilderInterface
         return $this;
     }
 
+    /**
+     * @param string $repositoryToken
+     * @return $this
+     */
     public function token($repositoryToken)
     {
         $this->token = $repositoryToken;
         return $this;
     }
 
+    /**
+     * @param ServiceInterface $service
+     * @return $this
+     */
     public function service(ServiceInterface $service)
     {
         $this->service = $service;
         return $this;
     }
 
+    /**
+     * @param RepositoryInterface $repository
+     * @return $this
+     */
     public function repository(RepositoryInterface $repository)
     {
         $this->repository = $repository;
         return $this;
     }
 
+    /**
+     * @param SourceFile $source
+     * @return $this
+     */
     public function addSource(SourceFile $source)
     {
         $this->sourceFiles->add($source);
+        return $this;
+    }
+
+    /**
+     * @param SourceFileCollection $sources
+     * @return $this
+     */
+    public function addSources(SourceFileCollection $sources)
+    {
+        foreach ($sources as $source) {
+            $this->addSource($source);
+        }
         return $this;
     }
 
@@ -127,6 +160,23 @@ class ReportBuilder implements ReportBuilderInterface
             'sourceFiles' => $this->sourceFiles,
             'runAt' => date('Y-m-d H:i:s O') ////2013-02-18 00:52:48 -0800
         ]);
+    }
+
+    /**
+     * @param ConfigurationInterface $config
+     * @return ReportBuilderInterface
+     */
+    public static function fromConfiguration(ConfigurationInterface $config)
+    {
+        return $config->applyTo(new static());
+    }
+
+    /**
+     * @param string $name
+     */
+    public function __get($name)
+    {
+        return $this->$name;
     }
 
 }

@@ -12,14 +12,25 @@
 namespace coverallskit;
 
 use coverallskit\entity\ReportInterface;
-use Guzzle\Http\Client;
-use Guzzle\Http\ClientInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Post\PostFile;
 
-class ReportUpLoader implements ReportUpLoaderInterface
+/**
+ * Class ReportTransfer
+ * @package coverallskit
+ */
+class ReportTransfer implements ReportTransferInterface
 {
 
-    protected $client = null;
+    /**
+     * @var \GuzzleHttp\ClientInterface
+     */
+    protected $client;
 
+    /**
+     * @param ClientInterface $client
+     */
     public function __construct(ClientInterface $client = null)
     {
         $httpClient = $client;
@@ -30,23 +41,35 @@ class ReportUpLoader implements ReportUpLoaderInterface
         $this->setClient($httpClient);
     }
 
+    /**
+     * @param ClientInterface $client
+     */
     public function setClient(ClientInterface $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * @return ClientInterface
+     */
     public function getClient()
     {
         return $this->client;
     }
 
+    /**
+     * @param ReportInterface $report
+     */
     public function upload(ReportInterface $report)
     {
-        $request = $this->getClient()->post(static::ENDPOINT_URL);
-        $request->addPostFiles([
-            static::JSON_FILE_POST_FIELD_NAME => $report->getName()
+        $stream = fopen($report->getName(), 'r');
+
+        $client = $this->getClient();
+        $client->post(static::ENDPOINT_URL, [
+            'body' => [
+                static::JSON_FILE_POST_FIELD_NAME => $stream
+            ]
         ]);
-        $request->send();
     }
 
 }

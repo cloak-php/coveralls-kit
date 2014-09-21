@@ -19,7 +19,7 @@ class NotSupportServiceException extends UnexpectedValueException
 
     public function __construct($serviceName, $code = 0, Exception $previous = null)
     {
-        parent::__construct("The $serviceName is not supported.", $code, $previous);
+        parent::__construct("The '$serviceName' is not supported.", $code, $previous);
     }
 
 }

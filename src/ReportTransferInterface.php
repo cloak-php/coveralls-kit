@@ -12,26 +12,33 @@
 namespace coverallskit;
 
 use coverallskit\entity\ReportInterface;
-use Guzzle\Http\ClientInterface;
+use GuzzleHttp\ClientInterface;
 
-interface ReportUpLoaderInterface
+
+/**
+ * Interface ReportTransferInterface
+ * @package coverallskit
+ */
+interface ReportTransferInterface
 {
 
     const ENDPOINT_URL = 'https://coveralls.io/api/v1/jobs';
     const JSON_FILE_POST_FIELD_NAME = 'json_file';
 
     /**
-     * @param Guzzle\Http\ClientInterface $client
+     * @param \GuzzleHttp\ClientInterface $client
+     * @return void
      */
     public function setClient(ClientInterface $client);
 
     /**
-     * @return Guzzle\Http\ClientInterface
+     * @return \GuzzleHttp\ClientInterface
      */
     public function getClient();
 
     /**
      * @param entity\ReportInterface $jsonFile
+     * @return void
      */
     public function upload(ReportInterface $report);
 

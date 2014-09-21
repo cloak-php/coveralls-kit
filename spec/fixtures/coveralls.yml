@@ -1,4 +1,5 @@
-reportFile: coveralls.json
-repositoryDirectory: /../../
-service: travis-ci
 token:
+service: travis-ci
+reportFile:
+  output: coveralls.json
+repositoryDirectory: /../../

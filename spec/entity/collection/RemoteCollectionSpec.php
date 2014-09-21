@@ -36,4 +36,14 @@ describe('RemoteCollection', function() {
             expect($value)->toEqual($expect);
         });
     });
+
+    describe('getIterator', function() {
+        before(function() {
+            $this->iterator = $this->remotes->getIterator();
+        });
+        it('return ArrayIterator', function() {
+            expect($this->iterator)->toBeAnInstanceOf('ArrayIterator');
+        });
+    });
+
 });

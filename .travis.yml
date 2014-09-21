@@ -4,9 +4,8 @@ php:
   - 5.5
   - 5.4
 before_install:
-  - sudo bash -c 'echo "87.98.253.108 getcomposer.org" >> /etc/hosts'
   - composer self-update
   - composer install
 script:
-  - ./vendor/bin/pho --stop
+  - php script/coverage.php
 after_script: php script/coveralls.php

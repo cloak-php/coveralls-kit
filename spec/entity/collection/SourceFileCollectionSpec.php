@@ -21,7 +21,10 @@ describe('SourceFileCollection', function() {
         $this->source = [
             'name' => $this->relativePath,
             'source' => trim(file_get_contents($this->path)),
-            'coverage' => [null,null,null]
+            'coverage' => [
+                null,null,null,null,null,null,null,null,null,null,null,null,
+                null,null,null,null,null,null,null,null
+            ]
         ];
         $this->values = [ $this->source ];
 
@@ -35,7 +38,7 @@ describe('SourceFileCollection', function() {
             before(function() {
                 $this->emptySources = new SourceFileCollection();
             });
-            it('should return true', function() {
+            it('return true', function() {
                 expect($this->emptySources->isEmpty())->toBeTrue();
             });
         });
@@ -43,19 +46,45 @@ describe('SourceFileCollection', function() {
 
     describe('has', function() {
         context('when file exists', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 expect($this->sources->has($this->path))->toBeTrue();
             });
         });
     });
+
+    describe('get', function() {
+        context('when source file exists', function() {
+            it('return coverallskit\entity\SourceFile', function() {
+                $name = $this->source->getName();
+                expect($this->sources->get($name))->toBeAnInstanceOf('coverallskit\entity\SourceFile');
+            });
+        });
+        context('when source file not exists', function() {
+            it('return null', function() {
+                expect($this->sources->get('foo'))->toBeNull();
+            });
+        });
+    });
+
     describe('toArray', function() {
-        it('should return array value', function() {
+        it('return array value', function() {
             expect($this->sources->toArray())->toEqual($this->values);
         });
     });
+
     describe('__toString', function() {
         it('should return json string', function() {
             expect((string) $this->sources)->toEqual(json_encode($this->values));
         });
     });
+
+    describe('getIterator', function() {
+        before(function() {
+            $this->iterator = $this->sources->getIterator();
+        });
+        it('return ArrayIterator', function() {
+            expect($this->iterator)->toBeAnInstanceOf('ArrayIterator');
+        });
+    });
+
 });
