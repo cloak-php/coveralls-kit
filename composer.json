@@ -34,5 +34,9 @@
     ],
     "autoload": {
         "psr-4": { "coverallskit\\": "src/" }
+    },
+    "scripts": {
+        "test": "php script/coverage.php"
     }
 }
+
