@@ -41,8 +41,6 @@ describe('Report', function() {
 
     afterEach(function() {
         rmdir(__DIR__ . '/tmp');
-
-        $this->prophet->checkPredictions();
     });
 
     describe('isEmpty', function() {
@@ -73,6 +71,8 @@ describe('Report', function() {
         beforeEach(function() {
             $this->report->saveAs($this->path);
             $this->jsonResult = json_decode(file_get_contents($this->path));
+
+            $this->prophet->checkPredictions();
         });
         afterEach(function() {
             unlink($this->path);
