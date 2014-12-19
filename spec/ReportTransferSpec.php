@@ -15,22 +15,17 @@ use coverallskit\ReportTransfer;
 use coverallskit\entity\Report;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
+use coverallskit\entity\service\travis\TravisCI;
 use Prophecy\Prophet;
 use Prophecy\Argument;
 
 
 describe('ReportTransfer', function() {
-    beforeEach(function() {
-        $this->prophet = new Prophet();
-    });
-    afterEach(function() {
-        $this->prophet->checkPredictions();
-    });
     describe('getClient', function() {
         beforeEach(function() {
             $this->uploader = new ReportTransfer();
         });
-        context('When not specified client', function() {
+        context('when not specified client', function() {
             it('should return Guzzle\Http\Client instance', function() {
                 $client = $this->uploader->getClient();
                 expect($client)->toBeAnInstanceOf('GuzzleHttp\Client');
@@ -40,8 +35,9 @@ describe('ReportTransfer', function() {
 
     describe('upload', function() {
         beforeEach(function() {
-            $this->service = $this->prophet->prophesize('coverallskit\entity\service\TravisInterface');
-            $this->service->toArray()->shouldBeCalled()->willReturn([
+            $this->prophet = new Prophet();
+
+            $this->service = new TravisCI([
                 'service_job_id' => '10',
                 'service_name' => 'travis-ci'
             ]);
@@ -50,7 +46,7 @@ describe('ReportTransfer', function() {
                 'name' => __DIR__ . '/fixtures/coveralls.json',
                 'token' => 'foo',
                 'repository' => new Repository(__DIR__ . '/../'),
-                'service' => $this->service->reveal(),
+                'service' => $this->service,
                 'sourceFiles' => new SourceFileCollection()
             ]);
 
@@ -63,9 +59,10 @@ describe('ReportTransfer', function() {
             $this->client->post($url, $optionsCallback)->shouldBeCalled();
 
             $this->uploader = new ReportTransfer($this->client->reveal());
+            $this->uploader->upload($this->report);
         });
         it('should upload report file', function() {
-            $this->uploader->upload($this->report);
+            $this->prophet->checkPredictions();
         });
     });
 });
