@@ -20,7 +20,7 @@ use Eloquent\Pathogen\Factory\PathFactory;
 
 describe('Basic', function() {
 
-    before(function() {
+    beforeEach(function() {
         $this->configDirectory = __DIR__ . '/../fixtures/';
 
         $factory = PathFactory::instance();
@@ -48,7 +48,7 @@ describe('Basic', function() {
     });
 
     describe('applyTo', function() {
-        before(function() {
+        beforeEach(function() {
             $this->builder = new ReportBuilder();
             $this->configration->applyTo($this->builder);
         });

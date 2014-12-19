@@ -14,7 +14,7 @@ namespace coverallskit\spec;
 use coverallskit\entity\Repository;
 
 describe('Repository', function() {
-    before(function() {
+    beforeEach(function() {
         $this->directory = realpath(__DIR__ . '/../../');
         $this->repository = new Repository($this->directory);
     });

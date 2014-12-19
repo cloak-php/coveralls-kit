@@ -14,7 +14,7 @@ namespace coverallskit\spec;
 use coverallskit\ServiceRegistry;
 
 describe('ServiceRegistry', function() {
-    before(function() {
+    beforeEach(function() {
         $this->registry = new ServiceRegistry();
     });
     describe('get', function() {

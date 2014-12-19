@@ -15,7 +15,7 @@ use coverallskit\exception\FileNotFoundException;
 
 describe('FileNotFoundException', function() {
     describe('getMessage', function() {
-        before(function() {
+        beforeEach(function() {
             $this->exception = new FileNotFoundException('foo.php');
         });
         it('should return message', function() {

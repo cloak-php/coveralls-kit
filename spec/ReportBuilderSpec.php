@@ -23,7 +23,7 @@ use Mockery;
 describe('ReportBuilder', function() {
 
     describe('build', function() {
-        before(function() {
+        beforeEach(function() {
             $this->service = Mockery::mock('coverallskit\entity\service\TravisInterface');
             $this->service->shouldReceive('getServiceJobId')->andReturn('10');
             $this->service->shouldReceive('getServiceName')->andReturn('travis-ci');
@@ -64,7 +64,7 @@ describe('ReportBuilder', function() {
 
             $this->report = $this->builder->build();
         });
-        after(function() {
+        afterEach(function() {
             Mockery::close();
         });
         it('should same as that specifies the name of the result report', function() {
@@ -88,7 +88,7 @@ describe('ReportBuilder', function() {
         });
 
         context('when not specify the required values' , function() {
-            before(function() {
+            beforeEach(function() {
                 $this->service = Mockery::mock('coverallskit\entity\service\TravisInterface');
                 $this->service->shouldReceive('getServiceJobId');
                 $this->service->shouldReceive('getServiceName');
@@ -97,11 +97,11 @@ describe('ReportBuilder', function() {
                 $this->repository->shouldReceive('getCommit');
                 $this->repository->shouldReceive('getBranch');
             });
-            after(function() {
+            afterEach(function() {
                 Mockery::close();
             });
             context('when not specify service' , function() {
-                before(function() {
+                beforeEach(function() {
                     $this->builder = new ReportBuilder();
                     $this->builder->reportFilePath(__DIR__  . '/tmp/coverage.json');
                     $this->builder->repository($this->repository);
@@ -113,7 +113,7 @@ describe('ReportBuilder', function() {
                 });
             });
             context('when not specify repository' , function() {
-                before(function() {
+                beforeEach(function() {
                     $this->builder = new ReportBuilder();
                     $this->builder->reportFilePath(__DIR__  . '/tmp/coverage.json');
                     $this->builder->service($this->service);
@@ -129,7 +129,7 @@ describe('ReportBuilder', function() {
     });
 
     describe('fromConfiguration', function() {
-        before(function() {
+        beforeEach(function() {
             $this->builder = ReportBuilder::fromConfiguration(new Configuration());
         });
         it('return coverallskit\ReportBuilder instance', function() {

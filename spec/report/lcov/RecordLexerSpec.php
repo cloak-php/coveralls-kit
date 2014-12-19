@@ -16,7 +16,7 @@ use coverallskit\report\lcov\RecordLexer;
 describe('RecordLexer', function() {
     describe('getIterator', function() {
         context('when have unsupport recover type', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
                 $this->sourcePath = $this->fixtureDirectory . 'bar.php';
 

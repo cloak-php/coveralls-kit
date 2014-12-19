@@ -20,14 +20,14 @@ use Prophecy\Argument;
 
 
 describe('ReportTransfer', function() {
-    before(function() {
+    beforeEach(function() {
         $this->prophet = new Prophet();
     });
-    after(function() {
+    afterEach(function() {
         $this->prophet->checkPredictions();
     });
     describe('getClient', function() {
-        before(function() {
+        beforeEach(function() {
             $this->uploader = new ReportTransfer();
         });
         context('When not specified client', function() {
@@ -39,7 +39,7 @@ describe('ReportTransfer', function() {
     });
 
     describe('upload', function() {
-        before(function() {
+        beforeEach(function() {
             $this->service = $this->prophet->prophesize('coverallskit\entity\service\TravisInterface');
             $this->service->toArray()->shouldBeCalled()->willReturn([
                 'service_job_id' => '10',

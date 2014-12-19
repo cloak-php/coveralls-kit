@@ -14,7 +14,7 @@ namespace coverallskit\spec\report\parser;
 use coverallskit\report\lcov\Coverage;
 
 describe('Coverage', function() {
-    before(function() {
+    beforeEach(function() {
         $this->coverage = new Coverage('DA:1,2');
     });
     describe('getLineNumber', function() {

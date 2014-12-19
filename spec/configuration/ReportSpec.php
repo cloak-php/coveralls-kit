@@ -19,7 +19,7 @@ use Eloquent\Pathogen\Factory\PathFactory;
 
 
 describe('Report', function() {
-    before(function() {
+    beforeEach(function() {
         $this->rootDirectory = realpath(__DIR__ . '/../../');
         $this->configDirectory = __DIR__ . '/../fixtures/';
         $this->tmpDirectory = $this->rootDirectory . '/spec/tmp/';
@@ -41,7 +41,7 @@ describe('Report', function() {
         $this->reportConfig = new Report($reportConfig, $rootPath);
     });
     describe('getReportFileName', function() {
-        before(function() {
+        beforeEach(function() {
             $this->reportFile = $this->tmpDirectory . 'report.json';
         });
         it('return report file path', function() {
@@ -59,7 +59,7 @@ describe('Report', function() {
         });
     });
     describe('applyTo', function() {
-        before(function() {
+        beforeEach(function() {
             $content = file_get_contents($this->fixtureDirectory . 'clover.xml');
             $content = sprintf($content, $this->rootDirectory, $this->rootDirectory);
 

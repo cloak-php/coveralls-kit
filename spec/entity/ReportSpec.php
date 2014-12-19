@@ -18,7 +18,7 @@ use Prophecy\Prophet;
 
 
 describe('Report', function() {
-    before(function() {
+    beforeEach(function() {
         mkdir(__DIR__ . '/tmp');
 
         $this->prophet = new Prophet();
@@ -39,7 +39,7 @@ describe('Report', function() {
         ]);
     });
 
-    after(function() {
+    afterEach(function() {
         rmdir(__DIR__ . '/tmp');
 
         $this->prophet->checkPredictions();
@@ -70,11 +70,11 @@ describe('Report', function() {
         });
     });
     describe('saveAs', function() {
-        before(function() {
+        beforeEach(function() {
             $this->report->saveAs($this->path);
             $this->jsonResult = json_decode(file_get_contents($this->path));
         });
-        after(function() {
+        afterEach(function() {
             unlink($this->path);
         });
         it('should saved the file', function() {
@@ -88,7 +88,7 @@ describe('Report', function() {
     });
     describe('upload', function() {
         context('when not saved file', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->prophet = new Prophet();
 
                 $this->notSavedReport = new Report([
@@ -104,7 +104,7 @@ describe('Report', function() {
                 $this->notSavedReport->setReportTransfer($this->notSavedFileUpLoader->reveal());
                 $this->notSavedReport->upload();
             });
-            after(function() {
+            afterEach(function() {
                 unlink($this->notSavedReport->getName());
             });
             it('should use the default name', function() {
@@ -115,7 +115,7 @@ describe('Report', function() {
             });
         });
         context('when saved file', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->prophet = new Prophet();
 
                 $this->savedReport = new Report([
@@ -132,7 +132,7 @@ describe('Report', function() {
                 $this->savedReport->saveAs($this->path);
                 $this->savedReport->upload();
             });
-            after(function() {
+            afterEach(function() {
                 unlink($this->savedReport->getName());
             });
             it('use a file name that you specify', function() {

@@ -26,11 +26,11 @@ describe('CoverageCollection', function() {
     });
 
     describe('add', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverages = new CoverageCollection(1);
         });
         context('when the valid line number', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = Coverage::unused(1);
                 $this->coverages->add($this->coverage);
                 $this->retrieveCoverage = $this->coverages->at(1);
@@ -40,7 +40,7 @@ describe('CoverageCollection', function() {
             });
         });
         context('when the invalid line number', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = Coverage::unused(2);
             });
             it('should throw coverallskit\exception\LineOutOfRangeException', function() {
@@ -52,7 +52,7 @@ describe('CoverageCollection', function() {
     });
 
     describe('remove', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverage = Coverage::unused(1);
             $this->coverages = new CoverageCollection(1);
             $this->coverages->add($this->coverage);
@@ -64,7 +64,7 @@ describe('CoverageCollection', function() {
     });
 
     describe('at', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverages = new CoverageCollection(1);
         });
         context('when not found coverage', function() {
@@ -75,7 +75,7 @@ describe('CoverageCollection', function() {
     });
 
     describe('getExecutedLineCount', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverages = new CoverageCollection(3);
             $this->coverages->add(Coverage::unused(1));
             $this->coverages->add(Coverage::executed(2));
@@ -86,7 +86,7 @@ describe('CoverageCollection', function() {
     });
 
     describe('getUnusedLineCount', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverages = new CoverageCollection(3);
             $this->coverages->add(Coverage::unused(1));
             $this->coverages->add(Coverage::executed(2));
@@ -97,7 +97,7 @@ describe('CoverageCollection', function() {
     });
 
     describe('__toString', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverages = new CoverageCollection(3);
             $this->coverages->add(Coverage::unused(1));
             $this->coverages->add(Coverage::executed(2));
@@ -109,7 +109,7 @@ describe('CoverageCollection', function() {
     });
 
     describe('getIterator', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverage = Coverage::unused(1);
             $this->coverages = new CoverageCollection(1);
             $this->coverages->add($this->coverage);
