@@ -36,6 +36,6 @@
         "psr-4": { "coverallskit\\": "src/" }
     },
     "scripts": {
-        "test": "vendor/bin/peridot --grep \"spec/*Spec.php\" -c peridot.php"
+        "test": "vendor/bin/robo spec:all"
     }
 }
