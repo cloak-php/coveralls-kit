@@ -27,4 +27,19 @@ class RoboFile extends Tasks
         return $this->taskExec($command)->run();
     }
 
+    public function exampleHhvm()
+    {
+        if (defined('HHVM_VERSION') === false) {
+            throw new RuntimeException('Please install the hhvm');
+        }
+
+        $runtime = 'php';
+        $enviromentValue = 'TRAVIS_JOB_ID=10';
+        $exampleScript = __DIR__ . '/example/hhvm_example.php';
+
+        $command = sprintf('%s %s %s', $enviromentValue, $runtime, $exampleScript);
+
+        return $this->taskExec($command)->run();
+    }
+
 }
