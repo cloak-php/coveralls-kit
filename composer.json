@@ -22,7 +22,8 @@
         "jasonlewis/resource-watcher": "1.1.*",
         "peridot-php/peridot": "~1.8",
         "expectation/peridot-expectation": "~1.2",
-        "cloak/peridot-cloak": "~1.0"
+        "cloak/peridot-cloak": "~1.0",
+        "codegyre/robo": "~0.4"
     },
     "license": "MIT",
     "authors": [
