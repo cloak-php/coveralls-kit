@@ -18,15 +18,20 @@ use coverallskit\entity\repository\Commit;
 use coverallskit\entity\repository\Branch;
 use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
-use Mockery;
+use Prophecy\Prophet;
+
 
 describe('ReportBuilder', function() {
 
     describe('build', function() {
         beforeEach(function() {
-            $this->service = Mockery::mock('coverallskit\entity\service\TravisInterface');
-            $this->service->shouldReceive('getServiceJobId')->andReturn('10');
-            $this->service->shouldReceive('getServiceName')->andReturn('travis-ci');
+            $this->prophet = new Prophet();
+
+            $service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
+            $service->getServiceJobId()->willReturn('10');
+            $service->getServiceName()->willReturn('travis-ci');
+
+            $this->service = $service->reveal();
 
             $this->commit = new Commit([
                 'id' => '3fdcfa494f3e9bcb17f90085af9d11a936a7ef4e',
@@ -46,10 +51,12 @@ describe('ReportBuilder', function() {
             ]);
             $this->remotes = new RemoteCollection([ $remote ]);
 
-            $this->repository = Mockery::mock('coverallskit\entity\RepositoryInterface');
-            $this->repository->shouldReceive('getCommit')->andReturn($this->commit);
-            $this->repository->shouldReceive('getBranch')->andReturn($this->branch);
-            $this->repository->shouldReceive('getRemotes')->andReturn($this->remotes);
+            $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
+            $repository->getCommit()->willReturn($this->commit);
+            $repository->getBranch()->willReturn($this->branch);
+            $repository->getRemotes()->willReturn($this->remotes);
+
+            $this->repository = $repository->reveal();
 
             $this->foo = realpath(__DIR__ . '/fixtures/foo.php');
             $this->bar = realpath(__DIR__ . '/fixtures/bar.php');
@@ -65,7 +72,7 @@ describe('ReportBuilder', function() {
             $this->report = $this->builder->build();
         });
         afterEach(function() {
-            Mockery::close();
+            $this->prophet->checkPredictions();
         });
         it('should same as that specifies the name of the result report', function() {
             expect($this->report->name)->toBe(__DIR__  . '/tmp/coverage.json');
@@ -89,16 +96,22 @@ describe('ReportBuilder', function() {
 
         context('when not specify the required values' , function() {
             beforeEach(function() {
-                $this->service = Mockery::mock('coverallskit\entity\service\TravisInterface');
-                $this->service->shouldReceive('getServiceJobId');
-                $this->service->shouldReceive('getServiceName');
+                $this->prophet = new Prophet();
 
-                $this->repository = Mockery::mock('coverallskit\entity\RepositoryInterface');
-                $this->repository->shouldReceive('getCommit');
-                $this->repository->shouldReceive('getBranch');
+                $service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
+                $service->getServiceJobId()->willReturn(null);
+                $service->getServiceName()->willReturn(null);
+
+                $this->service = $service->reveal();
+
+                $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
+                $repository->getCommit()->willReturn(null);
+                $repository->getBranch()->willReturn(null);
+
+                $this->repository = $repository->reveal();
             });
             afterEach(function() {
-                Mockery::close();
+                $this->prophet->checkPredictions();
             });
             context('when not specify service' , function() {
                 beforeEach(function() {
@@ -125,7 +138,6 @@ describe('ReportBuilder', function() {
                 });
             });
         });
-
     });
 
     describe('fromConfiguration', function() {
