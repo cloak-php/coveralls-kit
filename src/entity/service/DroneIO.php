@@ -11,70 +11,22 @@
 
 namespace coverallskit\entity\service;
 
-use coverallskit\Environment;
-use coverallskit\AttributePopulatable;
-
 
 /**
  * Class DroneIO
  * @package coverallskit\entity\service
  */
-final class DroneIO implements ServiceInterface
+final class DroneIO extends AbstractService implements ServiceInterface
 {
 
-    use AttributePopulatable;
-
-    const NAME = 'drone.io';
-    const ENV_JOB_ID = 'DRONE_BUILD_NUMBER';
-
+    /**
+     * {@inheritdoc}
+     */
+    protected $name = 'drone.io';
 
     /**
-     * @var \coverallskit\Environment
+     * {@inheritdoc}
      */
-    protected $environment;
-
-    /**
-     * @param Environment $environment
-     */
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
-    }
-
-    public function getServiceJobId()
-    {
-        return $this->environment->get(static::ENV_JOB_ID);
-    }
-
-    public function getServiceName()
-    {
-        return static::NAME;
-    }
-
-    public function getCoverallsToken()
-    {
-        return $this->environment->get(static::ENV_COVERALLS_REPO_TOKEN_KEY);
-    }
-
-    public function isEmpty()
-    {
-        $serviceName = $this->getServiceName();
-        return empty($serviceName);
-    }
-
-    public function toArray()
-    {
-        $values = [
-            'service_job_id' => $this->getServiceJobId(),
-            'service_name' => $this->getServiceName()
-        ];
-
-        return $values;
-    }
-
-    public function __toString()
-    {
-        return json_encode($this->toArray());
-    }
+    protected $jobNumberKey = 'DRONE_BUILD_NUMBER';
 
 }
