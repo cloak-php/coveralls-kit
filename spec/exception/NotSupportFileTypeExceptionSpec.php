@@ -16,7 +16,7 @@ use coverallskit\exception\NotSupportFileTypeException;
 describe('NotSupportFileTypeException', function() {
     describe('getMessage', function() {
         context('when with extention', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->exception = new NotSupportFileTypeException("path/to/config.ini");
             });
             it('should return message', function() {
@@ -25,7 +25,7 @@ describe('NotSupportFileTypeException', function() {
             });
         });
         context('when not with extention', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->exception = new NotSupportFileTypeException("path/to/config");
             });
             it('should return message', function() {

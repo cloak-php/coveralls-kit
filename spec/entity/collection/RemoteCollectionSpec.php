@@ -15,7 +15,7 @@ use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
 
 describe('RemoteCollection', function() {
-    before(function() {
+    beforeEach(function() {
         $remote = new Remote([
             'name' => 'origin',
             'url' => 'https://github.com/holyshared/coverallskit-kit.git'
@@ -38,7 +38,7 @@ describe('RemoteCollection', function() {
     });
 
     describe('getIterator', function() {
-        before(function() {
+        beforeEach(function() {
             $this->iterator = $this->remotes->getIterator();
         });
         it('return ArrayIterator', function() {

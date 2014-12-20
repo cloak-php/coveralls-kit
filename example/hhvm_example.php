@@ -5,10 +5,12 @@ namespace coverallskit\example;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use coverallskit\ReportBuilder;
-use coverallskit\entity\service\Travis;
+use coverallskit\Environment;
+use coverallskit\entity\service\travis\TravisCI;
 use coverallskit\entity\Repository;
 use coverallskit\entity\Coverage;
 use coverallskit\entity\SourceFile;
+
 
 /**
  * Get the code coverage

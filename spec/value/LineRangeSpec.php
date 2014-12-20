@@ -35,7 +35,7 @@ describe('LineRange', function() {
         });
     });
     describe('contains', function() {
-        before(function() {
+        beforeEach(function() {
             $this->range = new LineRange(1, 30);
         });
         context('when the specified line number', function() {
@@ -53,14 +53,14 @@ describe('LineRange', function() {
             });
         });
         context('when the specified CoverageInterface', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->prophet = new Prophet();
             });
-            after(function() {
+            afterEach(function() {
                 $this->prophet->checkPredictions();
             });
             context('when the range', function() {
-                before(function() {
+                beforeEach(function() {
                     $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
                     $this->mixCovergage->getLineNumber()->willReturn(1);
 
@@ -76,7 +76,7 @@ describe('LineRange', function() {
                 });
             });
             context('when out of range', function() {
-                before(function() {
+                beforeEach(function() {
                     $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
                     $this->mixCovergage->getLineNumber()->willReturn(0);
 

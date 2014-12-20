@@ -15,7 +15,7 @@ use coverallskit\report\lcov\SourceFile;
 
 
 describe('SourceFile', function() {
-    before(function() {
+    beforeEach(function() {
         $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
         $this->sourcePath = $this->fixtureDirectory . 'bar.php';
         $this->source = new SourceFile('SF:'. $this->sourcePath);

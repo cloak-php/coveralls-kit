@@ -15,7 +15,7 @@ use coverallskit\report\ParserRegistry;
 
 describe('ParserRegistry', function() {
     describe('get', function() {
-        before(function() {
+        beforeEach(function() {
             $this->registry = new ParserRegistry();
             $this->parser = $this->registry->get('clover');
         });

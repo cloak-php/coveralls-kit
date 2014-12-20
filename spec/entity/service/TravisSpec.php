@@ -16,7 +16,7 @@ use Mockery;
 
 describe('Travis', function() {
 
-    before(function() {
+    beforeEach(function() {
         $className  = 'coverallskit\entity\service\Travis';
         $environment = new Environment([
             'TRAVIS_JOB_ID' => '10',
@@ -25,7 +25,7 @@ describe('Travis', function() {
         $this->service = Mockery::mock($className, [$environment])->makePartial();
         $this->service->shouldReceive('getServiceName')->andReturn('travis-ci');
     });
-    after(function() {
+    afterEach(function() {
         Mockery::close();
     });
     describe('getServiceJobId', function() {
@@ -49,7 +49,7 @@ describe('Travis', function() {
         });
     });
     describe('toArray', function() {
-        before(function() {
+        beforeEach(function() {
             $this->values = $this->service->toArray();
         });
         it('should return array value', function () {

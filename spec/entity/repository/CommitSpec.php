@@ -14,7 +14,7 @@ namespace coverallskit\spec;
 use coverallskit\entity\repository\Commit;
 
 describe('Commit', function() {
-    before(function() {
+    beforeEach(function() {
         $this->commit = new Commit(array(
             'id' => '3fdcfa494f3e9bcb17f90085af9d11a936a7ef4e',
             'authorName' => 'holyshared',

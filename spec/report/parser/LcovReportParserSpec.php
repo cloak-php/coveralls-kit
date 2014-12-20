@@ -15,7 +15,7 @@ use coverallskit\report\parser\LcovReportParser;
 
 describe('LcovReportParser', function() {
     describe('parse', function() {
-        before(function() {
+        beforeEach(function() {
             $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
             $this->sourcePath1 = $this->fixtureDirectory . 'bar.php';
             $this->sourcePath2 = $this->fixtureDirectory . 'foo.php';

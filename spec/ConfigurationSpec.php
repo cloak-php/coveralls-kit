@@ -20,7 +20,7 @@ describe('Configuration', function() {
 
     describe('__construct', function() {
         context('when specify the attribute', function() {
-            before(function() {
+            beforeEach(function() {
                 $config = new Config([
                     'reportFile' => [
                         'input' => [
@@ -59,7 +59,7 @@ describe('Configuration', function() {
     });
 
     describe('applyTo', function() {
-        before(function() {
+        beforeEach(function() {
             $this->rootDirectory = realpath(__DIR__ . '/../');
             $this->tmpDirectory = $this->rootDirectory . '/spec/tmp/';
             $this->fixtureDirectory = $this->rootDirectory . '/spec/fixtures/';
@@ -109,7 +109,7 @@ describe('Configuration', function() {
     describe('loadFromFile', function() {
         context('when the file exists', function() {
             context('when .yml', function() {
-                before(function() {
+                beforeEach(function() {
                     $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.yml');
                 });
                 it('should return coverallskit\Configuration instance', function() {
@@ -121,7 +121,7 @@ describe('Configuration', function() {
                 });
             });
             context('when .yaml', function() {
-                before(function() {
+                beforeEach(function() {
                     $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.yaml');
                 });
                 it('should return coverallskit\Configuration instance', function() {

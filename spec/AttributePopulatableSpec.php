@@ -43,7 +43,7 @@ class AttributePopulatableObject
 describe('AttributePopulatable', function() {
     describe('populate', function() {
         context('when the specified attribute', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->subject = new AttributePopulatableObject([ 'name' => 'foo', 'content' => 'bar' ]);
             });
             it('should populate object attributes', function() {
