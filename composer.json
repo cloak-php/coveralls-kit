@@ -36,6 +36,7 @@
         "psr-4": { "coverallskit\\": "src/" }
     },
     "scripts": {
-        "test": "vendor/bin/robo spec:all"
+        "test": "vendor/bin/robo spec:all",
+        "coveralls-travis-ci": "vendor/bin/robo coveralls:travis-ci"
     }
 }

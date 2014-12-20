@@ -8,4 +8,4 @@ before_install:
   - composer install
 script:
   - composer test
-after_script: php script/coveralls.php
+after_script: composer coveralls-travis-ci
