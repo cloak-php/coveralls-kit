@@ -15,7 +15,7 @@ use coverallskit\report\parser\CloverReportParser;
 
 describe('CloverReportParser', function() {
     describe('parse', function() {
-        before(function() {
+        beforeEach(function() {
             $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
 
             $content = file_get_contents($this->fixtureDirectory . 'clover.xml');

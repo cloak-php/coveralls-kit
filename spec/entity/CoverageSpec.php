@@ -24,7 +24,7 @@ describe('Coverage', function() {
             });
         });
         context('when executed line', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = new Coverage(100, Coverage::EXECUTED);
             });
             it('set line number', function() {
@@ -35,7 +35,7 @@ describe('Coverage', function() {
             });
         });
         context('when unused line', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = new Coverage(100, Coverage::UNUSED);
             });
             it('set line number', function() {
@@ -47,7 +47,7 @@ describe('Coverage', function() {
         });
     });
     describe('getLineNumber', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverage = new Coverage(1, Coverage::EXECUTED);
         });
         it('return line number', function() {
@@ -55,7 +55,7 @@ describe('Coverage', function() {
         });
     });
     describe('getAnalysisResult', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverage = new Coverage(1, Coverage::EXECUTED);
         });
         it('return analysis result', function() {
@@ -63,7 +63,7 @@ describe('Coverage', function() {
         });
     });
     describe('valudOf', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverage = new Coverage(1, Coverage::EXECUTED);
         });
         it('return analysis result', function() {
@@ -72,7 +72,7 @@ describe('Coverage', function() {
     });
     describe('isExecuted', function() {
         context('when executed', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = new Coverage(1, Coverage::EXECUTED);
             });
             it('return true', function() {
@@ -80,7 +80,7 @@ describe('Coverage', function() {
             });
         });
         context('when not executed', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = new Coverage(1, Coverage::UNUSED);
             });
             it('return false', function() {
@@ -90,7 +90,7 @@ describe('Coverage', function() {
     });
     describe('isUnused', function() {
         context('when unused', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = new Coverage(1, Coverage::UNUSED);
             });
             it('return true', function() {
@@ -98,7 +98,7 @@ describe('Coverage', function() {
             });
         });
         context('when not unused', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = new Coverage(1, Coverage::EXECUTED);
             });
             it('return false', function() {
@@ -107,11 +107,11 @@ describe('Coverage', function() {
         });
     });
     describe('contains', function() {
-        before(function() {
+        beforeEach(function() {
             $this->lineRange = new LineRange(1, 100);
         });
         context('when contains line number', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = Coverage::unused(100);
             });
             it('return true', function() {
@@ -119,7 +119,7 @@ describe('Coverage', function() {
             });
         });
         context('when not contains line number', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->coverage = Coverage::unused(101);
             });
             it('return false', function() {
@@ -129,7 +129,7 @@ describe('Coverage', function() {
     });
 
     describe('unused', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverage = Coverage::unused(1);
         });
         it('return coverallskit\entity\Coverage instance', function() {
@@ -140,7 +140,7 @@ describe('Coverage', function() {
         });
     });
     describe('executed', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverage = Coverage::executed(1);
         });
         it('return coverallskit\entity\Coverage instance', function() {

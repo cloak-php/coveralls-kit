@@ -14,7 +14,7 @@ namespace coverallskit\spec;
 use coverallskit\entity\repository\Remote;
 
 describe('Remote', function() {
-    before(function() {
+    beforeEach(function() {
         $this->remote = new Remote([
             'name' => 'origin',
             'url' => 'https://github.com/holyshared/coverallskit-kit.git'

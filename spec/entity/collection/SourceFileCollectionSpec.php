@@ -15,7 +15,7 @@ use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 
 describe('SourceFileCollection', function() {
-    before(function() {
+    beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
         $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
         $this->source = [
@@ -35,7 +35,7 @@ describe('SourceFileCollection', function() {
 
     describe('isEmpty', function() {
         context('when the source files is empty', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->emptySources = new SourceFileCollection();
             });
             it('return true', function() {
@@ -79,7 +79,7 @@ describe('SourceFileCollection', function() {
     });
 
     describe('getIterator', function() {
-        before(function() {
+        beforeEach(function() {
             $this->iterator = $this->sources->getIterator();
         });
         it('return ArrayIterator', function() {

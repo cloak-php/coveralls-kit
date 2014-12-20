@@ -15,14 +15,14 @@ use coverallskit\exception\ExceptionCollection;
 use Exception;
 
 describe('ExceptionCollection', function() {
-    before(function() {
+    beforeEach(function() {
         $this->exceptions = new ExceptionCollection();
         $this->exceptions->add(new Exception('exception'));
     });
 
     describe('isEmpty', function() {
         context('when empty', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->exceptions = new ExceptionCollection();
             });
             it('return true', function() {
@@ -30,7 +30,7 @@ describe('ExceptionCollection', function() {
             });
         });
         context('when not empty', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->exceptions = new ExceptionCollection();
                 $this->exceptions->add(new Exception('exception'));
             });
@@ -39,7 +39,7 @@ describe('ExceptionCollection', function() {
             });
         });
     });
-                                    
+
     describe('add', function() {
         it('add exception', function() {
             expect($this->exceptions->count())->toEqual(1);
@@ -47,7 +47,7 @@ describe('ExceptionCollection', function() {
     });
 
     describe('merge', function() {
-        before(function() {
+        beforeEach(function() {
             $exceptions = new ExceptionCollection();
             $exceptions->add(new Exception('exception'));
 

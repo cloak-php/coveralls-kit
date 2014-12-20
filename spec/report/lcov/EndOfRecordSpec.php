@@ -14,7 +14,7 @@ namespace coverallskit\spec\report\parser;
 use coverallskit\report\lcov\EndOfRecord;
 
 describe('EndOfRecord', function() {
-    before(function() {
+    beforeEach(function() {
         $this->endOfRecord = new EndOfRecord();
     });
     describe('match', function() {

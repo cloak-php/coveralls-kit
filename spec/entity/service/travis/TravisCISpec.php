@@ -15,7 +15,7 @@ use coverallskit\entity\service\travis\TravisCI;
 use coverallskit\Environment;
 
 describe('TravisCI', function() {
-    before(function() {
+    beforeEach(function() {
         $this->service = new TravisCI(new Environment([
             'TRAVIS_JOB_ID' => '10',
             'COVERALLS_REPO_TOKEN' => 'token'

@@ -19,12 +19,12 @@ use coverallskit\exception\ExceptionCollection;
 use Exception;
 
 describe('Result', function() {
-    before(function() {
+    beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
     });
 
     describe('getSources', function() {
-        before(function() {
+        beforeEach(function() {
             $source = new SourceFile($this->path);
             $sources = new SourceFileCollection();
             $sources->add($source);
@@ -42,7 +42,7 @@ describe('Result', function() {
         });
     });
     describe('getExecutedLineCount', function() {
-        before(function() {
+        beforeEach(function() {
             $source = new SourceFile($this->path);
             $source->addCoverage(Coverage::executed(12));
 
@@ -57,7 +57,7 @@ describe('Result', function() {
         });
     });
     describe('getUnusedLineCount', function() {
-        before(function() {
+        beforeEach(function() {
             $source = new SourceFile($this->path);
             $source->addCoverage(Coverage::unused(12));
 
@@ -72,7 +72,7 @@ describe('Result', function() {
         });
     });
     describe('getParseErrors', function() {
-        before(function() {
+        beforeEach(function() {
             $source = new SourceFile($this->path);
 
             $this->sources = new SourceFileCollection();
@@ -88,14 +88,14 @@ describe('Result', function() {
         });
     });
     describe('hasParseError', function() {
-        before(function() {
+        beforeEach(function() {
             $source = new SourceFile($this->path);
 
             $this->sources = new SourceFileCollection();
             $this->sources->add($source);
         });
         context('when have parse errors', function() {
-            before(function() {
+            beforeEach(function() {
                 $collection = new ExceptionCollection();
                 $collection->add(new Exception('parse error'));
 
@@ -107,7 +107,7 @@ describe('Result', function() {
             });
         });
         context('when have not parse errors', function() {
-            before(function() {
+            beforeEach(function() {
                 $collection = new ExceptionCollection();
                 $this->result = new Result($this->sources, $collection);
             });

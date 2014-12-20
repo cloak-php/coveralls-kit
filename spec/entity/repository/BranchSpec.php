@@ -14,7 +14,7 @@ namespace coverallskit\spec;
 use coverallskit\entity\repository\Branch;
 
 describe('Branch', function() {
-    before(function() {
+    beforeEach(function() {
         $this->branch = new Branch([
             'name' => 'master',
             'remote' => false

@@ -15,14 +15,14 @@ use coverallskit\entity\SourceFile;
 use coverallskit\entity\Coverage;
 
 describe('SourceFile', function() {
-    before(function() {
+    beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
         $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
         $this->sourceFile = new SourceFile($this->path);
     });
     describe('__construct', function() {
         context('when the file does not exist', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->sourceFile = new SourceFile($this->path);
             });
             it('should throw coverallskit\exception\FileNotFoundException', function() {
@@ -35,7 +35,7 @@ describe('SourceFile', function() {
 
     describe('isEmpty', function() {
         context('when the contents of the source file is empty', function() {
-            before(function() {
+            beforeEach(function() {
                 $this->emptySourcePath = realpath(__DIR__ . '/../fixtures/empty.php');
                 $this->emptySourceFile = new SourceFile($this->emptySourcePath);
             });
@@ -45,7 +45,7 @@ describe('SourceFile', function() {
         });
     });
     describe('getName', function() {
-        before(function() {
+        beforeEach(function() {
             $this->sourceFile = new SourceFile($this->path);
         });
         it('should return file name', function() {
@@ -53,7 +53,7 @@ describe('SourceFile', function() {
         });
     });
     describe('getContent', function() {
-        before(function() {
+        beforeEach(function() {
             $this->sourceFile = new SourceFile($this->path);
         });
         it('should return file content', function() {
@@ -61,7 +61,7 @@ describe('SourceFile', function() {
         });
     });
     describe('getCoverages', function() {
-        before(function() {
+        beforeEach(function() {
             $this->sourceFile = new SourceFile($this->path);
         });
         it('should return coverallskit\entity\collection\CoverageCollection instance', function() {
@@ -69,7 +69,7 @@ describe('SourceFile', function() {
         });
     });
     describe('addCoverage', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverage = Coverage::unused(1);
             $this->sourceFile = new SourceFile($this->path);
             $this->sourceFile->addCoverage($this->coverage);
@@ -98,7 +98,7 @@ describe('SourceFile', function() {
     });
 
     describe('removeCoverage', function() {
-        before(function() {
+        beforeEach(function() {
             $this->coverage = Coverage::unused(3);
             $this->sourceFile->addCoverage($this->coverage);
         });
@@ -109,7 +109,7 @@ describe('SourceFile', function() {
     });
 
     describe('getExecutedLineCount', function() {
-        before(function() {
+        beforeEach(function() {
             $this->sourceFile = new SourceFile($this->path);
             $this->sourceFile->addCoverage(Coverage::executed(12));
             $this->sourceFile->addCoverage(Coverage::unused(17));
@@ -120,7 +120,7 @@ describe('SourceFile', function() {
     });
 
     describe('getUnusedLineCount', function() {
-        before(function() {
+        beforeEach(function() {
             $this->sourceFile = new SourceFile($this->path);
             $this->sourceFile->addCoverage(Coverage::executed(12));
             $this->sourceFile->addCoverage(Coverage::unused(17));
@@ -131,7 +131,7 @@ describe('SourceFile', function() {
     });
 
     describe('toArray', function() {
-        before(function() {
+        beforeEach(function() {
             $this->sourceFile = new SourceFile($this->path);
         });
         it('should return array values', function() {
@@ -143,7 +143,7 @@ describe('SourceFile', function() {
     });
 
     describe('__toString', function() {
-        before(function() {
+        beforeEach(function() {
             $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
             $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
             $this->sourceFile = new SourceFile($this->path);

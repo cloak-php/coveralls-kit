@@ -17,7 +17,7 @@ use coverallskit\exception\LineOutOfRangeException;
 
 describe('LineOutOfRangeException', function() {
     describe('getMessage', function() {
-        before(function() {
+        beforeEach(function() {
             $this->exception = new LineOutOfRangeException(Coverage::unused(31), new LineRange(1, 30));
         });
         it('should return message', function() {
