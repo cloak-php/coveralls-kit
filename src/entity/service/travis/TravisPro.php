@@ -12,7 +12,7 @@
 namespace coverallskit\entity\service\travis;
 
 use coverallskit\entity\service\Travis;
-use coverallskit\AttributePopulatable;
+
 
 /**
  * Class TravisPro
@@ -21,8 +21,9 @@ use coverallskit\AttributePopulatable;
 class TravisPro extends Travis
 {
 
-    use AttributePopulatable;
-
-    const NAME = 'travis-pro';
+    /**
+     * {@inheritdoc}
+     */
+    protected $name = 'travis-pro';
 
 }

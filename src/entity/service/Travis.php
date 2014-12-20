@@ -11,62 +11,17 @@
 
 namespace coverallskit\entity\service;
 
-use coverallskit\Environment;
 
 /**
  * Class Travis
  * @package coverallskit\entity\service
  */
-abstract class Travis implements TravisInterface
+abstract class Travis extends AbstractService implements ServiceInterface
 {
 
     /**
-     * @var \coverallskit\Environment
+     * {@inheritdoc}
      */
-    protected $environment;
-
-    /**
-     * @param Environment $environment
-     */
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
-    }
-
-    public function getServiceJobId()
-    {
-        return $this->environment->get(static::ENV_JOB_ID);
-    }
-
-    public function getServiceName()
-    {
-        return static::NAME;
-    }
-
-    public function getCoverallsToken()
-    {
-        return $this->environment->get(static::ENV_COVERALLS_REPO_TOKEN_KEY);
-    }
-
-    public function isEmpty()
-    {
-        $serviceName = $this->getServiceName();
-        return empty($serviceName);
-    }
-
-    public function toArray()
-    {
-        $values = [
-            'service_job_id' => $this->getServiceJobId(),
-            'service_name' => $this->getServiceName()
-        ];
-
-        return $values;
-    }
-
-    public function __toString()
-    {
-        return json_encode($this->toArray());
-    }
+    protected $jobNumberKey = 'TRAVIS_JOB_ID';
 
 }
