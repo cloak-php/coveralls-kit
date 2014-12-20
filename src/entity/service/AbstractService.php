@@ -11,6 +11,7 @@
 
 namespace coverallskit\entity\service;
 
+use coverallskit\Environment;
 use coverallskit\AttributePopulatable;
 
 
