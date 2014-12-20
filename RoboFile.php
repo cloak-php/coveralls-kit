@@ -21,8 +21,15 @@ class RoboFile extends Tasks
 
     public function coverallsTravisCI()
     {
-        $configration = Configuration::loadFromFile('.coveralls.yml');
-        $builder = ReportBuilder::fromConfiguration($configration);
+        $configuration = Configuration::loadFromFile('.coveralls.yml');
+        $builder = ReportBuilder::fromConfiguration($configuration);
+        $builder->build()->save()->upload();
+    }
+
+    public function coverallsDroneIO()
+    {
+        $configuration = Configuration::loadFromFile('.drone.io.coveralls.yml');
+        $builder = ReportBuilder::fromConfiguration($configuration);
         $builder->build()->save()->upload();
     }
 

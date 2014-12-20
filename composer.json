@@ -36,6 +36,7 @@
     },
     "scripts": {
         "test": "vendor/bin/robo spec:all",
-        "coveralls-travis-ci": "vendor/bin/robo coveralls:travis-ci"
+        "coveralls-travis-ci": "vendor/bin/robo coveralls:travis-ci",
+        "coveralls-drone-io": "vendor/bin/robo coveralls:drone-io"
     }
 }
