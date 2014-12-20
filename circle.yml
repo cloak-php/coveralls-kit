@@ -1,0 +1,10 @@
+machine:
+  php:
+    version: 5.4.21
+dependencies:
+  pre:
+    - composer self-update
+    - sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini
+test:
+  override:
+    - composer test
