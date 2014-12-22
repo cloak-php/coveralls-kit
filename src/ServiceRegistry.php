@@ -34,6 +34,7 @@ class ServiceRegistry
         $this->registry->register('travis-ci', 'coverallskit\entity\service\travis\TravisCI');
         $this->registry->register('travis-pro', 'coverallskit\entity\service\travis\TravisPro');
         $this->registry->register('drone.io', 'coverallskit\entity\service\DroneIO');
+        $this->registry->register('circle-ci', 'coverallskit\entity\service\CircleCI');
     }
 
     /**
