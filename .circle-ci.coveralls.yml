@@ -1,4 +1,4 @@
-service: travis-ci
+service: circle-ci
 reportFile:
   input:
     type: lcov

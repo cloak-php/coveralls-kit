@@ -1,4 +1,4 @@
-service: travis-ci
+service: drone.io
 reportFile:
   input:
     type: lcov

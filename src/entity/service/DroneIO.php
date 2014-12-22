@@ -13,15 +13,20 @@ namespace coverallskit\entity\service;
 
 
 /**
- * Class Travis
+ * Class DroneIO
  * @package coverallskit\entity\service
  */
-abstract class Travis extends AbstractService implements ServiceInterface
+final class DroneIO extends AbstractService implements ServiceInterface
 {
 
     /**
      * {@inheritdoc}
      */
-    protected $jobNumberKey = 'TRAVIS_JOB_ID';
+    protected $name = 'drone.io';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $jobNumberKey = 'DRONE_BUILD_NUMBER';
 
 }
