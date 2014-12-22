@@ -33,6 +33,13 @@ class RoboFile extends Tasks
         $builder->build()->save()->upload();
     }
 
+    public function coverallsCircleCI()
+    {
+        $configuration = Configuration::loadFromFile('.circle-ci.coveralls.yml');
+        $builder = ReportBuilder::fromConfiguration($configuration);
+        $builder->build()->save()->upload();
+    }
+
     public function exampleBasic()
     {
         $runtime = 'php';
