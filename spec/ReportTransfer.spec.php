@@ -13,9 +13,11 @@ namespace coverallskit\spec;
 
 use coverallskit\ReportTransfer;
 use coverallskit\entity\Report;
+use coverallskit\entity\Service;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\service\travis\TravisCI;
+use coverallskit\Environment;
+use coverallskit\environment\Travis;
 use Prophecy\Prophet;
 use Prophecy\Argument;
 
@@ -35,18 +37,20 @@ describe('ReportTransfer', function() {
 
     describe('upload', function() {
         beforeEach(function() {
-            $this->prophet = new Prophet();
-
-            $this->service = new TravisCI([
-                'service_job_id' => '10',
-                'service_name' => 'travis-ci'
+            $environment = new Environment([
+                'CI' => 'true',
+                'TRAVIS' => 'true',
+                'TRAVIS_JOB_ID' => '10',
+                'COVERALLS_REPO_TOKEN' => 'token'
             ]);
+            $adaptor = new Travis($environment);
+            $service = new Service($adaptor);
 
             $this->report = new Report([
                 'name' => __DIR__ . '/fixtures/coveralls.json',
                 'token' => 'foo',
                 'repository' => new Repository(__DIR__ . '/../'),
-                'service' => $this->service,
+                'service' => $service,
                 'sourceFiles' => new SourceFileCollection()
             ]);
 
@@ -54,6 +58,8 @@ describe('ReportTransfer', function() {
             $optionsCallback = Argument::that(function(array $options) {
                 return isset($options['body']);
             });
+
+            $this->prophet = new Prophet();
 
             $this->client = $this->prophet->prophesize('GuzzleHttp\ClientInterface');
             $this->client->post($url, $optionsCallback)->shouldBeCalled();
