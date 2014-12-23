@@ -16,6 +16,12 @@ use coverallskit\environment\DroneIO;
 
 
 describe('DroneIO', function() {
+    describe('#getName', function() {
+        it('return adaptor name', function() {
+            $this->drone = new DroneIO([]);
+            expect($this->drone->getName())->toBe('drone.io');
+        });
+    });
     describe('#isSupported', function() {
         context('when supported', function() {
             beforeEach(function() {

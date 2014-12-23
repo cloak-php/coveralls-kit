@@ -21,6 +21,7 @@ use coverallskit\Environment;
 final class Travis implements AdaptorInterface
 {
 
+    const NAME = 'travis';
     const TRAVIS = 'TRAVIS';
 
 
@@ -36,6 +37,14 @@ final class Travis implements AdaptorInterface
     public function __construct(Environment $environment)
     {
         $this->environment = $environment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return self::NAME;
     }
 
     /**

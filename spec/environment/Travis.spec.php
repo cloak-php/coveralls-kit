@@ -16,6 +16,12 @@ use coverallskit\environment\Travis;
 
 
 describe('Travis', function() {
+    describe('#getName', function() {
+        it('return adaptor name', function() {
+            $this->travis = new Travis([]);
+            expect($this->travis->getName())->toBe('travis');
+        });
+    });
     describe('#isSupported', function() {
         context('when supported', function() {
             beforeEach(function() {

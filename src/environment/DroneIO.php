@@ -21,6 +21,7 @@ use coverallskit\Environment;
 final class DroneIO implements AdaptorInterface
 {
 
+    const NAME = 'drone.io';
     const DRONE = 'DRONE';
 
 
@@ -36,6 +37,14 @@ final class DroneIO implements AdaptorInterface
     public function __construct(Environment $environment)
     {
         $this->environment = $environment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return self::NAME;
     }
 
     /**

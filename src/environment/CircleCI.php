@@ -21,6 +21,7 @@ use coverallskit\Environment;
 final class CircleCI implements AdaptorInterface
 {
 
+    const NAME = 'circle-ci';
     const CIRCLECI = 'CIRCLECI';
 
 
@@ -36,6 +37,14 @@ final class CircleCI implements AdaptorInterface
     public function __construct(Environment $environment)
     {
         $this->environment = $environment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return self::NAME;
     }
 
     /**

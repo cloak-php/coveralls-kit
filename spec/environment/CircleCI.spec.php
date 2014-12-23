@@ -16,6 +16,12 @@ use coverallskit\environment\CircleCI;
 
 
 describe('CircleCI', function() {
+    describe('#getName', function() {
+        it('return adaptor name', function() {
+            $this->circleCI = new CircleCI([]);
+            expect($this->circleCI->getName())->toBe('circle-ci');
+        });
+    });
     describe('#isSupported', function() {
         context('when supported', function() {
             beforeEach(function() {
