@@ -19,13 +19,13 @@ describe('ServiceRegistry', function() {
     });
     describe('get', function() {
         context('when travis-ci', function() {
-            it('should return TravisCI instance', function() {
-                expect($this->registry->get('travis-ci'))->toBeAnInstanceOf('coverallskit\entity\service\travis\TravisCI');
+            it('should return Service instance', function() {
+                expect($this->registry->get('travis-ci'))->toBeAnInstanceOf('coverallskit\entity\Service');
             });
         });
         context('when travis-pro', function() {
-            it('should return TravisPro instance', function() {
-                expect($this->registry->get('travis-pro'))->toBeAnInstanceOf('coverallskit\entity\service\travis\TravisPro');
+            it('should return Service instance', function() {
+                expect($this->registry->get('travis-pro'))->toBeAnInstanceOf('coverallskit\entity\Service');
             });
         });
         context('when key not exist', function() {

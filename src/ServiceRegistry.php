@@ -11,8 +11,13 @@
 
 namespace coverallskit;
 
-use coverallskit\exception\RegistryNotFoundException;
+
 use coverallskit\exception\NotSupportServiceException;
+use coverallskit\entity\Service;
+use coverallskit\environment\Travis;
+use coverallskit\environment\CircleCI;
+use coverallskit\environment\DroneIO;
+use PhpCollection\Map;
 
 
 /**
@@ -23,33 +28,35 @@ class ServiceRegistry
 {
 
     /**
-     * @var Registry
+     * @var \PhpCollection\Map
      */
     private $registry;
 
 
     public function __construct()
     {
-        $this->registry = new Registry();
-        $this->registry->register('travis-ci', 'coverallskit\entity\service\travis\TravisCI');
-        $this->registry->register('travis-pro', 'coverallskit\entity\service\travis\TravisPro');
-        $this->registry->register('drone.io', 'coverallskit\entity\service\DroneIO');
-        $this->registry->register('circle-ci', 'coverallskit\entity\service\CircleCI');
+        $environment = new Environment($_SERVER);
+
+        $this->registry = new Map();
+        $this->registry->set('travis-ci', new Service(new Travis($environment)));
+        $this->registry->set('travis-pro', new Service(new Travis($environment)));
+        $this->registry->set('circle-ci', new Service(new CircleCI($environment)));
+        $this->registry->set('drone.io', new Service(new DroneIO($environment)));
     }
 
     /**
      * @param string $name
-     * @return \coverallskit\entity\service\ServiceInterface
+     * @return \coverallskit\entity\ServiceInterface
      */
     public function get($name)
     {
-        try {
-            $instance = $this->registry->get($name, [ new Environment($_SERVER) ]);
-        } catch (RegistryNotFoundException $exception) {
+        $instance = $this->registry->get($name);
+
+        if ($instance->isEmpty()) {
             throw new NotSupportServiceException($name);
         }
 
-        return $instance;
+        return $instance->get();
     }
 
 }
