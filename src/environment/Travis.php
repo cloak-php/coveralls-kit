@@ -23,6 +23,7 @@ final class Travis implements AdaptorInterface
 
     const NAME = 'travis';
     const TRAVIS = 'TRAVIS';
+    const TRAVIS_JOB_ID = 'TRAVIS_JOB_ID';
 
 
     /**
@@ -40,7 +41,7 @@ final class Travis implements AdaptorInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -48,7 +49,15 @@ final class Travis implements AdaptorInterface
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
+     */
+    public function getBuildJobId()
+    {
+        return $this->environment->get(self::TRAVIS_JOB_ID);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function isSupported()
     {

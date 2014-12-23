@@ -18,8 +18,17 @@ use coverallskit\environment\Travis;
 describe('Travis', function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
-            $this->travis = new Travis([]);
+            $this->travis = new Travis(new Environment());
             expect($this->travis->getName())->toBe('travis');
+        });
+    });
+    describe('#getBuildJobId', function() {
+        it('return build job id', function() {
+            $environment = new Environment([
+                'TRAVIS_JOB_ID' => '10'
+            ]);
+            $this->travis = new Travis($environment);
+            expect($this->travis->getBuildJobId())->toBe('10');
         });
     });
     describe('#isSupported', function() {

@@ -18,8 +18,17 @@ use coverallskit\environment\DroneIO;
 describe('DroneIO', function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
-            $this->drone = new DroneIO([]);
+            $this->drone = new DroneIO(new Environment());
             expect($this->drone->getName())->toBe('drone.io');
+        });
+    });
+    describe('#getBuildJobId', function() {
+        it('return build job id', function() {
+            $environment = new Environment([
+                'DRONE_BUILD_NUMBER' => '10'
+            ]);
+            $this->drone = new DroneIO($environment);
+            expect($this->drone->getBuildJobId())->toBe('10');
         });
     });
     describe('#isSupported', function() {

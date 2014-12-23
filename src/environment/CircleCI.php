@@ -23,6 +23,7 @@ final class CircleCI implements AdaptorInterface
 
     const NAME = 'circle-ci';
     const CIRCLECI = 'CIRCLECI';
+    const CIRCLE_BUILD_NUM = 'CIRCLE_BUILD_NUM';
 
 
     /**
@@ -40,7 +41,7 @@ final class CircleCI implements AdaptorInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -48,7 +49,15 @@ final class CircleCI implements AdaptorInterface
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
+     */
+    public function getBuildJobId()
+    {
+        return $this->environment->get(self::CIRCLE_BUILD_NUM);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function isSupported()
     {

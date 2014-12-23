@@ -27,6 +27,11 @@ interface AdaptorInterface
     public function getName();
 
     /**
+     * @return string
+     */
+    public function getBuildJobId();
+
+    /**
      * @return bool
      */
     public function isSupported();

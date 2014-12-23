@@ -18,8 +18,17 @@ use coverallskit\environment\CircleCI;
 describe('CircleCI', function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
-            $this->circleCI = new CircleCI([]);
+            $this->circleCI = new CircleCI(new Environment());
             expect($this->circleCI->getName())->toBe('circle-ci');
+        });
+    });
+    describe('#getBuildJobId', function() {
+        it('return build job id', function() {
+            $environment = new Environment([
+                'CIRCLE_BUILD_NUM' => '10'
+            ]);
+            $this->circleCI = new CircleCI($environment);
+            expect($this->circleCI->getBuildJobId())->toBe('10');
         });
     });
     describe('#isSupported', function() {

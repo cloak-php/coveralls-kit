@@ -23,6 +23,7 @@ final class DroneIO implements AdaptorInterface
 
     const NAME = 'drone.io';
     const DRONE = 'DRONE';
+    const DRONE_BUILD_NUMBER = 'DRONE_BUILD_NUMBER';
 
 
     /**
@@ -40,7 +41,7 @@ final class DroneIO implements AdaptorInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -48,7 +49,15 @@ final class DroneIO implements AdaptorInterface
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
+     */
+    public function getBuildJobId()
+    {
+        return $this->environment->get(self::DRONE_BUILD_NUMBER);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function isSupported()
     {
