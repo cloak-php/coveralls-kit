@@ -19,6 +19,7 @@ use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 /**
  * Class AdaptorDetector
  * @package coverallskit\environment
+ * FIXME Rename class to AdaptorResolver
  */
 class AdaptorDetector
 {
