@@ -1,4 +1,3 @@
-service: circle-ci
 reportFile:
   input:
     type: lcov
