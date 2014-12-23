@@ -12,8 +12,11 @@
 namespace coverallskit\configuration;
 
 use coverallskit\ReportBuilderInterface;
+use coverallskit\entity\Service;
 use coverallskit\entity\Repository;
 use coverallskit\ServiceRegistry;
+use coverallskit\Environment;
+use coverallskit\environment\AdaptorDetector;
 
 
 /**
@@ -41,7 +44,14 @@ class Basic extends AbstractConfiguration
     public function getService()
     {
         $serviceName = $this->get(self::SERVICE_KEY);
-        $service = $this->serviceFromString($serviceName);
+
+        if ($serviceName === null) {
+            $adaptorDetector = new AdaptorDetector(new Environment($_SERVER));
+            $adaptor = $adaptorDetector->detect();
+            $service = new Service($adaptor);
+        } else {
+            $service = $this->serviceFromString($serviceName);
+        }
 
         return $service;
     }
