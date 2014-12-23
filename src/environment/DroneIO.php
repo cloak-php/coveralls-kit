@@ -43,8 +43,8 @@ final class DroneIO
      */
     public function isSupported()
     {
-        $droneIO = $this->environment->get(self::DRONE);
-        return $droneIO === 'true';
+        $value = $this->environment->get(self::DRONE);
+        return $value === 'true';
     }
 
 }

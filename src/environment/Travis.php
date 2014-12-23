@@ -43,8 +43,8 @@ final class Travis
      */
     public function isSupported()
     {
-        $travis = $this->environment->get(self::TRAVIS);
-        return $travis === 'true';
+        $value = $this->environment->get(self::TRAVIS);
+        return $value === 'true';
     }
 
 }
