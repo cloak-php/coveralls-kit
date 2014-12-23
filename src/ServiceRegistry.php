@@ -14,7 +14,8 @@ namespace coverallskit;
 
 use coverallskit\exception\NotSupportServiceException;
 use coverallskit\entity\Service;
-use coverallskit\environment\Travis;
+use coverallskit\environment\TravisCI;
+use coverallskit\environment\TravisPro;
 use coverallskit\environment\CircleCI;
 use coverallskit\environment\DroneIO;
 use PhpCollection\Map;
@@ -38,8 +39,8 @@ class ServiceRegistry
         $environment = new Environment($_SERVER);
 
         $this->registry = new Map();
-        $this->registry->set('travis-ci', new Service(new Travis($environment)));
-        $this->registry->set('travis-pro', new Service(new Travis($environment)));
+        $this->registry->set('travis-ci', new Service(new TravisCI($environment)));
+        $this->registry->set('travis-pro', new Service(new TravisPro($environment)));
         $this->registry->set('circle-ci', new Service(new CircleCI($environment)));
         $this->registry->set('drone.io', new Service(new DroneIO($environment)));
     }

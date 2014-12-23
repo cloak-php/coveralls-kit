@@ -12,13 +12,13 @@
 namespace coverallskit\spec;
 
 use coverallskit\Environment;
-use coverallskit\environment\Travis;
+use coverallskit\environment\TravisCI;
 
 
-describe('Travis', function() {
+describe('TravisCI', function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
-            $this->travis = new Travis(new Environment());
+            $this->travis = new TravisCI(new Environment());
             expect($this->travis->getName())->toBe('travis-ci');
         });
     });
@@ -27,7 +27,7 @@ describe('Travis', function() {
             $environment = new Environment([
                 'TRAVIS_JOB_ID' => '10'
             ]);
-            $this->travis = new Travis($environment);
+            $this->travis = new TravisCI($environment);
             expect($this->travis->getBuildJobId())->toBe('10');
         });
     });
@@ -40,7 +40,7 @@ describe('Travis', function() {
                     'TRAVIS_JOB_ID' => '10',
                     'COVERALLS_REPO_TOKEN' => 'token'
                 ]);
-                $this->travis = new Travis($environment);
+                $this->travis = new TravisCI($environment);
             });
             it('return true', function() {
                 expect($this->travis->isSupported())->toBeTruthy();

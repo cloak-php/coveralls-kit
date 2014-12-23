@@ -35,7 +35,8 @@ class AdaptorDetector
     public function __construct(Environment $environment)
     {
         $adaptors = [
-            new Travis($environment),
+            new TravisCI($environment),
+            new TravisPro($environment),
             new CircleCI($environment),
             new DroneIO($environment)
         ];

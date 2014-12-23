@@ -18,21 +18,12 @@ use coverallskit\Environment;
  * Class Travis
  * @package coverallskit\environment
  */
-final class Travis extends AbstractAdaptor implements AdaptorInterface
+abstract class Travis extends AbstractAdaptor implements AdaptorInterface
 {
 
-    const NAME = 'travis-ci';
     const TRAVIS = 'TRAVIS';
     const TRAVIS_JOB_ID = 'TRAVIS_JOB_ID';
 
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return self::NAME;
-    }
 
     /**
      * {@inheritdoc}
