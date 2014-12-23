@@ -18,27 +18,13 @@ use coverallskit\Environment;
  * Class Travis
  * @package coverallskit\environment
  */
-final class Travis implements AdaptorInterface
+final class Travis extends AbstractAdaptor implements AdaptorInterface
 {
 
     const NAME = 'travis';
     const TRAVIS = 'TRAVIS';
     const TRAVIS_JOB_ID = 'TRAVIS_JOB_ID';
 
-
-    /**
-     * @var \coverallskit\Environment
-     */
-    private $environment;
-
-
-    /**
-     * @param Environment $environment
-     */
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
-    }
 
     /**
      * {@inheritdoc}

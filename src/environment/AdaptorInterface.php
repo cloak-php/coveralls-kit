@@ -20,6 +20,7 @@ interface AdaptorInterface
 {
 
     const CI = 'CI';
+    const COVERALLS_REPO_TOKEN = 'COVERALLS_REPO_TOKEN';
 
     /**
      * @return string
@@ -30,6 +31,11 @@ interface AdaptorInterface
      * @return string
      */
     public function getBuildJobId();
+
+    /**
+     * @return string
+     */
+    public function getCoverallsToken();
 
     /**
      * @return bool

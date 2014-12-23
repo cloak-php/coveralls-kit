@@ -18,27 +18,13 @@ use coverallskit\Environment;
  * Class DroneIO
  * @package coverallskit\environment
  */
-final class DroneIO implements AdaptorInterface
+final class DroneIO extends AbstractAdaptor implements AdaptorInterface
 {
 
     const NAME = 'drone.io';
     const DRONE = 'DRONE';
     const DRONE_BUILD_NUMBER = 'DRONE_BUILD_NUMBER';
 
-
-    /**
-     * @var \coverallskit\Environment
-     */
-    private $environment;
-
-
-    /**
-     * @param Environment $environment
-     */
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
-    }
 
     /**
      * {@inheritdoc}

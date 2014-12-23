@@ -18,27 +18,13 @@ use coverallskit\Environment;
  * Class CircleCI
  * @package coverallskit\environment
  */
-final class CircleCI implements AdaptorInterface
+final class CircleCI extends AbstractAdaptor implements AdaptorInterface
 {
 
     const NAME = 'circle-ci';
     const CIRCLECI = 'CIRCLECI';
     const CIRCLE_BUILD_NUM = 'CIRCLE_BUILD_NUM';
 
-
-    /**
-     * @var \coverallskit\Environment
-     */
-    private $environment;
-
-
-    /**
-     * @param Environment $environment
-     */
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
-    }
 
     /**
      * {@inheritdoc}
