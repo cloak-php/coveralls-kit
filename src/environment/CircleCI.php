@@ -18,7 +18,7 @@ use coverallskit\Environment;
  * Class CircleCI
  * @package coverallskit\environment
  */
-final class CircleCI
+final class CircleCI implements AdaptorInterface
 {
 
     const CIRCLECI = 'CIRCLECI';

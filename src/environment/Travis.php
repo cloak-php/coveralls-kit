@@ -18,7 +18,7 @@ use coverallskit\Environment;
  * Class Travis
  * @package coverallskit\environment
  */
-final class Travis
+final class Travis implements AdaptorInterface
 {
 
     const TRAVIS = 'TRAVIS';

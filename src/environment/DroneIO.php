@@ -18,7 +18,7 @@ use coverallskit\Environment;
  * Class DroneIO
  * @package coverallskit\environment
  */
-final class DroneIO
+final class DroneIO implements AdaptorInterface
 {
 
     const DRONE = 'DRONE';
