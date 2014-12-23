@@ -15,11 +15,14 @@ use coverallskit\Environment;
 
 
 /**
- * Class TravisPro
+ * Class Travis
  * @package coverallskit\environment
  */
-class TravisPro
+class Travis
 {
+
+    const TRAVIS = 'TRAVIS';
+
 
     /**
      * @var \coverallskit\Environment
@@ -35,9 +38,13 @@ class TravisPro
         $this->environment = $environment;
     }
 
-
+    /**
+     * @return bool
+     */
     public function isSupported()
     {
+        $travis = $this->environment->get('TRAVIS');
+        return $travis === 'true';
     }
 
 }

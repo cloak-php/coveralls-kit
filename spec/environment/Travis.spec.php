@@ -12,9 +12,10 @@
 namespace coverallskit\spec;
 
 use coverallskit\Environment;
-use coverallskit\environment\TravisCI;
+use coverallskit\environment\Travis;
 
-describe('TravisCI', function() {
+
+describe('Travis', function() {
     describe('#isSupported', function() {
         context('when supported', function() {
             beforeEach(function() {
@@ -24,10 +25,10 @@ describe('TravisCI', function() {
                     'TRAVIS_JOB_ID' => '10',
                     'COVERALLS_REPO_TOKEN' => 'token'
                 ]);
-                $this->travisPro = new TravisCI($environment);
+                $this->travis = new Travis($environment);
             });
             it('return true', function() {
-                expect($this->travisPro->isSupported())->toBeTruthy();
+                expect($this->travis->isSupported())->toBeTruthy();
             });
         });
     });
