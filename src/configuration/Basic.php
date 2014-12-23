@@ -36,7 +36,7 @@ class Basic extends AbstractConfiguration
     }
 
     /**
-     * @return \coverallskit\entity\service\ServiceInterface
+     * @return \coverallskit\entity\ServiceInterface
      */
     public function getService()
     {
@@ -72,7 +72,7 @@ class Basic extends AbstractConfiguration
 
     /**
      * @param string $serviceName
-     * @return \coverallskit\entity\service\ServiceInterface
+     * @return \coverallskit\entity\ServiceInterface
      */
     private function serviceFromString($serviceName)
     {

@@ -96,7 +96,7 @@ class Configuration implements RootConfigurationInterface
     }
 
     /**
-     * @return \coverallskit\entity\service\ServiceInterface
+     * @return \coverallskit\entity\ServiceInterface
      */
     public function getService()
     {
