@@ -18,7 +18,7 @@ use coverallskit\Environment;
  * Class Travis
  * @package coverallskit\environment
  */
-class Travis
+final class Travis
 {
 
     const TRAVIS = 'TRAVIS';
@@ -43,7 +43,7 @@ class Travis
      */
     public function isSupported()
     {
-        $travis = $this->environment->get('TRAVIS');
+        $travis = $this->environment->get(self::TRAVIS);
         return $travis === 'true';
     }
 
