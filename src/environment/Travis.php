@@ -21,7 +21,7 @@ use coverallskit\Environment;
 final class Travis extends AbstractAdaptor implements AdaptorInterface
 {
 
-    const NAME = 'travis';
+    const NAME = 'travis-ci';
     const TRAVIS = 'TRAVIS';
     const TRAVIS_JOB_ID = 'TRAVIS_JOB_ID';
 

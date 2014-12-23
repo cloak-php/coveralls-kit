@@ -19,7 +19,7 @@ describe('Travis', function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
             $this->travis = new Travis(new Environment());
-            expect($this->travis->getName())->toBe('travis');
+            expect($this->travis->getName())->toBe('travis-ci');
         });
     });
     describe('#getBuildJobId', function() {
