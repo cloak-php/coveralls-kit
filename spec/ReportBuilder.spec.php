@@ -27,7 +27,7 @@ describe('ReportBuilder', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
+            $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
             $service->getServiceJobId()->willReturn('10');
             $service->getServiceName()->willReturn('travis-ci');
 
@@ -98,7 +98,7 @@ describe('ReportBuilder', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
+                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
                 $service->getServiceJobId()->willReturn(null);
                 $service->getServiceName()->willReturn(null);
 
