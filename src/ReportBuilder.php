@@ -15,15 +15,16 @@ use coverallskit\entity\Report;
 use coverallskit\entity\RepositoryInterface;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\service\ServiceInterface;
+use coverallskit\entity\ServiceInterface;
 use coverallskit\exception\RequiredException;
+
 
 /**
  * Class ReportBuilder
  * @package coverallskit
  * @property string $reportFilePath
  * @property string $token
- * @property \coverallskit\entity\service\ServiceInterface $service
+ * @property \coverallskit\entity\ServiceInterface $service
  * @property \coverallskit\entity\RepositoryInterface $repository
  * @property \coverallskit\entity\collection\SourceFileCollection $sourceFiles
  */
@@ -41,7 +42,7 @@ class ReportBuilder implements ReportBuilderInterface
     protected $token;
 
     /**
-     * @var \coverallskit\entity\service\ServiceInterface
+     * @var \coverallskit\entity\ServiceInterface
      */
     protected $service;
 

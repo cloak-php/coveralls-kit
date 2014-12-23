@@ -14,7 +14,7 @@ namespace coverallskit;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\RepositoryInterface;
-use coverallskit\entity\service\ServiceInterface;
+use coverallskit\entity\ServiceInterface;
 
 
 /**
