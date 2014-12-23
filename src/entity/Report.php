@@ -35,7 +35,7 @@ class Report implements ReportInterface
     protected $token;
 
     /**
-     * @var \coverallskit\entity\service\ServiceInterface
+     * @var \coverallskit\entity\ServiceInterface
      */
     protected $service;
 

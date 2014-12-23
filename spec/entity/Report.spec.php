@@ -23,7 +23,7 @@ describe('Report', function() {
 
         $this->prophet = new Prophet();
 
-        $this->service = $this->prophet->prophesize('coverallskit\entity\service\ServiceInterface');
+        $this->service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
         $this->service->toArray()->shouldBeCalled()->willReturn([
             'service_job_id' => '10',
             'service_name' => 'travis-ci'
