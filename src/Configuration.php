@@ -131,7 +131,7 @@ class Configuration implements RootConfigurationInterface
 
         $config = new Config([
             Basic::TOKEN_KEY => null,
-            Basic::SERVICE_KEY => 'travis-ci',
+            Basic::SERVICE_KEY => null,
             Report::REPORT_FILE_KEY => [
                 Report::OUTPUT_REPORT_FILE_KEY => 'coveralls.json'
             ],

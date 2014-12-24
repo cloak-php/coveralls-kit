@@ -17,6 +17,7 @@ use coverallskit\entity\Repository;
 use coverallskit\ServiceRegistry;
 use coverallskit\Environment;
 use coverallskit\environment\AdaptorDetector;
+use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
 
 /**
@@ -40,15 +41,21 @@ class Basic extends AbstractConfiguration
 
     /**
      * @return \coverallskit\entity\ServiceInterface
+     * FIXME Fix because code is terrible
      */
-    public function getService()
-    {
+     public function getService()
+     {
         $serviceName = $this->get(self::SERVICE_KEY);
 
         if ($serviceName === null) {
             $adaptorDetector = new AdaptorDetector(new Environment($_SERVER));
-            $adaptor = $adaptorDetector->detect();
-            $service = new Service($adaptor);
+
+            try {
+                $adaptor = $adaptorDetector->detect();
+                $service = new Service($adaptor);
+            } catch (EnvironmentAdaptorNotFoundException $exception) {
+                $service = null;
+            }
         } else {
             $service = $this->serviceFromString($serviceName);
         }
