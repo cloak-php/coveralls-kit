@@ -48,6 +48,21 @@ describe('AdaptorDetector', function() {
                     expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\DroneIO');
                 });
             });
+            context('when travis-ci', function() {
+                beforeEach(function() {
+                    $environment = new Environment([
+                        'CI' => 'true',
+                        'TRAVIS' => 'true',
+                        'TRAVIS_JOB_ID' => '10',
+                        'COVERALLS_REPO_TOKEN' => 'token'
+                    ]);
+                    $this->detector = new AdaptorDetector($environment);
+                });
+                it('return detect travis-ci adaptor', function() {
+                    $adaptor = $this->detector->detect();
+                    expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\TravisCI');
+                });
+            });
         });
         context('when not supported', function() {
             beforeEach(function() {
