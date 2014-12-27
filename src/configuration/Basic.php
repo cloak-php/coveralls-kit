@@ -15,7 +15,7 @@ use coverallskit\ReportBuilderInterface;
 use coverallskit\entity\Service;
 use coverallskit\entity\Repository;
 use coverallskit\Environment;
-use coverallskit\environment\AdaptorDetector;
+use coverallskit\environment\AdaptorResolver;
 use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
 
@@ -85,7 +85,7 @@ class Basic extends AbstractConfiguration
     private function serviceFromEnvironment()
     {
         $service = null;
-        $adaptorDetector = new AdaptorDetector(new Environment($_SERVER));
+        $adaptorDetector = new AdaptorResolver(new Environment($_SERVER));
 
         try {
             $adaptor = $adaptorDetector->resolveByEnvironment();
@@ -103,7 +103,7 @@ class Basic extends AbstractConfiguration
      */
     private function serviceFromString($serviceName)
     {
-        $adaptorDetector = new AdaptorDetector(new Environment($_SERVER));
+        $adaptorDetector = new AdaptorResolver(new Environment($_SERVER));
         $adaptor = $adaptorDetector->resolveByName($serviceName);
 
         return new Service($adaptor);

@@ -17,11 +17,10 @@ use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
 
 /**
- * Class AdaptorDetector
+ * Class AdaptorResolver
  * @package coverallskit\environment
- * FIXME Rename class to AdaptorResolver
  */
-class AdaptorDetector
+class AdaptorResolver
 {
 
     /**
