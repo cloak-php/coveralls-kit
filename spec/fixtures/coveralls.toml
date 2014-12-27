@@ -1,0 +1,10 @@
+token = ""
+service = "travis-ci"
+repositoryDirectory = "./../../"
+
+[reportFile]
+output = "coveralls.json"
+
+[reportFile.input]
+type = "lcov"
+file = "report.lcov"

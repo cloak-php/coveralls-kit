@@ -107,21 +107,9 @@ describe('Configuration', function() {
 
     describe('loadFromFile', function() {
         context('when the file exists', function() {
-            context('when .yml', function() {
+            context('when .toml', function() {
                 beforeEach(function() {
-                    $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.yml');
-                });
-                it('should return coverallskit\Configuration instance', function() {
-                    expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');
-                });
-                it('should configration has report name', function() {
-                    $path = realpath(__DIR__  . '/fixtures') . '/coveralls.json';
-                    expect($this->config->getReportFileName())->toEqual($path);
-                });
-            });
-            context('when .yaml', function() {
-                beforeEach(function() {
-                    $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.yaml');
+                    $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.toml');
                 });
                 it('should return coverallskit\Configuration instance', function() {
                     expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');

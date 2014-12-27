@@ -7,23 +7,29 @@ CoverallsKit====================================[![Build Status](https://trav
 **CoverallsKit** is the library for transmitting the report of code coverage to **coveralls**.  This library works with **PHP5.4** or more.Requirements------------------------------------* PHP >= 5.4* Xdebug >= 2.2.2Install------------------------------------Please add the following to composer.json.  Then please run the composer install.	"cloak/coverallskit": "~1.3.1"Basic usage------------------------------------You can generate a json file using the **coverallskit/ReportBuilder**.  You just set the code coverage of rows that have been executed.  Code coverage can be obtained easily by using the **HHVM** and **xdebug**.```php$builder = new ReportBuilder();$builder->token('your repository token')	->service(new TravisCI( new Environment($_SERVER) ))	->repository(new Repository(__DIR__ . '/../'));$source = new SourceFile('path/to/file');$coverages = $source->getCoverages();$coverages->add(Coverage::executed(1));	//The first line was executed$coverages->add(Coverage::unused(2));	//The second line is not executed$coverages->add(Coverage::executed(3));	//The third line is executed$builder->addSource($source);$builder->build()->saveAs(__DIR__ . '/tmp/coverage.json');```Using a configuration file-----------------------------------If you use a configuration file, you can send the report more easily.```phpuse coverallskit\Configuration;
 use coverallskit\ReportBuilder;
 
-$configration = Configuration::loadFromFile('.coveralls.yml');
+$configration = Configuration::loadFromFile('coveralls.toml');
 $builder = ReportBuilder::fromConfiguration($configration);
 $builder->build()->save()->upload();
-```Configration file format-----------------------------------It is also possible to use a configuration file.  The file format is **yaml format**.	token: {api-token}
-	service: travis-ci
-	reportFile:
-	  input:
-	    type: lcov
-	    file: script/report.lcov
-	  output: script/coveralls.json
-	repositoryDirectory: .
+```Configration file format-----------------------------------It is also possible to use a configuration file.  The file format is **toml format**.
+```toml
+token = "{api-token}"
+service = "travis-ci"
+repositoryDirectory = "."
+
+[reportFile]
+output = "script/coveralls.json"
+
+[reportFile.input]
+type = "lcov"
+file = "script/report.lcov"
+```
+
 
 ### File format
 | Name                | Required    | Default        | Description                                       |
 |:--------------------|------------:|:---------------|:--------------------------------------------------|
 | token               | optional    | **COVERALLS_REPO_TOKEN** | [coveralls.io](https://coveralls.io/docs/api) api token.  If you do not specify, use the environment variable **COVERALLS_REPO_TOKEN**.                          |
-| service             | optional    | **travis-ci** | CI(Continuous Integration) service name. You can use the **travis-ci** or **travis-pro** |
+| service             | optional    | **travis-ci** | CI(Continuous Integration) service name. You can use the **travis-ci** or **travis-pro** or **circle-ci** or **drone.io**|
 | reportFile          | optional    |               | Please look at the **reportFile section**. |
 | repositoryDirectory | optional    | . | Directory path of the **git repository**.  Will specify a relative path from the directory containing the configuration file. |
 
@@ -49,4 +55,4 @@ You can send a report from the command line using the **CLI package**.
 
 [https://github.com/cloak-php/coveralls-kit-cli](https://github.com/cloak-php/coveralls-kit-cli)
 
-Detailed documentation-----------------------------------* [Work with Travis-CI](docs/travis-ci.md)Run only unit test------------------------------------	vendor/bin/phoor	vendor/bin/phake spec:watchHow to run the example------------------------------------	vendor/bin/phake example:basic
+Detailed documentation-----------------------------------* [Work with Travis-CI](docs/travis-ci.md)Run only unit test------------------------------------	composer testHow to run the example------------------------------------	vendor/bin/robo example:basic
