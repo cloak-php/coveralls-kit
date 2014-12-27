@@ -18,18 +18,50 @@ use coverallskit\environment\AdaptorDetector;
 describe('AdaptorDetector', function() {
     describe('#detect', function() {
         context('when supported', function() {
-            beforeEach(function() {
-                $environment = new Environment([
-                    'CI' => 'true',
-                    'CIRCLECI' => 'true',
-                    'CIRCLE_BUILD_NUM' => '10',
-                    'COVERALLS_REPO_TOKEN' => 'token'
-                ]);
-                $this->detector = new AdaptorDetector($environment);
+            context('when circle-ci', function() {
+                beforeEach(function() {
+                    $environment = new Environment([
+                        'CI' => 'true',
+                        'CIRCLECI' => 'true',
+                        'CIRCLE_BUILD_NUM' => '10',
+                        'COVERALLS_REPO_TOKEN' => 'token'
+                    ]);
+                    $this->detector = new AdaptorDetector($environment);
+                });
+                it('return detect circle-ci adaptor', function() {
+                    $adaptor = $this->detector->detect();
+                    expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\CircleCI');
+                });
             });
-            it('return detect adaptor', function() {
-                $adaptor = $this->detector->detect();
-                expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\CircleCI');
+            context('when drone.io', function() {
+                beforeEach(function() {
+                    $environment = new Environment([
+                        'CI' => 'true',
+                        'DRONE' => 'true',
+                        'DRONE_BUILD_NUMBER' => '10',
+                        'COVERALLS_REPO_TOKEN' => 'token'
+                    ]);
+                    $this->detector = new AdaptorDetector($environment);
+                });
+                it('return detect drone.io adaptor', function() {
+                    $adaptor = $this->detector->detect();
+                    expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\DroneIO');
+                });
+            });
+            context('when travis-ci', function() {
+                beforeEach(function() {
+                    $environment = new Environment([
+                        'CI' => 'true',
+                        'TRAVIS' => 'true',
+                        'TRAVIS_JOB_ID' => '10',
+                        'COVERALLS_REPO_TOKEN' => 'token'
+                    ]);
+                    $this->detector = new AdaptorDetector($environment);
+                });
+                it('return detect travis-ci adaptor', function() {
+                    $adaptor = $this->detector->detect();
+                    expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\TravisCI');
+                });
             });
         });
         context('when not supported', function() {
