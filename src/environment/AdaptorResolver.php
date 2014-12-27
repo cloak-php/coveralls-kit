@@ -50,7 +50,7 @@ class AdaptorResolver
     }
 
     /**
-     * @return AdaptorInterface|null
+     * @return AdaptorInterface
      */
     public function resolveByEnvironment()
     {
