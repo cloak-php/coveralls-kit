@@ -107,7 +107,6 @@ class Report implements ReportInterface
 
     /**
      * @return bool
-     * FIXME service is nullable!!!
      */
     public function isEmpty()
     {
@@ -116,7 +115,6 @@ class Report implements ReportInterface
 
     /**
      * @return array
-     * FIXME service is nullable!!!
      */
     public function toArray()
     {
