@@ -17,16 +17,21 @@ use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
 
 /**
- * Class AdaptorDetector
+ * Class AdaptorResolver
  * @package coverallskit\environment
  */
-class AdaptorDetector
+class AdaptorResolver
 {
 
     /**
      * @var \coverallskit\environment\AdaptorInterface[]
      */
     private $adaptors;
+
+    /**
+     * @var \coverallskit\environment\General
+     */
+    private $generalAdaptor;
 
 
     /**
@@ -35,32 +40,62 @@ class AdaptorDetector
     public function __construct(Environment $environment)
     {
         $adaptors = [
-            new Travis($environment),
+            new TravisCI($environment),
+            new TravisPro($environment),
             new CircleCI($environment),
             new DroneIO($environment)
         ];
         $this->adaptors = $adaptors;
+        $this->generalAdaptor = new General($environment);
     }
 
     /**
      * @return AdaptorInterface|null
      */
-    public function detect()
+    public function resolveByEnvironment()
     {
         $detectedAdaptor = $this->detectFromSupportAdaptors();
 
         if ($detectedAdaptor === null) {
-            $supportAdaptorNames = $this->getSupportAdaptorNames();
-            $exceptionMessage = sprintf(
-                '%s environment only does not support.',
-                join(', ', $supportAdaptorNames)
-            );
-            throw new EnvironmentAdaptorNotFoundException($exceptionMessage);
+            return $this->generalAdaptor;
         }
 
         return $detectedAdaptor;
     }
 
+    /**
+     * @param string $name
+     * @return AdaptorInterface
+     */
+    public function resolveByName($name)
+    {
+        $detectedAdaptor = $this->detectByName($name);
+
+        if ($detectedAdaptor === null) {
+            $exception = EnvironmentAdaptorNotFoundException::createByName($name);
+            throw $exception;
+        }
+
+        return $detectedAdaptor;
+    }
+
+    /**
+     * @param string $name
+     * @return AdaptorInterface|null
+     */
+    private function detectByName($name)
+    {
+        $detectedAdaptor = null;
+
+        foreach ($this->adaptors as $adaptor) {
+            if ($adaptor->getName() === $name) {
+                $detectedAdaptor = $adaptor;
+                break;
+            }
+        }
+
+        return $detectedAdaptor;
+    }
 
     /**
      * @return AdaptorInterface|null
@@ -77,20 +112,6 @@ class AdaptorDetector
         }
 
         return $detectedAdaptor;
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getSupportAdaptorNames()
-    {
-        $supportAdaptorNames = [];
-
-        foreach ($this->adaptors as $adaptor) {
-            $supportAdaptorNames[] = $adaptor->getName();
-        }
-
-        return $supportAdaptorNames;
     }
 
 }

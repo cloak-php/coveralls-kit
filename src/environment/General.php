@@ -15,22 +15,26 @@ use coverallskit\Environment;
 
 
 /**
- * Class Travis
+ * Class General
  * @package coverallskit\environment
  */
-abstract class Travis extends AbstractAdaptor implements AdaptorInterface
+final class General extends AbstractAdaptor implements AdaptorInterface
 {
 
-    const TRAVIS = 'TRAVIS';
-    const TRAVIS_JOB_ID = 'TRAVIS_JOB_ID';
-
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return '';
+    }
 
     /**
      * {@inheritdoc}
      */
     public function getBuildJobId()
     {
-        return $this->environment->get(self::TRAVIS_JOB_ID);
+        return null;
     }
 
     /**
@@ -38,8 +42,7 @@ abstract class Travis extends AbstractAdaptor implements AdaptorInterface
      */
     public function isSupported()
     {
-        $value = $this->environment->get(self::TRAVIS);
-        return $value === 'true';
+        return true;
     }
 
 }

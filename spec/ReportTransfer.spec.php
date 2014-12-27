@@ -17,7 +17,7 @@ use coverallskit\entity\Service;
 use coverallskit\entity\Repository;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\Environment;
-use coverallskit\environment\Travis;
+use coverallskit\environment\TravisCI;
 use Prophecy\Prophet;
 use Prophecy\Argument;
 
@@ -43,7 +43,7 @@ describe('ReportTransfer', function() {
                 'TRAVIS_JOB_ID' => '10',
                 'COVERALLS_REPO_TOKEN' => 'token'
             ]);
-            $adaptor = new Travis($environment);
+            $adaptor = new TravisCI($environment);
             $service = new Service($adaptor);
 
             $this->report = new Report([

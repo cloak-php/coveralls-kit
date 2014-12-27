@@ -81,7 +81,7 @@ class Report implements ReportInterface
         $this->name = $path;
         $this->save();
 
-        return $this; 
+        return $this;
     }
 
     /**

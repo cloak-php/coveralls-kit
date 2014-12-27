@@ -20,4 +20,17 @@ use UnexpectedValueException;
  */
 class EnvironmentAdaptorNotFoundException extends UnexpectedValueException
 {
+
+    /**
+     * @param string $name
+     * @return EnvironmentAdaptorNotFoundException
+     */
+    public static function createByName($name)
+    {
+        $template = 'Does not support the environment %s.';
+        $message = sprintf($template, $name);
+
+        return new self($message);
+    }
+
 }

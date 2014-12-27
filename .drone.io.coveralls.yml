@@ -1,4 +1,3 @@
-service: drone.io
 reportFile:
   input:
     type: lcov

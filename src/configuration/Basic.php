@@ -12,8 +12,12 @@
 namespace coverallskit\configuration;
 
 use coverallskit\ReportBuilderInterface;
+use coverallskit\entity\Service;
 use coverallskit\entity\Repository;
-use coverallskit\ServiceRegistry;
+use coverallskit\Environment;
+use coverallskit\environment\AdaptorResolver;
+use Zend\Config\Config;
+use Eloquent\Pathogen\AbsolutePath;
 
 
 /**
@@ -26,6 +30,24 @@ class Basic extends AbstractConfiguration
     const TOKEN_KEY = 'token';
     const SERVICE_KEY = 'service';
     const REPOSITORY_DIRECTORY_KEY = 'repositoryDirectory';
+
+
+    /**
+     * @var \coverallskit\environment\AdaptorResolver
+     */
+    private $adaptorResolver;
+
+
+    /**
+     * @param Config $config
+     * @param AbsolutePath $rootPath
+     */
+    public function __construct(Config $config, AbsolutePath $rootPath)
+    {
+        $this->adaptorResolver = new AdaptorResolver(new Environment($_SERVER));
+
+        parent::__construct($config, $rootPath);
+    }
 
     /**
      * @return string
@@ -41,10 +63,15 @@ class Basic extends AbstractConfiguration
     public function getService()
     {
         $serviceName = $this->get(self::SERVICE_KEY);
-        $service = $this->serviceFromString($serviceName);
 
-        return $service;
-    }
+        if ($serviceName === null) {
+            $adaptor = $this->adaptorResolver->resolveByEnvironment();
+        } else {
+            $adaptor = $this->adaptorResolver->resolveByName($serviceName);
+        }
+
+        return new Service($adaptor);
+     }
 
     /**
      * @return \coverallskit\entity\Repository
@@ -68,18 +95,6 @@ class Basic extends AbstractConfiguration
             ->repository($this->getRepository());
 
         return $builder;
-    }
-
-    /**
-     * @param string $serviceName
-     * @return \coverallskit\entity\ServiceInterface
-     */
-    private function serviceFromString($serviceName)
-    {
-        $registry = new ServiceRegistry();
-        $service = $registry->get($serviceName);
-
-        return $service;
     }
 
     /**
