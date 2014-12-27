@@ -45,17 +45,11 @@ class Basic extends AbstractConfiguration
      */
      public function getService()
      {
-        $serviceName = $this->get(self::SERVICE_KEY);
+         $service = null;
+         $serviceName = $this->get(self::SERVICE_KEY);
 
         if ($serviceName === null) {
-            $adaptorDetector = new AdaptorDetector(new Environment($_SERVER));
-
-            try {
-                $adaptor = $adaptorDetector->resolveByEnvironment();
-                $service = new Service($adaptor);
-            } catch (EnvironmentAdaptorNotFoundException $exception) {
-                $service = null;
-            }
+            $service = $this->serviceFromEnvironment();
         } else {
             $service = $this->serviceFromString($serviceName);
         }
@@ -88,15 +82,33 @@ class Basic extends AbstractConfiguration
     }
 
     /**
+     * @return \coverallskit\entity\ServiceInterface
+     */
+    private function serviceFromEnvironment()
+    {
+        $service = null;
+        $adaptorDetector = new AdaptorDetector(new Environment($_SERVER));
+
+        try {
+            $adaptor = $adaptorDetector->resolveByEnvironment();
+            $service = new Service($adaptor);
+        } catch (EnvironmentAdaptorNotFoundException $exception) {
+            return $service;
+        }
+
+        return $service;
+    }
+
+    /**
      * @param string $serviceName
      * @return \coverallskit\entity\ServiceInterface
      */
     private function serviceFromString($serviceName)
     {
-        $registry = new ServiceRegistry();
-        $service = $registry->get($serviceName);
+        $adaptorDetector = new AdaptorDetector(new Environment($_SERVER));
+        $adaptor = $adaptorDetector->resolveByName($serviceName);
 
-        return $service;
+        return new Service($adaptor);
     }
 
     /**
