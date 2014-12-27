@@ -131,6 +131,18 @@ describe('Configuration', function() {
                     expect($this->config->getReportFileName())->toEqual($path);
                 });
             });
+            context('when .toml', function() {
+                beforeEach(function() {
+                    $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.toml');
+                });
+                it('should return coverallskit\Configuration instance', function() {
+                    expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');
+                });
+                it('should configration has report name', function() {
+                    $path = realpath(__DIR__  . '/fixtures') . '/coveralls.json';
+                    expect($this->config->getReportFileName())->toEqual($path);
+                });
+            });
         });
         context('when the file not exists', function() {
             it('should throw coverallskit\exception\FileNotFoundException', function() {
