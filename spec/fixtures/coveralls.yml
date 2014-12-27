@@ -1,5 +1,0 @@
-token:
-service: travis-ci
-reportFile:
-  output: coveralls.json
-repositoryDirectory: /../../
