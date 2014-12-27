@@ -14,7 +14,6 @@ namespace coverallskit\configuration;
 use coverallskit\ReportBuilderInterface;
 use coverallskit\entity\Service;
 use coverallskit\entity\Repository;
-use coverallskit\ServiceRegistry;
 use coverallskit\Environment;
 use coverallskit\environment\AdaptorDetector;
 use coverallskit\exception\EnvironmentAdaptorNotFoundException;
@@ -41,7 +40,6 @@ class Basic extends AbstractConfiguration
 
     /**
      * @return \coverallskit\entity\ServiceInterface
-     * FIXME Fix because code is terrible
      */
      public function getService()
      {
