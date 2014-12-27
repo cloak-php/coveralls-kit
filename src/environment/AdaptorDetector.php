@@ -47,7 +47,7 @@ class AdaptorDetector
     /**
      * @return AdaptorInterface|null
      */
-    public function detect()
+    public function resolveByEnvironment()
     {
         $detectedAdaptor = $this->detectFromSupportAdaptors();
 

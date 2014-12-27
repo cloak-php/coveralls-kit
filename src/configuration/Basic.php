@@ -51,7 +51,7 @@ class Basic extends AbstractConfiguration
             $adaptorDetector = new AdaptorDetector(new Environment($_SERVER));
 
             try {
-                $adaptor = $adaptorDetector->detect();
+                $adaptor = $adaptorDetector->resolveByEnvironment();
                 $service = new Service($adaptor);
             } catch (EnvironmentAdaptorNotFoundException $exception) {
                 $service = null;

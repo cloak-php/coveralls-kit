@@ -16,7 +16,7 @@ use coverallskit\environment\AdaptorDetector;
 
 
 describe('AdaptorDetector', function() {
-    describe('#detect', function() {
+    describe('#resolveByEnvironment', function() {
         context('when supported', function() {
             context('when circle-ci', function() {
                 beforeEach(function() {
@@ -29,7 +29,7 @@ describe('AdaptorDetector', function() {
                     $this->detector = new AdaptorDetector($environment);
                 });
                 it('return detect circle-ci adaptor', function() {
-                    $adaptor = $this->detector->detect();
+                    $adaptor = $this->detector->resolveByEnvironment();
                     expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\CircleCI');
                 });
             });
@@ -44,7 +44,7 @@ describe('AdaptorDetector', function() {
                     $this->detector = new AdaptorDetector($environment);
                 });
                 it('return detect drone.io adaptor', function() {
-                    $adaptor = $this->detector->detect();
+                    $adaptor = $this->detector->resolveByEnvironment();
                     expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\DroneIO');
                 });
             });
@@ -59,7 +59,7 @@ describe('AdaptorDetector', function() {
                     $this->detector = new AdaptorDetector($environment);
                 });
                 it('return detect travis-ci adaptor', function() {
-                    $adaptor = $this->detector->detect();
+                    $adaptor = $this->detector->resolveByEnvironment();
                     expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\TravisCI');
                 });
             });
@@ -71,7 +71,7 @@ describe('AdaptorDetector', function() {
             });
             it('throw \coverallskit\exception\EnvironmentAdaptorNotFoundException exception', function() {
                 expect(function() {
-                    $this->detector->detect();
+                    $this->detector->resolveByEnvironment();
                 })->toThrow('\coverallskit\exception\EnvironmentAdaptorNotFoundException');
             });
         });
