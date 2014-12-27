@@ -16,7 +16,6 @@ use coverallskit\entity\Service;
 use coverallskit\entity\Repository;
 use coverallskit\Environment;
 use coverallskit\environment\AdaptorResolver;
-use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
 
 /**
@@ -30,6 +29,24 @@ class Basic extends AbstractConfiguration
     const SERVICE_KEY = 'service';
     const REPOSITORY_DIRECTORY_KEY = 'repositoryDirectory';
 
+
+    /**
+     * @var \coverallskit\environment\AdaptorResolver
+     */
+    private $adaptorResolver;
+
+
+    /**
+     * @param Config $config
+     * @param AbsolutePath $rootPath
+     */
+    public function __construct(Config $config, AbsolutePath $rootPath)
+    {
+        $this->adaptorResolver = new AdaptorResolver(new Environment($_SERVER));
+
+        parent::__construct($config, $rootPath);
+    }
+
     /**
      * @return string
      */
@@ -41,19 +58,18 @@ class Basic extends AbstractConfiguration
     /**
      * @return \coverallskit\entity\ServiceInterface
      */
-     public function getService()
-     {
-         $service = null;
-         $serviceName = $this->get(self::SERVICE_KEY);
+    public function getService()
+    {
+        $serviceName = $this->get(self::SERVICE_KEY);
 
         if ($serviceName === null) {
-            $service = $this->serviceFromEnvironment();
+            $adaptor = $this->adaptorResolver->resolveByEnvironment();
         } else {
-            $service = $this->serviceFromString($serviceName);
+            $adaptor = $this->adaptorResolver->resolveByName($serviceName);
         }
 
-        return $service;
-    }
+        return new Service($adaptor);
+     }
 
     /**
      * @return \coverallskit\entity\Repository
@@ -77,36 +93,6 @@ class Basic extends AbstractConfiguration
             ->repository($this->getRepository());
 
         return $builder;
-    }
-
-    /**
-     * @return \coverallskit\entity\ServiceInterface
-     */
-    private function serviceFromEnvironment()
-    {
-        $service = null;
-        $adaptorDetector = new AdaptorResolver(new Environment($_SERVER));
-
-        try {
-            $adaptor = $adaptorDetector->resolveByEnvironment();
-            $service = new Service($adaptor);
-        } catch (EnvironmentAdaptorNotFoundException $exception) {
-            return $service;
-        }
-
-        return $service;
-    }
-
-    /**
-     * @param string $serviceName
-     * @return \coverallskit\entity\ServiceInterface
-     */
-    private function serviceFromString($serviceName)
-    {
-        $adaptorDetector = new AdaptorResolver(new Environment($_SERVER));
-        $adaptor = $adaptorDetector->resolveByName($serviceName);
-
-        return new Service($adaptor);
     }
 
     /**

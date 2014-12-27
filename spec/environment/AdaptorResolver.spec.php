@@ -69,10 +69,9 @@ describe('AdaptorResolver', function() {
                 $environment = new Environment([]);
                 $this->resolver = new AdaptorResolver($environment);
             });
-            it('throw \coverallskit\exception\EnvironmentAdaptorNotFoundException exception', function() {
-                expect(function() {
-                    $this->resolver->resolveByEnvironment();
-                })->toThrow('\coverallskit\exception\EnvironmentAdaptorNotFoundException');
+            it('return general adaptor', function() {
+                $adaptor = $this->resolver->resolveByEnvironment();
+                expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\General');
             });
         });
     });

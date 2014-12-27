@@ -28,6 +28,11 @@ class AdaptorResolver
      */
     private $adaptors;
 
+    /**
+     * @var \coverallskit\environment\General
+     */
+    private $generalAdaptor;
+
 
     /**
      * @param Environment $environment
@@ -41,6 +46,7 @@ class AdaptorResolver
             new DroneIO($environment)
         ];
         $this->adaptors = $adaptors;
+        $this->generalAdaptor = new General($environment);
     }
 
     /**
@@ -51,12 +57,7 @@ class AdaptorResolver
         $detectedAdaptor = $this->detectFromSupportAdaptors();
 
         if ($detectedAdaptor === null) {
-            $supportAdaptorNames = $this->getSupportAdaptorNames();
-            $exceptionMessage = sprintf(
-                '%s environment only does not support.',
-                join(', ', $supportAdaptorNames)
-            );
-            throw new EnvironmentAdaptorNotFoundException($exceptionMessage);
+            return $this->generalAdaptor;
         }
 
         return $detectedAdaptor;
@@ -111,20 +112,6 @@ class AdaptorResolver
         }
 
         return $detectedAdaptor;
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getSupportAdaptorNames()
-    {
-        $supportAdaptorNames = [];
-
-        foreach ($this->adaptors as $adaptor) {
-            $supportAdaptorNames[] = $adaptor->getName();
-        }
-
-        return $supportAdaptorNames;
     }
 
 }
