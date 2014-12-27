@@ -27,14 +27,14 @@ class RoboFile extends Tasks
 
     public function coverallsDroneIO()
     {
-        $configuration = Configuration::loadFromFile('.drone.io.coveralls.yml');
+        $configuration = Configuration::loadFromFile('drone-io.coveralls.toml');
         $builder = ReportBuilder::fromConfiguration($configuration);
         $builder->build()->save()->upload();
     }
 
     public function coverallsCircleCI()
     {
-        $configuration = Configuration::loadFromFile('.circle-ci.coveralls.yml');
+        $configuration = Configuration::loadFromFile('circle-ci.coveralls.toml');
         $builder = ReportBuilder::fromConfiguration($configuration);
         $builder->build()->save()->upload();
     }
