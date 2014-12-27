@@ -29,7 +29,7 @@ interface RootConfigurationInterface extends ConfigurationInterface, Configurati
     public function getToken();
 
     /**
-     * @return \coverallskit\entity\service\ServiceInterface
+     * @return \coverallskit\entity\ServiceInterface
      */
     public function getService();
 

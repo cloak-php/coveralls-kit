@@ -12,8 +12,6 @@
 namespace coverallskit\environment;
 
 
-use coverallskit\Environment;
-
 
 /**
  * Class TravisPro

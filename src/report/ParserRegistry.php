@@ -33,7 +33,7 @@ class ParserRegistry
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return \coverallskit\report\ReportParserInterface
      * @throws \coverallskit\exception\RegistryNotFoundException
      */
