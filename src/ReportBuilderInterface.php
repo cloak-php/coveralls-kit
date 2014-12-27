@@ -26,7 +26,7 @@ interface ReportBuilderInterface
 
     /**
      * @param string $reportFilePath
-     * @return ReportBuilderInterface;
+     * @return ReportBuilderInterface
      */
     public function reportFilePath($reportFilePath);
 
@@ -38,25 +38,25 @@ interface ReportBuilderInterface
 
     /**
      * @param ServiceInterface
-     * @return ReportBuilderInterface;
+     * @return ReportBuilderInterface
      */
     public function service(ServiceInterface $service);
 
     /**
      * @param RepositoryInterface
-     * @return ReportBuilderInterface;
+     * @return ReportBuilderInterface
      */
     public function repository(RepositoryInterface $repository);
 
     /**
      * @param SourceFile $source
-     * @return ReportBuilderInterface;
+     * @return ReportBuilderInterface
      */
     public function addSource(SourceFile $source);
 
     /**
      * @param SourceFileCollection $sources
-     * @return ReportBuilderInterface;
+     * @return ReportBuilderInterface
      */
     public function addSources(SourceFileCollection $sources);
 
