@@ -44,4 +44,23 @@ describe('AdaptorDetector', function() {
             });
         });
     });
+    describe('#resolveByName', function() {
+        beforeEach(function() {
+            $environment = new Environment([]);
+            $this->detector = new AdaptorDetector($environment);
+        });
+        context('when supported', function() {
+            it('return detect adaptor', function() {
+                $adaptor = $this->detector->resolveByName('circle-ci');
+                expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\CircleCI');
+            });
+        });
+        context('when not supported', function() {
+            it('throw \coverallskit\exception\EnvironmentAdaptorNotFoundException exception', function() {
+                expect(function() {
+                    $this->detector->resolveByName('not_found');
+                })->toThrow('\coverallskit\exception\EnvironmentAdaptorNotFoundException');
+            });
+        });
+    });
 });

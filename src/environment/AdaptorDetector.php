@@ -63,6 +63,39 @@ class AdaptorDetector
         return $detectedAdaptor;
     }
 
+    /**
+     * @param string $name
+     * @return AdaptorInterface
+     */
+    public function resolveByName($name)
+    {
+        $detectedAdaptor = $this->detectByName($name);
+
+        if ($detectedAdaptor === null) {
+            $exception = EnvironmentAdaptorNotFoundException::createByName($name);
+            throw $exception;
+        }
+
+        return $detectedAdaptor;
+    }
+
+    /**
+     * @param string $name
+     * @return AdaptorInterface|null
+     */
+    private function detectByName($name)
+    {
+        $detectedAdaptor = null;
+
+        foreach ($this->adaptors as $adaptor) {
+            if ($adaptor->getName() === $name) {
+                $detectedAdaptor = $adaptor;
+                break;
+            }
+        }
+
+        return $detectedAdaptor;
+    }
 
     /**
      * @return AdaptorInterface|null
