@@ -1,6 +1,8 @@
 CoverallsKit====================================[![Build Status](https://travis-ci.org/cloak-php/coveralls-kit.svg?branch=master)](https://travis-ci.org/cloak-php/coveralls-kit)
 [![Build Status](https://drone.io/github.com/cloak-php/coveralls-kit/status.png)](https://drone.io/github.com/cloak-php/coveralls-kit/latest)
 [![Circle CI](https://circleci.com/gh/cloak-php/coveralls-kit.svg?style=svg)](https://circleci.com/gh/cloak-php/coveralls-kit)
+[![Build Status](https://codeship.com/projects/af9497a0-70ab-0132-4b61-227a26fe7ed7/status?branch=master)](https://codeship.com/projects/54536)
+
 
 [![Latest Stable Version](https://poser.pugx.org/cloak/coverallskit/v/stable.svg)](https://packagist.org/packages/cloak/coverallskit) [![Total Downloads](https://poser.pugx.org/cloak/coverallskit/downloads.svg)](https://packagist.org/packages/cloak/coverallskit) [![Latest Unstable Version](https://poser.pugx.org/cloak/coverallskit/v/unstable.svg)](https://packagist.org/packages/cloak/coverallskit) [![License](https://poser.pugx.org/cloak/coverallskit/license.svg)](https://packagist.org/packages/cloak/coverallskit)
 [![Stories in Ready](https://badge.waffle.io/cloak-php/coveralls-kit.png?label=ready&title=Ready)](https://waffle.io/cloak-php/coveralls-kit)[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cloak-php/coveralls-kit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cloak-php/coveralls-kit/?branch=master)[![Coverage Status](https://coveralls.io/repos/cloak-php/coveralls-kit/badge.png)](https://coveralls.io/r/cloak-php/coveralls-kit)[![Dependency Status](https://www.versioneye.com/user/projects/53fd5949f4df154965000002/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53fd5949f4df154965000002)
