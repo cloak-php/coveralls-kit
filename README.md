@@ -31,7 +31,7 @@ file = "script/report.lcov"
 | Name                | Required    | Default        | Description                                       |
 |:--------------------|------------:|:---------------|:--------------------------------------------------|
 | token               | optional    | **COVERALLS_REPO_TOKEN** | [coveralls.io](https://coveralls.io/docs/api) api token.  If you do not specify, use the environment variable **COVERALLS_REPO_TOKEN**.                          |
-| service             | optional    | **travis-ci** | CI(Continuous Integration) service name. You can use the **travis-ci** or **travis-pro** or **circle-ci** or **drone.io**|
+| service             | optional    | **travis-ci** | CI(Continuous Integration) service name. You can use the **travis-ci** or **travis-pro** or **circle-ci** or **drone.io** or **codeship** |
 | reportFile          | optional    |               | Please look at the **reportFile section**. |
 | repositoryDirectory | optional    | . | Directory path of the **git repository**.  Will specify a relative path from the directory containing the configuration file. |
 
