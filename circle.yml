@@ -12,5 +12,5 @@ test:
     - composer coveralls
 general:
   artifacts:
-    - "tmp/coverallss.json"
+    - "tmp/coveralls.json"
     - "tmp/report.lcov"
