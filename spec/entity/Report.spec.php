@@ -54,17 +54,17 @@ describe('Report', function() {
 
     describe('token', function() {
         it('should return repository token string', function() {
-            expect($this->report->token)->toBe('foo');
+            expect($this->report->getToken())->toBe('foo');
         });
     });
     describe('repository', function() {
         it('should return repository', function() {
-            expect($this->report->repository)->toBeAnInstanceOf('coverallskit\entity\Repository');
+            expect($this->report->getRepository())->toBeAnInstanceOf('coverallskit\entity\Repository');
         });
     });
     describe('sourceFiles', function() {
         it('should return sources file collection', function() {
-            expect($this->report->sourceFiles)->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
+            expect($this->report->getSourceFiles())->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
         });
     });
     describe('saveAs', function() {

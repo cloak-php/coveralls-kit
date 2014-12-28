@@ -27,32 +27,32 @@ class Report implements ReportInterface
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
      */
-    protected $token;
+    private $token;
 
     /**
      * @var \coverallskit\entity\ServiceInterface
      */
-    protected $service;
+    private $service;
 
     /**
      * @var \coverallskit\entity\RepositoryInterface
      */
-    protected $repository;
+    private $repository;
 
     /**
      * @var \coverallskit\entity\collection\SourceFileCollection
      */
-    protected $sourceFiles;
+    private $sourceFiles;
 
     /**
      * @var string
      */
-    protected $runAt;
+    private $runAt;
 
 
     /**
@@ -70,6 +70,38 @@ class Report implements ReportInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @return ServiceInterface
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * @return RepositoryInterface
+     */
+    public function getRepository()
+    {
+        return $this->repository;
+    }
+
+    /**
+     * @return collection\SourceFileCollection
+     */
+    public function getSourceFiles()
+    {
+        return $this->sourceFiles;
     }
 
     /**
@@ -139,15 +171,6 @@ class Report implements ReportInterface
     public function __toString()
     {
         return json_encode($this->toArray());
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return $this->$name;
     }
 
 }

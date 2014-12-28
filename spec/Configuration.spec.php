@@ -91,16 +91,16 @@ describe('Configuration', function() {
             $this->report = $this->builder->build();
         });
         it('apply report name config', function() {
-            expect($this->report->name)->toEqual(realpath(__DIR__ . '/../') . '/coveralls.json');
+            expect($this->report->getName())->toEqual(realpath(__DIR__ . '/../') . '/coveralls.json');
         });
         it('apply service config', function() {
-            expect($this->report->service)->toBeAnInstanceOf('coverallskit\entity\ServiceInterface');
+            expect($this->report->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceInterface');
         });
         it('apply repository config', function() {
-            expect($this->report->repository)->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
+            expect($this->report->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
         });
         it('apply clover report config', function() {
-            $sourceFiles = $this->report->sourceFiles;
+            $sourceFiles = $this->report->getSourceFiles();
             expect($sourceFiles->isEmpty())->toBeFalse();
         });
     });
