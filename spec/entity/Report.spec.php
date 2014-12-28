@@ -20,32 +20,10 @@ use Prophecy\Prophet;
 
 describe('Report', function() {
     beforeEach(function() {
-        mkdir(__DIR__ . '/tmp');
-
-        $this->prophet = new Prophet();
-
-        $this->service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
-        $this->service->isEmpty()->willReturn(false);
-        $this->service->toArray()->willReturn([
-            'service_job_id' => '10',
-            'service_name' => 'travis-ci'
-        ]);
-
         $this->path = __DIR__ . '/tmp/coverage.json';
 
-        $this->sourceFiles = new SourceFileCollection([
-            new SourceFile(realpath(__DIR__ . '/../fixtures/foo.php')),
-            new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
-        ]);
-
-        $this->report = new Report([
-            'token' => 'foo',
-            'repository' => new Repository(__DIR__ . '/../../'),
-            'service' => $this->service->reveal(),
-            'sourceFiles' => $this->sourceFiles
-        ]);
+        mkdir(__DIR__ . '/tmp');
     });
-
     afterEach(function() {
         rmdir(__DIR__ . '/tmp');
     });
@@ -58,28 +36,52 @@ describe('Report', function() {
             });
         });
     });
-
     describe('token', function() {
         it('should return repository token string', function() {
-            expect($this->report->getToken())->toBe('foo');
+            $report = new Report([ 'token' => 'foo' ]);
+            expect($report->getToken())->toBe('foo');
         });
     });
     describe('repository', function() {
         it('should return repository', function() {
-            expect($this->report->getRepository())->toBeAnInstanceOf('coverallskit\entity\Repository');
+            $report = new Report([
+                'repository' => new Repository(__DIR__ . '/../../')
+            ]);
+            expect($report->getRepository())->toBeAnInstanceOf('coverallskit\entity\Repository');
         });
     });
     describe('sourceFiles', function() {
         it('should return sources file collection', function() {
-            expect($this->report->getSourceFiles())->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
+            $report = new Report([
+                'sourceFiles' => new SourceFileCollection()
+            ]);
+            expect($report->getSourceFiles())->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
         });
     });
+
     describe('saveAs', function() {
         beforeEach(function() {
+            $sourceFiles = new SourceFileCollection([
+                new SourceFile(realpath(__DIR__ . '/../fixtures/foo.php')),
+                new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
+            ]);
+
+            $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+            $service->isEmpty()->willReturn(false);
+            $service->toArray()->willReturn([
+                'service_job_id' => '10',
+                'service_name' => 'travis-ci'
+            ]);
+
+            $this->report = new Report([
+                'token' => 'foo',
+                'repository' => new Repository(__DIR__ . '/../../'),
+                'service' => $service->reveal(),
+                'sourceFiles' => $sourceFiles
+            ]);
+
             $this->report->saveAs($this->path);
             $this->jsonResult = json_decode(file_get_contents($this->path));
-
-            $this->prophet->checkPredictions();
         });
         afterEach(function() {
             unlink($this->path);
@@ -98,11 +100,23 @@ describe('Report', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
+                $sourceFiles = new SourceFileCollection([
+                    new SourceFile(realpath(__DIR__ . '/../fixtures/foo.php')),
+                    new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
+                ]);
+
+                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+                $service->isEmpty()->willReturn(false);
+                $service->toArray()->willReturn([
+                    'service_job_id' => '10',
+                    'service_name' => 'travis-ci'
+                ]);
+
                 $this->notSavedReport = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
-                    'service' => $this->service->reveal(),
-                    'sourceFiles' => $this->sourceFiles
+                    'service' => $service->reveal(),
+                    'sourceFiles' => $sourceFiles
                 ]);
 
                 $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
@@ -125,11 +139,23 @@ describe('Report', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
+                $sourceFiles = new SourceFileCollection([
+                    new SourceFile(realpath(__DIR__ . '/../fixtures/foo.php')),
+                    new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
+                ]);
+
+                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+                $service->isEmpty()->willReturn(false);
+                $service->toArray()->willReturn([
+                    'service_job_id' => '10',
+                    'service_name' => 'travis-ci'
+                ]);
+
                 $this->savedReport = new Report([
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
-                    'service' => $this->service->reveal(),
-                    'sourceFiles' => $this->sourceFiles
+                    'service' => $service->reveal(),
+                    'sourceFiles' => $sourceFiles
                 ]);
                 $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
                 $this->savedFileUpLoader->upload($this->savedReport)->shouldBeCalled();
