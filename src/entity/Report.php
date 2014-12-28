@@ -13,6 +13,8 @@ namespace coverallskit\entity;
 
 use coverallskit\AttributePopulatable;
 use coverallskit\ReportTransferAwareTrait;
+use coverallskit\exception\RequiredException;
+
 
 /**
  * Class Report
@@ -121,6 +123,7 @@ class Report implements ReportInterface
      */
     public function save()
     {
+        $this->validate();
         $content = (string) $this;
         file_put_contents($this->name, $content);
         return $this;
@@ -143,6 +146,24 @@ class Report implements ReportInterface
     public function isEmpty()
     {
         return $this->token === null || $this->service->isEmpty() || $this->sourceFiles->isEmpty();
+    }
+
+    /**
+     * @throws \coverallskit\exception\RequiredException
+     */
+    public function validate()
+    {
+        if (empty($this->token)) {
+            throw new RequiredException('repo_token');
+        }
+
+        if ($this->service->isEmpty()) {
+            throw new RequiredException('service_name');
+        }
+
+        if ($this->sourceFiles->isEmpty()) {
+            throw new RequiredException('source_files');
+        }
     }
 
     /**

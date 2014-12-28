@@ -13,6 +13,7 @@ namespace coverallskit\spec;
 
 use coverallskit\entity\Report;
 use coverallskit\entity\Repository;
+use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use Prophecy\Prophet;
 
@@ -24,18 +25,24 @@ describe('Report', function() {
         $this->prophet = new Prophet();
 
         $this->service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
-        $this->service->toArray()->shouldBeCalled()->willReturn([
+        $this->service->isEmpty()->willReturn(false);
+        $this->service->toArray()->willReturn([
             'service_job_id' => '10',
             'service_name' => 'travis-ci'
         ]);
 
         $this->path = __DIR__ . '/tmp/coverage.json';
 
+        $this->sourceFiles = new SourceFileCollection([
+            new SourceFile(realpath(__DIR__ . '/../fixtures/foo.php')),
+            new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
+        ]);
+
         $this->report = new Report([
             'token' => 'foo',
             'repository' => new Repository(__DIR__ . '/../../'),
             'service' => $this->service->reveal(),
-            'sourceFiles' => new SourceFileCollection()
+            'sourceFiles' => $this->sourceFiles
         ]);
     });
 
@@ -95,7 +102,7 @@ describe('Report', function() {
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
                     'service' => $this->service->reveal(),
-                    'sourceFiles' => new SourceFileCollection()
+                    'sourceFiles' => $this->sourceFiles
                 ]);
 
                 $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
@@ -122,7 +129,7 @@ describe('Report', function() {
                     'token' => 'foo',
                     'repository' => new Repository(__DIR__ . '/../../'),
                     'service' => $this->service->reveal(),
-                    'sourceFiles' => new SourceFileCollection()
+                    'sourceFiles' => $this->sourceFiles
                 ]);
                 $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
                 $this->savedFileUpLoader->upload($this->savedReport)->shouldBeCalled();
