@@ -8,4 +8,5 @@ before_install:
   - composer install
 script:
   - composer test
-after_script: composer coveralls-travis-ci
+after_script: composer coveralls
+

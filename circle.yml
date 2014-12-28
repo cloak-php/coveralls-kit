@@ -9,4 +9,4 @@ test:
   override:
     - composer test
   post:
-    - composer coveralls-circle-ci
+    - composer coveralls

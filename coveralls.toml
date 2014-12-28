@@ -1,4 +1,3 @@
-service = "travis-ci"
 repositoryDirectory = "."
 
 [reportFile]
