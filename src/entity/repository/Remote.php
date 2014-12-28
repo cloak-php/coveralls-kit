@@ -5,14 +5,23 @@ namespace coverallskit\entity\repository;
 use coverallskit\CompositeEntityInterface;
 use coverallskit\AttributePopulatable;
 
+
+/**
+ * Class Remote
+ * @package coverallskit\entity\repository
+ */
 class Remote implements CompositeEntityInterface
 {
 
     use AttributePopulatable;
 
-    protected $name = null;
-    protected $url = null;
+    private $name;
+    private $url;
 
+
+    /**
+     * @param array $values
+     */
     public function __construct(array $values = [])
     {
         $this->populate($values);

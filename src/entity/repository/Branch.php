@@ -10,9 +10,12 @@ class Branch implements EntityInterface
 
     use AttributePopulatable;
 
-    protected $name = null;
-    protected $remote = null;
+    private $name;
+    private $remote;
 
+    /**
+     * @param array $values
+     */
     public function __construct(array $values)
     {
         $this->populate($values);

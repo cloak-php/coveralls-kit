@@ -5,18 +5,27 @@ namespace coverallskit\entity\repository;
 use coverallskit\CompositeEntityInterface;
 use coverallskit\AttributePopulatable;
 
+
+/**
+ * Class Commit
+ * @package coverallskit\entity\repository
+ */
 class Commit implements CompositeEntityInterface
 {
 
     use AttributePopulatable;
 
-    protected $id = null;
-    protected $authorName = null;
-    protected $authorEmail = null;
-    protected $committerName = null;
-    protected $committerEmail = null;
-    protected $message = null;
+    private $id;
+    private $authorName;
+    private $authorEmail;
+    private $committerName;
+    private $committerEmail;
+    private $message;
 
+
+    /**
+     * @param array $values
+     */
     public function __construct(array $values)
     {
         $this->populate($values);
