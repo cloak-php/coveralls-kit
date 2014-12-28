@@ -10,3 +10,7 @@ test:
     - composer test
   post:
     - composer coveralls
+general:
+  artifacts:
+    - "tmp/coverallss.json"
+    - "tmp/report.lcov"
