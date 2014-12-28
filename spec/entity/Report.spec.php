@@ -59,8 +59,60 @@ describe('Report', function() {
         });
     });
 
+    describe('#validate', function() {
+        context('when token empty', function() {
+            beforeEach(function() {
+                $this->report = new Report([ 'token' => null ]);
+            });
+            it('throw coverallskit\exception\RequiredException', function() {
+                expect(function() {
+                    $this->report->validate();
+                })->toThrow('coverallskit\exception\RequiredException');
+            });
+        });
+        context('when service empty', function() {
+            beforeEach(function() {
+                $this->prophet = new Prophet();
+
+                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+                $service->isEmpty()->willReturn(true);
+
+                $this->report = new Report([
+                    'token' => 'foo',
+                    'service' => $service->reveal()
+                ]);
+            });
+            it('throw coverallskit\exception\RequiredException', function() {
+                expect(function() {
+                    $this->report->validate();
+                })->toThrow('coverallskit\exception\RequiredException');
+            });
+        });
+        context('when source file empty', function() {
+            beforeEach(function() {
+                $this->prophet = new Prophet();
+
+                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+                $service->isEmpty()->willReturn(false);
+
+                $this->report = new Report([
+                    'token' => 'foo',
+                    'service' => $service->reveal(),
+                    'sourceFiles' => new SourceFileCollection()
+                ]);
+            });
+            it('throw coverallskit\exception\RequiredException', function() {
+                expect(function() {
+                    $this->report->validate();
+                })->toThrow('coverallskit\exception\RequiredException');
+            });
+        });
+    });
+
     describe('saveAs', function() {
         beforeEach(function() {
+            $this->prophet = new Prophet();
+
             $sourceFiles = new SourceFileCollection([
                 new SourceFile(realpath(__DIR__ . '/../fixtures/foo.php')),
                 new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
