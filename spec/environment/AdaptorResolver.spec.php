@@ -63,6 +63,21 @@ describe('AdaptorResolver', function() {
                     expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\TravisCI');
                 });
             });
+            context('when codeship', function() {
+                beforeEach(function() {
+                    $environment = new Environment([
+                        'CI' => 'true',
+                        'CI_NAME' => 'codeship',
+                        'CI_BUILD_NUMBER' => '10',
+                        'COVERALLS_REPO_TOKEN' => 'token'
+                    ]);
+                    $this->resolver = new AdaptorResolver($environment);
+                });
+                it('return detect codeship adaptor', function() {
+                    $adaptor = $this->resolver->resolveByEnvironment();
+                    expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\CodeShip');
+                });
+            });
         });
         context('when not supported', function() {
             beforeEach(function() {

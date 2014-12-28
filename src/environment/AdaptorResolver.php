@@ -43,7 +43,8 @@ class AdaptorResolver
             new TravisCI($environment),
             new TravisPro($environment),
             new CircleCI($environment),
-            new DroneIO($environment)
+            new DroneIO($environment),
+            new CodeShip($environment)
         ];
         $this->adaptors = $adaptors;
         $this->generalAdaptor = new General($environment);
