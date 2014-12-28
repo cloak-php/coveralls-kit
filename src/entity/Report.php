@@ -173,15 +173,18 @@ class Report implements ReportInterface
     {
         $values = [
             'repo_token' => $this->token,
-            'git' => $this->repository->toArray(),
             'source_files' => $this->sourceFiles->toArray(),
             'run_at' => $this->runAt
         ];
 
-        $serviceValues = $this->service->toArray();
-        foreach ($serviceValues as $key => $value) {
-            $values[$key] = $value;
+        if ($this->repository !== null) {
+            $values = array_merge($values, [
+                'git' => $this->repository->toArray()
+            ]);
         }
+
+        $serviceValues = $this->service->toArray();
+        $values = array_merge($values, $serviceValues);
 
         return $values;
     }
