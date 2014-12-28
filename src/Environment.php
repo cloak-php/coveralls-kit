@@ -23,13 +23,15 @@ class Environment
      */
     private $variables;
 
+
     /**
      * @param array $variables
      */
-    public function __construct(array $variables = array())
+    public function __construct(array $variables = [])
     {
         $this->variables = $variables;
     }
+
 
     /**
      * @param string $key

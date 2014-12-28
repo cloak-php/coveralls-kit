@@ -118,12 +118,12 @@ class Report implements ReportInterface
      */
     public function toArray()
     {
-        $values = array(
+        $values = [
             'repo_token' => $this->token,
             'git' => $this->repository->toArray(),
             'source_files' => $this->sourceFiles->toArray(),
             'run_at' => $this->runAt
-        );
+        ];
 
         $serviceValues = $this->service->toArray();
         foreach ($serviceValues as $key => $value) {
