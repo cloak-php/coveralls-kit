@@ -16,7 +16,6 @@ use coverallskit\entity\RepositoryInterface;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\ServiceInterface;
-use coverallskit\exception\RequiredException;
 
 
 /**
@@ -159,20 +158,6 @@ class ReportBuilder implements ReportBuilderInterface
         return $this->sourceFiles;
     }
 
-    /**
-     * @throws RequiredException
-     */
-    protected function validate()
-    {
-        if (empty($this->repository)) {
-            throw new RequiredException('repository');
-        }
-
-        if (empty($this->service)) {
-            throw new RequiredException('service');
-        }
-    }
-
     protected function prepareBuild()
     {
         if (empty($this->token)) {
@@ -185,7 +170,6 @@ class ReportBuilder implements ReportBuilderInterface
      */
     public function build()
     {
-        $this->validate();
         $this->prepareBuild();
 
         return new Report([
@@ -206,13 +190,5 @@ class ReportBuilder implements ReportBuilderInterface
     {
         return $config->applyTo(new static());
     }
-
-    /**
-     * @param string $name
-     */
-//    public function __get($name)
-  //  {
-//  //  /    return $this->$name;
- //   }
 
 }

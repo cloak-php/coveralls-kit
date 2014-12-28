@@ -96,50 +96,6 @@ describe('ReportBuilder', function() {
             expect($sourceFiles->has($this->foo))->toBeTrue();
             expect($sourceFiles->has($this->bar))->toBeTrue();
         });
-        context('when not specify the required values' , function() {
-            beforeEach(function() {
-                $this->prophet = new Prophet();
-
-                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
-                $service->getServiceJobId()->willReturn(null);
-                $service->getServiceName()->willReturn(null);
-
-                $this->service = $service->reveal();
-
-                $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
-                $repository->getCommit()->willReturn(null);
-                $repository->getBranch()->willReturn(null);
-
-                $this->repository = $repository->reveal();
-            });
-            afterEach(function() {
-                $this->prophet->checkPredictions();
-            });
-            context('when not specify service' , function() {
-                beforeEach(function() {
-                    $this->builder = new ReportBuilder();
-                    $this->builder->reportFilePath(__DIR__  . '/tmp/coverage.json');
-                    $this->builder->repository($this->repository);
-                });
-                it('should throw coverallskit\exception\RequiredException', function() {
-                    expect(function() {
-                        $this->builder->build();
-                    })->toThrow('coverallskit\exception\RequiredException');
-                });
-            });
-            context('when not specify repository' , function() {
-                beforeEach(function() {
-                    $this->builder = new ReportBuilder();
-                    $this->builder->reportFilePath(__DIR__  . '/tmp/coverage.json');
-                    $this->builder->service($this->service);
-                });
-                it('should throw coverallskit\exception\RequiredException', function() {
-                    expect(function() {
-                        $this->builder->build();
-                    })->toThrow('coverallskit\exception\RequiredException');
-                });
-            });
-        });
     });
 
     describe('fromConfiguration', function() {
