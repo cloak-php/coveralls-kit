@@ -22,11 +22,6 @@ use coverallskit\exception\RequiredException;
 /**
  * Class ReportBuilder
  * @package coverallskit
- * @property string $reportFilePath
- * @property string $token
- * @property \coverallskit\entity\ServiceInterface $service
- * @property \coverallskit\entity\RepositoryInterface $repository
- * @property \coverallskit\entity\collection\SourceFileCollection $sourceFiles
  */
 class ReportBuilder implements ReportBuilderInterface
 {
@@ -34,27 +29,27 @@ class ReportBuilder implements ReportBuilderInterface
     /**
      * @var string
      */
-    protected $reportFilePath;
+    private $reportFilePath;
 
     /**
      * @var string
      */
-    protected $token;
+    private $token;
 
     /**
      * @var \coverallskit\entity\ServiceInterface
      */
-    protected $service;
+    private $service;
 
     /**
      * @var \coverallskit\entity\RepositoryInterface
      */
-    protected $repository;
+    private $repository;
 
     /**
      * @var \coverallskit\entity\collection\SourceFileCollection
      */
-    protected $sourceFiles;
+    private $sourceFiles;
 
 
     public function __construct()
@@ -73,6 +68,14 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
+     * @return string
+     */
+    public function getReportFilePath()
+    {
+        return $this->reportFilePath;
+    }
+
+    /**
      * @param string $repositoryToken
      * @return $this
      */
@@ -80,6 +83,14 @@ class ReportBuilder implements ReportBuilderInterface
     {
         $this->token = $repositoryToken;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 
     /**
@@ -93,6 +104,14 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
+     * @return ServiceInterface
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
      * @param RepositoryInterface $repository
      * @return $this
      */
@@ -100,6 +119,14 @@ class ReportBuilder implements ReportBuilderInterface
     {
         $this->repository = $repository;
         return $this;
+    }
+
+    /**
+     * @return RepositoryInterface
+     */
+    public function getRepository()
+    {
+        return $this->repository;
     }
 
     /**
@@ -122,6 +149,14 @@ class ReportBuilder implements ReportBuilderInterface
             $this->addSource($source);
         }
         return $this;
+    }
+
+    /**
+     * @return SourceFileCollection
+     */
+    public function getSources()
+    {
+        return $this->sourceFiles;
     }
 
     /**
@@ -175,9 +210,9 @@ class ReportBuilder implements ReportBuilderInterface
     /**
      * @param string $name
      */
-    public function __get($name)
-    {
-        return $this->$name;
-    }
+//    public function __get($name)
+  //  {
+//  //  /    return $this->$name;
+ //   }
 
 }

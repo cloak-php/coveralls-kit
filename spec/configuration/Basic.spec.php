@@ -52,13 +52,13 @@ describe('Basic', function() {
             $this->configration->applyTo($this->builder);
         });
         it('apply token config', function() {
-            expect($this->builder->token)->toEqual('api-token');
+            expect($this->builder->getToken())->toEqual('api-token');
         });
         it('apply service config', function() {
-            expect($this->builder->service)->toBeAnInstanceOf('coverallskit\entity\ServiceInterface');
+            expect($this->builder->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceInterface');
         });
         it('apply repository config', function() {
-            expect($this->builder->repository)->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
+            expect($this->builder->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
         });
     });
 });
