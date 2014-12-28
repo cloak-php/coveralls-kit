@@ -11,7 +11,7 @@
 
 namespace coverallskit\configuration;
 
-use coverallskit\Configuration;
+
 use coverallskit\ReportBuilderInterface;
 use coverallskit\report\ParserRegistry;
 use coverallskit\exception\FileNotFoundException;

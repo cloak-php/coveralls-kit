@@ -15,17 +15,12 @@ use coverallskit\entity\Report;
 use coverallskit\entity\RepositoryInterface;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\service\ServiceInterface;
-use coverallskit\exception\RequiredException;
+use coverallskit\entity\ServiceInterface;
+
 
 /**
  * Class ReportBuilder
  * @package coverallskit
- * @property string $reportFilePath
- * @property string $token
- * @property \coverallskit\entity\service\ServiceInterface $service
- * @property \coverallskit\entity\RepositoryInterface $repository
- * @property \coverallskit\entity\collection\SourceFileCollection $sourceFiles
  */
 class ReportBuilder implements ReportBuilderInterface
 {
@@ -33,27 +28,27 @@ class ReportBuilder implements ReportBuilderInterface
     /**
      * @var string
      */
-    protected $reportFilePath;
+    private $reportFilePath;
 
     /**
      * @var string
      */
-    protected $token;
+    private $token;
 
     /**
-     * @var \coverallskit\entity\service\ServiceInterface
+     * @var \coverallskit\entity\ServiceInterface
      */
-    protected $service;
+    private $service;
 
     /**
      * @var \coverallskit\entity\RepositoryInterface
      */
-    protected $repository;
+    private $repository;
 
     /**
      * @var \coverallskit\entity\collection\SourceFileCollection
      */
-    protected $sourceFiles;
+    private $sourceFiles;
 
 
     public function __construct()
@@ -72,6 +67,14 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
+     * @return string
+     */
+    public function getReportFilePath()
+    {
+        return $this->reportFilePath;
+    }
+
+    /**
      * @param string $repositoryToken
      * @return $this
      */
@@ -79,6 +82,14 @@ class ReportBuilder implements ReportBuilderInterface
     {
         $this->token = $repositoryToken;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 
     /**
@@ -92,6 +103,14 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
+     * @return ServiceInterface
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
      * @param RepositoryInterface $repository
      * @return $this
      */
@@ -99,6 +118,14 @@ class ReportBuilder implements ReportBuilderInterface
     {
         $this->repository = $repository;
         return $this;
+    }
+
+    /**
+     * @return RepositoryInterface
+     */
+    public function getRepository()
+    {
+        return $this->repository;
     }
 
     /**
@@ -124,17 +151,11 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
-     * @throws RequiredException
+     * @return SourceFileCollection
      */
-    protected function validate()
+    public function getSources()
     {
-        if (empty($this->repository)) {
-            throw new RequiredException('repository');
-        }
-
-        if (empty($this->service)) {
-            throw new RequiredException('service');
-        }
+        return $this->sourceFiles;
     }
 
     protected function prepareBuild()
@@ -149,7 +170,6 @@ class ReportBuilder implements ReportBuilderInterface
      */
     public function build()
     {
-        $this->validate();
         $this->prepareBuild();
 
         return new Report([
@@ -169,14 +189,6 @@ class ReportBuilder implements ReportBuilderInterface
     public static function fromConfiguration(ConfigurationInterface $config)
     {
         return $config->applyTo(new static());
-    }
-
-    /**
-     * @param string $name
-     */
-    public function __get($name)
-    {
-        return $this->$name;
     }
 
 }

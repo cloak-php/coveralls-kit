@@ -13,6 +13,8 @@ namespace coverallskit\entity;
 
 use coverallskit\AttributePopulatable;
 use coverallskit\ReportTransferAwareTrait;
+use coverallskit\exception\RequiredException;
+
 
 /**
  * Class Report
@@ -27,32 +29,32 @@ class Report implements ReportInterface
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
      */
-    protected $token;
+    private $token;
 
     /**
-     * @var \coverallskit\entity\service\ServiceInterface
+     * @var \coverallskit\entity\ServiceInterface
      */
-    protected $service;
+    private $service;
 
     /**
      * @var \coverallskit\entity\RepositoryInterface
      */
-    protected $repository;
+    private $repository;
 
     /**
      * @var \coverallskit\entity\collection\SourceFileCollection
      */
-    protected $sourceFiles;
+    private $sourceFiles;
 
     /**
      * @var string
      */
-    protected $runAt;
+    private $runAt;
 
 
     /**
@@ -73,6 +75,38 @@ class Report implements ReportInterface
     }
 
     /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @return ServiceInterface
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * @return RepositoryInterface
+     */
+    public function getRepository()
+    {
+        return $this->repository;
+    }
+
+    /**
+     * @return collection\SourceFileCollection
+     */
+    public function getSourceFiles()
+    {
+        return $this->sourceFiles;
+    }
+
+    /**
      * @param string $path
      * @return $this
      */
@@ -81,7 +115,7 @@ class Report implements ReportInterface
         $this->name = $path;
         $this->save();
 
-        return $this; 
+        return $this;
     }
 
     /**
@@ -89,6 +123,7 @@ class Report implements ReportInterface
      */
     public function save()
     {
+        $this->validate();
         $content = (string) $this;
         file_put_contents($this->name, $content);
         return $this;
@@ -114,21 +149,42 @@ class Report implements ReportInterface
     }
 
     /**
+     * @throws \coverallskit\exception\RequiredException
+     */
+    public function validate()
+    {
+        if (empty($this->token)) {
+            throw new RequiredException('repo_token');
+        }
+
+        if ($this->service->isEmpty()) {
+            throw new RequiredException('service_name');
+        }
+
+        if ($this->sourceFiles->isEmpty()) {
+            throw new RequiredException('source_files');
+        }
+    }
+
+    /**
      * @return array
      */
     public function toArray()
     {
-        $values = array(
+        $values = [
             'repo_token' => $this->token,
-            'git' => $this->repository->toArray(),
             'source_files' => $this->sourceFiles->toArray(),
             'run_at' => $this->runAt
-        );
+        ];
+
+        if ($this->repository !== null) {
+            $values = array_merge($values, [
+                'git' => $this->repository->toArray()
+            ]);
+        }
 
         $serviceValues = $this->service->toArray();
-        foreach ($serviceValues as $key => $value) {
-            $values[$key] = $value;
-        }
+        $values = array_merge($values, $serviceValues);
 
         return $values;
     }
@@ -139,15 +195,6 @@ class Report implements ReportInterface
     public function __toString()
     {
         return json_encode($this->toArray());
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return $this->$name;
     }
 
 }

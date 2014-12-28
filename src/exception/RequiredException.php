@@ -17,9 +17,14 @@ use UnexpectedValueException;
 class RequiredException extends UnexpectedValueException
 {
 
+    /**
+     * @param string $valueName
+     * @param int $code
+     * @param Exception $previous
+     */
     public function __construct($valueName, $code = 0, Exception $previous = null)
     {
-        parent::__construct("The '$valueName' is not supported.", $code, $previous);
+        parent::__construct("'$valueName' of the report is required.", $code, $previous);
     }
 
 }

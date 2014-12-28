@@ -50,7 +50,7 @@ describe('Configuration', function() {
                 expect($this->configration->getToken())->toEqual('api-token');
             });
             it('should set the service instance', function() {
-                expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\service\ServiceInterface');
+                expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\ServiceInterface');
             });
             it('should set the repository', function() {
                 expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryInterface');
@@ -91,38 +91,25 @@ describe('Configuration', function() {
             $this->report = $this->builder->build();
         });
         it('apply report name config', function() {
-            expect($this->report->name)->toEqual(realpath(__DIR__ . '/../') . '/coveralls.json');
+            expect($this->report->getName())->toEqual(realpath(__DIR__ . '/../') . '/coveralls.json');
         });
         it('apply service config', function() {
-            expect($this->report->service)->toBeAnInstanceOf('coverallskit\entity\service\ServiceInterface');
+            expect($this->report->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceInterface');
         });
         it('apply repository config', function() {
-            expect($this->report->repository)->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
+            expect($this->report->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
         });
         it('apply clover report config', function() {
-            $sourceFiles = $this->report->sourceFiles;
+            $sourceFiles = $this->report->getSourceFiles();
             expect($sourceFiles->isEmpty())->toBeFalse();
         });
     });
 
-
     describe('loadFromFile', function() {
         context('when the file exists', function() {
-            context('when .yml', function() {
+            context('when .toml', function() {
                 beforeEach(function() {
-                    $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.yml');
-                });
-                it('should return coverallskit\Configuration instance', function() {
-                    expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');
-                });
-                it('should configration has report name', function() {
-                    $path = realpath(__DIR__  . '/fixtures') . '/coveralls.json';
-                    expect($this->config->getReportFileName())->toEqual($path);
-                });
-            });
-            context('when .yaml', function() {
-                beforeEach(function() {
-                    $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.yaml');
+                    $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.toml');
                 });
                 it('should return coverallskit\Configuration instance', function() {
                     expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');

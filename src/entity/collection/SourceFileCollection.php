@@ -28,11 +28,16 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
     /**
      * @var \PhpCollection\Map
      */
-    protected $sources;
+    private $sources;
 
-    public function __construct()
+
+    /**
+     * @param SourceFile[] $sources
+     */
+    public function __construct(array $sources = [])
     {
         $this->sources = new Map();
+        $this->addAll($sources);
     }
 
     /**
@@ -42,6 +47,16 @@ class SourceFileCollection implements CompositeEntityCollectionInterface
     {
         $key = $source->getName();
         $this->sources->set($key, $source);
+    }
+
+    /**
+     * @param SourceFile[] $sources
+     */
+    public function addAll(array $sources)
+    {
+        foreach ($sources as $source) {
+            $this->add($source);
+        }
     }
 
     /**

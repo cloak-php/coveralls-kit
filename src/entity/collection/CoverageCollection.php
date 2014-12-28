@@ -83,7 +83,7 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     }
 
     /**
-     * @param CoverageCollection $coverages
+     * @param CoverageCollection $collection
      */
     public function merge(CoverageCollection $collection)
     {

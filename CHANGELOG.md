@@ -1,6 +1,12 @@
 Change Log
 ===================================
 
+1.4.0
+-----------------------------------
+* The format of the configuration file changed to **toml**
+* Automatically detects the ci of execution environment
+* Fixed a small bug
+
 1.3.1
 -----------------------------------
 * Upgrade to guzzlehttp/guzzle

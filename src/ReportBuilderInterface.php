@@ -14,7 +14,7 @@ namespace coverallskit;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\RepositoryInterface;
-use coverallskit\entity\service\ServiceInterface;
+use coverallskit\entity\ServiceInterface;
 
 
 /**
@@ -26,37 +26,37 @@ interface ReportBuilderInterface
 
     /**
      * @param string $reportFilePath
-     * @return $this;
+     * @return ReportBuilderInterface
      */
     public function reportFilePath($reportFilePath);
 
     /**
      * @param string
-     * @return $this;
+     * @return ReportBuilderInterface;
      */
     public function token($repositoryToken);
 
     /**
      * @param ServiceInterface
-     * @return $this;
+     * @return ReportBuilderInterface
      */
     public function service(ServiceInterface $service);
 
     /**
      * @param RepositoryInterface
-     * @return $this;
+     * @return ReportBuilderInterface
      */
     public function repository(RepositoryInterface $repository);
 
     /**
      * @param SourceFile $source
-     * @return $this;
+     * @return ReportBuilderInterface
      */
     public function addSource(SourceFile $source);
 
     /**
      * @param SourceFileCollection $sources
-     * @return $this;
+     * @return ReportBuilderInterface
      */
     public function addSources(SourceFileCollection $sources);
 

@@ -14,7 +14,7 @@ namespace coverallskit;
 use coverallskit\entity\ReportInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Post\PostFile;
+
 
 /**
  * Class ReportTransfer

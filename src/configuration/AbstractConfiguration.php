@@ -12,7 +12,6 @@
 namespace coverallskit\configuration;
 
 use coverallskit\ConfigurationInterface;
-use coverallskit\entity\Repository;
 use Zend\Config\Config;
 use Eloquent\Pathogen\RelativePath;
 use Eloquent\Pathogen\AbsolutePath;

@@ -37,8 +37,8 @@ interface ReportTransferInterface
     public function getClient();
 
     /**
-     * @param entity\ReportInterface $jsonFile
-     * @return void
+     * @param \coverallskit\entity\ReportInterface $report
+     * @return mixed
      */
     public function upload(ReportInterface $report);
 

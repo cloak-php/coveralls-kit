@@ -9,20 +9,26 @@
  * with this source code in the file LICENSE.
  */
 
-namespace coverallskit\entity\service\travis;
+namespace coverallskit\environment;
 
-use coverallskit\entity\service\Travis;
-use coverallskit\AttributePopulatable;
+
 
 /**
  * Class TravisCI
- * @package coverallskit\entity\service
+ * @package coverallskit\environment
  */
-class TravisCI extends Travis
+final class TravisCI extends Travis implements AdaptorInterface
 {
 
-    use AttributePopulatable;
-
     const NAME = 'travis-ci';
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return self::NAME;
+    }
 
 }

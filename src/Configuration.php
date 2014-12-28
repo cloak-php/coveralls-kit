@@ -17,7 +17,7 @@ use coverallskit\exception\NotSupportFileTypeException;
 use coverallskit\configuration\Basic;
 use coverallskit\configuration\Report;
 use Zend\Config\Config;
-use Symfony\Component\Yaml\Yaml;
+use Yosymfony\Toml\Toml;
 use Eloquent\Pathogen\Factory\PathFactory;
 
 
@@ -96,7 +96,7 @@ class Configuration implements RootConfigurationInterface
     }
 
     /**
-     * @return \coverallskit\entity\service\ServiceInterface
+     * @return \coverallskit\entity\ServiceInterface
      */
     public function getService()
     {
@@ -131,7 +131,7 @@ class Configuration implements RootConfigurationInterface
 
         $config = new Config([
             Basic::TOKEN_KEY => null,
-            Basic::SERVICE_KEY => 'travis-ci',
+            Basic::SERVICE_KEY => null,
             Report::REPORT_FILE_KEY => [
                 Report::OUTPUT_REPORT_FILE_KEY => 'coveralls.json'
             ],
@@ -153,11 +153,11 @@ class Configuration implements RootConfigurationInterface
             throw new FileNotFoundException($file);
         }
 
-        if (preg_match('/(\.yml|yaml)$/', $file) !== 1) {
+        if (preg_match('/(\.toml)$/', $file) !== 1) {
             throw new NotSupportFileTypeException($file);
         }
 
-        $values = Yaml::parse($file);
+        $values = Toml::parse($file);
         $values = (is_array($values) === true) ? $values : [];
 
         $config = new Config($values);

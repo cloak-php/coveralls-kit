@@ -36,7 +36,7 @@ Perform the required settings
 Specify **repository token**, **service name**, **the directory of the repository**.
 
 1. **repository token** - Repository token of coveralls
-2. **service name** - *TravisCI::ci()* or *TravisCI::pro()*
+2. **service name** - *TravisCI* or *TravisCI*
 3. **repository** - the directory of the repository
 
 ### Example in the case of TravisCI

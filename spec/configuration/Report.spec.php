@@ -70,10 +70,10 @@ describe('Report', function() {
             $this->reportConfig->applyTo($this->reportBuilder);
         });
         it('apply report file configration', function() {
-            expect($this->reportBuilder->reportFilePath)->toEqual($this->reportFile);
+            expect($this->reportBuilder->getReportFilePath())->toEqual($this->reportFile);
         });
         it('apply coverage report configration', function() {
-            $sourceFiles = $this->reportBuilder->sourceFiles;
+            $sourceFiles = $this->reportBuilder->getSources();
             expect($sourceFiles->isEmpty())->toBeFalse();
         });
     });

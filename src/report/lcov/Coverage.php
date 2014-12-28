@@ -80,7 +80,7 @@ final class Coverage extends AbstractRecord
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getAnalysisResult()
     {
