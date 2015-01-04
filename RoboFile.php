@@ -3,7 +3,7 @@
 use \Robo\Tasks;
 use coverallskit\Configuration;
 use coverallskit\ReportBuilder;
-
+use peridot\robo\PeridotTasks;
 
 /**
  * Class RoboFile
@@ -11,11 +11,15 @@ use coverallskit\ReportBuilder;
 class RoboFile extends Tasks
 {
 
+    use PeridotTasks;
+
     public function specAll()
     {
-        $peridot = 'vendor/bin/peridot';
-        $peridotSpecTargets = 'spec';
-        return $this->taskExec($peridot . ' ' . $peridotSpecTargets)->run();
+        $result = $this->taskPeridot()
+            ->directoryPath('spec')
+            ->run();
+
+        return $result;
     }
 
     public function specCoveralls()
