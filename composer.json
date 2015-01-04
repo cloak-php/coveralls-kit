@@ -21,6 +21,7 @@
         "peridot-php/peridot": "~1.8",
         "expectation/peridot-expectation": "~1.2",
         "cloak/peridot-cloak": "~1.0",
+        "robo-peridot/robo-peridot": "~1.0",
         "codegyre/robo": "~0.4"
     },
     "license": "MIT",
