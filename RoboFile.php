@@ -3,7 +3,8 @@
 use \Robo\Tasks;
 use coverallskit\Configuration;
 use coverallskit\ReportBuilder;
-use peridot\robo\PeridotTasks;
+use peridot\robo\loadTasks as PeridotTasks;
+
 
 /**
  * Class RoboFile
