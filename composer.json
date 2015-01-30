@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.4.0",
         "phpcollection/phpcollection": "~0.4",
-        "guzzlehttp/guzzle": "~5.1",
+        "guzzlehttp/guzzle": "~5.2",
         "gitonomy/gitlib": "~0.1",
         "yosymfony/toml": "~0.2",
         "zendframework/zend-dom": "~2.3",
