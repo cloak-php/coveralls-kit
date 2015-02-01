@@ -43,7 +43,7 @@ describe('CircleCI', function() {
                 $this->circleCI = new CircleCI($environment);
             });
             it('return true', function() {
-                expect($this->circleCI->isSupported())->toBeTruthy();
+                expect($this->circleCI->isSupported())->toBeTrue();
             });
         });
     });

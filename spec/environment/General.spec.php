@@ -36,7 +36,7 @@ describe('General', function() {
                 $this->general = new General($environment);
             });
             it('return true', function() {
-                expect($this->general->isSupported())->toBeTruthy();
+                expect($this->general->isSupported())->toBeTrue();
             });
         });
     });

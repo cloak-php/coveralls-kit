@@ -43,7 +43,7 @@ describe('DroneIO', function() {
                 $this->drone = new DroneIO($environment);
             });
             it('return true', function() {
-                expect($this->drone->isSupported())->toBeTruthy();
+                expect($this->drone->isSupported())->toBeTrue();
             });
         });
     });

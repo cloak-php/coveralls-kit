@@ -42,7 +42,7 @@ describe('CodeShip', function() {
                 $this->codeship = new CodeShip($environment);
             });
             it('return true', function() {
-                expect($this->codeship->isSupported())->toBeTruthy();
+                expect($this->codeship->isSupported())->toBeTrue();
             });
         });
     });

@@ -43,7 +43,7 @@ describe('TravisCI', function() {
                 $this->travis = new TravisCI($environment);
             });
             it('return true', function() {
-                expect($this->travis->isSupported())->toBeTruthy();
+                expect($this->travis->isSupported())->toBeTrue();
             });
         });
     });

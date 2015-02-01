@@ -47,7 +47,7 @@ describe('Service', function() {
     describe('isEmpty', function() {
         context('when empty', function() {
             it('return false', function() {
-                expect($this->service->isEmpty())->toBeFalsy();
+                expect($this->service->isEmpty())->toBeFalse();
             });
         });
     });
