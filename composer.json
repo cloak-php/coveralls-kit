@@ -17,9 +17,9 @@
     },
     "require-dev": {
         "phpspec/prophecy": "~1.3",
-        "peridot-php/peridot": "~1.11",
+        "peridot-php/peridot": "~1.12",
         "expectation/peridot-expectation": "~1.2",
-        "cloak/peridot-cloak": "~1.0",
+        "cloak/peridot-cloak": "~1.1",
         "robo-peridot/robo-peridot": "~1.0",
         "codegyre/robo": "~0.5"
     },
