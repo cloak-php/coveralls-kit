@@ -17,11 +17,12 @@
     },
     "require-dev": {
         "phpspec/prophecy": "~1.3",
-        "peridot-php/peridot": "~1.12",
+        "peridot-php/peridot": "~1.14",
         "expectation/peridot-expectation": "~1.2",
         "cloak/peridot-cloak": "~1.1",
         "robo-peridot/robo-peridot": "~1.0",
-        "codegyre/robo": "~0.5"
+        "codegyre/robo": "~0.5",
+        "peridot-php/peridot-dot-reporter": "~1.0"
     },
     "license": "MIT",
     "authors": [

@@ -18,6 +18,7 @@ class RoboFile extends Tasks
     {
         $result = $this->taskPeridot()
             ->directoryPath('spec')
+            ->reporter('dot')
             ->run();
 
         return $result;
