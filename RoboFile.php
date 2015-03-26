@@ -26,7 +26,7 @@ class RoboFile extends Tasks
 
     public function specCoveralls()
     {
-        $configuration = Configuration::loadFromFile('coveralls.toml');
+        $configuration = Configuration::loadFromFile('.coveralls.toml');
         $builder = ReportBuilder::fromConfiguration($configuration);
         $builder->build()->save()->upload();
     }

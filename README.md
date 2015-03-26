@@ -1,4 +1,5 @@
 CoverallsKit====================================[![Build Status](https://travis-ci.org/cloak-php/coveralls-kit.svg?branch=master)](https://travis-ci.org/cloak-php/coveralls-kit)
+[![HHVM Status](http://hhvm.h4cc.de/badge/cloak/coverallskit.svg)](http://hhvm.h4cc.de/package/cloak/coverallskit)
 [![Build Status](https://drone.io/github.com/cloak-php/coveralls-kit/status.png)](https://drone.io/github.com/cloak-php/coveralls-kit/latest)
 [![Circle CI](https://circleci.com/gh/cloak-php/coveralls-kit.svg?style=svg)](https://circleci.com/gh/cloak-php/coveralls-kit)
 [![Build Status](https://codeship.com/projects/af9497a0-70ab-0132-4b61-227a26fe7ed7/status?branch=master)](https://codeship.com/projects/54536)
