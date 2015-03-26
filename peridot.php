@@ -9,5 +9,8 @@ return function(EventEmitterInterface $emitter)
 {
     $dot = new DotReporterPlugin($emitter);
     ExpectationPlugin::create()->registerTo($emitter);
-    CloakPlugin::create('cloak.toml')->registerTo($emitter);
+
+    if (defined('HHVM_VERSION') === false) {
+        CloakPlugin::create('.cloak.toml')->registerTo($emitter);
+    }
 };
