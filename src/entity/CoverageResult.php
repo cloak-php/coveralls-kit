@@ -16,10 +16,10 @@ use UnexpectedValueException;
 
 
 /**
- * Class Coverage
+ * Class CoverageResult
  * @package coverallskit\entity
  */
-class Coverage implements CoverageEntity
+class CoverageResult implements CoverageEntity
 {
 
     /**

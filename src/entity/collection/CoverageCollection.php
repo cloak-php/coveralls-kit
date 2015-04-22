@@ -11,7 +11,7 @@
 
 namespace coverallskit\entity\collection;
 
-use coverallskit\entity\CoverageInterface;
+use coverallskit\entity\CoverageEntitiy;
 use coverallskit\value\LineRange;
 use coverallskit\AttributePopulatable;
 use coverallskit\exception\LineOutOfRangeException;
