@@ -11,7 +11,7 @@
 
 namespace coverallskit\entity\collection;
 
-use coverallskit\entity\CoverageEntitiy;
+use coverallskit\entity\CoverageEntity;
 use coverallskit\value\LineRange;
 use coverallskit\AttributePopulatable;
 use coverallskit\exception\LineOutOfRangeException;
@@ -48,10 +48,10 @@ class CoverageCollection implements CompositeEntityCollection
     }
 
     /**
-     * @param CoverageEntitiy $coverage
+     * @param CoverageEntity $coverage
      * @throws \coverallskit\exception\LineOutOfRangeException
      */
-    public function add(CoverageEntitiy $coverage)
+    public function add(CoverageEntity $coverage)
     {
         if ($coverage->contains($this->lineRange) === false) {
             throw new LineOutOfRangeException($coverage, $this->lineRange);
@@ -95,9 +95,9 @@ class CoverageCollection implements CompositeEntityCollection
     }
 
     /**
-     * @param CoverageEntitiy $coverage
+     * @param CoverageEntity $coverage
      */
-    public function remove(CoverageEntitiy $coverage)
+    public function remove(CoverageEntity $coverage)
     {
         $this->removeAt($coverage->getLineNumber());
     }
@@ -138,7 +138,7 @@ class CoverageCollection implements CompositeEntityCollection
      */
     public function getExecutedLineCount()
     {
-        $filter = function(CoverageEntitiy $coverage) {
+        $filter = function(CoverageEntity $coverage) {
             return $coverage->isExecuted();
         };
         return $this->matchCount($filter);
@@ -149,7 +149,7 @@ class CoverageCollection implements CompositeEntityCollection
      */
     public function getUnusedLineCount()
     {
-        $filter = function(CoverageEntitiy $coverage) {
+        $filter = function(CoverageEntity $coverage) {
             return $coverage->isUnused();
         };
         return $this->matchCount($filter);
