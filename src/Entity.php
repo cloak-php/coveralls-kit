@@ -11,6 +11,22 @@
 
 namespace coverallskit;
 
-interface CompositeEntityInterface extends EntityInterface, ArrayConvertible
+interface Entity
 {
+
+    /**
+     * @param array
+     */
+    public function populate(array $values);
+
+    /**
+     * @return boolean
+     */
+    public function isEmpty();
+
+    /**
+     * @return string
+     */
+    public function __toString();
+
 }

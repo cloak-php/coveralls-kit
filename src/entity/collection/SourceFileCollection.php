@@ -20,7 +20,7 @@ use PhpCollection\Map;
  * Class SourceFileCollection
  * @package coverallskit\entity\collection
  */
-class SourceFileCollection implements CompositeEntityCollectionInterface
+class SourceFileCollection implements CompositeEntityCollection
 {
 
     use AttributePopulatable;

@@ -23,7 +23,7 @@ use coverallskit\exception\ExceptionCollection;
  * Class CoverageCollection
  * @package coverallskit\entity\collection
  */
-class CoverageCollection implements CompositeEntityCollectionInterface
+class CoverageCollection implements CompositeEntityCollection
 {
 
     use AttributePopulatable;

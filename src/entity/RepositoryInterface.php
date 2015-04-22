@@ -11,9 +11,9 @@
 
 namespace coverallskit\entity;
 
-use coverallskit\CompositeEntityInterface;
+use coverallskit\CompositeEntity;
 
-interface RepositoryInterface extends CompositeEntityInterface
+interface RepositoryInterface extends CompositeEntity
 {
 
     /**

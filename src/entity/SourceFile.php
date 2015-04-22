@@ -11,7 +11,7 @@
 
 namespace coverallskit\entity;
 
-use coverallskit\CompositeEntityInterface;
+use coverallskit\CompositeEntity;
 use coverallskit\entity\collection\CoverageCollection;
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\AttributePopulatable;
@@ -22,7 +22,7 @@ use coverallskit\value\LineRange;
  * Class SourceFile
  * @package coverallskit\entity
  */
-class SourceFile implements CompositeEntityInterface
+class SourceFile implements CompositeEntity
 {
 
     use AttributePopulatable;
