@@ -1,6 +1,6 @@
 {
     "name": "cloak/coverallskit",
-    "description": "Transmitting the report of code coverage to coveralls.",
+    "description": "PHP client for Coveralls.io",
     "keywords": [
         "coveralls", "code coverage", "report", "lcov", "clover"
     ],
