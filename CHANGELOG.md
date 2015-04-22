@@ -1,6 +1,12 @@
 Change Log
 ===================================
 
+2.0.0
+-----------------------------------
+* Rename CompositeEntityInterface.php -> CompositeEntity.php
+* Rename EntityInterface.php -> Entity.php
+* Rename CompositeEntityCollectionInterface.php -> CompositeEntityCollection
+
 1.4.0.3
 -----------------------------------
 * Upgrade peridot (1.9 > 1.8)
