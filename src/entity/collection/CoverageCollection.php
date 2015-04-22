@@ -48,10 +48,10 @@ class CoverageCollection implements CompositeEntityCollection
     }
 
     /**
-     * @param CoverageInterface $coverage
+     * @param CoverageEntitiy $coverage
      * @throws \coverallskit\exception\LineOutOfRangeException
      */
-    public function add(CoverageInterface $coverage)
+    public function add(CoverageEntitiy $coverage)
     {
         if ($coverage->contains($this->lineRange) === false) {
             throw new LineOutOfRangeException($coverage, $this->lineRange);
@@ -95,9 +95,9 @@ class CoverageCollection implements CompositeEntityCollection
     }
 
     /**
-     * @param CoverageInterface $coverage
+     * @param CoverageEntitiy $coverage
      */
-    public function remove(CoverageInterface $coverage)
+    public function remove(CoverageEntitiy $coverage)
     {
         $this->removeAt($coverage->getLineNumber());
     }
@@ -138,7 +138,7 @@ class CoverageCollection implements CompositeEntityCollection
      */
     public function getExecutedLineCount()
     {
-        $filter = function(CoverageInterface $coverage) {
+        $filter = function(CoverageEntitiy $coverage) {
             return $coverage->isExecuted();
         };
         return $this->matchCount($filter);
@@ -149,7 +149,7 @@ class CoverageCollection implements CompositeEntityCollection
      */
     public function getUnusedLineCount()
     {
-        $filter = function(CoverageInterface $coverage) {
+        $filter = function(CoverageEntitiy $coverage) {
             return $coverage->isUnused();
         };
         return $this->matchCount($filter);
