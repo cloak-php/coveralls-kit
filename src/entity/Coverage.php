@@ -19,7 +19,7 @@ use UnexpectedValueException;
  * Class Coverage
  * @package coverallskit\entity
  */
-class Coverage implements CoverageInterface 
+class Coverage implements CoverageEntity
 {
 
     /**

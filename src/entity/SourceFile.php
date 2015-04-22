@@ -127,11 +127,11 @@ class SourceFile implements CompositeEntity
     }
 
     /**
-     * @param CoverageInterface $coverage
+     * @param CoverageEntity $coverage
      * @throws \coverallskit\exception\LineOutOfRangeException
      * @throws \Exception
      */
-    public function addCoverage(CoverageInterface $coverage)
+    public function addCoverage(CoverageEntity $coverage)
     {
         try {
             $this->coverages->add($coverage);
@@ -158,7 +158,7 @@ class SourceFile implements CompositeEntity
     {
         $lineNumber = $coverage;
 
-        if ($coverage instanceof CoverageInterface) {
+        if ($coverage instanceof CoverageEntity) {
             $lineNumber = $coverage->getLineNumber();
         }
 
