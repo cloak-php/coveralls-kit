@@ -7,6 +7,8 @@ Change Log
 * Rename EntityInterface.php -> Entity.php
 * Rename CompositeEntityCollectionInterface.php -> CompositeEntityCollection
 * Raname CoverageInterface -> CoverageEntity
+* Raname Coverage -> CoverageResult
+
 
 1.4.0.3
 -----------------------------------
