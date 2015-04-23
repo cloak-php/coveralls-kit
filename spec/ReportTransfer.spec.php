@@ -14,7 +14,7 @@ namespace coverallskit\spec;
 use coverallskit\ReportTransfer;
 use coverallskit\entity\Report;
 use coverallskit\entity\Service;
-use coverallskit\entity\Repository;
+use coverallskit\entity\GitRepository;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\Environment;
 use coverallskit\environment\TravisCI;
@@ -49,7 +49,7 @@ describe('ReportTransfer', function() {
             $this->report = new Report([
                 'name' => __DIR__ . '/fixtures/coveralls.json',
                 'token' => 'foo',
-                'repository' => new Repository(__DIR__ . '/../'),
+                'repository' => new GitRepository(__DIR__ . '/../'),
                 'service' => $service,
                 'sourceFiles' => new SourceFileCollection()
             ]);
