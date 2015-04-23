@@ -12,7 +12,7 @@
 namespace coverallskit;
 
 use coverallskit\entity\Report;
-use coverallskit\entity\RepositoryInterface;
+use coverallskit\entity\RepositoryEntity;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\ServiceInterface;
@@ -41,7 +41,7 @@ class ReportBuilder implements ReportBuilderInterface
     private $service;
 
     /**
-     * @var \coverallskit\entity\RepositoryInterface
+     * @var \coverallskit\entity\RepositoryEntity
      */
     private $repository;
 
@@ -111,17 +111,17 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
-     * @param RepositoryInterface $repository
+     * @param RepositoryEntity $repository
      * @return $this
      */
-    public function repository(RepositoryInterface $repository)
+    public function repository(RepositoryEntity $repository)
     {
         $this->repository = $repository;
         return $this;
     }
 
     /**
-     * @return RepositoryInterface
+     * @return RepositoryEntity
      */
     public function getRepository()
     {

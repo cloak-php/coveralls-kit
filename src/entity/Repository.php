@@ -23,7 +23,7 @@ use PhpCollection\Map;
  * Class Repository
  * @package coverallskit\entity
  */
-class Repository implements RepositoryInterface
+class Repository implements RepositoryEntity
 {
 
     use AttributePopulatable;

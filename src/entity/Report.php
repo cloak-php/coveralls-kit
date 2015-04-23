@@ -42,7 +42,7 @@ class Report implements ReportInterface
     private $service;
 
     /**
-     * @var \coverallskit\entity\RepositoryInterface
+     * @var \coverallskit\entity\RepositoryEntity
      */
     private $repository;
 
@@ -91,7 +91,7 @@ class Report implements ReportInterface
     }
 
     /**
-     * @return RepositoryInterface
+     * @return RepositoryEntity
      */
     public function getRepository()
     {

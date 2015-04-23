@@ -13,7 +13,7 @@ namespace coverallskit\entity;
 
 use coverallskit\CompositeEntity;
 
-interface RepositoryInterface extends CompositeEntity
+interface RepositoryEntity extends CompositeEntity
 {
 
     /**

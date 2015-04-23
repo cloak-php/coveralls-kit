@@ -53,7 +53,7 @@ describe('Configuration', function() {
                 expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\ServiceInterface');
             });
             it('should set the repository', function() {
-                expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryInterface');
+                expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryEntity');
             });
         });
     });
@@ -97,7 +97,7 @@ describe('Configuration', function() {
             expect($this->report->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceInterface');
         });
         it('apply repository config', function() {
-            expect($this->report->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
+            expect($this->report->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryEntity');
         });
         it('apply clover report config', function() {
             $sourceFiles = $this->report->getSourceFiles();
