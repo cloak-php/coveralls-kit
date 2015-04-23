@@ -9,6 +9,7 @@ Change Log
 * Raname CoverageInterface -> CoverageEntity
 * Raname Coverage -> CoverageResult
 * Raname RepositoryInterface -> RepositoryEntity
+* Raname Repository -> GitRepository
 
 
 1.4.0.3
