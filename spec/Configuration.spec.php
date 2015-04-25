@@ -50,10 +50,10 @@ describe('Configuration', function() {
                 expect($this->configration->getToken())->toEqual('api-token');
             });
             it('should set the service instance', function() {
-                expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\ServiceInterface');
+                expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\ServiceEntity');
             });
             it('should set the repository', function() {
-                expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryInterface');
+                expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryEntity');
             });
         });
     });
@@ -94,10 +94,10 @@ describe('Configuration', function() {
             expect($this->report->getName())->toEqual(realpath(__DIR__ . '/../') . '/coveralls.json');
         });
         it('apply service config', function() {
-            expect($this->report->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceInterface');
+            expect($this->report->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceEntity');
         });
         it('apply repository config', function() {
-            expect($this->report->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
+            expect($this->report->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryEntity');
         });
         it('apply clover report config', function() {
             $sourceFiles = $this->report->getSourceFiles();

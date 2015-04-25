@@ -40,10 +40,10 @@ describe('Basic', function() {
             expect($this->configration->getToken())->toEqual('api-token');
         });
         it('set the service instance', function() {
-            expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\ServiceInterface');
+            expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\ServiceEntity');
         });
         it('set the repository', function() {
-            expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryInterface');
+            expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryEntity');
         });
     });
     describe('applyTo', function() {
@@ -55,10 +55,10 @@ describe('Basic', function() {
             expect($this->builder->getToken())->toEqual('api-token');
         });
         it('apply service config', function() {
-            expect($this->builder->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceInterface');
+            expect($this->builder->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceEntity');
         });
         it('apply repository config', function() {
-            expect($this->builder->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
+            expect($this->builder->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryEntity');
         });
     });
 });

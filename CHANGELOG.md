@@ -8,6 +8,12 @@ Change Log
 * Rename CompositeEntityCollectionInterface.php -> CompositeEntityCollection
 * Raname CoverageInterface -> CoverageEntity
 * Raname Coverage -> CoverageResult
+* Raname RepositoryInterface -> RepositoryEntity
+* Raname Repository -> GitRepository
+* Raname ServiceInterface -> ServiceEntity
+* Raname Service -> CIService
+* Raname ReportInterface -> ReportEntity
+* Raname Report -> CoverallsReport
 
 
 1.4.0.3

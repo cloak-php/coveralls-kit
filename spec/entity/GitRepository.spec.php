@@ -11,18 +11,18 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\entity\Repository;
+use coverallskit\entity\GitRepository;
 
-describe('Repository', function() {
+describe('GitRepository', function() {
     beforeEach(function() {
         $this->directory = realpath(__DIR__ . '/../../');
-        $this->repository = new Repository($this->directory);
+        $this->repository = new GitRepository($this->directory);
     });
 
     describe('isEmpty', function() {
         context('when repository is not empty', function() {
             it('should return false', function () {
-                $repository = new Repository($this->directory);
+                $repository = new GitRepository($this->directory);
                 expect($repository->isEmpty())->toBeFalse();
             });
         });

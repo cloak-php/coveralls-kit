@@ -11,11 +11,11 @@
 
 namespace coverallskit;
 
-use coverallskit\entity\Report;
-use coverallskit\entity\RepositoryInterface;
+use coverallskit\entity\CoverallsReport;
+use coverallskit\entity\RepositoryEntity;
+use coverallskit\entity\ServiceEntity;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\ServiceInterface;
 
 
 /**
@@ -36,12 +36,12 @@ class ReportBuilder implements ReportBuilderInterface
     private $token;
 
     /**
-     * @var \coverallskit\entity\ServiceInterface
+     * @var \coverallskit\entity\ServiceEntity
      */
     private $service;
 
     /**
-     * @var \coverallskit\entity\RepositoryInterface
+     * @var \coverallskit\entity\RepositoryEntity
      */
     private $repository;
 
@@ -93,17 +93,17 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
-     * @param ServiceInterface $service
+     * @param ServiceEntity $service
      * @return $this
      */
-    public function service(ServiceInterface $service)
+    public function service(ServiceEntity $service)
     {
         $this->service = $service;
         return $this;
     }
 
     /**
-     * @return ServiceInterface
+     * @return ServiceEntity
      */
     public function getService()
     {
@@ -111,17 +111,17 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
-     * @param RepositoryInterface $repository
+     * @param RepositoryEntity $repository
      * @return $this
      */
-    public function repository(RepositoryInterface $repository)
+    public function repository(RepositoryEntity $repository)
     {
         $this->repository = $repository;
         return $this;
     }
 
     /**
-     * @return RepositoryInterface
+     * @return RepositoryEntity
      */
     public function getRepository()
     {
@@ -166,13 +166,13 @@ class ReportBuilder implements ReportBuilderInterface
     }
 
     /**
-     * @return \coverallskit\entity\ReportInterface
+     * @return \coverallskit\entity\ReportEntity
      */
     public function build()
     {
         $this->prepareBuild();
 
-        return new Report([
+        return new CoverallsReport([
             'name' => $this->reportFilePath,
             'token' => $this->token,
             'repository' => $this->repository,
@@ -188,7 +188,7 @@ class ReportBuilder implements ReportBuilderInterface
      */
     public static function fromConfiguration(ConfigurationInterface $config)
     {
-        return $config->applyTo(new static());
+        return $config->applyTo(new self());
     }
 
 }
