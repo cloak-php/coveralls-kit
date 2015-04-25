@@ -112,7 +112,7 @@ describe('BuilderConfiguration', function() {
                 beforeEach(function() {
                     $this->config = BuilderConfiguration::loadFromFile(__DIR__ . '/fixtures/coveralls.toml');
                 });
-                it('should return coverallskit\Configuration instance', function() {
+                it('should return coverallskit\BuilderConfiguration instance', function() {
                     expect($this->config)->toBeAnInstanceOf('coverallskit\BuilderConfiguration');
                 });
                 it('should configration has report name', function() {
