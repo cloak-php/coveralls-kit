@@ -22,6 +22,11 @@ Change Log
 * Rename ReportTransfer -> CoverallsReportTransfer
 * Rename ReportTransferInterface -> ReportTransfer
 * Rename ReportTransferAwareInterface -> ReportTransferAware
+* Rename Configuration -> BuilderConfiguration
+* Rename ConfigurationInterface -> Configuration
+* Rename RootConfigurationInterface -> RootConfiguration
+* Rename ConfigurationLoaderInterface -> ConfigurationLoader
+
 
 1.4.0.3
 -----------------------------------

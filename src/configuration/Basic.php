@@ -11,7 +11,7 @@
 
 namespace coverallskit\configuration;
 
-use coverallskit\ReportBuilderInterface;
+use coverallskit\ReportBuilder;
 use coverallskit\entity\CIService;
 use coverallskit\entity\GitRepository;
 use coverallskit\Environment;
@@ -85,10 +85,10 @@ class Basic extends AbstractConfiguration
     }
 
     /**
-     * @param ReportBuilderInterface $builder
-     * @return ReportBuilderInterface
+     * @param ReportBuilder $builder
+     * @return ReportBuilder
      */
-    public function applyTo(ReportBuilderInterface $builder)
+    public function applyTo(ReportBuilder $builder)
     {
         $builder->token($this->getToken())
             ->service($this->getService())
