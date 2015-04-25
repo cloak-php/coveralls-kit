@@ -183,10 +183,10 @@ class CoverallsReportBuilder implements ReportBuilder
     }
 
     /**
-     * @param ConfigurationInterface $config
+     * @param Configuration $config
      * @return ReportBuilder
      */
-    public static function fromConfiguration(ConfigurationInterface $config)
+    public static function fromConfiguration(Configuration $config)
     {
         return $config->applyTo(new self());
     }
