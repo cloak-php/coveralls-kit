@@ -177,7 +177,7 @@ class GitRepository implements RepositoryEntity
     }
 
     /**
-     * @return \coverallskit\entity\collection\RemoteCollection;
+     * @return \coverallskit\entity\collection\RemoteCollection
      */
     public function getRemotes()
     {
