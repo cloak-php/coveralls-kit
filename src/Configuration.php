@@ -15,13 +15,13 @@ namespace coverallskit;
  * Interface Configuration
  * @package coverallskit
  */
-interface ConfigurationInterface
+interface Configuration
 {
 
     /**
-     * @param ReportBuilderInterface $builder
-     * @return ReportBuilderInterface
+     * @param ReportBuilder $builder
+     * @return ReportBuilder
      */
-    public function applyTo(ReportBuilderInterface $builder);
+    public function applyTo(ReportBuilder $builder);
 
 }

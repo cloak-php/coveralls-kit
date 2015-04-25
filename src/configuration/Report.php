@@ -12,7 +12,7 @@
 namespace coverallskit\configuration;
 
 
-use coverallskit\ReportBuilderInterface;
+use coverallskit\ReportBuilder;
 use coverallskit\report\ParserRegistry;
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\RegistryNotFoundException;
@@ -89,9 +89,9 @@ class Report extends AbstractConfiguration
     }
 
     /**
-     * @param ReportBuilderInterface $builder
+     * @param ReportBuilder $builder
      */
-    private function applyReportResult(ReportBuilderInterface $builder)
+    private function applyReportResult(ReportBuilder $builder)
     {
         $path = $this->getCoverageReportFilePath();
         $reportType = $this->getCoverageReportFileType();
@@ -110,7 +110,7 @@ class Report extends AbstractConfiguration
 
     /**
      * @param string $reportType
-     * @return \coverallskit\report\ReportParserInterface
+     * @return \coverallskit\report\ReportParser
      * @throws \coverallskit\exception\NotSupportFileTypeException
      */
     private function detectReportParser($reportType)
@@ -127,10 +127,10 @@ class Report extends AbstractConfiguration
     }
 
     /**
-     * @param ReportBuilderInterface $builder
-     * @return ReportBuilderInterface
+     * @param ReportBuilder $builder
+     * @return ReportBuilder
      */
-    public function applyTo(ReportBuilderInterface $builder)
+    public function applyTo(ReportBuilder $builder)
     {
         $builder->reportFilePath($this->getReportFileName());
 

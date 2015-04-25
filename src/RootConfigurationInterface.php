@@ -15,7 +15,7 @@ namespace coverallskit;
  * Interface RootConfigurationInterface
  * @package coverallskit
  */
-interface RootConfigurationInterface extends ConfigurationInterface, ConfigurationLoaderInterface
+interface RootConfigurationInterface extends Configuration, ConfigurationLoaderInterface
 {
 
     /**
@@ -29,7 +29,7 @@ interface RootConfigurationInterface extends ConfigurationInterface, Configurati
     public function getToken();
 
     /**
-     * @return \coverallskit\entity\ServiceInterface
+     * @return \coverallskit\entity\ServiceEntity
      */
     public function getService();
 

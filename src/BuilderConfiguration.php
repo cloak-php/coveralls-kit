@@ -104,7 +104,7 @@ class BuilderConfiguration implements RootConfigurationInterface
     }
 
     /**
-     * @return \coverallskit\entity\Repository
+     * @return \coverallskit\entity\RepositoryEntity
      */
     public function getRepository()
     {
@@ -112,10 +112,10 @@ class BuilderConfiguration implements RootConfigurationInterface
     }
 
     /**
-     * @param ReportBuilderInterface $builder
-     * @return ReportBuilderInterface
+     * @param ReportBuilder $builder
+     * @return ReportBuilder
      */
-    public function applyTo(ReportBuilderInterface $builder)
+    public function applyTo(ReportBuilder $builder)
     {
         $this->basic->applyTo($builder);
         $this->report->applyTo($builder);
