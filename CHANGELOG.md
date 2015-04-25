@@ -12,6 +12,7 @@ Change Log
 * Raname Repository -> GitRepository
 * Raname ServiceInterface -> ServiceEntity
 * Raname Service -> CIService
+* Raname ReportInterface -> ReportEntity
 
 
 1.4.0.3
