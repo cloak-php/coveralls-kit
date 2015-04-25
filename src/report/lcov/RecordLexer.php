@@ -74,7 +74,7 @@ class RecordLexer implements IteratorAggregate
 
     /**
      * @param string $record
-     * @return \coverallskit\report\lcov\RecordInterface
+     * @return \coverallskit\report\lcov\FileRecord
      * @throws \UnexpectedValueException
      */
     private function detectRecord($record)

@@ -15,6 +15,7 @@ Change Log
 * Raname ReportInterface -> ReportEntity
 * Raname Report -> CoverallsReport
 * Raname AdaptorInterface -> EnviromentAdaptor
+* Raname RecordInterface -> FileRecord
 
 
 1.4.0.3

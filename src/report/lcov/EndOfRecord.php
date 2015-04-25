@@ -15,7 +15,7 @@ namespace coverallskit\report\lcov;
  * Class EndOfRecord
  * @package coverallskit\report\lcov
  */
-final class EndOfRecord implements RecordInterface
+final class EndOfRecord implements FileRecord
 {
 
     const PATTURN = '/^end_of_record$/';
