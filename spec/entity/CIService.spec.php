@@ -13,11 +13,11 @@ namespace coverallskit\spec;
 
 
 use coverallskit\Environment;
-use coverallskit\entity\Service;
+use coverallskit\entity\CIService;
 use Prophecy\Prophet;
 
 
-describe('Service', function() {
+describe('CIService', function() {
     beforeEach(function() {
         $this->prophet = new Prophet();
 
@@ -27,7 +27,7 @@ describe('Service', function() {
         $adaptor->getCoverallsToken()->willReturn('token');
         $adaptor->isSupported()->willReturn(true);
 
-        $this->service = new Service($adaptor->reveal());
+        $this->service = new CIService($adaptor->reveal());
     });
     describe('getServiceName', function() {
         it('return service name', function() {

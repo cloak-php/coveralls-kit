@@ -12,7 +12,7 @@
 namespace coverallskit\configuration;
 
 use coverallskit\ReportBuilderInterface;
-use coverallskit\entity\Service;
+use coverallskit\entity\CIService;
 use coverallskit\entity\GitRepository;
 use coverallskit\Environment;
 use coverallskit\environment\AdaptorResolver;
@@ -58,7 +58,7 @@ class Basic extends AbstractConfiguration
     }
 
     /**
-     * @return \coverallskit\entity\ServiceInterface
+     * @return \coverallskit\entity\ServiceEntity
      */
     public function getService()
     {
@@ -70,8 +70,8 @@ class Basic extends AbstractConfiguration
             $adaptor = $this->adaptorResolver->resolveByName($serviceName);
         }
 
-        return new Service($adaptor);
-     }
+        return new CIService($adaptor);
+    }
 
     /**
      * @return \coverallskit\entity\RepositoryEntity

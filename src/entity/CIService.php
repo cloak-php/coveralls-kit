@@ -17,10 +17,10 @@ use coverallskit\environment\AdaptorInterface;
 
 
 /**
- * Class Service
+ * Class CIService
  * @package coverallskit\entity
  */
-class Service implements ServiceEntity
+class CIService implements ServiceEntity
 {
 
     use AttributePopulatable;
