@@ -25,6 +25,8 @@ Change Log
 * Rename Configuration -> BuilderConfiguration
 * Rename ConfigurationInterface -> Configuration
 * Rename RootConfigurationInterface -> RootConfiguration
+* Rename ConfigurationLoaderInterface -> ConfigurationLoader
+
 
 1.4.0.3
 -----------------------------------

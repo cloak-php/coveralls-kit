@@ -15,7 +15,7 @@ namespace coverallskit;
  * Interface RootConfiguration
  * @package coverallskit
  */
-interface RootConfiguration extends Configuration, ConfigurationLoaderInterface
+interface RootConfiguration extends Configuration, ConfigurationLoader
 {
 
     /**
