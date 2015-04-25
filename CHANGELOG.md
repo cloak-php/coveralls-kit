@@ -24,7 +24,7 @@ Change Log
 * Rename ReportTransferAwareInterface -> ReportTransferAware
 * Rename Configuration -> BuilderConfiguration
 * Rename ConfigurationInterface -> Configuration
-
+* Rename RootConfigurationInterface -> RootConfiguration
 
 1.4.0.3
 -----------------------------------
