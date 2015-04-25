@@ -15,10 +15,10 @@ use coverallskit\CompositeEntity;
 use coverallskit\ReportTransferAwareInterface;
 
 /**
- * Interface ReportInterface
+ * Interface ReportEntity
  * @package coverallskit\entity
  */
-interface ReportInterface extends CompositeEntity, ReportTransferAwareInterface
+interface ReportEntity extends CompositeEntity, ReportTransferAwareInterface
 {
 
     const DEFAULT_NAME = 'coverage.json';

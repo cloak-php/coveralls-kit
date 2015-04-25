@@ -20,7 +20,7 @@ use coverallskit\exception\RequiredException;
  * Class Report
  * @package coverallskit\entity
  */
-class Report implements ReportInterface
+class Report implements ReportEntity
 {
 
     use AttributePopulatable;
@@ -37,7 +37,7 @@ class Report implements ReportInterface
     private $token;
 
     /**
-     * @var \coverallskit\entity\ServiceInterface
+     * @var \coverallskit\entity\ServiceEntity
      */
     private $service;
 
