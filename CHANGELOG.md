@@ -14,6 +14,9 @@ Change Log
 * Raname Service -> CIService
 * Raname ReportInterface -> ReportEntity
 * Raname Report -> CoverallsReport
+* Raname AdaptorInterface -> EnviromentAdaptor
+* Raname RecordInterface -> FileRecord
+* Raname ReportParserInterface -> ReportParser
 
 
 1.4.0.3

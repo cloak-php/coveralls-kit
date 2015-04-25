@@ -11,7 +11,7 @@
 
 namespace coverallskit\report\parser;
 
-use coverallskit\report\ReportParserInterface;
+use coverallskit\report\ReportParser;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\CoverageResult;
@@ -26,7 +26,7 @@ use DOMElement;
  * Class CloverReportParser
  * @package coverallskit\report\parser
  */
-class CloverReportParser implements ReportParserInterface
+class CloverReportParser implements ReportParser
 {
 
     /**

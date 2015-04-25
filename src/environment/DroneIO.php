@@ -16,7 +16,7 @@ namespace coverallskit\environment;
  * Class DroneIO
  * @package coverallskit\environment
  */
-final class DroneIO extends AbstractAdaptor implements AdaptorInterface
+final class DroneIO extends AbstractAdaptor implements EnvironmentAdaptor
 {
 
     const NAME = 'drone.io';
