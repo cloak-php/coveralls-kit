@@ -12,7 +12,7 @@
 namespace coverallskit\spec;
 
 use coverallskit\Configuration;
-use coverallskit\ReportBuilder;
+use coverallskit\CoverallsReportBuilder;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\repository\Commit;
 use coverallskit\entity\repository\Branch;
@@ -21,7 +21,7 @@ use coverallskit\entity\collection\RemoteCollection;
 use Prophecy\Prophet;
 
 
-describe('ReportBuilder', function() {
+describe('CoverallsReportBuilder', function() {
 
     describe('build', function() {
         beforeEach(function() {
@@ -61,7 +61,7 @@ describe('ReportBuilder', function() {
             $this->foo = realpath(__DIR__ . '/fixtures/foo.php');
             $this->bar = realpath(__DIR__ . '/fixtures/bar.php');
 
-            $this->builder = new ReportBuilder();
+            $this->builder = new CoverallsReportBuilder();
             $this->builder->reportFilePath(__DIR__  . '/tmp/coverage.json');
             $this->builder->token('foo');
             $this->builder->repository($this->repository);
@@ -100,10 +100,10 @@ describe('ReportBuilder', function() {
 
     describe('fromConfiguration', function() {
         beforeEach(function() {
-            $this->builder = ReportBuilder::fromConfiguration(new Configuration());
+            $this->builder = CoverallsReportBuilder::fromConfiguration(new Configuration());
         });
-        it('return coverallskit\ReportBuilder instance', function() {
-            expect($this->builder)->toBeAnInstanceOf('coverallskit\ReportBuilder');
+        it('return coverallskit\CoverallsReportBuilder instance', function() {
+            expect($this->builder)->toBeAnInstanceOf('coverallskit\CoverallsReportBuilder');
         });
     });
 

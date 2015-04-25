@@ -13,7 +13,7 @@ namespace coverallskit\spec;
 
 use coverallskit\Configuration;
 use coverallskit\configuration\Basic;
-use coverallskit\ReportBuilder;
+use coverallskit\CoverallsReportBuilder;
 use Zend\Config\Config;
 use Eloquent\Pathogen\Factory\PathFactory;
 
@@ -48,7 +48,7 @@ describe('Basic', function() {
     });
     describe('applyTo', function() {
         beforeEach(function() {
-            $this->builder = new ReportBuilder();
+            $this->builder = new CoverallsReportBuilder();
             $this->configration->applyTo($this->builder);
         });
         it('apply token config', function() {

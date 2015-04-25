@@ -17,7 +17,11 @@ Change Log
 * Raname AdaptorInterface -> EnviromentAdaptor
 * Raname RecordInterface -> FileRecord
 * Raname ReportParserInterface -> ReportParser
-
+* Raname ReportBuilder -> CoverallsReportBuilder
+* Raname ReportBuilderInterface -> ReportBuilder
+* Rename ReportTransfer -> CoverallsReportTransfer
+* Rename ReportTransferInterface -> ReportTransfer
+* Rename ReportTransferAwareInterface -> ReportTransferAware
 
 1.4.0.3
 -----------------------------------
