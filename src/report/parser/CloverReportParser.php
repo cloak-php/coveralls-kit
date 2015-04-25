@@ -15,11 +15,9 @@ use coverallskit\report\ReportParser;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\CoverageResult;
-use Zend\Dom\Query;
-use Zend\Dom\NodeList;
+use Symfony\Component\DomCrawler\Crawler;
 use coverallskit\exception\ExceptionCollection;
 use coverallskit\exception\LineOutOfRangeException;
-use DOMElement;
 
 
 /**
@@ -28,11 +26,10 @@ use DOMElement;
  */
 class CloverReportParser implements ReportParser
 {
-
     /**
-     * @var string
+     * @var \Symfony\Component\DomCrawler\Crawler
      */
-    private $reportContent;
+    private $crawler;
 
     /**
      * @var \coverallskit\entity\SourceFile
@@ -59,13 +56,12 @@ class CloverReportParser implements ReportParser
      */
     private $reportParseErrors;
 
-
     public function __construct()
     {
+        $this->crawler = new Crawler();
         $this->sourceCollection = new SourceFileCollection();
         $this->reportParseErrors = new ExceptionCollection();
     }
-
 
     /**
      * @param string $reportContent
@@ -73,45 +69,29 @@ class CloverReportParser implements ReportParser
      */
     public function parse($reportContent)
     {
-        $this->reportContent = $reportContent;
+        $this->crawler->addXmlContent($reportContent);
+        $fileNodes = $this->crawler->filter('file');
 
-        $files = $this->findFiles();
-        return $this->parseFileNodes($files);
+        return $this->parseFileNodes($fileNodes);
     }
 
     /**
-     * @return NodeList
-     */
-    private function findFiles()
-    {
-        $query = new Query($this->reportContent);
-        return $query->execute('file');
-    }
-
-    /**
-     * @param string $fileName
-     * @return NodeList
-     */
-    private function findCoverages($fileName)
-    {
-        $query = new Query($this->reportContent);
-        return $query->execute("file[name='$fileName'] line");
-    }
-
-    /**
-     * @param \Zend\Dom\NodeList $files
+     * @param Crawler $files
      * @return Result
      */
-    private function parseFileNodes(NodeList $files)
+    private function parseFileNodes(Crawler $files)
     {
-        foreach($files as $file) {
-            $fileName = (string) $file->getAttribute('name');
+        $fileNodeParser = function(Crawler $file) {
+            $fileName = $file->attr('name');
 
             $this->source = new SourceFile($fileName);
+            $lines = $this->crawler->filter("file[name='$fileName'] line");
 
-            $lines = $this->findCoverages($fileName);
             $this->parseLineNodes($lines);
-        }
+        };
+        $fileNodeParser->bind($this);
+
+        $files->each($fileNodeParser);
 
         $result = new Result(
             $this->sourceCollection,
@@ -122,16 +102,19 @@ class CloverReportParser implements ReportParser
     }
 
     /**
-     * @param \Zend\Dom\NodeList $lines
+     * @param Crawler $lines
      */
-    private function parseLineNodes(NodeList $lines)
+    private function parseLineNodes(Crawler $lines)
     {
         $this->coverages = $this->source->getEmptyCoverages();
         $this->coveragesErrors = new ExceptionCollection($this->source->getName());
 
-        foreach ($lines as $line) {
+        $lineNodeParser = function(Crawler $line) {
             $this->parseLine($line);
-        }
+        };
+        $lineNodeParser->bind($this);
+
+        $lines->each($lineNodeParser);
 
         $this->source->addCoverages($this->coverages);
         $this->sourceCollection->add($this->source);
@@ -140,12 +123,12 @@ class CloverReportParser implements ReportParser
     }
 
     /**
-     * @param DOMElement $line
+     * @param Crawler $line
      */
-    private function parseLine(DOMElement $line)
+    private function parseLine(Crawler $line)
     {
-        $lineNumber = (int) $line->getAttribute('num');
-        $executeCount = (int) $line->getAttribute('count');
+        $lineNumber = (int) $line->attr('num');
+        $executeCount = (int) $line->attr('count');
 
         $analysisResult = ($executeCount >= 1)
             ? CoverageResult::EXECUTED : CoverageResult::UNUSED;
