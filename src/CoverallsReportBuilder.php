@@ -19,10 +19,10 @@ use coverallskit\entity\collection\SourceFileCollection;
 
 
 /**
- * Class ReportBuilder
+ * Class CoverallsReportBuilder
  * @package coverallskit
  */
-class ReportBuilder implements ReportBuilderInterface
+class CoverallsReportBuilder implements ReportBuilderInterface
 {
 
     /**

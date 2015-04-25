@@ -12,7 +12,7 @@
 namespace coverallskit\spec;
 
 use coverallskit\Configuration;
-use coverallskit\ReportBuilder;
+use coverallskit\CoverallsReportBuilder;
 use Prophecy\Argument;
 use Zend\Config\Config;
 
@@ -85,7 +85,7 @@ describe('Configuration', function() {
 
             $this->configration = new Configuration($config);
 
-            $this->builder = new ReportBuilder();
+            $this->builder = new CoverallsReportBuilder();
             $this->configration->applyTo($this->builder);
 
             $this->report = $this->builder->build();
