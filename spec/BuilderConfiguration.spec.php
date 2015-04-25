@@ -11,12 +11,13 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\Configuration;
+use coverallskit\BuilderConfiguration;
 use coverallskit\CoverallsReportBuilder;
 use Prophecy\Argument;
 use Zend\Config\Config;
 
-describe('Configuration', function() {
+
+describe('BuilderConfiguration', function() {
 
     describe('__construct', function() {
         context('when specify the attribute', function() {
@@ -34,7 +35,7 @@ describe('Configuration', function() {
                     'repository' => __DIR__ . '/../'
                 ]);
 
-                $this->configration = new Configuration($config);
+                $this->configration = new BuilderConfiguration($config);
             });
             it('should set the name', function() {
                 expect($this->configration->getReportFileName())->toEqual(getcwd() . '/coveralls.json');
@@ -83,7 +84,7 @@ describe('Configuration', function() {
                 'repository' => __DIR__ . '/../'
             ]);
 
-            $this->configration = new Configuration($config);
+            $this->configration = new BuilderConfiguration($config);
 
             $this->builder = new CoverallsReportBuilder();
             $this->configration->applyTo($this->builder);
@@ -109,10 +110,10 @@ describe('Configuration', function() {
         context('when the file exists', function() {
             context('when .toml', function() {
                 beforeEach(function() {
-                    $this->config = Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.toml');
+                    $this->config = BuilderConfiguration::loadFromFile(__DIR__ . '/fixtures/coveralls.toml');
                 });
                 it('should return coverallskit\Configuration instance', function() {
-                    expect($this->config)->toBeAnInstanceOf('coverallskit\Configuration');
+                    expect($this->config)->toBeAnInstanceOf('coverallskit\BuilderConfiguration');
                 });
                 it('should configration has report name', function() {
                     $path = realpath(__DIR__  . '/fixtures') . '/coveralls.json';
@@ -123,14 +124,14 @@ describe('Configuration', function() {
         context('when the file not exists', function() {
             it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
-                    Configuration::loadFromFile(__DIR__ . '/fixtures/not_found_coveralls.yml');
+                    BuilderConfiguration::loadFromFile(__DIR__ . '/fixtures/not_found_coveralls.yml');
                 })->toThrow('coverallskit\exception\FileNotFoundException');
             });
         });
         context('when the file not support', function() {
             it('should throw coverallskit\exception\NotSupportFileTypeException', function() {
                 expect(function() {
-                    Configuration::loadFromFile(__DIR__ . '/fixtures/coveralls.ini');
+                    BuilderConfiguration::loadFromFile(__DIR__ . '/fixtures/coveralls.ini');
                 })->toThrow('coverallskit\exception\NotSupportFileTypeException');
             });
         });

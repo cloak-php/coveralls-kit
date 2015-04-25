@@ -22,10 +22,10 @@ use Eloquent\Pathogen\Factory\PathFactory;
 
 
 /**
- * Class Configuration
+ * Class BuilderConfiguration
  * @package coverallskit
  */
-class Configuration implements RootConfigurationInterface
+class BuilderConfiguration implements RootConfigurationInterface
 {
 
     /**
@@ -143,7 +143,7 @@ class Configuration implements RootConfigurationInterface
 
     /**
      * @param string $file
-     * @return Configuration
+     * @return BuilderConfiguration
      * @throws \coverallskit\exception\NotSupportFileTypeException
      * @throws \coverallskit\exception\FileNotFoundException
      */
@@ -166,7 +166,7 @@ class Configuration implements RootConfigurationInterface
             self::CONFIG_DIRECTORY_KEY => dirname(realpath($file)) . DIRECTORY_SEPARATOR
         ]));
 
-        return new Configuration($config);
+        return new BuilderConfiguration($config);
     }
 
 }

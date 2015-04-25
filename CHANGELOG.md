@@ -22,6 +22,7 @@ Change Log
 * Rename ReportTransfer -> CoverallsReportTransfer
 * Rename ReportTransferInterface -> ReportTransfer
 * Rename ReportTransferAwareInterface -> ReportTransferAware
+* Rename Configuration -> BuilderConfiguration
 
 1.4.0.3
 -----------------------------------

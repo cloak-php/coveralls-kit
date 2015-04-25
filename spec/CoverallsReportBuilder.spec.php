@@ -11,7 +11,7 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\Configuration;
+use coverallskit\BuilderConfiguration;
 use coverallskit\CoverallsReportBuilder;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\repository\Commit;
@@ -100,7 +100,7 @@ describe('CoverallsReportBuilder', function() {
 
     describe('fromConfiguration', function() {
         beforeEach(function() {
-            $this->builder = CoverallsReportBuilder::fromConfiguration(new Configuration());
+            $this->builder = CoverallsReportBuilder::fromConfiguration(new BuilderConfiguration());
         });
         it('return coverallskit\CoverallsReportBuilder instance', function() {
             expect($this->builder)->toBeAnInstanceOf('coverallskit\CoverallsReportBuilder');
