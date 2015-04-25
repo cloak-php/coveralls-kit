@@ -96,7 +96,7 @@ class Configuration implements RootConfigurationInterface
     }
 
     /**
-     * @return \coverallskit\entity\ServiceInterface
+     * @return \coverallskit\entity\ServiceEntity
      */
     public function getService()
     {
@@ -104,7 +104,7 @@ class Configuration implements RootConfigurationInterface
     }
 
     /**
-     * @return entity\Repository
+     * @return \coverallskit\entity\Repository
      */
     public function getRepository()
     {

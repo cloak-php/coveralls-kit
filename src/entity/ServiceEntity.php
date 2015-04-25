@@ -16,10 +16,10 @@ use coverallskit\CompositeEntity;
 
 
 /**
- * Interface ServiceInterface
+ * Interface ServiceEntity
  * @package coverallskit\entity\service
  */
-interface ServiceInterface extends CompositeEntity
+interface ServiceEntity extends CompositeEntity
 {
 
     /**

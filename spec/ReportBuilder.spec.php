@@ -27,7 +27,7 @@ describe('ReportBuilder', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+            $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
             $service->getServiceJobId()->willReturn('10');
             $service->getServiceName()->willReturn('travis-ci');
 

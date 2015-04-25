@@ -74,7 +74,7 @@ describe('Report', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+                $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
                 $service->isEmpty()->willReturn(true);
 
                 $this->report = new Report([
@@ -92,7 +92,7 @@ describe('Report', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+                $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
                 $service->isEmpty()->willReturn(false);
 
                 $this->report = new Report([
@@ -118,7 +118,7 @@ describe('Report', function() {
                 new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
             ]);
 
-            $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+            $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
             $service->isEmpty()->willReturn(false);
             $service->toArray()->willReturn([
                 'service_job_id' => '10',
@@ -157,7 +157,7 @@ describe('Report', function() {
                     new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
                 ]);
 
-                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+                $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
                 $service->isEmpty()->willReturn(false);
                 $service->toArray()->willReturn([
                     'service_job_id' => '10',
@@ -196,7 +196,7 @@ describe('Report', function() {
                     new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
                 ]);
 
-                $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+                $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
                 $service->isEmpty()->willReturn(false);
                 $service->toArray()->willReturn([
                     'service_job_id' => '10',

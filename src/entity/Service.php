@@ -20,7 +20,7 @@ use coverallskit\environment\AdaptorInterface;
  * Class Service
  * @package coverallskit\entity
  */
-class Service implements ServiceInterface
+class Service implements ServiceEntity
 {
 
     use AttributePopulatable;
