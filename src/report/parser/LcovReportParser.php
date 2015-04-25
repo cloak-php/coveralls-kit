@@ -17,7 +17,7 @@ use coverallskit\report\lcov\RecordLexer;
 use coverallskit\report\lcov\EndOfRecord;
 use coverallskit\report\lcov\SourceFile as LcovSourceFile;
 use coverallskit\report\lcov\Coverage as LcovCoverage;
-use coverallskit\report\ReportParserInterface;
+use coverallskit\report\ReportParser;
 use coverallskit\exception\ExceptionCollection;
 use coverallskit\exception\LineOutOfRangeException;
 
@@ -26,7 +26,7 @@ use coverallskit\exception\LineOutOfRangeException;
  * Class LcovReportParser
  * @package coverallskit\report\parser
  */
-class LcovReportParser implements ReportParserInterface
+class LcovReportParser implements ReportParser
 {
 
     /**

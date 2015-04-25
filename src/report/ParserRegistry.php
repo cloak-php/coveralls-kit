@@ -34,7 +34,7 @@ class ParserRegistry
 
     /**
      * @param string $name
-     * @return \coverallskit\report\ReportParserInterface
+     * @return \coverallskit\report\ReportParser
      * @throws \coverallskit\exception\RegistryNotFoundException
      */
     public function get($name)
