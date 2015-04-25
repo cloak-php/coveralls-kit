@@ -19,26 +19,26 @@ trait ReportTransferAwareTrait
 {
 
     /**
-     * @var ReportTransferInterface
+     * @var ReportTransfer
      */
     protected $reportTransfer;
 
     /**
      * {@inheritdoc}
      */
-    public function setReportTransfer(ReportTransferInterface $reportTransfer)
+    public function setReportTransfer(ReportTransfer $reportTransfer)
     {
         $this->reportTransfer = $reportTransfer;
         return $this;
     }
 
     /**
-     * @return ReportTransferInterface
+     * @return ReportTransfer
      */
     public function getReportTransfer()
     {
         $reportTransfer = $this->reportTransfer;
-        $reportTransfer = (is_null($reportTransfer)) ? new ReportTransfer() : $reportTransfer;
+        $reportTransfer = (is_null($reportTransfer)) ? new CoverallsReportTransfer() : $reportTransfer;
         $this->reportTransfer = $reportTransfer;
 
         return $this->reportTransfer;

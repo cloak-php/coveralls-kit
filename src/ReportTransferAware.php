@@ -12,20 +12,20 @@
 namespace coverallskit;
 
 /**
- * Interface ReportTransferAwareInterface
+ * Interface ReportTransferAware
  * @package coverallskit
  */
-interface ReportTransferAwareInterface
+interface ReportTransferAware
 {
 
     /**
-     * @param ReportTransferInterface $reportTransfer
+     * @param ReportTransfer $reportTransfer
      * @return $this
      */
-    public function setReportTransfer(ReportTransferInterface $reportTransfer);
+    public function setReportTransfer(ReportTransfer $reportTransfer);
 
     /**
-     * @return ReportTransferInterface
+     * @return ReportTransfer
      */
     public function getReportTransfer();
 
