@@ -22,7 +22,7 @@ use coverallskit\entity\collection\SourceFileCollection;
  * Class CoverallsReportBuilder
  * @package coverallskit
  */
-class CoverallsReportBuilder implements ReportBuilderInterface
+class CoverallsReportBuilder implements ReportBuilder
 {
 
     /**
@@ -184,7 +184,7 @@ class CoverallsReportBuilder implements ReportBuilderInterface
 
     /**
      * @param ConfigurationInterface $config
-     * @return ReportBuilderInterface
+     * @return ReportBuilder
      */
     public static function fromConfiguration(ConfigurationInterface $config)
     {

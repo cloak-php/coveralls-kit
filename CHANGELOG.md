@@ -18,6 +18,7 @@ Change Log
 * Raname RecordInterface -> FileRecord
 * Raname ReportParserInterface -> ReportParser
 * Raname ReportBuilder -> CoverallsReportBuilder
+* Raname ReportBuilderInterface -> ReportBuilder
 
 
 1.4.0.3

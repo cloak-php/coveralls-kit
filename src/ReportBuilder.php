@@ -18,45 +18,45 @@ use coverallskit\entity\ServiceEntity;
 
 
 /**
- * Interface ReportBuilderInterface
+ * Interface ReportBuilder
  * @package coverallskit
  */
-interface ReportBuilderInterface
+interface ReportBuilder
 {
 
     /**
      * @param string $reportFilePath
-     * @return ReportBuilderInterface
+     * @return ReportBuilder
      */
     public function reportFilePath($reportFilePath);
 
     /**
      * @param string
-     * @return ReportBuilderInterface;
+     * @return ReportBuilder;
      */
     public function token($repositoryToken);
 
     /**
      * @param ServiceEntity
-     * @return ReportBuilderInterface
+     * @return ReportBuilder
      */
     public function service(ServiceEntity $service);
 
     /**
      * @param RepositoryEntity
-     * @return ReportBuilderInterface
+     * @return ReportBuilder
      */
     public function repository(RepositoryEntity $repository);
 
     /**
      * @param SourceFile $source
-     * @return ReportBuilderInterface
+     * @return ReportBuilder
      */
     public function addSource(SourceFile $source);
 
     /**
      * @param SourceFileCollection $sources
-     * @return ReportBuilderInterface
+     * @return ReportBuilder
      */
     public function addSources(SourceFileCollection $sources);
 
