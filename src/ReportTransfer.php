@@ -16,10 +16,10 @@ use GuzzleHttp\ClientInterface;
 
 
 /**
- * Interface ReportTransferInterface
+ * Interface ReportTransfer
  * @package coverallskit
  */
-interface ReportTransferInterface
+interface ReportTransfer
 {
 
     const ENDPOINT_URL = 'https://coveralls.io/api/v1/jobs';

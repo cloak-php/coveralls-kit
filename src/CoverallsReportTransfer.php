@@ -20,7 +20,7 @@ use GuzzleHttp\ClientInterface;
  * Class CoverallsReportTransfer
  * @package coverallskit
  */
-class CoverallsReportTransfer implements ReportTransferInterface
+class CoverallsReportTransfer implements ReportTransfer
 {
 
     /**

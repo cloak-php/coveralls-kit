@@ -171,7 +171,7 @@ describe('CoverallsReport', function() {
                     'sourceFiles' => $sourceFiles
                 ]);
 
-                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
+                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransfer');
                 $this->notSavedFileUpLoader->upload($this->notSavedReport)->shouldBeCalled();
 
                 $this->notSavedReport->setReportTransfer($this->notSavedFileUpLoader->reveal());
@@ -209,7 +209,7 @@ describe('CoverallsReport', function() {
                     'service' => $service->reveal(),
                     'sourceFiles' => $sourceFiles
                 ]);
-                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransferInterface');
+                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransfer');
                 $this->savedFileUpLoader->upload($this->savedReport)->shouldBeCalled();
 
                 $this->savedReport->setReportTransfer($this->savedFileUpLoader->reveal());
