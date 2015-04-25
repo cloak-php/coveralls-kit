@@ -14,6 +14,7 @@ Change Log
 * Raname Service -> CIService
 * Raname ReportInterface -> ReportEntity
 * Raname Report -> CoverallsReport
+* Raname AdaptorInterface -> EnviromentAdaptor
 
 
 1.4.0.3

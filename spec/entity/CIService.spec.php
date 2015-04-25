@@ -21,7 +21,7 @@ describe('CIService', function() {
     beforeEach(function() {
         $this->prophet = new Prophet();
 
-        $adaptor = $this->prophet->prophesize('coverallskit\environment\AdaptorInterface');
+        $adaptor = $this->prophet->prophesize('coverallskit\environment\EnvironmentAdaptor');
         $adaptor->getName()->willReturn('travis-ci');
         $adaptor->getBuildJobId()->willReturn('10');
         $adaptor->getCoverallsToken()->willReturn('token');

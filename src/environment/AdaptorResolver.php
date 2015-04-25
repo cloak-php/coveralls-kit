@@ -24,7 +24,7 @@ class AdaptorResolver
 {
 
     /**
-     * @var \coverallskit\environment\AdaptorInterface[]
+     * @var \coverallskit\environment\EnvironmentAdaptor[]
      */
     private $adaptors;
 
@@ -51,7 +51,7 @@ class AdaptorResolver
     }
 
     /**
-     * @return AdaptorInterface
+     * @return EnvironmentAdaptor
      */
     public function resolveByEnvironment()
     {
@@ -66,7 +66,7 @@ class AdaptorResolver
 
     /**
      * @param string $name
-     * @return AdaptorInterface
+     * @return EnvironmentAdaptor
      */
     public function resolveByName($name)
     {
@@ -82,7 +82,7 @@ class AdaptorResolver
 
     /**
      * @param string $name
-     * @return AdaptorInterface|null
+     * @return EnvironmentAdaptor|null
      */
     private function detectByName($name)
     {
@@ -99,7 +99,7 @@ class AdaptorResolver
     }
 
     /**
-     * @return AdaptorInterface|null
+     * @return EnvironmentAdaptor|null
      */
     private function detectFromSupportAdaptors()
     {
