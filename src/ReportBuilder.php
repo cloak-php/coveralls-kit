@@ -32,7 +32,7 @@ interface ReportBuilder
 
     /**
      * @param string
-     * @return ReportBuilder;
+     * @return ReportBuilder
      */
     public function token($repositoryToken);
 
