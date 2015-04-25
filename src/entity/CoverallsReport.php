@@ -17,10 +17,10 @@ use coverallskit\exception\RequiredException;
 
 
 /**
- * Class Report
+ * Class CoverallsReport
  * @package coverallskit\entity
  */
-class Report implements ReportEntity
+class CoverallsReport implements ReportEntity
 {
 
     use AttributePopulatable;

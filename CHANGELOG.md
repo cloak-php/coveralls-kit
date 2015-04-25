@@ -13,6 +13,7 @@ Change Log
 * Raname ServiceInterface -> ServiceEntity
 * Raname Service -> CIService
 * Raname ReportInterface -> ReportEntity
+* Raname Report -> CoverallsReport
 
 
 1.4.0.3
