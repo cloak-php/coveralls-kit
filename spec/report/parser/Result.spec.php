@@ -13,7 +13,7 @@ namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\parser\Result;
 use coverallskit\entity\SourceFile;
-use coverallskit\entity\Coverage;
+use coverallskit\entity\CoverageResult;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\exception\ExceptionCollection;
 use Exception;
@@ -44,7 +44,7 @@ describe('Result', function() {
     describe('getExecutedLineCount', function() {
         beforeEach(function() {
             $source = new SourceFile($this->path);
-            $source->addCoverage(Coverage::executed(12));
+            $source->addCoverage(CoverageResult::executed(12));
 
             $sources = new SourceFileCollection();
             $sources->add($source);
@@ -59,7 +59,7 @@ describe('Result', function() {
     describe('getUnusedLineCount', function() {
         beforeEach(function() {
             $source = new SourceFile($this->path);
-            $source->addCoverage(Coverage::unused(12));
+            $source->addCoverage(CoverageResult::unused(12));
 
             $sources = new SourceFileCollection();
             $sources->add($source);

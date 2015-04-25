@@ -14,7 +14,7 @@ namespace coverallskit\report\parser;
 use coverallskit\report\ReportParserInterface;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\Coverage;
+use coverallskit\entity\CoverageResult;
 use Zend\Dom\Query;
 use Zend\Dom\NodeList;
 use coverallskit\exception\ExceptionCollection;
@@ -148,9 +148,9 @@ class CloverReportParser implements ReportParserInterface
         $executeCount = (int) $line->getAttribute('count');
 
         $analysisResult = ($executeCount >= 1)
-            ? Coverage::EXECUTED : Coverage::UNUSED;
+            ? CoverageResult::EXECUTED : CoverageResult::UNUSED;
 
-        $coverage = new Coverage($lineNumber, $analysisResult);
+        $coverage = new CoverageResult($lineNumber, $analysisResult);
 
         try {
             $this->coverages->add($coverage);

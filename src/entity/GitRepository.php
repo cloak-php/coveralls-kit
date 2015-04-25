@@ -15,15 +15,15 @@ use coverallskit\entity\repository\Commit;
 use coverallskit\entity\repository\Branch;
 use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
-use Gitonomy\Git\Repository as GitRepository;
+use Gitonomy\Git\Repository as GitRepositoryClient;
 use coverallskit\AttributePopulatable;
 use PhpCollection\Map;
 
 /**
- * Class Repository
+ * Class GitRepository
  * @package coverallskit\entity
  */
-class Repository implements RepositoryInterface
+class GitRepository implements RepositoryEntity
 {
 
     use AttributePopulatable;
@@ -54,7 +54,7 @@ class Repository implements RepositoryInterface
      */
     public function __construct($directory)
     {
-        $this->repository = new GitRepository(realpath($directory));
+        $this->repository = new GitRepositoryClient(realpath($directory));
         $this->resolveHeadCommit()
             ->resolveBranch()
             ->resolveRemotes();

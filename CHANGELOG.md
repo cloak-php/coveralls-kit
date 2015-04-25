@@ -1,6 +1,17 @@
 Change Log
 ===================================
 
+2.0.0
+-----------------------------------
+* Rename CompositeEntityInterface.php -> CompositeEntity.php
+* Rename EntityInterface.php -> Entity.php
+* Rename CompositeEntityCollectionInterface.php -> CompositeEntityCollection
+* Raname CoverageInterface -> CoverageEntity
+* Raname Coverage -> CoverageResult
+* Raname RepositoryInterface -> RepositoryEntity
+* Raname Repository -> GitRepository
+
+
 1.4.0.3
 -----------------------------------
 * Upgrade peridot (1.9 > 1.8)

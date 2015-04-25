@@ -12,13 +12,13 @@
 namespace coverallskit\spec;
 
 use coverallskit\value\LineRange;
-use coverallskit\entity\Coverage;
+use coverallskit\entity\CoverageResult;
 use coverallskit\exception\LineOutOfRangeException;
 
 describe('LineOutOfRangeException', function() {
     describe('getMessage', function() {
         beforeEach(function() {
-            $this->exception = new LineOutOfRangeException(Coverage::unused(31), new LineRange(1, 30));
+            $this->exception = new LineOutOfRangeException(CoverageResult::unused(31), new LineRange(1, 30));
         });
         it('should return message', function() {
             $message = "The 31st line is outside the range of the 30th line from the 1st line";

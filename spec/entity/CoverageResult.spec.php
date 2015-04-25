@@ -12,43 +12,44 @@
 namespace coverallskit\spec;
 
 use coverallskit\value\LineRange;
-use coverallskit\entity\Coverage;
+use coverallskit\entity\CoverageResult;
 
-describe('Coverage', function() {
+
+describe('CoverageResult', function() {
     describe('__construct', function() {
         context('when invalid analysis result', function() {
             it('throw UnexpectedValueException', function() {
                 expect(function() {
-                    new Coverage(1, -1);
+                    new CoverageResult(1, -1);
                 })->toThrow('UnexpectedValueException');
             });
         });
         context('when executed line', function() {
             beforeEach(function() {
-                $this->coverage = new Coverage(100, Coverage::EXECUTED);
+                $this->coverage = new CoverageResult(100, CoverageResult::EXECUTED);
             });
             it('set line number', function() {
                 expect($this->coverage->getLineNumber())->toEqual(100);
             });
             it('set analysis result', function() {
-                expect($this->coverage->getAnalysisResult())->toEqual(Coverage::EXECUTED);
+                expect($this->coverage->getAnalysisResult())->toEqual(CoverageResult::EXECUTED);
             });
         });
         context('when unused line', function() {
             beforeEach(function() {
-                $this->coverage = new Coverage(100, Coverage::UNUSED);
+                $this->coverage = new CoverageResult(100, CoverageResult::UNUSED);
             });
             it('set line number', function() {
                 expect($this->coverage->getLineNumber())->toEqual(100);
             });
             it('set analysis result', function() {
-                expect($this->coverage->getAnalysisResult())->toEqual(Coverage::UNUSED);
+                expect($this->coverage->getAnalysisResult())->toEqual(CoverageResult::UNUSED);
             });
         });
     });
     describe('getLineNumber', function() {
         beforeEach(function() {
-            $this->coverage = new Coverage(1, Coverage::EXECUTED);
+            $this->coverage = new CoverageResult(1, CoverageResult::EXECUTED);
         });
         it('return line number', function() {
             expect($this->coverage->getLineNumber())->toEqual(1);
@@ -56,24 +57,24 @@ describe('Coverage', function() {
     });
     describe('getAnalysisResult', function() {
         beforeEach(function() {
-            $this->coverage = new Coverage(1, Coverage::EXECUTED);
+            $this->coverage = new CoverageResult(1, CoverageResult::EXECUTED);
         });
         it('return analysis result', function() {
-            expect($this->coverage->getAnalysisResult())->toEqual(Coverage::EXECUTED);
+            expect($this->coverage->getAnalysisResult())->toEqual(CoverageResult::EXECUTED);
         });
     });
     describe('valudOf', function() {
         beforeEach(function() {
-            $this->coverage = new Coverage(1, Coverage::EXECUTED);
+            $this->coverage = new CoverageResult(1, CoverageResult::EXECUTED);
         });
         it('return analysis result', function() {
-            expect($this->coverage->valueOf())->toEqual(Coverage::EXECUTED);
+            expect($this->coverage->valueOf())->toEqual(CoverageResult::EXECUTED);
         });
     });
     describe('isExecuted', function() {
         context('when executed', function() {
             beforeEach(function() {
-                $this->coverage = new Coverage(1, Coverage::EXECUTED);
+                $this->coverage = new CoverageResult(1, CoverageResult::EXECUTED);
             });
             it('return true', function() {
                 expect($this->coverage->isExecuted())->toBeTrue();
@@ -81,7 +82,7 @@ describe('Coverage', function() {
         });
         context('when not executed', function() {
             beforeEach(function() {
-                $this->coverage = new Coverage(1, Coverage::UNUSED);
+                $this->coverage = new CoverageResult(1, CoverageResult::UNUSED);
             });
             it('return false', function() {
                 expect($this->coverage->isExecuted())->toBeFalse();
@@ -91,7 +92,7 @@ describe('Coverage', function() {
     describe('isUnused', function() {
         context('when unused', function() {
             beforeEach(function() {
-                $this->coverage = new Coverage(1, Coverage::UNUSED);
+                $this->coverage = new CoverageResult(1, CoverageResult::UNUSED);
             });
             it('return true', function() {
                 expect($this->coverage->isUnused())->toBeTrue();
@@ -99,7 +100,7 @@ describe('Coverage', function() {
         });
         context('when not unused', function() {
             beforeEach(function() {
-                $this->coverage = new Coverage(1, Coverage::EXECUTED);
+                $this->coverage = new CoverageResult(1, CoverageResult::EXECUTED);
             });
             it('return false', function() {
                 expect($this->coverage->isUnused())->toBeFalse();
@@ -112,7 +113,7 @@ describe('Coverage', function() {
         });
         context('when contains line number', function() {
             beforeEach(function() {
-                $this->coverage = Coverage::unused(100);
+                $this->coverage = CoverageResult::unused(100);
             });
             it('return true', function() {
                 expect($this->coverage->contains($this->lineRange))->toBeTrue();
@@ -120,7 +121,7 @@ describe('Coverage', function() {
         });
         context('when not contains line number', function() {
             beforeEach(function() {
-                $this->coverage = Coverage::unused(101);
+                $this->coverage = CoverageResult::unused(101);
             });
             it('return false', function() {
                 expect($this->coverage->contains($this->lineRange))->toBeFalse();
@@ -130,10 +131,10 @@ describe('Coverage', function() {
 
     describe('unused', function() {
         beforeEach(function() {
-            $this->coverage = Coverage::unused(1);
+            $this->coverage = CoverageResult::unused(1);
         });
         it('return coverallskit\entity\Coverage instance', function() {
-            expect($this->coverage)->toBeAnInstanceOf('coverallskit\entity\Coverage');
+            expect($this->coverage)->toBeAnInstanceOf('coverallskit\entity\CoverageResult');
         });
         it('analysis result of return instance is unused', function() {
             expect($this->coverage->isUnused())->toBeTrue();
@@ -141,10 +142,10 @@ describe('Coverage', function() {
     });
     describe('executed', function() {
         beforeEach(function() {
-            $this->coverage = Coverage::executed(1);
+            $this->coverage = CoverageResult::executed(1);
         });
         it('return coverallskit\entity\Coverage instance', function() {
-            expect($this->coverage)->toBeAnInstanceOf('coverallskit\entity\Coverage');
+            expect($this->coverage)->toBeAnInstanceOf('coverallskit\entity\CoverageResult');
         });
         it('analysis result of return instance is executed', function() {
             expect($this->coverage->isExecuted())->toBeTrue();

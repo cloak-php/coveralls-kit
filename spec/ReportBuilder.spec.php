@@ -51,7 +51,7 @@ describe('ReportBuilder', function() {
             ]);
             $this->remotes = new RemoteCollection([ $remote ]);
 
-            $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
+            $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryEntity');
             $repository->getCommit()->willReturn($this->commit);
             $repository->getBranch()->willReturn($this->branch);
             $repository->getRemotes()->willReturn($this->remotes);

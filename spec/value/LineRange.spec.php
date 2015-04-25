@@ -61,10 +61,10 @@ describe('LineRange', function() {
             });
             context('when the range', function() {
                 beforeEach(function() {
-                    $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
+                    $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageEntity');
                     $this->mixCovergage->getLineNumber()->willReturn(1);
 
-                    $this->maxCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
+                    $this->maxCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageEntity');
                     $this->maxCovergage->getLineNumber()->willReturn(30);
 
                     $this->min = $this->mixCovergage->reveal();
@@ -77,10 +77,10 @@ describe('LineRange', function() {
             });
             context('when out of range', function() {
                 beforeEach(function() {
-                    $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
+                    $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageEntity');
                     $this->mixCovergage->getLineNumber()->willReturn(0);
 
-                    $this->maxCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageInterface');
+                    $this->maxCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageEntity');
                     $this->maxCovergage->getLineNumber()->willReturn(31);
 
                     $this->min = $this->mixCovergage->reveal();

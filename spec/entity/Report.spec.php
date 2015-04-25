@@ -12,7 +12,7 @@
 namespace coverallskit\spec;
 
 use coverallskit\entity\Report;
-use coverallskit\entity\Repository;
+use coverallskit\entity\GitRepository;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use Prophecy\Prophet;
@@ -45,9 +45,9 @@ describe('Report', function() {
     describe('repository', function() {
         it('should return repository', function() {
             $report = new Report([
-                'repository' => new Repository(__DIR__ . '/../../')
+                'repository' => new GitRepository(__DIR__ . '/../../')
             ]);
-            expect($report->getRepository())->toBeAnInstanceOf('coverallskit\entity\Repository');
+            expect($report->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryEntity');
         });
     });
     describe('sourceFiles', function() {
@@ -127,7 +127,7 @@ describe('Report', function() {
 
             $this->report = new Report([
                 'token' => 'foo',
-                'repository' => new Repository(__DIR__ . '/../../'),
+                'repository' => new GitRepository(__DIR__ . '/../../'),
                 'service' => $service->reveal(),
                 'sourceFiles' => $sourceFiles
             ]);
@@ -166,7 +166,7 @@ describe('Report', function() {
 
                 $this->notSavedReport = new Report([
                     'token' => 'foo',
-                    'repository' => new Repository(__DIR__ . '/../../'),
+                    'repository' => new GitRepository(__DIR__ . '/../../'),
                     'service' => $service->reveal(),
                     'sourceFiles' => $sourceFiles
                 ]);
@@ -205,7 +205,7 @@ describe('Report', function() {
 
                 $this->savedReport = new Report([
                     'token' => 'foo',
-                    'repository' => new Repository(__DIR__ . '/../../'),
+                    'repository' => new GitRepository(__DIR__ . '/../../'),
                     'service' => $service->reveal(),
                     'sourceFiles' => $sourceFiles
                 ]);

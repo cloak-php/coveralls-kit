@@ -11,7 +11,7 @@
 
 namespace coverallskit\entity\collection;
 
-use coverallskit\entity\CoverageInterface;
+use coverallskit\entity\CoverageEntity;
 use coverallskit\value\LineRange;
 use coverallskit\AttributePopulatable;
 use coverallskit\exception\LineOutOfRangeException;
@@ -23,7 +23,7 @@ use coverallskit\exception\ExceptionCollection;
  * Class CoverageCollection
  * @package coverallskit\entity\collection
  */
-class CoverageCollection implements CompositeEntityCollectionInterface
+class CoverageCollection implements CompositeEntityCollection
 {
 
     use AttributePopulatable;
@@ -48,10 +48,10 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     }
 
     /**
-     * @param CoverageInterface $coverage
+     * @param CoverageEntity $coverage
      * @throws \coverallskit\exception\LineOutOfRangeException
      */
-    public function add(CoverageInterface $coverage)
+    public function add(CoverageEntity $coverage)
     {
         if ($coverage->contains($this->lineRange) === false) {
             throw new LineOutOfRangeException($coverage, $this->lineRange);
@@ -95,9 +95,9 @@ class CoverageCollection implements CompositeEntityCollectionInterface
     }
 
     /**
-     * @param CoverageInterface $coverage
+     * @param CoverageEntity $coverage
      */
-    public function remove(CoverageInterface $coverage)
+    public function remove(CoverageEntity $coverage)
     {
         $this->removeAt($coverage->getLineNumber());
     }
@@ -138,7 +138,7 @@ class CoverageCollection implements CompositeEntityCollectionInterface
      */
     public function getExecutedLineCount()
     {
-        $filter = function(CoverageInterface $coverage) {
+        $filter = function(CoverageEntity $coverage) {
             return $coverage->isExecuted();
         };
         return $this->matchCount($filter);
@@ -149,7 +149,7 @@ class CoverageCollection implements CompositeEntityCollectionInterface
      */
     public function getUnusedLineCount()
     {
-        $filter = function(CoverageInterface $coverage) {
+        $filter = function(CoverageEntity $coverage) {
             return $coverage->isUnused();
         };
         return $this->matchCount($filter);
