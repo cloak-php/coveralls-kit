@@ -25,7 +25,7 @@ use Eloquent\Pathogen\Factory\PathFactory;
  * Class BuilderConfiguration
  * @package coverallskit
  */
-class BuilderConfiguration implements RootConfigurationInterface
+class BuilderConfiguration implements RootConfiguration
 {
 
     /**
