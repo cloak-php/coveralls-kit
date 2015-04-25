@@ -19,7 +19,7 @@ Change Log
 * Raname ReportParserInterface -> ReportParser
 * Raname ReportBuilder -> CoverallsReportBuilder
 * Raname ReportBuilderInterface -> ReportBuilder
-
+* Rename ReportTransfer -> CoverallsReportTransfer
 
 1.4.0.3
 -----------------------------------

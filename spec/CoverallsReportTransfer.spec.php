@@ -11,7 +11,7 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\ReportTransfer;
+use coverallskit\CoverallsReportTransfer;
 use coverallskit\entity\CoverallsReport;
 use coverallskit\entity\CIService;
 use coverallskit\entity\GitRepository;
@@ -22,10 +22,10 @@ use Prophecy\Prophet;
 use Prophecy\Argument;
 
 
-describe('ReportTransfer', function() {
+describe('CoverallsReportTransfer', function() {
     describe('getClient', function() {
         beforeEach(function() {
-            $this->uploader = new ReportTransfer();
+            $this->uploader = new CoverallsReportTransfer();
         });
         context('when not specified client', function() {
             it('should return Guzzle\Http\Client instance', function() {
@@ -54,7 +54,7 @@ describe('ReportTransfer', function() {
                 'sourceFiles' => new SourceFileCollection()
             ]);
 
-            $url = ReportTransfer::ENDPOINT_URL;
+            $url = CoverallsReportTransfer::ENDPOINT_URL;
             $optionsCallback = Argument::that(function(array $options) {
                 return isset($options['body']);
             });
@@ -64,7 +64,7 @@ describe('ReportTransfer', function() {
             $this->client = $this->prophet->prophesize('GuzzleHttp\ClientInterface');
             $this->client->post($url, $optionsCallback)->shouldBeCalled();
 
-            $this->uploader = new ReportTransfer($this->client->reveal());
+            $this->uploader = new CoverallsReportTransfer($this->client->reveal());
             $this->uploader->upload($this->report);
         });
         it('should upload report file', function() {

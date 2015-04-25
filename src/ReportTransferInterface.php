@@ -11,7 +11,7 @@
 
 namespace coverallskit;
 
-use coverallskit\entity\ReportInterface;
+use coverallskit\entity\ReportEntity;
 use GuzzleHttp\ClientInterface;
 
 
@@ -37,9 +37,9 @@ interface ReportTransferInterface
     public function getClient();
 
     /**
-     * @param \coverallskit\entity\ReportInterface $report
+     * @param \coverallskit\entity\ReportEntity $report
      * @return mixed
      */
-    public function upload(ReportInterface $report);
+    public function upload(ReportEntity $report);
 
 }

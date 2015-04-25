@@ -11,16 +11,16 @@
 
 namespace coverallskit;
 
-use coverallskit\entity\ReportInterface;
+use coverallskit\entity\ReportEntity;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 
 
 /**
- * Class ReportTransfer
+ * Class CoverallsReportTransfer
  * @package coverallskit
  */
-class ReportTransfer implements ReportTransferInterface
+class CoverallsReportTransfer implements ReportTransferInterface
 {
 
     /**
@@ -58,9 +58,9 @@ class ReportTransfer implements ReportTransferInterface
     }
 
     /**
-     * @param ReportInterface $report
+     * @param ReportEntity $report
      */
-    public function upload(ReportInterface $report)
+    public function upload(ReportEntity $report)
     {
         $stream = fopen($report->getName(), 'r');
 
