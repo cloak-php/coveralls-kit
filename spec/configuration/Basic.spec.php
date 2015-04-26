@@ -14,6 +14,8 @@ namespace coverallskit\spec;
 use coverallskit\Configuration;
 use coverallskit\configuration\Basic;
 use coverallskit\CoverallsReportBuilder;
+use coverallskit\entity\ServiceEntity;
+use coverallskit\entity\RepositoryEntity;
 use Zend\Config\Config;
 use Eloquent\Pathogen\Factory\PathFactory;
 
@@ -40,10 +42,10 @@ describe('Basic', function() {
             expect($this->configration->getToken())->toEqual('api-token');
         });
         it('set the service instance', function() {
-            expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\ServiceEntity');
+            expect($this->configration->getService())->toBeAnInstanceOf(ServiceEntity::class);
         });
         it('set the repository', function() {
-            expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryEntity');
+            expect($this->configration->getRepository())->toBeAnInstanceOf(RepositoryEntity::class);
         });
     });
     describe('applyTo', function() {
@@ -55,10 +57,10 @@ describe('Basic', function() {
             expect($this->builder->getToken())->toEqual('api-token');
         });
         it('apply service config', function() {
-            expect($this->builder->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceEntity');
+            expect($this->builder->getService())->toBeAnInstanceOf(ServiceEntity::class);
         });
         it('apply repository config', function() {
-            expect($this->builder->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryEntity');
+            expect($this->builder->getRepository())->toBeAnInstanceOf(RepositoryEntity::class);
         });
     });
 });

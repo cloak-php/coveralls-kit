@@ -13,6 +13,9 @@ namespace coverallskit\spec;
 
 use coverallskit\entity\CoverageResult;
 use coverallskit\entity\collection\CoverageCollection;
+use coverallskit\exception\LineOutOfRangeException;
+use ArrayIterator;
+
 
 describe('CoverageCollection', function() {
 
@@ -46,7 +49,7 @@ describe('CoverageCollection', function() {
             it('should throw coverallskit\exception\LineOutOfRangeException', function() {
                 expect(function() {
                     $this->coverages->add($this->coverage);
-                })->toThrow('coverallskit\exception\LineOutOfRangeException');
+                })->toThrow(LineOutOfRangeException::class);
             });
         });
     });
@@ -116,7 +119,7 @@ describe('CoverageCollection', function() {
             $this->iterator = $this->coverages->getIterator();
         });
         it('return ArrayIterator', function() {
-            expect($this->iterator)->toBeAnInstanceOf('ArrayIterator');
+            expect($this->iterator)->toBeAnInstanceOf(ArrayIterator::class);
         });
     });
 

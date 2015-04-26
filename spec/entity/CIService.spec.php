@@ -14,6 +14,7 @@ namespace coverallskit\spec;
 
 use coverallskit\Environment;
 use coverallskit\entity\CIService;
+use coverallskit\environment\EnvironmentAdaptor;
 use Prophecy\Prophet;
 
 
@@ -21,7 +22,7 @@ describe('CIService', function() {
     beforeEach(function() {
         $this->prophet = new Prophet();
 
-        $adaptor = $this->prophet->prophesize('coverallskit\environment\EnvironmentAdaptor');
+        $adaptor = $this->prophet->prophesize(EnvironmentAdaptor::class);
         $adaptor->getName()->willReturn('travis-ci');
         $adaptor->getBuildJobId()->willReturn('10');
         $adaptor->getCoverallsToken()->willReturn('token');

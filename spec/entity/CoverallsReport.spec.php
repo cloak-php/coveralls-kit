@@ -14,7 +14,11 @@ namespace coverallskit\spec;
 use coverallskit\entity\CoverallsReport;
 use coverallskit\entity\GitRepository;
 use coverallskit\entity\SourceFile;
+use coverallskit\entity\RepositoryEntity;
 use coverallskit\entity\collection\SourceFileCollection;
+use coverallskit\entity\ServiceEntity;
+use coverallskit\ReportTransfer;
+use coverallskit\exception\RequiredException;
 use Prophecy\Prophet;
 
 
@@ -47,7 +51,7 @@ describe('CoverallsReport', function() {
             $report = new CoverallsReport([
                 'repository' => new GitRepository(__DIR__ . '/../../')
             ]);
-            expect($report->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryEntity');
+            expect($report->getRepository())->toBeAnInstanceOf(RepositoryEntity::class);
         });
     });
     describe('sourceFiles', function() {
@@ -55,7 +59,7 @@ describe('CoverallsReport', function() {
             $report = new CoverallsReport([
                 'sourceFiles' => new SourceFileCollection()
             ]);
-            expect($report->getSourceFiles())->toBeAnInstanceOf('coverallskit\entity\collection\SourceFileCollection');
+            expect($report->getSourceFiles())->toBeAnInstanceOf(SourceFileCollection::class);
         });
     });
 
@@ -67,14 +71,14 @@ describe('CoverallsReport', function() {
             it('throw coverallskit\exception\RequiredException', function() {
                 expect(function() {
                     $this->report->validate();
-                })->toThrow('coverallskit\exception\RequiredException');
+                })->toThrow(RequiredException::class);
             });
         });
         context('when service empty', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
+                $service = $this->prophet->prophesize(ServiceEntity::class);
                 $service->isEmpty()->willReturn(true);
 
                 $this->report = new CoverallsReport([
@@ -118,7 +122,7 @@ describe('CoverallsReport', function() {
                 new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
             ]);
 
-            $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
+            $service = $this->prophet->prophesize(ServiceEntity::class);
             $service->isEmpty()->willReturn(false);
             $service->toArray()->willReturn([
                 'service_job_id' => '10',
@@ -157,7 +161,7 @@ describe('CoverallsReport', function() {
                     new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
                 ]);
 
-                $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
+                $service = $this->prophet->prophesize(ServiceEntity::class);
                 $service->isEmpty()->willReturn(false);
                 $service->toArray()->willReturn([
                     'service_job_id' => '10',
@@ -171,7 +175,7 @@ describe('CoverallsReport', function() {
                     'sourceFiles' => $sourceFiles
                 ]);
 
-                $this->notSavedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransfer');
+                $this->notSavedFileUpLoader = $this->prophet->prophesize(ReportTransfer::class);
                 $this->notSavedFileUpLoader->upload($this->notSavedReport)->shouldBeCalled();
 
                 $this->notSavedReport->setReportTransfer($this->notSavedFileUpLoader->reveal());
@@ -196,7 +200,7 @@ describe('CoverallsReport', function() {
                     new SourceFile(realpath(__DIR__ . '/../fixtures/bar.php'))
                 ]);
 
-                $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
+                $service = $this->prophet->prophesize(ServiceEntity::class);
                 $service->isEmpty()->willReturn(false);
                 $service->toArray()->willReturn([
                     'service_job_id' => '10',
@@ -209,7 +213,7 @@ describe('CoverallsReport', function() {
                     'service' => $service->reveal(),
                     'sourceFiles' => $sourceFiles
                 ]);
-                $this->savedFileUpLoader = $this->prophet->prophesize('coverallskit\ReportTransfer');
+                $this->savedFileUpLoader = $this->prophet->prophesize(ReportTransfer::class);
                 $this->savedFileUpLoader->upload($this->savedReport)->shouldBeCalled();
 
                 $this->savedReport->setReportTransfer($this->savedFileUpLoader->reveal());

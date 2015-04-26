@@ -13,6 +13,8 @@ namespace coverallskit\spec;
 
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
+use ArrayIterator;
+
 
 describe('SourceFileCollection', function() {
     beforeEach(function() {
@@ -56,7 +58,7 @@ describe('SourceFileCollection', function() {
         context('when source file exists', function() {
             it('return coverallskit\entity\SourceFile', function() {
                 $name = $this->source->getName();
-                expect($this->sources->get($name))->toBeAnInstanceOf('coverallskit\entity\SourceFile');
+                expect($this->sources->get($name))->toBeAnInstanceOf(SourceFile::class);
             });
         });
         context('when source file not exists', function() {
@@ -83,7 +85,7 @@ describe('SourceFileCollection', function() {
             $this->iterator = $this->sources->getIterator();
         });
         it('return ArrayIterator', function() {
-            expect($this->iterator)->toBeAnInstanceOf('ArrayIterator');
+            expect($this->iterator)->toBeAnInstanceOf(ArrayIterator::class);
         });
     });
 
