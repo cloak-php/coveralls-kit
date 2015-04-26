@@ -3,6 +3,7 @@ Change Log
 
 2.0.0
 -----------------------------------
+* PHP5.4 not support
 * Rename CompositeEntityInterface.php -> CompositeEntity.php
 * Rename EntityInterface.php -> Entity.php
 * Rename CompositeEntityCollectionInterface.php -> CompositeEntityCollection
@@ -27,7 +28,6 @@ Change Log
 * Rename RootConfigurationInterface -> RootConfiguration
 * Rename ConfigurationLoaderInterface -> ConfigurationLoader
 * Changed the dom parser from Zend\Dom to Symfony\DomCrawler
-
 
 1.4.0.3
 -----------------------------------
