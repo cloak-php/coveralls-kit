@@ -12,6 +12,7 @@
 namespace coverallskit\spec;
 
 use coverallskit\AttributePopulatable;
+use coverallskit\exception\BadAttributeException;
 use Prophecy\Prophet;
 
 class AttributePopulatableObject
@@ -58,7 +59,7 @@ describe('AttributePopulatable', function() {
             it('should throw coverallskit\exception\BadAttributeException', function() {
                 expect(function() {
                     new AttributePopulatableObject([ 'description' => 'foo' ]);
-                })->toThrow('coverallskit\exception\BadAttributeException');
+                })->toThrow(BadAttributeException::class);
             });
         });
     });

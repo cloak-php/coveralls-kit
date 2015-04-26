@@ -13,6 +13,10 @@ namespace coverallskit\spec;
 
 use coverallskit\BuilderConfiguration;
 use coverallskit\CoverallsReportBuilder;
+use coverallskit\entity\ServiceEntity;
+use coverallskit\entity\RepositoryEntity;
+use coverallskit\exception\FileNotFoundException;
+use coverallskit\exception\NotSupportFileTypeException;
 use Prophecy\Argument;
 use Zend\Config\Config;
 
@@ -51,10 +55,10 @@ describe('BuilderConfiguration', function() {
                 expect($this->configration->getToken())->toEqual('api-token');
             });
             it('should set the service instance', function() {
-                expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\ServiceEntity');
+                expect($this->configration->getService())->toBeAnInstanceOf(ServiceEntity::class);
             });
             it('should set the repository', function() {
-                expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryEntity');
+                expect($this->configration->getRepository())->toBeAnInstanceOf(RepositoryEntity::class);
             });
         });
     });
@@ -95,10 +99,10 @@ describe('BuilderConfiguration', function() {
             expect($this->report->getName())->toEqual(realpath(__DIR__ . '/../') . '/coveralls.json');
         });
         it('apply service config', function() {
-            expect($this->report->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceEntity');
+            expect($this->report->getService())->toBeAnInstanceOf(ServiceEntity::class);
         });
         it('apply repository config', function() {
-            expect($this->report->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryEntity');
+            expect($this->report->getRepository())->toBeAnInstanceOf(RepositoryEntity::class);
         });
         it('apply clover report config', function() {
             $sourceFiles = $this->report->getSourceFiles();
@@ -113,7 +117,7 @@ describe('BuilderConfiguration', function() {
                     $this->config = BuilderConfiguration::loadFromFile(__DIR__ . '/fixtures/coveralls.toml');
                 });
                 it('should return coverallskit\BuilderConfiguration instance', function() {
-                    expect($this->config)->toBeAnInstanceOf('coverallskit\BuilderConfiguration');
+                    expect($this->config)->toBeAnInstanceOf(BuilderConfiguration::class);
                 });
                 it('should configration has report name', function() {
                     $path = realpath(__DIR__  . '/fixtures') . '/coveralls.json';
@@ -125,14 +129,14 @@ describe('BuilderConfiguration', function() {
             it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
                     BuilderConfiguration::loadFromFile(__DIR__ . '/fixtures/not_found_coveralls.yml');
-                })->toThrow('coverallskit\exception\FileNotFoundException');
+                })->toThrow(FileNotFoundException::class);
             });
         });
         context('when the file not support', function() {
             it('should throw coverallskit\exception\NotSupportFileTypeException', function() {
                 expect(function() {
                     BuilderConfiguration::loadFromFile(__DIR__ . '/fixtures/coveralls.ini');
-                })->toThrow('coverallskit\exception\NotSupportFileTypeException');
+                })->toThrow(NotSupportFileTypeException::class);
             });
         });
     });

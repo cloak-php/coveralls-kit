@@ -18,6 +18,8 @@ use coverallskit\entity\GitRepository;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\Environment;
 use coverallskit\environment\TravisCI;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Prophecy\Prophet;
 use Prophecy\Argument;
 
@@ -30,7 +32,7 @@ describe('CoverallsReportTransfer', function() {
         context('when not specified client', function() {
             it('should return Guzzle\Http\Client instance', function() {
                 $client = $this->uploader->getClient();
-                expect($client)->toBeAnInstanceOf('GuzzleHttp\Client');
+                expect($client)->toBeAnInstanceOf(Client::class);
             });
         });
     });
@@ -61,7 +63,7 @@ describe('CoverallsReportTransfer', function() {
 
             $this->prophet = new Prophet();
 
-            $this->client = $this->prophet->prophesize('GuzzleHttp\ClientInterface');
+            $this->client = $this->prophet->prophesize(ClientInterface::class);
             $this->client->post($url, $optionsCallback)->shouldBeCalled();
 
             $this->uploader = new CoverallsReportTransfer($this->client->reveal());

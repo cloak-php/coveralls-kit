@@ -18,6 +18,8 @@ use coverallskit\entity\repository\Commit;
 use coverallskit\entity\repository\Branch;
 use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
+use coverallskit\entity\ServiceEntity;
+use coverallskit\entity\RepositoryEntity;
 use Prophecy\Prophet;
 
 
@@ -27,7 +29,7 @@ describe('CoverallsReportBuilder', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
+            $service = $this->prophet->prophesize(ServiceEntity::class);
             $service->getServiceJobId()->willReturn('10');
             $service->getServiceName()->willReturn('travis-ci');
 
@@ -51,7 +53,7 @@ describe('CoverallsReportBuilder', function() {
             ]);
             $this->remotes = new RemoteCollection([ $remote ]);
 
-            $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryEntity');
+            $repository = $this->prophet->prophesize(RepositoryEntity::class);
             $repository->getCommit()->willReturn($this->commit);
             $repository->getBranch()->willReturn($this->branch);
             $repository->getRemotes()->willReturn($this->remotes);
@@ -103,7 +105,7 @@ describe('CoverallsReportBuilder', function() {
             $this->builder = CoverallsReportBuilder::fromConfiguration(new BuilderConfiguration());
         });
         it('return coverallskit\CoverallsReportBuilder instance', function() {
-            expect($this->builder)->toBeAnInstanceOf('coverallskit\CoverallsReportBuilder');
+            expect($this->builder)->toBeAnInstanceOf(CoverallsReportBuilder::class);
         });
     });
 
