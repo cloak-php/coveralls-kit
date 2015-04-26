@@ -16,7 +16,7 @@ use coverallskit\entity\collection\SourceFileCollection;
 use ArrayIterator;
 
 
-describe('SourceFileCollection', function() {
+describe(SourceFileCollection::class, function() {
     beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
         $this->relativePath = str_replace(getcwd() . '/', '', $this->path);

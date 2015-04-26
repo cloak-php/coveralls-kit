@@ -15,7 +15,7 @@ use coverallskit\report\parser\CloverReportParser;
 use coverallskit\report\parser\Result;
 
 
-describe('CloverReportParser', function() {
+describe(CloverReportParser::class, function() {
     describe('parse', function() {
         beforeEach(function() {
             $this->fixtureDirectory = __DIR__ . '/../../fixtures/';

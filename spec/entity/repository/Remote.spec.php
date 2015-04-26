@@ -13,7 +13,7 @@ namespace coverallskit\spec;
 
 use coverallskit\entity\repository\Remote;
 
-describe('Remote', function() {
+describe(Remote::class, function() {
     beforeEach(function() {
         $this->remote = new Remote([
             'name' => 'origin',

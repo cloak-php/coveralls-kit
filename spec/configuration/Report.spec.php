@@ -18,7 +18,7 @@ use Zend\Config\Config;
 use Eloquent\Pathogen\Factory\PathFactory;
 
 
-describe('Report', function() {
+describe(Report::class, function() {
     beforeEach(function() {
         $this->rootDirectory = realpath(__DIR__ . '/../../');
         $this->configDirectory = __DIR__ . '/../fixtures/';

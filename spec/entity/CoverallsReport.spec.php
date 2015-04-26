@@ -22,7 +22,7 @@ use coverallskit\exception\RequiredException;
 use Prophecy\Prophet;
 
 
-describe('CoverallsReport', function() {
+describe(CoverallsReport::class, function() {
     beforeEach(function() {
         $this->path = __DIR__ . '/tmp/coverage.json';
 

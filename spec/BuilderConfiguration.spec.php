@@ -21,7 +21,7 @@ use Prophecy\Argument;
 use Zend\Config\Config;
 
 
-describe('BuilderConfiguration', function() {
+describe(BuilderConfiguration::class, function() {
 
     describe('__construct', function() {
         context('when specify the attribute', function() {

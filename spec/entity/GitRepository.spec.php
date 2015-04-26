@@ -16,7 +16,7 @@ use coverallskit\entity\repository\Commit;
 use coverallskit\entity\repository\Branch;
 use coverallskit\entity\collection\RemoteCollection;
 
-describe('GitRepository', function() {
+describe(GitRepository::class, function() {
     beforeEach(function() {
         $this->directory = realpath(__DIR__ . '/../../');
         $this->repository = new GitRepository($this->directory);

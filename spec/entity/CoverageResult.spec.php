@@ -16,7 +16,7 @@ use coverallskit\entity\CoverageResult;
 use UnexpectedValueException;
 
 
-describe('CoverageResult', function() {
+describe(CoverageResult::class, function() {
     describe('__construct', function() {
         context('when invalid analysis result', function() {
             it('throw UnexpectedValueException', function() {

@@ -17,7 +17,7 @@ use coverallskit\exception\LineOutOfRangeException;
 use ArrayIterator;
 
 
-describe('CoverageCollection', function() {
+describe(CoverageCollection::class, function() {
 
     describe('isEmpty', function() {
         context('when covergae empty', function() {

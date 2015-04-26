@@ -24,7 +24,7 @@ use Prophecy\Prophet;
 use Prophecy\Argument;
 
 
-describe('CoverallsReportTransfer', function() {
+describe(CoverallsReportTransfer::class, function() {
     describe('getClient', function() {
         beforeEach(function() {
             $this->uploader = new CoverallsReportTransfer();

@@ -17,7 +17,7 @@ use OutOfRangeException;
 use Prophecy\Prophet;
 
 
-describe('LineRange', function() {
+describe(LineRange::class, function() {
     describe('__construct', function() {
         context('when out of range', function() {
             it('should throw OutOfRangeException', function() {

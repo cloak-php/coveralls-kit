@@ -18,7 +18,7 @@ use coverallskit\environment\EnvironmentAdaptor;
 use Prophecy\Prophet;
 
 
-describe('CIService', function() {
+describe(CIService::class, function() {
     beforeEach(function() {
         $this->prophet = new Prophet();
 

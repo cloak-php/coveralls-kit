@@ -15,7 +15,7 @@ use coverallskit\report\parser\LcovReportParser;
 use coverallskit\report\parser\Result;
 
 
-describe('LcovReportParser', function() {
+describe(LcovReportParser::class, function() {
     describe('parse', function() {
         beforeEach(function() {
             $this->fixtureDirectory = __DIR__ . '/../../fixtures/';

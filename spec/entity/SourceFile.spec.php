@@ -18,7 +18,7 @@ use coverallskit\entity\collection\CoverageCollection;
 use coverallskit\exception\LineOutOfRangeException;
 
 
-describe('SourceFile', function() {
+describe(SourceFile::class, function() {
     beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
         $this->relativePath = str_replace(getcwd() . '/', '', $this->path);

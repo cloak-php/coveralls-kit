@@ -21,7 +21,7 @@ use coverallskit\environment\General;
 use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
 
-describe('AdaptorResolver', function() {
+describe(AdaptorResolver::class, function() {
     describe('#resolveByEnvironment', function() {
         context('when supported', function() {
             context('when circle-ci', function() {

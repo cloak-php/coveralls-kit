@@ -18,7 +18,7 @@ use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\exception\ExceptionCollection;
 use Exception;
 
-describe('Result', function() {
+describe(Result::class, function() {
     beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
     });

@@ -20,7 +20,7 @@ use Zend\Config\Config;
 use Eloquent\Pathogen\Factory\PathFactory;
 
 
-describe('Basic', function() {
+describe(Basic::class, function() {
 
     beforeEach(function() {
         $this->configDirectory = __DIR__ . '/../fixtures/';

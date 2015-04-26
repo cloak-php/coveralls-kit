@@ -14,7 +14,7 @@ namespace coverallskit\spec\report;
 use coverallskit\report\ParserRegistry;
 use coverallskit\report\parser\CloverReportParser;
 
-describe('ParserRegistry', function() {
+describe(ParserRegistry::class, function() {
     describe('get', function() {
         beforeEach(function() {
             $this->registry = new ParserRegistry();

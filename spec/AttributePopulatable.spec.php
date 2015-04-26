@@ -41,7 +41,7 @@ class AttributePopulatableObject
 
 }
 
-describe('AttributePopulatable', function() {
+describe(AttributePopulatable::class, function() {
     describe('populate', function() {
         context('when the specified attribute', function() {
             beforeEach(function() {

@@ -23,7 +23,7 @@ use coverallskit\entity\RepositoryEntity;
 use Prophecy\Prophet;
 
 
-describe('CoverallsReportBuilder', function() {
+describe(CoverallsReportBuilder::class, function() {
 
     describe('build', function() {
         beforeEach(function() {

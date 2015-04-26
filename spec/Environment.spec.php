@@ -13,7 +13,7 @@ namespace coverallskit\spec;
 
 use coverallskit\Environment;
 
-describe('Environment', function() {
+describe(Environment::class, function() {
     beforeEach(function() {
         $this->env = new Environment([
             'foo' => 'bar'

@@ -16,7 +16,7 @@ use coverallskit\entity\collection\RemoteCollection;
 use ArrayIterator;
 
 
-describe('RemoteCollection', function() {
+describe(RemoteCollection::class, function() {
     beforeEach(function() {
         $remote = new Remote([
             'name' => 'origin',
