@@ -5,11 +5,13 @@ use expect\peridot\ExpectPlugin;
 use cloak\peridot\CloakPlugin;
 use Peridot\Reporter\Dot\DotReporterPlugin;
 use holyshared\fixture\peridot\FileFixturePlugin;
+use holyshared\peridot\temporary\TemporaryPlugin;
 
 return function(EventEmitterInterface $emitter)
 {
     $dot = new DotReporterPlugin($emitter);
     ExpectPlugin::create()->registerTo($emitter);
+    TemporaryPlugin::create()->registerTo($emitter);
 
     $fixturePlugin = new FileFixturePlugin(__DIR__ . '/spec/fixtures/.fixtures.toml');
     $fixturePlugin->registerTo($emitter);

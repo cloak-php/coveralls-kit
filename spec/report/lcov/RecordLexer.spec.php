@@ -18,27 +18,27 @@ describe(RecordLexer::class, function() {
     describe('records', function() {
         context('when have unsupport recover type', function() {
             beforeEach(function() {
-                $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
-                $this->sourcePath = $this->fixtureDirectory . 'bar.php';
+                $fixtureDirectory = __DIR__ . '/../../fixtures/';
+                $sourcePath = $fixtureDirectory . 'bar.php';
 
                 $fixture = $this->loadFixture('mustache:RecordLexer:lcovReport', [
-                    'sourcePath' => realpath($this->sourcePath)
+                    'sourcePath' => realpath($sourcePath)
                 ]);
-                $lcovReport = sys_get_temp_dir() . '/test.lcov';
-                file_put_contents($lcovReport, $fixture);
 
-                $this->recordLexer = new RecordLexer($lcovReport);
+                $temp = $this->makeFile();
+                $temp->open();
+                $temp->write($fixture);
 
+                $this->recordLexer = new RecordLexer($temp->getPath());
+            });
+            it('return record stream', function() {
                 $results = [];
                 $records = $this->recordLexer->records();
 
                 foreach ($records as $record) {
                     $results[] = $record;
                 }
-                $this->results = $results;
-            });
-            it('return record stream', function() {
-                expect(count($this->results))->toEqual(3);
+                expect(count($results))->toEqual(3);
             });
         });
     });
