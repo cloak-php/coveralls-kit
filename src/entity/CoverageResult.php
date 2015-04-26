@@ -87,7 +87,7 @@ class CoverageResult implements CoverageEntity
 
     /**
      * @param int $lineAt
-     * @return Coverage
+     * @return CoverageResult
      */
     public static function unused($lineAt)
     {
@@ -96,7 +96,7 @@ class CoverageResult implements CoverageEntity
 
     /**
      * @param int $lineAt
-     * @return Coverage
+     * @return CoverageResult
      */
     public static function executed($lineAt)
     {
