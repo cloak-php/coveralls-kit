@@ -12,7 +12,10 @@
 namespace coverallskit\spec;
 
 use coverallskit\value\LineRange;
+use coverallskit\entity\CoverageEntity;
+use OutOfRangeException;
 use Prophecy\Prophet;
+
 
 describe('LineRange', function() {
     describe('__construct', function() {
@@ -20,17 +23,17 @@ describe('LineRange', function() {
             it('should throw OutOfRangeException', function() {
                 expect(function() {
                     new LineRange(1, 0);
-                })->toThrow('OutOfRangeException');
+                })->toThrow(OutOfRangeException::class);
                 expect(function() {
                     new LineRange(0, 1);
-                })->toThrow('OutOfRangeException');
+                })->toThrow(OutOfRangeException::class);
             });
         });
         context('when range specified is wrong', function() {
             it('should throw OutOfRangeException', function() {
                 expect(function() {
                     new LineRange(5, 1);
-                })->toThrow('OutOfRangeException');
+                })->toThrow(OutOfRangeException::class);
             });
         });
     });
@@ -61,10 +64,10 @@ describe('LineRange', function() {
             });
             context('when the range', function() {
                 beforeEach(function() {
-                    $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageEntity');
+                    $this->mixCovergage = $this->prophet->prophesize(CoverageEntity::class);
                     $this->mixCovergage->getLineNumber()->willReturn(1);
 
-                    $this->maxCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageEntity');
+                    $this->maxCovergage = $this->prophet->prophesize(CoverageEntity::class);
                     $this->maxCovergage->getLineNumber()->willReturn(30);
 
                     $this->min = $this->mixCovergage->reveal();
@@ -77,10 +80,10 @@ describe('LineRange', function() {
             });
             context('when out of range', function() {
                 beforeEach(function() {
-                    $this->mixCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageEntity');
+                    $this->mixCovergage = $this->prophet->prophesize(CoverageEntity::class);
                     $this->mixCovergage->getLineNumber()->willReturn(0);
 
-                    $this->maxCovergage = $this->prophet->prophesize('coverallskit\entity\CoverageEntity');
+                    $this->maxCovergage = $this->prophet->prophesize(CoverageEntity::class);
                     $this->maxCovergage->getLineNumber()->willReturn(31);
 
                     $this->min = $this->mixCovergage->reveal();

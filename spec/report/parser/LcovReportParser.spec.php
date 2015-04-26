@@ -12,6 +12,8 @@
 namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\parser\LcovReportParser;
+use coverallskit\report\parser\Result;
+
 
 describe('LcovReportParser', function() {
     describe('parse', function() {
@@ -28,7 +30,7 @@ describe('LcovReportParser', function() {
             $this->sources = $this->result->getSources();
         });
         it('return coverallskit\report\parser\Result', function() {
-            expect($this->result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
+            expect($this->result)->toBeAnInstanceOf(Result::class);
         });
         describe('Result', function() {
             it('have execute line coverage', function() {

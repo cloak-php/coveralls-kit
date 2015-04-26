@@ -89,14 +89,14 @@ describe('CoverallsReport', function() {
             it('throw coverallskit\exception\RequiredException', function() {
                 expect(function() {
                     $this->report->validate();
-                })->toThrow('coverallskit\exception\RequiredException');
+                })->toThrow(RequiredException::class);
             });
         });
         context('when source file empty', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $service = $this->prophet->prophesize('coverallskit\entity\ServiceEntity');
+                $service = $this->prophet->prophesize(ServiceEntity::class);
                 $service->isEmpty()->willReturn(false);
 
                 $this->report = new CoverallsReport([
@@ -108,7 +108,7 @@ describe('CoverallsReport', function() {
             it('throw coverallskit\exception\RequiredException', function() {
                 expect(function() {
                     $this->report->validate();
-                })->toThrow('coverallskit\exception\RequiredException');
+                })->toThrow(RequiredException::class);
             });
         });
     });

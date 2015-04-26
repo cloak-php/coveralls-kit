@@ -84,7 +84,7 @@ describe('Result', function() {
             $this->result = new Result($this->sources, $collection);
         });
         it('return coverallskit\exception\ExceptionCollection', function() {
-            expect($this->result->getParseErrors())->toBeAnInstanceOf('coverallskit\exception\ExceptionCollection');
+            expect($this->result->getParseErrors())->toBeAnInstanceOf(ExceptionCollection::class);
         });
     });
     describe('hasParseError', function() {
