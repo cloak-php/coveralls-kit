@@ -11,7 +11,7 @@
 
 namespace coverallskit\value;
 
-use coverallskit\entity\CoverageInterface;
+use coverallskit\entity\CoverageEntity;
 use OutOfRangeException;
 
 class LineRange
@@ -49,12 +49,12 @@ class LineRange
     }
 
     /**
-     * @param integer|CoverageInterface $coverage
+     * @param integer|CoverageEntity $coverage
      * @return boolean
      */
     public function between($coverage)
     {
-        if ($coverage instanceof CoverageInterface) {
+        if ($coverage instanceof CoverageEntity) {
             $lineAt = $coverage->getLineNumber();
         } else {
             $lineAt = $coverage;
@@ -64,7 +64,7 @@ class LineRange
     }
 
     /**
-     * @param integer|CoverageInterface $coverage
+     * @param integer|CoverageEntity $coverage
      * @return boolean
      */
     public function contains($coverage)

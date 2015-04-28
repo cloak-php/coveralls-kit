@@ -12,20 +12,28 @@
 namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\parser\CloverReportParser;
+use coverallskit\report\parser\Result;
 
-describe('CloverReportParser', function() {
+
+describe(CloverReportParser::class, function() {
     describe('parse', function() {
         beforeEach(function() {
-            $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
+            $this->sourcePath1 = $this->fixturePath('static:cloverParser:target1');
+            $this->sourcePath2 = $this->fixturePath('static:cloverParser:target2');
 
-            $content = file_get_contents($this->fixtureDirectory . 'clover.xml');
-            $this->content = sprintf($content, getcwd(), getcwd());
+            $fixture = $this->loadFixture('mustache:CloverParser:cloverReport', [
+                'targetPath1' => $this->sourcePath1,
+                'targetPath2' => $this->sourcePath2
+            ]);
+
+            $temp = $this->makeFile();
+            $temp->write($fixture);
 
             $this->parser = new CloverReportParser();
-            $this->result = $this->parser->parse($this->content);
+            $this->result = $this->parser->parse( $temp->getPath() );
         });
         it('return coverallskit\report\parser\Result', function() {
-            expect($this->result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
+            expect($this->result)->toBeAnInstanceOf(Result::class);
         });
         describe('Result', function() {
             it('have execute line coverage', function() {

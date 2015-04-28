@@ -13,21 +13,22 @@ namespace coverallskit\spec;
 
 
 use coverallskit\Environment;
-use coverallskit\entity\Service;
+use coverallskit\entity\CIService;
+use coverallskit\environment\EnvironmentAdaptor;
 use Prophecy\Prophet;
 
 
-describe('Service', function() {
+describe(CIService::class, function() {
     beforeEach(function() {
         $this->prophet = new Prophet();
 
-        $adaptor = $this->prophet->prophesize('coverallskit\environment\AdaptorInterface');
+        $adaptor = $this->prophet->prophesize(EnvironmentAdaptor::class);
         $adaptor->getName()->willReturn('travis-ci');
         $adaptor->getBuildJobId()->willReturn('10');
         $adaptor->getCoverallsToken()->willReturn('token');
         $adaptor->isSupported()->willReturn(true);
 
-        $this->service = new Service($adaptor->reveal());
+        $this->service = new CIService($adaptor->reveal());
     });
     describe('getServiceName', function() {
         it('return service name', function() {

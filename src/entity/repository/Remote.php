@@ -2,7 +2,7 @@
 
 namespace coverallskit\entity\repository;
 
-use coverallskit\CompositeEntityInterface;
+use coverallskit\CompositeEntity;
 use coverallskit\AttributePopulatable;
 
 
@@ -10,7 +10,7 @@ use coverallskit\AttributePopulatable;
  * Class Remote
  * @package coverallskit\entity\repository
  */
-class Remote implements CompositeEntityInterface
+class Remote implements CompositeEntity
 {
 
     use AttributePopulatable;

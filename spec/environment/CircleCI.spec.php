@@ -15,7 +15,7 @@ use coverallskit\Environment;
 use coverallskit\environment\CircleCI;
 
 
-describe('CircleCI', function() {
+describe(CircleCI::class, function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
             $this->circleCI = new CircleCI(new Environment());

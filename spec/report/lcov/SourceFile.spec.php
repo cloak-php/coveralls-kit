@@ -14,7 +14,7 @@ namespace coverallskit\spec\report\parser;
 use coverallskit\report\lcov\SourceFile;
 
 
-describe('SourceFile', function() {
+describe(SourceFile::class, function() {
     beforeEach(function() {
         $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
         $this->sourcePath = $this->fixtureDirectory . 'bar.php';

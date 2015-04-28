@@ -15,7 +15,7 @@ use coverallskit\Environment;
 use coverallskit\environment\DroneIO;
 
 
-describe('DroneIO', function() {
+describe(DroneIO::class, function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
             $this->drone = new DroneIO(new Environment());

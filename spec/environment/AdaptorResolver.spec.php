@@ -13,9 +13,15 @@ namespace coverallskit\spec;
 
 use coverallskit\Environment;
 use coverallskit\environment\AdaptorResolver;
+use coverallskit\environment\CircleCI;
+use coverallskit\environment\DroneIO;
+use coverallskit\environment\TravisCI;
+use coverallskit\environment\CodeShip;
+use coverallskit\environment\General;
+use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
 
-describe('AdaptorResolver', function() {
+describe(AdaptorResolver::class, function() {
     describe('#resolveByEnvironment', function() {
         context('when supported', function() {
             context('when circle-ci', function() {
@@ -30,7 +36,7 @@ describe('AdaptorResolver', function() {
                 });
                 it('return detect circle-ci adaptor', function() {
                     $adaptor = $this->resolver->resolveByEnvironment();
-                    expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\CircleCI');
+                    expect($adaptor)->toBeAnInstanceOf(CircleCI::class);
                 });
             });
             context('when drone.io', function() {
@@ -45,7 +51,7 @@ describe('AdaptorResolver', function() {
                 });
                 it('return detect drone.io adaptor', function() {
                     $adaptor = $this->resolver->resolveByEnvironment();
-                    expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\DroneIO');
+                    expect($adaptor)->toBeAnInstanceOf(DroneIO::class);
                 });
             });
             context('when travis-ci', function() {
@@ -60,7 +66,7 @@ describe('AdaptorResolver', function() {
                 });
                 it('return detect travis-ci adaptor', function() {
                     $adaptor = $this->resolver->resolveByEnvironment();
-                    expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\TravisCI');
+                    expect($adaptor)->toBeAnInstanceOf(TravisCI::class);
                 });
             });
             context('when codeship', function() {
@@ -75,7 +81,7 @@ describe('AdaptorResolver', function() {
                 });
                 it('return detect codeship adaptor', function() {
                     $adaptor = $this->resolver->resolveByEnvironment();
-                    expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\CodeShip');
+                    expect($adaptor)->toBeAnInstanceOf(CodeShip::class);
                 });
             });
         });
@@ -86,7 +92,7 @@ describe('AdaptorResolver', function() {
             });
             it('return general adaptor', function() {
                 $adaptor = $this->resolver->resolveByEnvironment();
-                expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\General');
+                expect($adaptor)->toBeAnInstanceOf(General::class);
             });
         });
     });
@@ -98,14 +104,14 @@ describe('AdaptorResolver', function() {
         context('when supported', function() {
             it('return detect adaptor', function() {
                 $adaptor = $this->resolver->resolveByName('circle-ci');
-                expect($adaptor)->toBeAnInstanceOf('coverallskit\environment\CircleCI');
+                expect($adaptor)->toBeAnInstanceOf(CircleCI::class);
             });
         });
         context('when not supported', function() {
             it('throw \coverallskit\exception\EnvironmentAdaptorNotFoundException exception', function() {
                 expect(function() {
                     $this->resolver->resolveByName('not_found');
-                })->toThrow('\coverallskit\exception\EnvironmentAdaptorNotFoundException');
+                })->toThrow(EnvironmentAdaptorNotFoundException::class);
             });
         });
     });

@@ -11,26 +11,28 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\ReportTransfer;
-use coverallskit\entity\Report;
-use coverallskit\entity\Service;
-use coverallskit\entity\Repository;
+use coverallskit\CoverallsReportTransfer;
+use coverallskit\entity\CoverallsReport;
+use coverallskit\entity\CIService;
+use coverallskit\entity\GitRepository;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\Environment;
 use coverallskit\environment\TravisCI;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Prophecy\Prophet;
 use Prophecy\Argument;
 
 
-describe('ReportTransfer', function() {
+describe(CoverallsReportTransfer::class, function() {
     describe('getClient', function() {
         beforeEach(function() {
-            $this->uploader = new ReportTransfer();
+            $this->uploader = new CoverallsReportTransfer();
         });
         context('when not specified client', function() {
             it('should return Guzzle\Http\Client instance', function() {
                 $client = $this->uploader->getClient();
-                expect($client)->toBeAnInstanceOf('GuzzleHttp\Client');
+                expect($client)->toBeAnInstanceOf(Client::class);
             });
         });
     });
@@ -44,27 +46,27 @@ describe('ReportTransfer', function() {
                 'COVERALLS_REPO_TOKEN' => 'token'
             ]);
             $adaptor = new TravisCI($environment);
-            $service = new Service($adaptor);
+            $service = new CIService($adaptor);
 
-            $this->report = new Report([
+            $this->report = new CoverallsReport([
                 'name' => __DIR__ . '/fixtures/coveralls.json',
                 'token' => 'foo',
-                'repository' => new Repository(__DIR__ . '/../'),
+                'repository' => new GitRepository(__DIR__ . '/../'),
                 'service' => $service,
                 'sourceFiles' => new SourceFileCollection()
             ]);
 
-            $url = ReportTransfer::ENDPOINT_URL;
+            $url = CoverallsReportTransfer::ENDPOINT_URL;
             $optionsCallback = Argument::that(function(array $options) {
                 return isset($options['body']);
             });
 
             $this->prophet = new Prophet();
 
-            $this->client = $this->prophet->prophesize('GuzzleHttp\ClientInterface');
+            $this->client = $this->prophet->prophesize(ClientInterface::class);
             $this->client->post($url, $optionsCallback)->shouldBeCalled();
 
-            $this->uploader = new ReportTransfer($this->client->reveal());
+            $this->uploader = new CoverallsReportTransfer($this->client->reveal());
             $this->uploader->upload($this->report);
         });
         it('should upload report file', function() {

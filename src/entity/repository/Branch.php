@@ -2,10 +2,10 @@
 
 namespace coverallskit\entity\repository;
 
-use coverallskit\EntityInterface;
+use coverallskit\Entity;
 use coverallskit\AttributePopulatable;
 
-class Branch implements EntityInterface
+class Branch implements Entity
 {
 
     use AttributePopulatable;
@@ -22,7 +22,7 @@ class Branch implements EntityInterface
     }
 
     /**
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -30,7 +30,7 @@ class Branch implements EntityInterface
     }
 
     /**
-     * @return boolean 
+     * @return boolean
      */
     public function isRemote()
     {
@@ -38,7 +38,7 @@ class Branch implements EntityInterface
     }
 
     /**
-     * @return boolean 
+     * @return boolean
      */
     public function isEmpty()
     {
@@ -46,7 +46,7 @@ class Branch implements EntityInterface
     }
 
     /**
-     * @return string 
+     * @return string
      */
     public function __toString()
     {

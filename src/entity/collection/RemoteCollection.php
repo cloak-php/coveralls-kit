@@ -10,7 +10,7 @@ use coverallskit\AttributePopulatable;
  * Class RemoteCollection
  * @package coverallskit\entity\collection
  */
-class RemoteCollection implements CompositeEntityCollectionInterface
+class RemoteCollection implements CompositeEntityCollection
 {
 
     use AttributePopulatable;

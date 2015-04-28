@@ -17,7 +17,7 @@ use coverallskit\report\lcov\RecordLexer;
 use coverallskit\report\lcov\EndOfRecord;
 use coverallskit\report\lcov\SourceFile as LcovSourceFile;
 use coverallskit\report\lcov\Coverage as LcovCoverage;
-use coverallskit\report\ReportParserInterface;
+use coverallskit\report\ReportParser;
 use coverallskit\exception\ExceptionCollection;
 use coverallskit\exception\LineOutOfRangeException;
 
@@ -26,7 +26,7 @@ use coverallskit\exception\LineOutOfRangeException;
  * Class LcovReportParser
  * @package coverallskit\report\parser
  */
-class LcovReportParser implements ReportParserInterface
+class LcovReportParser implements ReportParser
 {
 
     /**
@@ -62,14 +62,14 @@ class LcovReportParser implements ReportParserInterface
     }
 
     /**
-     * @param string $reportContent
-     * @return Result
+     * {@inheritdoc}
      */
-    public function parse($reportContent)
+    public function parse($reportFilePath)
     {
-        $recordLexer = new RecordLexer($reportContent);
+        $recordLexer = new RecordLexer($reportFilePath);
+        $records = $recordLexer->records();
 
-        foreach ($recordLexer as $record) {
+        foreach ($records as $record) {
             if ($record instanceof LcovSourceFile) {
                 $this->startSource($record);
             } elseif ($record instanceof EndOfRecord) {

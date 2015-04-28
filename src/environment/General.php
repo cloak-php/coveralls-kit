@@ -17,7 +17,7 @@ namespace coverallskit\environment;
  * Class General
  * @package coverallskit\environment
  */
-final class General extends AbstractAdaptor implements AdaptorInterface
+final class General extends AbstractAdaptor implements EnvironmentAdaptor
 {
 
     /**

@@ -12,14 +12,14 @@
 namespace coverallskit\exception;
 
 use coverallskit\value\LineRange;
-use coverallskit\entity\CoverageInterface;
+use coverallskit\entity\CoverageEntity;
 use Exception;
 use OutOfRangeException;
 
 class LineOutOfRangeException extends OutOfRangeException
 {
 
-    public function __construct(CoverageInterface $coverage, LineRange $range, $code = 0, Exception $previous = null)
+    public function __construct(CoverageEntity $coverage, LineRange $range, $code = 0, Exception $previous = null)
     {
         $template = "The %dst line is outside the range of the %dth line from the %dst line";
         $message = sprintf($template, $coverage->getLineNumber(), $range->getLastLineNumber(), $range->getFirstLineNumber());

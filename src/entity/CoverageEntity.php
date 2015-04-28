@@ -14,10 +14,10 @@ namespace coverallskit\entity;
 use coverallskit\value\LineRange;
 
 /**
- * Interface CoverageInterface
+ * Interface CoverageEntity
  * @package coverallskit\entity
  */
-interface CoverageInterface
+interface CoverageEntity
 {
 
     const UNUSED = 0;
@@ -52,6 +52,6 @@ interface CoverageInterface
     /**
      * @return integer|null
      */
-    public function valueOf(); 
+    public function valueOf();
 
 }

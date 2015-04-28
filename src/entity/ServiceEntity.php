@@ -12,14 +12,14 @@
 namespace coverallskit\entity;
 
 
-use coverallskit\CompositeEntityInterface;
+use coverallskit\CompositeEntity;
 
 
 /**
- * Interface ServiceInterface
+ * Interface ServiceEntity
  * @package coverallskit\entity\service
  */
-interface ServiceInterface extends CompositeEntityInterface
+interface ServiceEntity extends CompositeEntity
 {
 
     /**

@@ -11,65 +11,35 @@
 
 namespace coverallskit;
 
-use coverallskit\entity\ReportInterface;
-use GuzzleHttp\Client;
+use coverallskit\entity\ReportEntity;
 use GuzzleHttp\ClientInterface;
 
 
 /**
- * Class ReportTransfer
+ * Interface ReportTransfer
  * @package coverallskit
  */
-class ReportTransfer implements ReportTransferInterface
+interface ReportTransfer
 {
 
-    /**
-     * @var \GuzzleHttp\ClientInterface
-     */
-    protected $client;
+    const ENDPOINT_URL = 'https://coveralls.io/api/v1/jobs';
+    const JSON_FILE_POST_FIELD_NAME = 'json_file';
 
     /**
-     * @param ClientInterface $client
+     * @param \GuzzleHttp\ClientInterface $client
+     * @return void
      */
-    public function __construct(ClientInterface $client = null)
-    {
-        $httpClient = $client;
-
-        if ($httpClient === null) {
-            $httpClient = new Client();
-        }
-        $this->setClient($httpClient);
-    }
+    public function setClient(ClientInterface $client);
 
     /**
-     * @param ClientInterface $client
+     * @return \GuzzleHttp\ClientInterface
      */
-    public function setClient(ClientInterface $client)
-    {
-        $this->client = $client;
-    }
+    public function getClient();
 
     /**
-     * @return ClientInterface
+     * @param \coverallskit\entity\ReportEntity $report
+     * @return mixed
      */
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
-     * @param ReportInterface $report
-     */
-    public function upload(ReportInterface $report)
-    {
-        $stream = fopen($report->getName(), 'r');
-
-        $client = $this->getClient();
-        $client->post(static::ENDPOINT_URL, [
-            'body' => [
-                static::JSON_FILE_POST_FIELD_NAME => $stream
-            ]
-        ]);
-    }
+    public function upload(ReportEntity $report);
 
 }

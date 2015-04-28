@@ -12,10 +12,10 @@
 namespace coverallskit;
 
 /**
- * Interface ConfigurationLoaderInterface
+ * Interface ConfigurationLoader
  * @package coverallskit
  */
-interface ConfigurationLoaderInterface
+interface ConfigurationLoader
 {
 
     const CONFIG_FILE_KEY = 'configurationFile';

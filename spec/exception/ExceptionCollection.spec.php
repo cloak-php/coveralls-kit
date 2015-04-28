@@ -14,7 +14,7 @@ namespace coverallskit\spec;
 use coverallskit\exception\ExceptionCollection;
 use Exception;
 
-describe('ExceptionCollection', function() {
+describe(ExceptionCollection::class, function() {
     beforeEach(function() {
         $this->exceptions = new ExceptionCollection();
         $this->exceptions->add(new Exception('exception'));

@@ -11,7 +11,7 @@
 
 namespace coverallskit\report\lcov;
 
-use coverallskit\entity\Coverage as EntityCoverage;
+use coverallskit\entity\CoverageResult as EntityCoverage;
 
 /**
  * Class Coverage

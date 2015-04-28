@@ -11,23 +11,25 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\Configuration;
-use coverallskit\ReportBuilder;
+use coverallskit\BuilderConfiguration;
+use coverallskit\CoverallsReportBuilder;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\repository\Commit;
 use coverallskit\entity\repository\Branch;
 use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
+use coverallskit\entity\ServiceEntity;
+use coverallskit\entity\RepositoryEntity;
 use Prophecy\Prophet;
 
 
-describe('ReportBuilder', function() {
+describe(CoverallsReportBuilder::class, function() {
 
     describe('build', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $service = $this->prophet->prophesize('coverallskit\entity\ServiceInterface');
+            $service = $this->prophet->prophesize(ServiceEntity::class);
             $service->getServiceJobId()->willReturn('10');
             $service->getServiceName()->willReturn('travis-ci');
 
@@ -51,7 +53,7 @@ describe('ReportBuilder', function() {
             ]);
             $this->remotes = new RemoteCollection([ $remote ]);
 
-            $repository = $this->prophet->prophesize('coverallskit\entity\RepositoryInterface');
+            $repository = $this->prophet->prophesize(RepositoryEntity::class);
             $repository->getCommit()->willReturn($this->commit);
             $repository->getBranch()->willReturn($this->branch);
             $repository->getRemotes()->willReturn($this->remotes);
@@ -61,7 +63,7 @@ describe('ReportBuilder', function() {
             $this->foo = realpath(__DIR__ . '/fixtures/foo.php');
             $this->bar = realpath(__DIR__ . '/fixtures/bar.php');
 
-            $this->builder = new ReportBuilder();
+            $this->builder = new CoverallsReportBuilder();
             $this->builder->reportFilePath(__DIR__  . '/tmp/coverage.json');
             $this->builder->token('foo');
             $this->builder->repository($this->repository);
@@ -100,10 +102,10 @@ describe('ReportBuilder', function() {
 
     describe('fromConfiguration', function() {
         beforeEach(function() {
-            $this->builder = ReportBuilder::fromConfiguration(new Configuration());
+            $this->builder = CoverallsReportBuilder::fromConfiguration(new BuilderConfiguration());
         });
-        it('return coverallskit\ReportBuilder instance', function() {
-            expect($this->builder)->toBeAnInstanceOf('coverallskit\ReportBuilder');
+        it('return coverallskit\CoverallsReportBuilder instance', function() {
+            expect($this->builder)->toBeAnInstanceOf(CoverallsReportBuilder::class);
         });
     });
 

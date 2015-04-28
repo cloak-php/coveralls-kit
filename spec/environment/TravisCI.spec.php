@@ -15,7 +15,7 @@ use coverallskit\Environment;
 use coverallskit\environment\TravisCI;
 
 
-describe('TravisCI', function() {
+describe(TravisCI::class, function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
             $this->travis = new TravisCI(new Environment());

@@ -13,12 +13,12 @@ namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\parser\Result;
 use coverallskit\entity\SourceFile;
-use coverallskit\entity\Coverage;
+use coverallskit\entity\CoverageResult;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\exception\ExceptionCollection;
 use Exception;
 
-describe('Result', function() {
+describe(Result::class, function() {
     beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
     });
@@ -44,7 +44,7 @@ describe('Result', function() {
     describe('getExecutedLineCount', function() {
         beforeEach(function() {
             $source = new SourceFile($this->path);
-            $source->addCoverage(Coverage::executed(12));
+            $source->addCoverage(CoverageResult::executed(12));
 
             $sources = new SourceFileCollection();
             $sources->add($source);
@@ -59,7 +59,7 @@ describe('Result', function() {
     describe('getUnusedLineCount', function() {
         beforeEach(function() {
             $source = new SourceFile($this->path);
-            $source->addCoverage(Coverage::unused(12));
+            $source->addCoverage(CoverageResult::unused(12));
 
             $sources = new SourceFileCollection();
             $sources->add($source);
@@ -84,7 +84,7 @@ describe('Result', function() {
             $this->result = new Result($this->sources, $collection);
         });
         it('return coverallskit\exception\ExceptionCollection', function() {
-            expect($this->result->getParseErrors())->toBeAnInstanceOf('coverallskit\exception\ExceptionCollection');
+            expect($this->result->getParseErrors())->toBeAnInstanceOf(ExceptionCollection::class);
         });
     });
     describe('hasParseError', function() {

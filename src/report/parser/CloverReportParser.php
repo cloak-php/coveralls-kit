@@ -11,28 +11,25 @@
 
 namespace coverallskit\report\parser;
 
-use coverallskit\report\ReportParserInterface;
+use coverallskit\report\ReportParser;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\Coverage;
-use Zend\Dom\Query;
-use Zend\Dom\NodeList;
+use coverallskit\entity\CoverageResult;
+use Symfony\Component\DomCrawler\Crawler;
 use coverallskit\exception\ExceptionCollection;
 use coverallskit\exception\LineOutOfRangeException;
-use DOMElement;
 
 
 /**
  * Class CloverReportParser
  * @package coverallskit\report\parser
  */
-class CloverReportParser implements ReportParserInterface
+class CloverReportParser implements ReportParser
 {
-
     /**
-     * @var string
+     * @var \Symfony\Component\DomCrawler\Crawler
      */
-    private $reportContent;
+    private $crawler;
 
     /**
      * @var \coverallskit\entity\SourceFile
@@ -59,59 +56,43 @@ class CloverReportParser implements ReportParserInterface
      */
     private $reportParseErrors;
 
-
     public function __construct()
     {
+        $this->crawler = new Crawler();
         $this->sourceCollection = new SourceFileCollection();
         $this->reportParseErrors = new ExceptionCollection();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function parse($reportFilePath)
+    {
+        $reportContent = file_get_contents($reportFilePath);
+
+        $this->crawler->addXmlContent($reportContent);
+        $fileNodes = $this->crawler->filter('file');
+
+        return $this->parseFileNodes($fileNodes);
+    }
 
     /**
-     * @param string $reportContent
+     * @param Crawler $files
      * @return Result
      */
-    public function parse($reportContent)
+    private function parseFileNodes(Crawler $files)
     {
-        $this->reportContent = $reportContent;
-
-        $files = $this->findFiles();
-        return $this->parseFileNodes($files);
-    }
-
-    /**
-     * @return NodeList
-     */
-    private function findFiles()
-    {
-        $query = new Query($this->reportContent);
-        return $query->execute('file');
-    }
-
-    /**
-     * @param string $fileName
-     * @return NodeList
-     */
-    private function findCoverages($fileName)
-    {
-        $query = new Query($this->reportContent);
-        return $query->execute("file[name='$fileName'] line");
-    }
-
-    /**
-     * @param \Zend\Dom\NodeList $files
-     * @return Result
-     */
-    private function parseFileNodes(NodeList $files)
-    {
-        foreach($files as $file) {
-            $fileName = (string) $file->getAttribute('name');
+        $fileNodeParser = function(Crawler $file) {
+            $fileName = $file->attr('name');
 
             $this->source = new SourceFile($fileName);
+            $lines = $this->crawler->filter("file[name='$fileName'] line");
 
-            $lines = $this->findCoverages($fileName);
             $this->parseLineNodes($lines);
-        }
+        };
+        $fileNodeParser->bind($this);
+
+        $files->each($fileNodeParser);
 
         $result = new Result(
             $this->sourceCollection,
@@ -122,16 +103,19 @@ class CloverReportParser implements ReportParserInterface
     }
 
     /**
-     * @param \Zend\Dom\NodeList $lines
+     * @param Crawler $lines
      */
-    private function parseLineNodes(NodeList $lines)
+    private function parseLineNodes(Crawler $lines)
     {
         $this->coverages = $this->source->getEmptyCoverages();
         $this->coveragesErrors = new ExceptionCollection($this->source->getName());
 
-        foreach ($lines as $line) {
+        $lineNodeParser = function(Crawler $line) {
             $this->parseLine($line);
-        }
+        };
+        $lineNodeParser->bind($this);
+
+        $lines->each($lineNodeParser);
 
         $this->source->addCoverages($this->coverages);
         $this->sourceCollection->add($this->source);
@@ -140,17 +124,17 @@ class CloverReportParser implements ReportParserInterface
     }
 
     /**
-     * @param DOMElement $line
+     * @param Crawler $line
      */
-    private function parseLine(DOMElement $line)
+    private function parseLine(Crawler $line)
     {
-        $lineNumber = (int) $line->getAttribute('num');
-        $executeCount = (int) $line->getAttribute('count');
+        $lineNumber = (int) $line->attr('num');
+        $executeCount = (int) $line->attr('count');
 
         $analysisResult = ($executeCount >= 1)
-            ? Coverage::EXECUTED : Coverage::UNUSED;
+            ? CoverageResult::EXECUTED : CoverageResult::UNUSED;
 
-        $coverage = new Coverage($lineNumber, $analysisResult);
+        $coverage = new CoverageResult($lineNumber, $analysisResult);
 
         try {
             $this->coverages->add($coverage);
