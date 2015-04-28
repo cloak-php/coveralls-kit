@@ -62,14 +62,14 @@ class LcovReportParser implements ReportParser
     }
 
     /**
-     * @param string $reportContent
-     * @return Result
+     * {@inheritdoc}
      */
-    public function parse($reportContent)
+    public function parse($reportFilePath)
     {
-        $recordLexer = new RecordLexer($reportContent);
+        $recordLexer = new RecordLexer($reportFilePath);
+        $records = $recordLexer->records();
 
-        foreach ($recordLexer as $record) {
+        foreach ($records as $record) {
             if ($record instanceof LcovSourceFile) {
                 $this->startSource($record);
             } elseif ($record instanceof EndOfRecord) {

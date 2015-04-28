@@ -1,5 +1,12 @@
 [static.RecordLexer]
 coverageTarget = "bar.php"
 
+[static.lcovParser]
+target1 = "bar.php"
+target2 = "foo.php"
+
 [mustache.RecordLexer]
 lcovReport = "record-lexer.ms"
+
+[mustache.LcovParser]
+lcovReport = "report.ms"

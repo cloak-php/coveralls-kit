@@ -18,15 +18,19 @@ use coverallskit\report\parser\Result;
 describe(LcovReportParser::class, function() {
     describe('parse', function() {
         beforeEach(function() {
-            $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
-            $this->sourcePath1 = $this->fixtureDirectory . 'bar.php';
-            $this->sourcePath2 = $this->fixtureDirectory . 'foo.php';
+            $this->sourcePath1 = $this->fixturePath('static:lcovParser:target1');
+            $this->sourcePath2 = $this->fixturePath('static:lcovParser:target2');
 
-            $content = file_get_contents($this->fixtureDirectory . 'report.lcov');
-            $this->content = sprintf($content, getcwd(), getcwd());
+            $fixture = $this->loadFixture('mustache:LcovParser:lcovReport', [
+                'targetPath1' => $this->sourcePath1,
+                'targetPath2' => $this->sourcePath2
+            ]);
+
+            $temp = $this->makeFile();
+            $temp->write($fixture);
 
             $this->parser = new LcovReportParser();
-            $this->result = $this->parser->parse($this->content);
+            $this->result = $this->parser->parse( $temp->getPath() );
             $this->sources = $this->result->getSources();
         });
         it('return coverallskit\report\parser\Result', function() {

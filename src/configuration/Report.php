@@ -101,7 +101,7 @@ class Report extends AbstractConfiguration
         }
 
         $parser = $this->detectReportParser($reportType);
-        $parseResult = $parser->parse(file_get_contents($path));
+        $parseResult = $parser->parse(file_get_contents($path)); //FIXME apply file path
 
         $builder->addSources($parseResult->getSources());
 
