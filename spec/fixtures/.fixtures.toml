@@ -1,2 +1,5 @@
+[static.RecordLexer]
+coverageTarget = "bar.php"
+
 [mustache.RecordLexer]
 lcovReport = "record-lexer.ms"

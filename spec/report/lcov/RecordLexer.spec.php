@@ -18,15 +18,13 @@ describe(RecordLexer::class, function() {
     describe('records', function() {
         context('when have unsupport recover type', function() {
             beforeEach(function() {
-                $fixtureDirectory = __DIR__ . '/../../fixtures/';
-                $sourcePath = $fixtureDirectory . 'bar.php';
+                $sourcePath = $this->fixturePath('static:RecordLexer:coverageTarget');
 
                 $fixture = $this->loadFixture('mustache:RecordLexer:lcovReport', [
                     'sourcePath' => realpath($sourcePath)
                 ]);
 
                 $temp = $this->makeFile();
-                $temp->open();
                 $temp->write($fixture);
 
                 $this->recordLexer = new RecordLexer($temp->getPath());
@@ -42,4 +40,5 @@ describe(RecordLexer::class, function() {
             });
         });
     });
+
 });

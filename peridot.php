@@ -4,7 +4,7 @@ use Evenement\EventEmitterInterface;
 use expect\peridot\ExpectPlugin;
 use cloak\peridot\CloakPlugin;
 use Peridot\Reporter\Dot\DotReporterPlugin;
-use holyshared\fixture\peridot\FileFixturePlugin;
+use holyshared\peridot\FileFixturePlugin;
 use holyshared\peridot\temporary\TemporaryPlugin;
 
 return function(EventEmitterInterface $emitter)
