@@ -17,10 +17,10 @@ use ReflectionClass;
 
 
 /**
- * Class Registry
+ * Class ObjectRegistry
  * @package coverallskit
  */
-class Registry
+class ObjectRegistry
 {
 
     /**

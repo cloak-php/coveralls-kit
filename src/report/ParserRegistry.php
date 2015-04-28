@@ -11,7 +11,7 @@
 
 namespace coverallskit\report;
 
-use coverallskit\Registry;
+use coverallskit\ObjectRegistry;
 use coverallskit\report\parser\CloverReportParser;
 use coverallskit\report\parser\LcovReportParser;
 
@@ -22,13 +22,13 @@ use coverallskit\report\parser\LcovReportParser;
 class ParserRegistry
 {
     /**
-     * @var Registry
+     * @var ObjectRegistry
      */
     private $registry;
 
     public function __construct()
     {
-        $this->registry = new Registry();
+        $this->registry = new ObjectRegistry();
         $this->registry->register('clover', CloverReportParser::class);
         $this->registry->register('lcov', LcovReportParser::class);
     }
