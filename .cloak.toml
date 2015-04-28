@@ -4,7 +4,7 @@
 includes = ["src"]
 
 # Exclude source files.
-excludes = ["vendor", "spec"]
+excludes = ["vendor", "spec", "peridot.php"]
 
 [report]
 reportDirectory = "./tmp"
