@@ -11,23 +11,22 @@
 
 namespace coverallskit\report\lcov;
 
-use IteratorAggregate;
 use ReflectionMethod;
-use ArrayIterator;
 use UnexpectedValueException;
+use SplFileObject;
 
 
 /**
  * Class RecordLexer
  * @package coverallskit\report\lcov
  */
-class RecordLexer implements IteratorAggregate
+class RecordLexer
 {
 
     /**
-     * @var array
+     * @var SplFileObject
      */
-    private $records;
+    private $reportFile;
 
     /**
      * @var array
@@ -38,37 +37,32 @@ class RecordLexer implements IteratorAggregate
         EndOfRecord::class
     ];
 
-
     /**
-     * @param string $reportContent
+     * @param string $reportPath
      */
-    public function __construct($reportContent)
+    public function __construct($reportPath)
     {
-        $this->parse($reportContent);
+        $this->reportFile = new SplFileObject($reportPath, 'r');
+        $this->reportFile->setFlags(
+            SplFileObject::DROP_NEW_LINE |
+            SplFileObject::SKIP_EMPTY
+        );
     }
 
     /**
-     * @return ArrayIterator
+     * @return \Generator
      */
-    public function getIterator()
+    public function records()
     {
-        return new ArrayIterator($this->records);
-    }
+        while ($this->reportFile->eof() === false) {
+            $record = $this->reportFile->fgets();
 
-    /**
-     * @param string $reportContent
-     */
-    private function parse($reportContent)
-    {
-        $records = explode(PHP_EOL, $reportContent);
-
-        foreach ($records as $record) {
             try {
-                $result = $this->detectRecord($record);
+                $lcovRecord = $this->detectRecord($record);
+                yield $lcovRecord;
             } catch (UnexpectedValueException $e) {
                 continue;
             }
-            $this->records[] = $result;
         }
     }
 

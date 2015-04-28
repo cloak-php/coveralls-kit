@@ -14,25 +14,31 @@ namespace coverallskit\spec\report\parser;
 use coverallskit\report\lcov\RecordLexer;
 
 describe(RecordLexer::class, function() {
-    describe('getIterator', function() {
+
+    describe('records', function() {
         context('when have unsupport recover type', function() {
             beforeEach(function() {
-                $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
-                $this->sourcePath = $this->fixtureDirectory . 'bar.php';
+                $sourcePath = $this->fixturePath('static:RecordLexer:coverageTarget');
 
-                $records = [
-                    "TN:test",
-                    "SF:" . $this->sourcePath,
-                    "DA:1,1",
-                    "end_of_record",
-                ];
-                $content = join(PHP_EOL, $records) . PHP_EOL;
-                $this->recordLexer = new RecordLexer($content);
-                $this->records = $this->recordLexer->getIterator();
+                $fixture = $this->loadFixture('mustache:RecordLexer:lcovReport', [
+                    'sourcePath' => realpath($sourcePath)
+                ]);
+
+                $temp = $this->makeFile();
+                $temp->write($fixture);
+
+                $this->recordLexer = new RecordLexer($temp->getPath());
             });
-            it('return ArrayIterator', function() {
-                expect(count($this->records))->toEqual(3);
+            it('return record stream', function() {
+                $results = [];
+                $records = $this->recordLexer->records();
+
+                foreach ($records as $record) {
+                    $results[] = $record;
+                }
+                expect(count($results))->toEqual(3);
             });
         });
     });
+
 });
