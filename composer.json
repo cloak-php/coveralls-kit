@@ -24,7 +24,7 @@
         "robo-peridot/robo-peridot": "~1.1",
         "codegyre/robo": "~0.5",
         "peridot-php/peridot-dot-reporter": "~1.0",
-        "holyshared/peridot-file-fixture-plugin": "~0.2",
+        "holyshared/peridot-file-fixture-plugin": "~0.3",
         "holyshared/peridot-temporary-plugin": "~0.4"
     },
     "license": "MIT",
