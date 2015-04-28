@@ -28,6 +28,8 @@ Change Log
 * Rename RootConfigurationInterface -> RootConfiguration
 * Rename ConfigurationLoaderInterface -> ConfigurationLoader
 * Changed the dom parser from Zend\Dom to Symfony\DomCrawler
+* Changed the interface of the report parser
+
 
 1.4.0.3
 -----------------------------------
