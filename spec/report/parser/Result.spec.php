@@ -18,7 +18,7 @@ use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\exception\ExceptionCollection;
 use Exception;
 
-describe('Result', function() {
+describe(Result::class, function() {
     beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../../fixtures/foo.php');
     });
@@ -84,7 +84,7 @@ describe('Result', function() {
             $this->result = new Result($this->sources, $collection);
         });
         it('return coverallskit\exception\ExceptionCollection', function() {
-            expect($this->result->getParseErrors())->toBeAnInstanceOf('coverallskit\exception\ExceptionCollection');
+            expect($this->result->getParseErrors())->toBeAnInstanceOf(ExceptionCollection::class);
         });
     });
     describe('hasParseError', function() {

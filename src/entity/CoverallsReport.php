@@ -17,10 +17,10 @@ use coverallskit\exception\RequiredException;
 
 
 /**
- * Class Report
+ * Class CoverallsReport
  * @package coverallskit\entity
  */
-class Report implements ReportInterface
+class CoverallsReport implements ReportEntity
 {
 
     use AttributePopulatable;
@@ -37,12 +37,12 @@ class Report implements ReportInterface
     private $token;
 
     /**
-     * @var \coverallskit\entity\ServiceInterface
+     * @var \coverallskit\entity\ServiceEntity
      */
     private $service;
 
     /**
-     * @var \coverallskit\entity\RepositoryInterface
+     * @var \coverallskit\entity\RepositoryEntity
      */
     private $repository;
 
@@ -91,7 +91,7 @@ class Report implements ReportInterface
     }
 
     /**
-     * @return RepositoryInterface
+     * @return RepositoryEntity
      */
     public function getRepository()
     {

@@ -12,7 +12,8 @@
 namespace coverallskit\report;
 
 use coverallskit\Registry;
-
+use coverallskit\report\parser\CloverReportParser;
+use coverallskit\report\parser\LcovReportParser;
 
 /**
  * Class ParserRegistry
@@ -28,13 +29,13 @@ class ParserRegistry
     public function __construct()
     {
         $this->registry = new Registry();
-        $this->registry->register('clover', '\coverallskit\report\parser\CloverReportParser');
-        $this->registry->register('lcov', '\coverallskit\report\parser\LcovReportParser');
+        $this->registry->register('clover', CloverReportParser::class);
+        $this->registry->register('lcov', LcovReportParser::class);
     }
 
     /**
      * @param string $name
-     * @return \coverallskit\report\ReportParserInterface
+     * @return \coverallskit\report\ReportParser
      * @throws \coverallskit\exception\RegistryNotFoundException
      */
     public function get($name)

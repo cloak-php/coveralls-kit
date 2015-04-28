@@ -33,9 +33,9 @@ class RecordLexer implements IteratorAggregate
      * @var array
      */
     private $recordTypes = [
-        'coverallskit\report\lcov\SourceFile',
-        'coverallskit\report\lcov\Coverage',
-        'coverallskit\report\lcov\EndOfRecord'
+        SourceFile::class,
+        Coverage::class,
+        EndOfRecord::class
     ];
 
 
@@ -74,7 +74,7 @@ class RecordLexer implements IteratorAggregate
 
     /**
      * @param string $record
-     * @return \coverallskit\report\lcov\RecordInterface
+     * @return \coverallskit\report\lcov\FileRecord
      * @throws \UnexpectedValueException
      */
     private function detectRecord($record)

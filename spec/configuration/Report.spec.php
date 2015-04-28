@@ -11,14 +11,14 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\ReportBuilder;
+use coverallskit\CoverallsReportBuilder;
 use coverallskit\Configuration;
 use coverallskit\configuration\Report;
 use Zend\Config\Config;
 use Eloquent\Pathogen\Factory\PathFactory;
 
 
-describe('Report', function() {
+describe(Report::class, function() {
     beforeEach(function() {
         $this->rootDirectory = realpath(__DIR__ . '/../../');
         $this->configDirectory = __DIR__ . '/../fixtures/';
@@ -66,7 +66,7 @@ describe('Report', function() {
             file_put_contents($this->cloverReportFile, $content);
 
             $this->reportFile = $this->tmpDirectory . 'report.json';
-            $this->reportBuilder = new ReportBuilder();
+            $this->reportBuilder = new CoverallsReportBuilder();
             $this->reportConfig->applyTo($this->reportBuilder);
         });
         it('apply report file configration', function() {

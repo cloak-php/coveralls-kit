@@ -15,7 +15,7 @@ namespace coverallskit\report\lcov;
  * Class Record
  * @package coverallskit\report\lcov
  */
-abstract class AbstractRecord implements RecordInterface
+abstract class AbstractRecord implements FileRecord
 {
 
     /**

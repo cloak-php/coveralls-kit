@@ -13,15 +13,16 @@ namespace coverallskit\spec;
 
 use coverallskit\value\LineRange;
 use coverallskit\entity\CoverageResult;
+use UnexpectedValueException;
 
 
-describe('CoverageResult', function() {
+describe(CoverageResult::class, function() {
     describe('__construct', function() {
         context('when invalid analysis result', function() {
             it('throw UnexpectedValueException', function() {
                 expect(function() {
                     new CoverageResult(1, -1);
-                })->toThrow('UnexpectedValueException');
+                })->toThrow(UnexpectedValueException::class);
             });
         });
         context('when executed line', function() {
@@ -133,8 +134,8 @@ describe('CoverageResult', function() {
         beforeEach(function() {
             $this->coverage = CoverageResult::unused(1);
         });
-        it('return coverallskit\entity\Coverage instance', function() {
-            expect($this->coverage)->toBeAnInstanceOf('coverallskit\entity\CoverageResult');
+        it('return coverallskit\entity\CoverageResult instance', function() {
+            expect($this->coverage)->toBeAnInstanceOf(CoverageResult::class);
         });
         it('analysis result of return instance is unused', function() {
             expect($this->coverage->isUnused())->toBeTrue();
@@ -144,8 +145,8 @@ describe('CoverageResult', function() {
         beforeEach(function() {
             $this->coverage = CoverageResult::executed(1);
         });
-        it('return coverallskit\entity\Coverage instance', function() {
-            expect($this->coverage)->toBeAnInstanceOf('coverallskit\entity\CoverageResult');
+        it('return coverallskit\entity\CoverageResult instance', function() {
+            expect($this->coverage)->toBeAnInstanceOf(CoverageResult::class);
         });
         it('analysis result of return instance is executed', function() {
             expect($this->coverage->isExecuted())->toBeTrue();

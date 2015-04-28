@@ -13,8 +13,12 @@ namespace coverallskit\spec;
 
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\CoverageResult;
+use coverallskit\exception\FileNotFoundException;
+use coverallskit\entity\collection\CoverageCollection;
+use coverallskit\exception\LineOutOfRangeException;
 
-describe('SourceFile', function() {
+
+describe(SourceFile::class, function() {
     beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
         $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
@@ -28,7 +32,7 @@ describe('SourceFile', function() {
             it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
                     $source = new SourceFile('bar.php');
-                })->toThrow('coverallskit\exception\FileNotFoundException');
+                })->toThrow(FileNotFoundException::class);
             });
         });
     });
@@ -65,7 +69,7 @@ describe('SourceFile', function() {
             $this->sourceFile = new SourceFile($this->path);
         });
         it('should return coverallskit\entity\collection\CoverageCollection instance', function() {
-            expect($this->sourceFile->getCoverages())->toBeAnInstanceOf('coverallskit\entity\collection\CoverageCollection');
+            expect($this->sourceFile->getCoverages())->toBeAnInstanceOf(CoverageCollection::class);
         });
     });
     describe('addCoverage', function() {
@@ -84,7 +88,7 @@ describe('SourceFile', function() {
                 expect(function() {
                     $coverage = CoverageResult::unused(999);
                     $this->sourceFile->addCoverage($coverage);
-                })->toThrow('coverallskit\exception\LineOutOfRangeException');
+                })->toThrow(LineOutOfRangeException::class);
             });
         });
         context('when the blank line of the last', function() {

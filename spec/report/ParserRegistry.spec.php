@@ -12,15 +12,16 @@
 namespace coverallskit\spec\report;
 
 use coverallskit\report\ParserRegistry;
+use coverallskit\report\parser\CloverReportParser;
 
-describe('ParserRegistry', function() {
+describe(ParserRegistry::class, function() {
     describe('get', function() {
         beforeEach(function() {
             $this->registry = new ParserRegistry();
             $this->parser = $this->registry->get('clover');
         });
         it('return coverallskit\report\parser\CloverReportParser instance', function() {
-            expect($this->parser)->toBeAnInstanceOf('coverallskit\report\parser\CloverReportParser');
+            expect($this->parser)->toBeAnInstanceOf(CloverReportParser::class);
         });
     });
 });

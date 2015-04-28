@@ -13,7 +13,7 @@ namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\lcov\Coverage;
 
-describe('Coverage', function() {
+describe(Coverage::class, function() {
     beforeEach(function() {
         $this->coverage = new Coverage('DA:1,2');
     });

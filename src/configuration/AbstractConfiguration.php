@@ -11,7 +11,7 @@
 
 namespace coverallskit\configuration;
 
-use coverallskit\ConfigurationInterface;
+use coverallskit\Configuration;
 use Zend\Config\Config;
 use Eloquent\Pathogen\RelativePath;
 use Eloquent\Pathogen\AbsolutePath;
@@ -22,7 +22,7 @@ use Eloquent\Pathogen\Exception\NonRelativePathException;
  * Class AbstractConfiguration
  * @package coverallskit\configuration
  */
-abstract class AbstractConfiguration implements ConfigurationInterface
+abstract class AbstractConfiguration implements Configuration
 {
 
     /**

@@ -15,7 +15,7 @@ use coverallskit\value\LineRange;
 use coverallskit\entity\CoverageResult;
 use coverallskit\exception\LineOutOfRangeException;
 
-describe('LineOutOfRangeException', function() {
+describe(LineOutOfRangeException::class, function() {
     describe('getMessage', function() {
         beforeEach(function() {
             $this->exception = new LineOutOfRangeException(CoverageResult::unused(31), new LineRange(1, 30));

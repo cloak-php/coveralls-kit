@@ -5,12 +5,13 @@
         "coveralls", "code coverage", "report", "lcov", "clover"
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
         "phpcollection/phpcollection": "~0.4",
         "guzzlehttp/guzzle": "~5.2",
         "gitonomy/gitlib": "~0.1",
         "yosymfony/toml": "~0.3",
-        "zendframework/zend-dom": "~2.4",
+        "symfony/dom-crawler": "~2.6",
+        "symfony/css-selector": "~2.6",
         "zendframework/zend-config": "~2.4",
         "zendframework/zend-console": "~2.4",
         "eloquent/pathogen": "~0.6"

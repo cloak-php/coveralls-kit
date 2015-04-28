@@ -12,8 +12,10 @@
 namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\parser\CloverReportParser;
+use coverallskit\report\parser\Result;
 
-describe('CloverReportParser', function() {
+
+describe(CloverReportParser::class, function() {
     describe('parse', function() {
         beforeEach(function() {
             $this->fixtureDirectory = __DIR__ . '/../../fixtures/';
@@ -25,7 +27,7 @@ describe('CloverReportParser', function() {
             $this->result = $this->parser->parse($this->content);
         });
         it('return coverallskit\report\parser\Result', function() {
-            expect($this->result)->toBeAnInstanceOf('coverallskit\report\parser\Result');
+            expect($this->result)->toBeAnInstanceOf(Result::class);
         });
         describe('Result', function() {
             it('have execute line coverage', function() {

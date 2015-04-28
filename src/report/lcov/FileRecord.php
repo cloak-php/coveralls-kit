@@ -12,10 +12,10 @@
 namespace coverallskit\report\lcov;
 
 /**
- * Interface RecordInterface
+ * Interface FileRecord
  * @package coverallskit\report\lcov
  */
-interface RecordInterface
+interface FileRecord
 {
 
     /**

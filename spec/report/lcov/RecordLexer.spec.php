@@ -13,7 +13,7 @@ namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\lcov\RecordLexer;
 
-describe('RecordLexer', function() {
+describe(RecordLexer::class, function() {
     describe('getIterator', function() {
         context('when have unsupport recover type', function() {
             beforeEach(function() {

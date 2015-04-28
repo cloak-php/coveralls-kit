@@ -11,30 +11,24 @@
 
 namespace coverallskit\entity;
 
-
 use coverallskit\CompositeEntity;
 
-
-/**
- * Interface ServiceInterface
- * @package coverallskit\entity\service
- */
-interface ServiceInterface extends CompositeEntity
+interface RepositoryEntity extends CompositeEntity
 {
 
     /**
-     * @return string
+     * @return repository\Commit
      */
-    public function getServiceName();
+    public function getCommit();
 
     /**
-     * @return string
+     * @return repository\Branch
      */
-    public function getServiceJobId();
+    public function getBranch();
 
     /**
-     * @return string|null
+     * @return collection\RemoteCollection
      */
-    public function getCoverallsToken();
+    public function getRemotes();
 
 }

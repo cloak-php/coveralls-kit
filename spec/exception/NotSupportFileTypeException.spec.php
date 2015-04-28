@@ -13,7 +13,8 @@ namespace coverallskit\spec;
 
 use coverallskit\exception\NotSupportFileTypeException;
 
-describe('NotSupportFileTypeException', function() {
+
+describe(NotSupportFileTypeException::class, function() {
     describe('getMessage', function() {
         context('when with extention', function() {
             beforeEach(function() {
