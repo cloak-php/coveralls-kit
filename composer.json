@@ -14,7 +14,8 @@
         "symfony/css-selector": "~2.6",
         "zendframework/zend-config": "~2.4",
         "zendframework/zend-console": "~2.4",
-        "eloquent/pathogen": "~0.6"
+        "eloquent/pathogen": "~0.6",
+        "easyframework/collections": "~4.0"
     },
     "require-dev": {
         "phpspec/prophecy": "~1.4",

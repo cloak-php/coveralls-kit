@@ -12,6 +12,7 @@
 namespace coverallskit;
 
 use coverallskit\exception\RegistryNotFoundException;
+use Collections\Dictionary;
 use ReflectionClass;
 
 
@@ -23,9 +24,15 @@ class Registry
 {
 
     /**
-     * @var array
+     * @var \Collections\Dictionary
      */
-    private $classReflections;
+    private $reflections;
+
+
+    public function __construct()
+    {
+        $this->reflections = new Dictionary;
+    }
 
     /**
      * @param string $name
@@ -35,11 +42,11 @@ class Registry
      */
     public function get($name, array $arguments = [])
     {
-        if (isset($this->classReflections[$name]) === false) {
+        if ($this->reflections->containsKey($name) === false) {
             throw new RegistryNotFoundException("$name not found registry");
         }
 
-        $reflection = $this->classReflections[$name];
+        $reflection = $this->reflections->get($name);
 
         return $reflection->newInstanceArgs($arguments);
     }
@@ -51,7 +58,7 @@ class Registry
     public function register($name, $class)
     {
         $reflection = new ReflectionClass($class);
-        $this->classReflections[$name] = $reflection;
+        $this->reflections->add($name, $reflection);
     }
 
 }
