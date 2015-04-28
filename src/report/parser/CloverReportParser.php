@@ -64,11 +64,12 @@ class CloverReportParser implements ReportParser
     }
 
     /**
-     * @param string $reportContent
-     * @return Result
+     * {@inheritdoc}
      */
-    public function parse($reportContent)
+    public function parse($reportFilePath)
     {
+        $reportContent = file_get_contents($reportFilePath);
+
         $this->crawler->addXmlContent($reportContent);
         $fileNodes = $this->crawler->filter('file');
 

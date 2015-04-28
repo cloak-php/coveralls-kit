@@ -5,8 +5,15 @@ coverageTarget = "bar.php"
 target1 = "bar.php"
 target2 = "foo.php"
 
+[static.cloverParser]
+target1 = "bar.php"
+target2 = "foo.php"
+
 [mustache.RecordLexer]
 lcovReport = "record-lexer.ms"
 
 [mustache.LcovParser]
 lcovReport = "report.ms"
+
+[mustache.CloverParser]
+cloverReport = "clover.ms"
