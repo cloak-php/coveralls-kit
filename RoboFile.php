@@ -31,6 +31,13 @@ class RoboFile extends Tasks
         $builder->build()->save()->upload();
     }
 
+    public function specCoverallsSaveOnly()
+    {
+        $configuration = BuilderConfiguration::loadFromFile('.coveralls.toml');
+        $builder = CoverallsReportBuilder::fromConfiguration($configuration);
+        $builder->build()->save();
+    }
+
     public function exampleBasic()
     {
         $runtime = 'php';

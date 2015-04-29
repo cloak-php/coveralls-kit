@@ -40,6 +40,7 @@
     },
     "scripts": {
         "test": "vendor/bin/robo spec:all",
-        "coveralls": "vendor/bin/robo spec:coveralls"
+        "coveralls": "vendor/bin/robo spec:coveralls",
+        "coveralls-save-only": "vendor/bin/robo spec:coveralls-save-only"
     }
 }
