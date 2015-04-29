@@ -64,6 +64,16 @@ describe(SourceFile::class, function() {
             expect($this->sourceFile->getContent())->toBe(trim(file_get_contents($this->path)));
         });
     });
+
+    describe('getContentDigest', function() {
+        beforeEach(function() {
+            $this->sourceFile = new SourceFile($this->path);
+        });
+        it('should return file content digest', function() {
+            expect($this->sourceFile->getContentDigest())->toBe(md5(trim(file_get_contents($this->path))));
+        });
+    });
+
     describe('getCoverages', function() {
         beforeEach(function() {
             $this->sourceFile = new SourceFile($this->path);
@@ -141,7 +151,7 @@ describe(SourceFile::class, function() {
         it('should return array values', function() {
             $values = $this->sourceFile->toArray();
             expect($values['name'])->toEqual($this->sourceFile->getPathFromCurrentDirectory());
-            expect($values['source'])->toEqual($this->sourceFile->getContent());
+            expect($values['source_digest'])->toEqual($this->sourceFile->getContentDigest());
             expect($values['coverage'])->toEqual($this->sourceFile->getCoverages()->toArray());
         });
     });
@@ -155,7 +165,7 @@ describe(SourceFile::class, function() {
         it('should return json string', function() {
             $json = [
                 'name' => $this->relativePath,
-                'source' => trim(file_get_contents($this->path)),
+                'source_digest' => md5(trim(file_get_contents($this->path))),
                 'coverage' => [
                     null,null,null,null,null,null,null,null,null,null,null,null,
                     null,null,null,null,null,null,null,null
