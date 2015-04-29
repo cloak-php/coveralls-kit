@@ -111,6 +111,15 @@ class SourceFile implements CompositeEntity
     }
 
     /**
+     * @return string
+     */
+    public function getContentDigest()
+    {
+        $content = $this->getContent();
+        return md5($content);
+    }
+
+    /**
      * @return CoverageCollection
      */
     public function getCoverages()
@@ -206,7 +215,7 @@ class SourceFile implements CompositeEntity
     {
         $values = [
             'name' => $this->getPathFromCurrentDirectory(),
-            'source' => $this->getContent(),
+            'source_digest' => $this->getContentDigest(),
             'coverage' => $this->getCoverages()->toArray(),
         ];
 
