@@ -11,9 +11,9 @@
 
 namespace coverallskit\configuration;
 
-use coverallskit\ReportBuilderInterface;
-use coverallskit\entity\Service;
-use coverallskit\entity\Repository;
+use coverallskit\ReportBuilder;
+use coverallskit\entity\CIService;
+use coverallskit\entity\GitRepository;
 use coverallskit\Environment;
 use coverallskit\environment\AdaptorResolver;
 use Zend\Config\Config;
@@ -58,7 +58,7 @@ class Basic extends AbstractConfiguration
     }
 
     /**
-     * @return \coverallskit\entity\ServiceInterface
+     * @return \coverallskit\entity\ServiceEntity
      */
     public function getService()
     {
@@ -70,11 +70,11 @@ class Basic extends AbstractConfiguration
             $adaptor = $this->adaptorResolver->resolveByName($serviceName);
         }
 
-        return new Service($adaptor);
-     }
+        return new CIService($adaptor);
+    }
 
     /**
-     * @return \coverallskit\entity\Repository
+     * @return \coverallskit\entity\RepositoryEntity
      */
     public function getRepository()
     {
@@ -85,10 +85,10 @@ class Basic extends AbstractConfiguration
     }
 
     /**
-     * @param ReportBuilderInterface $builder
-     * @return ReportBuilderInterface
+     * @param ReportBuilder $builder
+     * @return ReportBuilder
      */
-    public function applyTo(ReportBuilderInterface $builder)
+    public function applyTo(ReportBuilder $builder)
     {
         $builder->token($this->getToken())
             ->service($this->getService())
@@ -99,12 +99,12 @@ class Basic extends AbstractConfiguration
 
     /**
      * @param string $path
-     * @return \coverallskit\entity\Repository
+     * @return \coverallskit\entity\RepositoryEntity
      */
     private function repositoryFromPath($path)
     {
         $directory = $this->resolvePath($path);
-        $repository = new Repository($directory);
+        $repository = new GitRepository($directory);
 
         return $repository;
     }

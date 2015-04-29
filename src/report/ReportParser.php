@@ -12,16 +12,18 @@
 namespace coverallskit\report;
 
 /**
- * Interface ReportParserInterface
+ * Interface ReportParser
  * @package coverallskit\report
  */
-interface ReportParserInterface
+interface ReportParser
 {
 
     /**
-     * @param string $reportContent
+     * Parse the report file of the code coverage
+     *
+     * @param string $reportFilePath
      * @return \coverallskit\report\parser\Result
      */
-    public function parse($reportContent);
+    public function parse($reportFilePath);
 
 }

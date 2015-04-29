@@ -11,17 +11,6 @@
 
 namespace coverallskit;
 
-/**
- * Interface Configuration
- * @package coverallskit
- */
-interface Configuration
+interface CompositeEntity extends Entity, ArrayConvertible
 {
-
-    /**
-     * @param ReportBuilder $builder
-     * @return ReportBuilder
-     */
-    public function applyTo(ReportBuilder $builder);
-
 }

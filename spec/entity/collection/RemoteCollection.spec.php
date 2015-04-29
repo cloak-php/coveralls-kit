@@ -13,8 +13,10 @@ namespace coverallskit\spec;
 
 use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
+use ArrayIterator;
 
-describe('RemoteCollection', function() {
+
+describe(RemoteCollection::class, function() {
     beforeEach(function() {
         $remote = new Remote([
             'name' => 'origin',
@@ -42,7 +44,7 @@ describe('RemoteCollection', function() {
             $this->iterator = $this->remotes->getIterator();
         });
         it('return ArrayIterator', function() {
-            expect($this->iterator)->toBeAnInstanceOf('ArrayIterator');
+            expect($this->iterator)->toBeAnInstanceOf(ArrayIterator::class);
         });
     });
 

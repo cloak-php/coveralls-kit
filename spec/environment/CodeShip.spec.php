@@ -15,7 +15,7 @@ use coverallskit\Environment;
 use coverallskit\environment\CodeShip;
 
 
-describe('CodeShip', function() {
+describe(CodeShip::class, function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
             $this->codeship = new CodeShip(new Environment());

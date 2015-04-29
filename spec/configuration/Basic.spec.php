@@ -13,12 +13,14 @@ namespace coverallskit\spec;
 
 use coverallskit\Configuration;
 use coverallskit\configuration\Basic;
-use coverallskit\ReportBuilder;
+use coverallskit\CoverallsReportBuilder;
+use coverallskit\entity\ServiceEntity;
+use coverallskit\entity\RepositoryEntity;
 use Zend\Config\Config;
 use Eloquent\Pathogen\Factory\PathFactory;
 
 
-describe('Basic', function() {
+describe(Basic::class, function() {
 
     beforeEach(function() {
         $this->configDirectory = __DIR__ . '/../fixtures/';
@@ -40,25 +42,25 @@ describe('Basic', function() {
             expect($this->configration->getToken())->toEqual('api-token');
         });
         it('set the service instance', function() {
-            expect($this->configration->getService())->toBeAnInstanceOf('\coverallskit\entity\ServiceInterface');
+            expect($this->configration->getService())->toBeAnInstanceOf(ServiceEntity::class);
         });
         it('set the repository', function() {
-            expect($this->configration->getRepository())->toBeAnInstanceOf('\coverallskit\entity\RepositoryInterface');
+            expect($this->configration->getRepository())->toBeAnInstanceOf(RepositoryEntity::class);
         });
     });
     describe('applyTo', function() {
         beforeEach(function() {
-            $this->builder = new ReportBuilder();
+            $this->builder = new CoverallsReportBuilder();
             $this->configration->applyTo($this->builder);
         });
         it('apply token config', function() {
             expect($this->builder->getToken())->toEqual('api-token');
         });
         it('apply service config', function() {
-            expect($this->builder->getService())->toBeAnInstanceOf('coverallskit\entity\ServiceInterface');
+            expect($this->builder->getService())->toBeAnInstanceOf(ServiceEntity::class);
         });
         it('apply repository config', function() {
-            expect($this->builder->getRepository())->toBeAnInstanceOf('coverallskit\entity\RepositoryInterface');
+            expect($this->builder->getRepository())->toBeAnInstanceOf(RepositoryEntity::class);
         });
     });
 });

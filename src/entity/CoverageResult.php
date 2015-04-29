@@ -16,10 +16,10 @@ use UnexpectedValueException;
 
 
 /**
- * Class Coverage
+ * Class CoverageResult
  * @package coverallskit\entity
  */
-class Coverage implements CoverageInterface 
+class CoverageResult implements CoverageEntity
 {
 
     /**
@@ -87,7 +87,7 @@ class Coverage implements CoverageInterface
 
     /**
      * @param int $lineAt
-     * @return Coverage
+     * @return CoverageResult
      */
     public static function unused($lineAt)
     {
@@ -96,7 +96,7 @@ class Coverage implements CoverageInterface
 
     /**
      * @param int $lineAt
-     * @return Coverage
+     * @return CoverageResult
      */
     public static function executed($lineAt)
     {

@@ -13,7 +13,7 @@ namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\lcov\EndOfRecord;
 
-describe('EndOfRecord', function() {
+describe(EndOfRecord::class, function() {
     beforeEach(function() {
         $this->endOfRecord = new EndOfRecord();
     });

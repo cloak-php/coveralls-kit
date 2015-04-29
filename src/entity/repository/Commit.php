@@ -2,7 +2,7 @@
 
 namespace coverallskit\entity\repository;
 
-use coverallskit\CompositeEntityInterface;
+use coverallskit\CompositeEntity;
 use coverallskit\AttributePopulatable;
 
 
@@ -10,7 +10,7 @@ use coverallskit\AttributePopulatable;
  * Class Commit
  * @package coverallskit\entity\repository
  */
-class Commit implements CompositeEntityInterface
+class Commit implements CompositeEntity
 {
 
     use AttributePopulatable;

@@ -12,9 +12,13 @@
 namespace coverallskit\spec;
 
 use coverallskit\entity\SourceFile;
-use coverallskit\entity\Coverage;
+use coverallskit\entity\CoverageResult;
+use coverallskit\exception\FileNotFoundException;
+use coverallskit\entity\collection\CoverageCollection;
+use coverallskit\exception\LineOutOfRangeException;
 
-describe('SourceFile', function() {
+
+describe(SourceFile::class, function() {
     beforeEach(function() {
         $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
         $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
@@ -28,7 +32,7 @@ describe('SourceFile', function() {
             it('should throw coverallskit\exception\FileNotFoundException', function() {
                 expect(function() {
                     $source = new SourceFile('bar.php');
-                })->toThrow('coverallskit\exception\FileNotFoundException');
+                })->toThrow(FileNotFoundException::class);
             });
         });
     });
@@ -65,12 +69,12 @@ describe('SourceFile', function() {
             $this->sourceFile = new SourceFile($this->path);
         });
         it('should return coverallskit\entity\collection\CoverageCollection instance', function() {
-            expect($this->sourceFile->getCoverages())->toBeAnInstanceOf('coverallskit\entity\collection\CoverageCollection');
+            expect($this->sourceFile->getCoverages())->toBeAnInstanceOf(CoverageCollection::class);
         });
     });
     describe('addCoverage', function() {
         beforeEach(function() {
-            $this->coverage = Coverage::unused(1);
+            $this->coverage = CoverageResult::unused(1);
             $this->sourceFile = new SourceFile($this->path);
             $this->sourceFile->addCoverage($this->coverage);
             $this->retrieveCoverage = $this->sourceFile->getCoverage(1);
@@ -82,14 +86,14 @@ describe('SourceFile', function() {
         context('when line out of range', function() {
             it('should add coverage', function() {
                 expect(function() {
-                    $coverage = Coverage::unused(999);
+                    $coverage = CoverageResult::unused(999);
                     $this->sourceFile->addCoverage($coverage);
-                })->toThrow('coverallskit\exception\LineOutOfRangeException');
+                })->toThrow(LineOutOfRangeException::class);
             });
         });
         context('when the blank line of the last', function() {
             it('should add coverage', function() {
-                $coverage = Coverage::unused(4);
+                $coverage = CoverageResult::unused(4);
                 $this->sourceFile->addCoverage($coverage);
 
                 expect($this->sourceFile->getCoverage(21))->toBeNull();
@@ -99,7 +103,7 @@ describe('SourceFile', function() {
 
     describe('removeCoverage', function() {
         beforeEach(function() {
-            $this->coverage = Coverage::unused(3);
+            $this->coverage = CoverageResult::unused(3);
             $this->sourceFile->addCoverage($this->coverage);
         });
         it('should add coverage', function() {
@@ -111,8 +115,8 @@ describe('SourceFile', function() {
     describe('getExecutedLineCount', function() {
         beforeEach(function() {
             $this->sourceFile = new SourceFile($this->path);
-            $this->sourceFile->addCoverage(Coverage::executed(12));
-            $this->sourceFile->addCoverage(Coverage::unused(17));
+            $this->sourceFile->addCoverage(CoverageResult::executed(12));
+            $this->sourceFile->addCoverage(CoverageResult::unused(17));
         });
         it('return executed line count', function() {
             expect($this->sourceFile->getExecutedLineCount())->toEqual(1);
@@ -122,8 +126,8 @@ describe('SourceFile', function() {
     describe('getUnusedLineCount', function() {
         beforeEach(function() {
             $this->sourceFile = new SourceFile($this->path);
-            $this->sourceFile->addCoverage(Coverage::executed(12));
-            $this->sourceFile->addCoverage(Coverage::unused(17));
+            $this->sourceFile->addCoverage(CoverageResult::executed(12));
+            $this->sourceFile->addCoverage(CoverageResult::unused(17));
         });
         it('return unused line count', function() {
             expect($this->sourceFile->getUnusedLineCount())->toEqual(1);

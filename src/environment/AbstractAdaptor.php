@@ -18,7 +18,7 @@ use coverallskit\Environment;
  * Class AbstractAdaptor
  * @package coverallskit\environment
  */
-abstract class AbstractAdaptor implements AdaptorInterface
+abstract class AbstractAdaptor implements EnvironmentAdaptor
 {
 
     /**

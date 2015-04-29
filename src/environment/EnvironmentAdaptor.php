@@ -13,10 +13,10 @@ namespace coverallskit\environment;
 
 
 /**
- * Interface AdaptorInterface
+ * Interface EnvironmentAdaptor
  * @package coverallskit\environment
  */
-interface AdaptorInterface
+interface EnvironmentAdaptor
 {
 
     const CI = 'CI';

@@ -15,7 +15,7 @@ namespace coverallskit\environment;
  * Class CodeShip
  * @package coverallskit\environment
  */
-final class CodeShip extends AbstractAdaptor implements AdaptorInterface
+final class CodeShip extends AbstractAdaptor implements EnvironmentAdaptor
 {
 
     const NAME = 'codeship';

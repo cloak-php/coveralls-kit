@@ -13,7 +13,7 @@ namespace coverallskit\spec;
 
 use coverallskit\exception\FileNotFoundException;
 
-describe('FileNotFoundException', function() {
+describe(FileNotFoundException::class, function() {
     describe('getMessage', function() {
         beforeEach(function() {
             $this->exception = new FileNotFoundException('foo.php');

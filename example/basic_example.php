@@ -4,11 +4,12 @@ namespace coverallskit\example;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use coverallskit\ReportBuilder;
-use coverallskit\entity\service\Travis\TravisCI;
+use coverallskit\CoverallsReportBuilder;
+use coverallskit\entity\CIService;
 use coverallskit\Environment;
-use coverallskit\entity\Repository;
-use coverallskit\entity\Coverage;
+use coverallskit\environment\TravisCI;
+use coverallskit\entity\GitRepository;
+use coverallskit\entity\CoverageResult;
 use coverallskit\entity\SourceFile;
 
 /**
@@ -25,10 +26,13 @@ xdebug_stop_code_coverage();
 /**
  * Generate a json file
  */
-$builder = new ReportBuilder();
+$travis = new TravisCI( new Environment($_SERVER) );
+$service = new CIService($travis);
+
+$builder = new CoverallsReportBuilder();
 $builder->token('foo')
-    ->service(new TravisCI( new Environment($_SERVER) ))
-    ->repository(new Repository(__DIR__ . '/../'));
+    ->service($service)
+    ->repository(new GitRepository(__DIR__ . '/../'));
 
 foreach ($result as $file => $coverage) {
     if (preg_match('/vendor/', $file) || preg_match('/src/', $file)) {
@@ -39,9 +43,9 @@ foreach ($result as $file => $coverage) {
 
     foreach ($coverage as $line => $status) {
         if ($status === 1) {
-            $source->addCoverage(Coverage::executed($line));
+            $source->addCoverage(CoverageResult::executed($line));
         } else if ($status === -1) {
-            $source->addCoverage(Coverage::unused($line));
+            $source->addCoverage(CoverageResult::unused($line));
         }
     }
 

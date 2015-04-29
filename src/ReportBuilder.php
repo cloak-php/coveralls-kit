@@ -11,184 +11,58 @@
 
 namespace coverallskit;
 
-use coverallskit\entity\Report;
-use coverallskit\entity\RepositoryInterface;
 use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\entity\ServiceInterface;
+use coverallskit\entity\RepositoryEntity;
+use coverallskit\entity\ServiceEntity;
 
 
 /**
- * Class ReportBuilder
+ * Interface ReportBuilder
  * @package coverallskit
  */
-class ReportBuilder implements ReportBuilderInterface
+interface ReportBuilder
 {
 
     /**
-     * @var string
-     */
-    private $reportFilePath;
-
-    /**
-     * @var string
-     */
-    private $token;
-
-    /**
-     * @var \coverallskit\entity\ServiceInterface
-     */
-    private $service;
-
-    /**
-     * @var \coverallskit\entity\RepositoryInterface
-     */
-    private $repository;
-
-    /**
-     * @var \coverallskit\entity\collection\SourceFileCollection
-     */
-    private $sourceFiles;
-
-
-    public function __construct()
-    {
-        $this->sourceFiles = new SourceFileCollection();
-    }
-
-    /**
      * @param string $reportFilePath
-     * @return $this
+     * @return ReportBuilder
      */
-    public function reportFilePath($reportFilePath)
-    {
-        $this->reportFilePath = $reportFilePath;
-        return $this;
-    }
+    public function reportFilePath($reportFilePath);
 
     /**
-     * @return string
+     * @param string
+     * @return ReportBuilder
      */
-    public function getReportFilePath()
-    {
-        return $this->reportFilePath;
-    }
+    public function token($repositoryToken);
 
     /**
-     * @param string $repositoryToken
-     * @return $this
+     * @param ServiceEntity
+     * @return ReportBuilder
      */
-    public function token($repositoryToken)
-    {
-        $this->token = $repositoryToken;
-        return $this;
-    }
+    public function service(ServiceEntity $service);
 
     /**
-     * @return string
+     * @param RepositoryEntity
+     * @return ReportBuilder
      */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
-     * @param ServiceInterface $service
-     * @return $this
-     */
-    public function service(ServiceInterface $service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    /**
-     * @return ServiceInterface
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
-    /**
-     * @param RepositoryInterface $repository
-     * @return $this
-     */
-    public function repository(RepositoryInterface $repository)
-    {
-        $this->repository = $repository;
-        return $this;
-    }
-
-    /**
-     * @return RepositoryInterface
-     */
-    public function getRepository()
-    {
-        return $this->repository;
-    }
+    public function repository(RepositoryEntity $repository);
 
     /**
      * @param SourceFile $source
-     * @return $this
+     * @return ReportBuilder
      */
-    public function addSource(SourceFile $source)
-    {
-        $this->sourceFiles->add($source);
-        return $this;
-    }
+    public function addSource(SourceFile $source);
 
     /**
      * @param SourceFileCollection $sources
-     * @return $this
+     * @return ReportBuilder
      */
-    public function addSources(SourceFileCollection $sources)
-    {
-        foreach ($sources as $source) {
-            $this->addSource($source);
-        }
-        return $this;
-    }
+    public function addSources(SourceFileCollection $sources);
 
     /**
-     * @return SourceFileCollection
+     * @return \coverallskit\entity\ReportEntity
      */
-    public function getSources()
-    {
-        return $this->sourceFiles;
-    }
-
-    protected function prepareBuild()
-    {
-        if (empty($this->token)) {
-            $this->token = $this->service->getCoverallsToken();
-        }
-    }
-
-    /**
-     * @return \coverallskit\entity\ReportInterface
-     */
-    public function build()
-    {
-        $this->prepareBuild();
-
-        return new Report([
-            'name' => $this->reportFilePath,
-            'token' => $this->token,
-            'repository' => $this->repository,
-            'service' => $this->service,
-            'sourceFiles' => $this->sourceFiles,
-            'runAt' => date('Y-m-d H:i:s O') ////2013-02-18 00:52:48 -0800
-        ]);
-    }
-
-    /**
-     * @param ConfigurationInterface $config
-     * @return ReportBuilderInterface
-     */
-    public static function fromConfiguration(ConfigurationInterface $config)
-    {
-        return $config->applyTo(new static());
-    }
+    public function build();
 
 }

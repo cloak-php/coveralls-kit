@@ -16,7 +16,7 @@ namespace coverallskit\environment;
  * Class CircleCI
  * @package coverallskit\environment
  */
-final class CircleCI extends AbstractAdaptor implements AdaptorInterface
+final class CircleCI extends AbstractAdaptor implements EnvironmentAdaptor
 {
 
     const NAME = 'circle-ci';

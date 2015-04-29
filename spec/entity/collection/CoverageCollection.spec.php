@@ -11,10 +11,13 @@
 
 namespace coverallskit\spec;
 
-use coverallskit\entity\Coverage;
+use coverallskit\entity\CoverageResult;
 use coverallskit\entity\collection\CoverageCollection;
+use coverallskit\exception\LineOutOfRangeException;
+use ArrayIterator;
 
-describe('CoverageCollection', function() {
+
+describe(CoverageCollection::class, function() {
 
     describe('isEmpty', function() {
         context('when covergae empty', function() {
@@ -31,7 +34,7 @@ describe('CoverageCollection', function() {
         });
         context('when the valid line number', function() {
             beforeEach(function() {
-                $this->coverage = Coverage::unused(1);
+                $this->coverage = CoverageResult::unused(1);
                 $this->coverages->add($this->coverage);
                 $this->retrieveCoverage = $this->coverages->at(1);
             });
@@ -41,19 +44,19 @@ describe('CoverageCollection', function() {
         });
         context('when the invalid line number', function() {
             beforeEach(function() {
-                $this->coverage = Coverage::unused(2);
+                $this->coverage = CoverageResult::unused(2);
             });
             it('should throw coverallskit\exception\LineOutOfRangeException', function() {
                 expect(function() {
                     $this->coverages->add($this->coverage);
-                })->toThrow('coverallskit\exception\LineOutOfRangeException');
+                })->toThrow(LineOutOfRangeException::class);
             });
         });
     });
 
     describe('remove', function() {
         beforeEach(function() {
-            $this->coverage = Coverage::unused(1);
+            $this->coverage = CoverageResult::unused(1);
             $this->coverages = new CoverageCollection(1);
             $this->coverages->add($this->coverage);
         });
@@ -77,8 +80,8 @@ describe('CoverageCollection', function() {
     describe('getExecutedLineCount', function() {
         beforeEach(function() {
             $this->coverages = new CoverageCollection(3);
-            $this->coverages->add(Coverage::unused(1));
-            $this->coverages->add(Coverage::executed(2));
+            $this->coverages->add(CoverageResult::unused(1));
+            $this->coverages->add(CoverageResult::executed(2));
         });
         it('return executed line count', function() {
             expect($this->coverages->getExecutedLineCount())->toEqual(1);
@@ -88,8 +91,8 @@ describe('CoverageCollection', function() {
     describe('getUnusedLineCount', function() {
         beforeEach(function() {
             $this->coverages = new CoverageCollection(3);
-            $this->coverages->add(Coverage::unused(1));
-            $this->coverages->add(Coverage::executed(2));
+            $this->coverages->add(CoverageResult::unused(1));
+            $this->coverages->add(CoverageResult::executed(2));
         });
         it('return unused line count', function() {
             expect($this->coverages->getUnusedLineCount())->toEqual(1);
@@ -99,8 +102,8 @@ describe('CoverageCollection', function() {
     describe('__toString', function() {
         beforeEach(function() {
             $this->coverages = new CoverageCollection(3);
-            $this->coverages->add(Coverage::unused(1));
-            $this->coverages->add(Coverage::executed(2));
+            $this->coverages->add(CoverageResult::unused(1));
+            $this->coverages->add(CoverageResult::executed(2));
         });
         it('should return coverage', function() {
             $coverage = '[0,1,null]';
@@ -110,13 +113,13 @@ describe('CoverageCollection', function() {
 
     describe('getIterator', function() {
         beforeEach(function() {
-            $this->coverage = Coverage::unused(1);
+            $this->coverage = CoverageResult::unused(1);
             $this->coverages = new CoverageCollection(1);
             $this->coverages->add($this->coverage);
             $this->iterator = $this->coverages->getIterator();
         });
         it('return ArrayIterator', function() {
-            expect($this->iterator)->toBeAnInstanceOf('ArrayIterator');
+            expect($this->iterator)->toBeAnInstanceOf(ArrayIterator::class);
         });
     });
 
