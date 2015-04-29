@@ -22,7 +22,7 @@ describe(SourceFileCollection::class, function() {
         $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
         $this->source = [
             'name' => $this->relativePath,
-            'source' => trim(file_get_contents($this->path)),
+            'source_digest' => md5(trim(file_get_contents($this->path))),
             'coverage' => [
                 null,null,null,null,null,null,null,null,null,null,null,null,
                 null,null,null,null,null,null,null,null
