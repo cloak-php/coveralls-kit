@@ -9,7 +9,7 @@ test:
   override:
     - composer test
   post:
-    - composer coveralls
+    - composer coveralls-save-only
 general:
   artifacts:
     - "tmp/coveralls.json"
