@@ -90,7 +90,7 @@ class CloverReportParser implements ReportParser
 
             $this->parseLineNodes($lines);
         };
-        $fileNodeParser->bind($this);
+        $fileNodeParser->bindTo($this);
 
         $files->each($fileNodeParser);
 
@@ -113,7 +113,7 @@ class CloverReportParser implements ReportParser
         $lineNodeParser = function(Crawler $line) {
             $this->parseLine($line);
         };
-        $lineNodeParser->bind($this);
+        $lineNodeParser->bindTo($this);
 
         $lines->each($lineNodeParser);
 
