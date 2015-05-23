@@ -3,7 +3,7 @@
 use \Robo\Tasks;
 use coverallskit\BuilderConfiguration;
 use coverallskit\CoverallsReportBuilder;
-use peridot\robo\loadTasks as PeridotTasks;
+use holyshared\peridot\robo\loadTasks as PeridotTasks;
 
 
 /**
