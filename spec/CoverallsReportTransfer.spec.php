@@ -58,7 +58,7 @@ describe(CoverallsReportTransfer::class, function() {
 
             $url = CoverallsReportTransfer::ENDPOINT_URL;
             $optionsCallback = Argument::that(function(array $options) {
-                return isset($options['body']);
+                return isset($options['multipart']);
             });
 
             $this->prophet = new Prophet();
