@@ -67,8 +67,10 @@ class CoverallsReportTransfer implements ReportTransfer
         $client = $this->getClient();
         $client->request(self::HTTP_METHOD, self::ENDPOINT_URL, [
             'multipart' => [
-                'name' => self::JSON_FILE_POST_FIELD_NAME,
-                'contents' => $stream
+                [
+                    'name' => self::JSON_FILE_POST_FIELD_NAME,
+                    'contents' => $stream
+                ]
             ]
         ]);
     }
