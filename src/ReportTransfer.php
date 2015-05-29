@@ -22,6 +22,7 @@ use GuzzleHttp\ClientInterface;
 interface ReportTransfer
 {
 
+    const HTTP_METHOD = 'POST';
     const ENDPOINT_URL = 'https://coveralls.io/api/v1/jobs';
     const JSON_FILE_POST_FIELD_NAME = 'json_file';
 

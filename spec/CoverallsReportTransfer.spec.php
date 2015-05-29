@@ -30,7 +30,7 @@ describe(CoverallsReportTransfer::class, function() {
             $this->uploader = new CoverallsReportTransfer();
         });
         context('when not specified client', function() {
-            it('should return Guzzle\Http\Client instance', function() {
+            it('should return GuzzleHttp\Client instance', function() {
                 $client = $this->uploader->getClient();
                 expect($client)->toBeAnInstanceOf(Client::class);
             });
@@ -64,7 +64,7 @@ describe(CoverallsReportTransfer::class, function() {
             $this->prophet = new Prophet();
 
             $this->client = $this->prophet->prophesize(ClientInterface::class);
-            $this->client->post($url, $optionsCallback)->shouldBeCalled();
+            $this->client->request('POST', $url, $optionsCallback)->shouldBeCalled();
 
             $this->uploader = new CoverallsReportTransfer($this->client->reveal());
             $this->uploader->upload($this->report);
