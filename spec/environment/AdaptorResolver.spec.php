@@ -15,6 +15,7 @@ use coverallskit\Environment;
 use coverallskit\environment\AdaptorResolver;
 use coverallskit\environment\CircleCI;
 use coverallskit\environment\DroneIO;
+use coverallskit\environment\Jenkins;
 use coverallskit\environment\TravisCI;
 use coverallskit\environment\CodeShip;
 use coverallskit\environment\General;
@@ -82,6 +83,19 @@ describe(AdaptorResolver::class, function() {
                 it('return detect codeship adaptor', function() {
                     $adaptor = $this->resolver->resolveByEnvironment();
                     expect($adaptor)->toBeAnInstanceOf(CodeShip::class);
+                });
+            });
+            context('when jenkins', function() {
+                beforeEach(function() {
+                    $environment = new Environment([
+                        'BUILD_NUMBER' => '10',
+                        'JENKINS_URL' => 'http://example.com'
+                    ]);
+                    $this->resolver = new AdaptorResolver($environment);
+                });
+                it('return detect jenkins adaptor', function() {
+                    $adaptor = $this->resolver->resolveByEnvironment();
+                    expect($adaptor)->toBeAnInstanceOf(Jenkins::class);
                 });
             });
         });
