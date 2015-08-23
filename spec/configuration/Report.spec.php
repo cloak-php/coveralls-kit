@@ -8,18 +8,16 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\spec;
 
-use coverallskit\CoverallsReportBuilder;
 use coverallskit\Configuration;
 use coverallskit\configuration\Report;
-use Zend\Config\Config;
+use coverallskit\CoverallsReportBuilder;
 use Eloquent\Pathogen\Factory\PathFactory;
+use Zend\Config\Config;
 
-
-describe(Report::class, function() {
-    beforeEach(function() {
+describe(Report::class, function () {
+    beforeEach(function () {
         $this->rootDirectory = realpath(__DIR__ . '/../../');
         $this->configDirectory = __DIR__ . '/../fixtures/';
         $this->tmpDirectory = $this->rootDirectory . '/spec/tmp/';
@@ -40,26 +38,26 @@ describe(Report::class, function() {
 
         $this->reportConfig = new Report($reportConfig, $rootPath);
     });
-    describe('getReportFileName', function() {
-        beforeEach(function() {
+    describe('getReportFileName', function () {
+        beforeEach(function () {
             $this->reportFile = $this->tmpDirectory . 'report.json';
         });
-        it('return report file path', function() {
+        it('return report file path', function () {
             expect($this->reportConfig->getReportFileName())->toEqual($this->reportFile);
         });
     });
-    describe('getCoverageReportFileType', function() {
-        it('return cpverage report type', function() {
+    describe('getCoverageReportFileType', function () {
+        it('return cpverage report type', function () {
             expect($this->reportConfig->getCoverageReportFileType())->toEqual('clover');
         });
     });
-    describe('getCoverageReportFilePath', function() {
-        it('return cpverage report type', function() {
+    describe('getCoverageReportFilePath', function () {
+        it('return cpverage report type', function () {
             expect($this->reportConfig->getCoverageReportFilePath())->toEqual($this->cloverReportFile);
         });
     });
-    describe('applyTo', function() {
-        beforeEach(function() {
+    describe('applyTo', function () {
+        beforeEach(function () {
             $content = file_get_contents($this->fixtureDirectory . 'clover.xml');
             $content = sprintf($content, $this->rootDirectory, $this->rootDirectory);
 
@@ -69,10 +67,10 @@ describe(Report::class, function() {
             $this->reportBuilder = new CoverallsReportBuilder();
             $this->reportConfig->applyTo($this->reportBuilder);
         });
-        it('apply report file configration', function() {
+        it('apply report file configration', function () {
             expect($this->reportBuilder->getReportFilePath())->toEqual($this->reportFile);
         });
-        it('apply coverage report configration', function() {
+        it('apply coverage report configration', function () {
             $sourceFiles = $this->reportBuilder->getSources();
             expect($sourceFiles->isEmpty())->toBeFalse();
         });

@@ -8,25 +8,23 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\spec;
 
 use coverallskit\BuilderConfiguration;
 use coverallskit\CoverallsReportBuilder;
-use coverallskit\entity\SourceFile;
-use coverallskit\entity\repository\Commit;
-use coverallskit\entity\repository\Branch;
-use coverallskit\entity\repository\Remote;
 use coverallskit\entity\collection\RemoteCollection;
-use coverallskit\entity\ServiceEntity;
+use coverallskit\entity\repository\Branch;
+use coverallskit\entity\repository\Commit;
+use coverallskit\entity\repository\Remote;
 use coverallskit\entity\RepositoryEntity;
+use coverallskit\entity\ServiceEntity;
+use coverallskit\entity\SourceFile;
 use Prophecy\Prophet;
 
+describe(CoverallsReportBuilder::class, function () {
 
-describe(CoverallsReportBuilder::class, function() {
-
-    describe('build', function() {
-        beforeEach(function() {
+    describe('build', function () {
+        beforeEach(function () {
             $this->prophet = new Prophet();
 
             $service = $this->prophet->prophesize(ServiceEntity::class);
@@ -73,38 +71,38 @@ describe(CoverallsReportBuilder::class, function() {
 
             $this->report = $this->builder->build();
         });
-        afterEach(function() {
+        afterEach(function () {
             $this->prophet->checkPredictions();
         });
-        it('should same as that specifies the name of the result report', function() {
+        it('should same as that specifies the name of the result report', function () {
             expect($this->report->getName())->toBe(__DIR__  . '/tmp/coverage.json');
         });
-        it('should same as that specifies the token of the result report', function() {
+        it('should same as that specifies the token of the result report', function () {
             expect($this->report->getToken())->toBe('foo');
         });
-        it('should same as that specifies the service of the result report', function() {
+        it('should same as that specifies the service of the result report', function () {
             $service = $this->report->getService();
             expect($service->getServiceJobId())->toBe('10');
             expect($service->getServiceName())->toBe('travis-ci');
         });
-        it('should same as that specifies the repository of the result report', function() {
+        it('should same as that specifies the repository of the result report', function () {
             $repository = $this->report->getRepository();
             expect($repository->getCommit())->toBe($this->commit);
             expect($repository->getBranch())->toBe($this->branch);
             expect($repository->getRemotes())->toBe($this->remotes);
         });
-        it('should same as that specifies the sources of the result report', function() {
+        it('should same as that specifies the sources of the result report', function () {
             $sourceFiles = $this->report->getSourceFiles();
             expect($sourceFiles->has($this->foo))->toBeTrue();
             expect($sourceFiles->has($this->bar))->toBeTrue();
         });
     });
 
-    describe('fromConfiguration', function() {
-        beforeEach(function() {
+    describe('fromConfiguration', function () {
+        beforeEach(function () {
             $this->builder = CoverallsReportBuilder::fromConfiguration(new BuilderConfiguration());
         });
-        it('return coverallskit\CoverallsReportBuilder instance', function() {
+        it('return coverallskit\CoverallsReportBuilder instance', function () {
             expect($this->builder)->toBeAnInstanceOf(CoverallsReportBuilder::class);
         });
     });

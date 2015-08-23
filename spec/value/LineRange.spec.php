@@ -8,62 +8,60 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\spec;
 
-use coverallskit\value\LineRange;
 use coverallskit\entity\CoverageEntity;
+use coverallskit\value\LineRange;
 use OutOfRangeException;
 use Prophecy\Prophet;
 
-
-describe(LineRange::class, function() {
-    describe('__construct', function() {
-        context('when out of range', function() {
-            it('should throw OutOfRangeException', function() {
-                expect(function() {
+describe(LineRange::class, function () {
+    describe('__construct', function () {
+        context('when out of range', function () {
+            it('should throw OutOfRangeException', function () {
+                expect(function () {
                     new LineRange(1, 0);
                 })->toThrow(OutOfRangeException::class);
-                expect(function() {
+                expect(function () {
                     new LineRange(0, 1);
                 })->toThrow(OutOfRangeException::class);
             });
         });
-        context('when range specified is wrong', function() {
-            it('should throw OutOfRangeException', function() {
-                expect(function() {
+        context('when range specified is wrong', function () {
+            it('should throw OutOfRangeException', function () {
+                expect(function () {
                     new LineRange(5, 1);
                 })->toThrow(OutOfRangeException::class);
             });
         });
     });
-    describe('contains', function() {
-        beforeEach(function() {
+    describe('contains', function () {
+        beforeEach(function () {
             $this->range = new LineRange(1, 30);
         });
-        context('when the specified line number', function() {
-            context('when the range', function() {
-                it('should return true', function() {
+        context('when the specified line number', function () {
+            context('when the range', function () {
+                it('should return true', function () {
                     expect($this->range->contains(1))->toBeTrue();
                     expect($this->range->contains(30))->toBeTrue();
                 });
             });
-            context('when out of range', function() {
-                it('should return false', function() {
+            context('when out of range', function () {
+                it('should return false', function () {
                     expect($this->range->contains(0))->toBeFalse();
                     expect($this->range->contains(31))->toBeFalse();
                 });
             });
         });
-        context('when the specified CoverageInterface', function() {
-            beforeEach(function() {
+        context('when the specified CoverageInterface', function () {
+            beforeEach(function () {
                 $this->prophet = new Prophet();
             });
-            afterEach(function() {
+            afterEach(function () {
                 $this->prophet->checkPredictions();
             });
-            context('when the range', function() {
-                beforeEach(function() {
+            context('when the range', function () {
+                beforeEach(function () {
                     $this->mixCovergage = $this->prophet->prophesize(CoverageEntity::class);
                     $this->mixCovergage->getLineNumber()->willReturn(1);
 
@@ -73,13 +71,13 @@ describe(LineRange::class, function() {
                     $this->min = $this->mixCovergage->reveal();
                     $this->max = $this->maxCovergage->reveal();
                 });
-                it('should return true', function() {
+                it('should return true', function () {
                     expect($this->range->contains($this->min))->toBeTrue();
                     expect($this->range->contains($this->max))->toBeTrue();
                 });
             });
-            context('when out of range', function() {
-                beforeEach(function() {
+            context('when out of range', function () {
+                beforeEach(function () {
                     $this->mixCovergage = $this->prophet->prophesize(CoverageEntity::class);
                     $this->mixCovergage->getLineNumber()->willReturn(0);
 
@@ -89,7 +87,7 @@ describe(LineRange::class, function() {
                     $this->min = $this->mixCovergage->reveal();
                     $this->max = $this->maxCovergage->reveal();
                 });
-                it('should return false', function() {
+                it('should return false', function () {
                     expect($this->range->contains($this->min))->toBeFalse();
                     expect($this->range->contains($this->max))->toBeFalse();
                 });

@@ -8,16 +8,15 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\spec\report\parser;
 
 use coverallskit\report\lcov\RecordLexer;
 
-describe(RecordLexer::class, function() {
+describe(RecordLexer::class, function () {
 
-    describe('records', function() {
-        context('when have unsupport recover type', function() {
-            beforeEach(function() {
+    describe('records', function () {
+        context('when have unsupport recover type', function () {
+            beforeEach(function () {
                 $sourcePath = $this->fixturePath('static:RecordLexer:coverageTarget');
 
                 $fixture = $this->loadFixture('mustache:RecordLexer:lcovReport', [
@@ -29,7 +28,7 @@ describe(RecordLexer::class, function() {
 
                 $this->recordLexer = new RecordLexer($temp->getPath());
             });
-            it('return record stream', function() {
+            it('return record stream', function () {
                 $results = [];
                 $records = $this->recordLexer->records();
 

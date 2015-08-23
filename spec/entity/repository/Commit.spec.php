@@ -8,23 +8,22 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\spec;
 
 use coverallskit\entity\repository\Commit;
 
-describe(Commit::class, function() {
-    beforeEach(function() {
-        $this->commit = new Commit(array(
+describe(Commit::class, function () {
+    beforeEach(function () {
+        $this->commit = new Commit([
             'id' => '3fdcfa494f3e9bcb17f90085af9d11a936a7ef4e',
             'authorName' => 'holyshared',
             'authorEmail' => 'holy.shared.design@gmail.com',
             'committerName' => 'holyshared',
             'committerEmail' => 'holy.shared.design@gmail.com',
             'message' => 'first commit'
-        ));
+        ]);
     });
-    describe('toArray', function() {
+    describe('toArray', function () {
         it('should return head commit array value', function () {
             $values = $this->commit->toArray();
             expect($values['id'])->toBe('3fdcfa494f3e9bcb17f90085af9d11a936a7ef4e');
@@ -35,7 +34,7 @@ describe(Commit::class, function() {
             expect($values['message'])->toBe('first commit');
         });
     });
-    describe('__toString', function() {
+    describe('__toString', function () {
         it('should return string value', function () {
             $json = json_encode($this->commit->toArray());
             $value = (string) $this->commit;
