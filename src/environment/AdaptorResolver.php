@@ -44,7 +44,8 @@ class AdaptorResolver
             new TravisPro($environment),
             new CircleCI($environment),
             new DroneIO($environment),
-            new CodeShip($environment)
+            new CodeShip($environment),
+            new Jenkins($environment)
         ];
         $this->adaptors = $adaptors;
         $this->generalAdaptor = new General($environment);
