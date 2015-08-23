@@ -8,26 +8,21 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit;
 
-use coverallskit\exception\RegistryNotFoundException;
 use Collections\Dictionary;
+use coverallskit\exception\RegistryNotFoundException;
 use ReflectionClass;
-
 
 /**
  * Class ObjectRegistry
- * @package coverallskit
  */
 class ObjectRegistry
 {
-
     /**
      * @var \Collections\Dictionary
      */
     private $reflections;
-
 
     public function __construct()
     {
@@ -36,8 +31,10 @@ class ObjectRegistry
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return mixed
+     *
      * @throws exception\RegistryNotFoundException
      */
     public function get($name, array $arguments = [])
@@ -60,5 +57,4 @@ class ObjectRegistry
         $reflection = new ReflectionClass($class);
         $this->reflections->add($name, $reflection);
     }
-
 }

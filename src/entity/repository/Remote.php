@@ -2,22 +2,18 @@
 
 namespace coverallskit\entity\repository;
 
-use coverallskit\CompositeEntity;
 use coverallskit\AttributePopulatable;
-
+use coverallskit\CompositeEntity;
 
 /**
  * Class Remote
- * @package coverallskit\entity\repository
  */
 class Remote implements CompositeEntity
 {
-
     use AttributePopulatable;
 
     private $name;
     private $url;
-
 
     /**
      * @param array $values
@@ -54,5 +50,4 @@ class Remote implements CompositeEntity
     {
         return json_encode($this->toArray());
     }
-
 }

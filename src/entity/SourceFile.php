@@ -8,23 +8,20 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\entity;
 
+use coverallskit\AttributePopulatable;
 use coverallskit\CompositeEntity;
 use coverallskit\entity\collection\CoverageCollection;
 use coverallskit\exception\FileNotFoundException;
-use coverallskit\AttributePopulatable;
 use coverallskit\exception\LineOutOfRangeException;
 use coverallskit\value\LineRange;
 
 /**
  * Class SourceFile
- * @package coverallskit\entity
  */
 class SourceFile implements CompositeEntity
 {
-
     use AttributePopulatable;
 
     /**
@@ -47,7 +44,6 @@ class SourceFile implements CompositeEntity
      */
     protected $realLineRange;
 
-
     /**
      * @param string $name
      */
@@ -59,6 +55,7 @@ class SourceFile implements CompositeEntity
 
     /**
      * @param string $name
+     *
      * @throws \coverallskit\exception\FileNotFoundException
      */
     protected function resolvePath($name)
@@ -116,6 +113,7 @@ class SourceFile implements CompositeEntity
     public function getContentDigest()
     {
         $content = $this->getContent();
+
         return md5($content);
     }
 
@@ -137,6 +135,7 @@ class SourceFile implements CompositeEntity
 
     /**
      * @param CoverageEntity $coverage
+     *
      * @throws \coverallskit\exception\LineOutOfRangeException
      * @throws \Exception
      */
@@ -176,6 +175,7 @@ class SourceFile implements CompositeEntity
 
     /**
      * @param $lineNumber
+     *
      * @return null|void
      */
     public function getCoverage($lineNumber)
@@ -205,6 +205,7 @@ class SourceFile implements CompositeEntity
     public function isEmpty()
     {
         $content = $this->getContent();
+
         return empty($content);
     }
 
@@ -229,5 +230,4 @@ class SourceFile implements CompositeEntity
     {
         return json_encode($this->toArray());
     }
-
 }

@@ -8,24 +8,21 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\entity;
 
-use coverallskit\entity\repository\Commit;
-use coverallskit\entity\repository\Branch;
-use coverallskit\entity\repository\Remote;
-use coverallskit\entity\collection\RemoteCollection;
-use Gitonomy\Git\Repository as GitRepositoryClient;
 use coverallskit\AttributePopulatable;
+use coverallskit\entity\collection\RemoteCollection;
+use coverallskit\entity\repository\Branch;
+use coverallskit\entity\repository\Commit;
+use coverallskit\entity\repository\Remote;
+use Gitonomy\Git\Repository as GitRepositoryClient;
 use PhpCollection\Map;
 
 /**
  * Class GitRepository
- * @package coverallskit\entity
  */
 class GitRepository implements RepositoryEntity
 {
-
     use AttributePopulatable;
 
     /**
@@ -47,7 +44,6 @@ class GitRepository implements RepositoryEntity
      * @var \coverallskit\entity\collection\RemoteCollection
      */
     protected $remotes;
-
 
     /**
      * @param string $directory
@@ -112,7 +108,7 @@ class GitRepository implements RepositoryEntity
         $remoteValues = $this->collectRemotes();
 
         foreach ($remoteValues as $remote) {
-            $remotes->add( new Remote($remote) );
+            $remotes->add(new Remote($remote));
         }
         $this->remotes = $remotes;
 
@@ -124,7 +120,7 @@ class GitRepository implements RepositoryEntity
      */
     protected function collectRemotes()
     {
-        $remoteString = $this->repository->run('remote', array('-v'));
+        $remoteString = $this->repository->run('remote', ['-v']);
         $remoteResults = explode(PHP_EOL, $remoteString);
 
         $remotes = new Map();
@@ -190,6 +186,7 @@ class GitRepository implements RepositoryEntity
     public function isEmpty()
     {
         $commit = $this->getCommit();
+
         return empty($commit);
     }
 
@@ -214,5 +211,4 @@ class GitRepository implements RepositoryEntity
     {
         return json_encode($this->toArray());
     }
-
 }

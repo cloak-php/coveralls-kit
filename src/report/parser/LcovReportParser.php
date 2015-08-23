@@ -8,27 +8,23 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\report\parser;
 
-use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
-use coverallskit\report\lcov\RecordLexer;
-use coverallskit\report\lcov\EndOfRecord;
-use coverallskit\report\lcov\SourceFile as LcovSourceFile;
-use coverallskit\report\lcov\Coverage as LcovCoverage;
-use coverallskit\report\ReportParser;
+use coverallskit\entity\SourceFile;
 use coverallskit\exception\ExceptionCollection;
 use coverallskit\exception\LineOutOfRangeException;
-
+use coverallskit\report\lcov\Coverage as LcovCoverage;
+use coverallskit\report\lcov\EndOfRecord;
+use coverallskit\report\lcov\RecordLexer;
+use coverallskit\report\lcov\SourceFile as LcovSourceFile;
+use coverallskit\report\ReportParser;
 
 /**
  * Class LcovReportParser
- * @package coverallskit\report\parser
  */
 class LcovReportParser implements ReportParser
 {
-
     /**
      * @var SourceFile
      */
@@ -53,7 +49,6 @@ class LcovReportParser implements ReportParser
      * @var ExceptionCollection
      */
     private $reportParseErrors;
-
 
     public function __construct()
     {
@@ -110,5 +105,4 @@ class LcovReportParser implements ReportParser
             $this->coveragesErrors->add($exception);
         }
     }
-
 }

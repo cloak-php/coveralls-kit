@@ -8,26 +8,22 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit;
 
+use coverallskit\configuration\Basic;
+use coverallskit\configuration\Report;
 use coverallskit\entity\Repository;
 use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
-use coverallskit\configuration\Basic;
-use coverallskit\configuration\Report;
-use Zend\Config\Config;
-use Yosymfony\Toml\Toml;
 use Eloquent\Pathogen\Factory\PathFactory;
-
+use Yosymfony\Toml\Toml;
+use Zend\Config\Config;
 
 /**
  * Class BuilderConfiguration
- * @package coverallskit
  */
 class BuilderConfiguration implements RootConfiguration
 {
-
     /**
      * @var configuration\Basic
      */
@@ -42,7 +38,6 @@ class BuilderConfiguration implements RootConfiguration
      * @var \Eloquent\Pathogen\PathInterface
      */
     private $directoryPath;
-
 
     /**
      * @param Config $config
@@ -113,6 +108,7 @@ class BuilderConfiguration implements RootConfiguration
 
     /**
      * @param ReportBuilder $builder
+     *
      * @return ReportBuilder
      */
     public function applyTo(ReportBuilder $builder)
@@ -128,7 +124,6 @@ class BuilderConfiguration implements RootConfiguration
      */
     protected function getDefaultConfigration()
     {
-
         $config = new Config([
             Basic::TOKEN_KEY => null,
             Basic::SERVICE_KEY => null,
@@ -143,7 +138,9 @@ class BuilderConfiguration implements RootConfiguration
 
     /**
      * @param string $file
+     *
      * @return BuilderConfiguration
+     *
      * @throws \coverallskit\exception\NotSupportFileTypeException
      * @throws \coverallskit\exception\FileNotFoundException
      */
@@ -168,5 +165,4 @@ class BuilderConfiguration implements RootConfiguration
 
         return new BuilderConfiguration($config);
     }
-
 }

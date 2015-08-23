@@ -8,21 +8,18 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\report\parser;
 
-use coverallskit\report\ReportParser;
-use coverallskit\entity\SourceFile;
 use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\CoverageResult;
-use Symfony\Component\DomCrawler\Crawler;
+use coverallskit\entity\SourceFile;
 use coverallskit\exception\ExceptionCollection;
 use coverallskit\exception\LineOutOfRangeException;
-
+use coverallskit\report\ReportParser;
+use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Class CloverReportParser
- * @package coverallskit\report\parser
  */
 class CloverReportParser implements ReportParser
 {
@@ -78,11 +75,12 @@ class CloverReportParser implements ReportParser
 
     /**
      * @param Crawler $files
+     *
      * @return Result
      */
     private function parseFileNodes(Crawler $files)
     {
-        $fileNodeParser = function(Crawler $file) {
+        $fileNodeParser = function (Crawler $file) {
             $fileName = $file->attr('name');
 
             $this->source = new SourceFile($fileName);
@@ -110,7 +108,7 @@ class CloverReportParser implements ReportParser
         $this->coverages = $this->source->getEmptyCoverages();
         $this->coveragesErrors = new ExceptionCollection($this->source->getName());
 
-        $lineNodeParser = function(Crawler $line) {
+        $lineNodeParser = function (Crawler $line) {
             $this->parseLine($line);
         };
         $lineNodeParser->bindTo($this);
@@ -142,5 +140,4 @@ class CloverReportParser implements ReportParser
             $this->coveragesErrors->add($exception);
         }
     }
-
 }

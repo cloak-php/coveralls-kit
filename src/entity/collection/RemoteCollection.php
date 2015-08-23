@@ -2,17 +2,15 @@
 
 namespace coverallskit\entity\collection;
 
+use coverallskit\AttributePopulatable;
 use coverallskit\entity\repository\Remote;
 use PhpCollection\Sequence;
-use coverallskit\AttributePopulatable;
 
 /**
  * Class RemoteCollection
- * @package coverallskit\entity\collection
  */
 class RemoteCollection implements CompositeEntityCollection
 {
-
     use AttributePopulatable;
 
     protected $remotes;
@@ -79,5 +77,4 @@ class RemoteCollection implements CompositeEntityCollection
     {
         return json_encode($this->toArray());
     }
-
 }

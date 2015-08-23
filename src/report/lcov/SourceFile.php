@@ -8,16 +8,13 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\report\lcov;
 
 /**
  * Class SourceFile
- * @package coverallskit\report\lcov
  */
 final class SourceFile extends AbstractRecord
 {
-
     const PATTURN = '/^SF:(.+)$/';
 
     /**
@@ -40,11 +37,11 @@ final class SourceFile extends AbstractRecord
 
     /**
      * @param string $record
+     *
      * @return bool
      */
     public static function match($record)
     {
         return preg_match(self::PATTURN, $record) === 1;
     }
-
 }

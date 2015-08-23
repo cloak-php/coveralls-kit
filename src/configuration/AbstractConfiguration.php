@@ -8,23 +8,19 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\configuration;
 
 use coverallskit\Configuration;
-use Zend\Config\Config;
-use Eloquent\Pathogen\RelativePath;
 use Eloquent\Pathogen\AbsolutePath;
 use Eloquent\Pathogen\Exception\NonRelativePathException;
-
+use Eloquent\Pathogen\RelativePath;
+use Zend\Config\Config;
 
 /**
  * Class AbstractConfiguration
- * @package coverallskit\configuration
  */
 abstract class AbstractConfiguration implements Configuration
 {
-
     /**
      * @var \Zend\Config\Config
      */
@@ -45,8 +41,9 @@ abstract class AbstractConfiguration implements Configuration
     }
 
     /**
-     * @param string $key
+     * @param string     $key
      * @param mixed|null $defaultValue
+     *
      * @return mixed
      */
     protected function get($key, $defaultValue = null)
@@ -56,6 +53,7 @@ abstract class AbstractConfiguration implements Configuration
 
     /**
      * @param string $name
+     *
      * @return string
      */
     protected function resolvePath($name)
@@ -69,5 +67,4 @@ abstract class AbstractConfiguration implements Configuration
 
         return $resultPath->normalize()->string();
     }
-
 }

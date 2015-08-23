@@ -8,28 +8,23 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\entity\collection;
 
-use coverallskit\entity\SourceFile;
 use coverallskit\AttributePopulatable;
+use coverallskit\entity\SourceFile;
 use PhpCollection\Map;
-
 
 /**
  * Class SourceFileCollection
- * @package coverallskit\entity\collection
  */
 class SourceFileCollection implements CompositeEntityCollection
 {
-
     use AttributePopulatable;
 
     /**
      * @var \PhpCollection\Map
      */
     private $sources;
-
 
     /**
      * @param SourceFile[] $sources
@@ -61,6 +56,7 @@ class SourceFileCollection implements CompositeEntityCollection
 
     /**
      * @param string|\coverallskit\entity\SourceFile $source
+     *
      * @return bool
      */
     public function has($source)
@@ -73,6 +69,7 @@ class SourceFileCollection implements CompositeEntityCollection
 
     /**
      * @param string $source
+     *
      * @return null|\coverallskit\entity\SourceFile
      */
     public function get($source)
@@ -99,6 +96,7 @@ class SourceFileCollection implements CompositeEntityCollection
         foreach ($this->sources as $source) {
             $totalCount += $source->getExecutedLineCount();
         }
+
         return $totalCount;
     }
 
@@ -112,6 +110,7 @@ class SourceFileCollection implements CompositeEntityCollection
         foreach ($this->sources as $source) {
             $totalCount += $source->getUnusedLineCount();
         }
+
         return $totalCount;
     }
 
@@ -161,5 +160,4 @@ class SourceFileCollection implements CompositeEntityCollection
     {
         return json_encode($this->toArray());
     }
-
 }
