@@ -8,18 +8,16 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit;
 
 /**
  * Interface ReportTransferAware
- * @package coverallskit
  */
 interface ReportTransferAware
 {
-
     /**
      * @param ReportTransfer $reportTransfer
+     *
      * @return $this
      */
     public function setReportTransfer(ReportTransfer $reportTransfer);
@@ -28,5 +26,4 @@ interface ReportTransferAware
      * @return ReportTransfer
      */
     public function getReportTransfer();
-
 }

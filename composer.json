@@ -41,6 +41,7 @@
     "scripts": {
         "test": "vendor/bin/robo spec:all",
         "coveralls": "vendor/bin/robo spec:coveralls",
-        "coveralls-save-only": "vendor/bin/robo spec:coveralls-save-only"
+        "coveralls-save-only": "vendor/bin/robo spec:coveralls-save-only",
+        "style": "php-cs-fixer fix --config-file"
     }
 }

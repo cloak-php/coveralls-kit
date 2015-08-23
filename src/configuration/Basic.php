@@ -8,38 +8,32 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\configuration;
 
-use coverallskit\ReportBuilder;
 use coverallskit\entity\CIService;
 use coverallskit\entity\GitRepository;
 use coverallskit\Environment;
 use coverallskit\environment\AdaptorResolver;
-use Zend\Config\Config;
+use coverallskit\ReportBuilder;
 use Eloquent\Pathogen\AbsolutePath;
-
+use Zend\Config\Config;
 
 /**
  * Class Basic
- * @package coverallskit
  */
 class Basic extends AbstractConfiguration
 {
-
     const TOKEN_KEY = 'token';
     const SERVICE_KEY = 'service';
     const REPOSITORY_DIRECTORY_KEY = 'repositoryDirectory';
-
 
     /**
      * @var \coverallskit\environment\AdaptorResolver
      */
     private $adaptorResolver;
 
-
     /**
-     * @param Config $config
+     * @param Config       $config
      * @param AbsolutePath $rootPath
      */
     public function __construct(Config $config, AbsolutePath $rootPath)
@@ -86,6 +80,7 @@ class Basic extends AbstractConfiguration
 
     /**
      * @param ReportBuilder $builder
+     *
      * @return ReportBuilder
      */
     public function applyTo(ReportBuilder $builder)
@@ -99,6 +94,7 @@ class Basic extends AbstractConfiguration
 
     /**
      * @param string $path
+     *
      * @return \coverallskit\entity\RepositoryEntity
      */
     private function repositoryFromPath($path)
@@ -108,5 +104,4 @@ class Basic extends AbstractConfiguration
 
         return $repository;
     }
-
 }

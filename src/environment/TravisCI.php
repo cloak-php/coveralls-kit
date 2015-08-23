@@ -8,20 +8,14 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\environment;
-
-
 
 /**
  * Class TravisCI
- * @package coverallskit\environment
  */
 final class TravisCI extends Travis implements EnvironmentAdaptor
 {
-
     const NAME = 'travis-ci';
-
 
     /**
      * {@inheritdoc}
@@ -30,5 +24,4 @@ final class TravisCI extends Travis implements EnvironmentAdaptor
     {
         return self::NAME;
     }
-
 }

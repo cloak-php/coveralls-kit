@@ -8,21 +8,17 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\entity;
 
 use coverallskit\AttributePopulatable;
-use coverallskit\ReportTransferAwareTrait;
 use coverallskit\exception\RequiredException;
-
+use coverallskit\ReportTransferAwareTrait;
 
 /**
  * Class CoverallsReport
- * @package coverallskit\entity
  */
 class CoverallsReport implements ReportEntity
 {
-
     use AttributePopulatable;
     use ReportTransferAwareTrait;
 
@@ -55,7 +51,6 @@ class CoverallsReport implements ReportEntity
      * @var string
      */
     private $runAt;
-
 
     /**
      * @param array $values
@@ -108,6 +103,7 @@ class CoverallsReport implements ReportEntity
 
     /**
      * @param string $path
+     *
      * @return $this
      */
     public function saveAs($path)
@@ -126,6 +122,7 @@ class CoverallsReport implements ReportEntity
         $this->validate();
         $content = (string) $this;
         file_put_contents($this->name, $content);
+
         return $this;
     }
 
@@ -196,5 +193,4 @@ class CoverallsReport implements ReportEntity
     {
         return json_encode($this->toArray());
     }
-
 }

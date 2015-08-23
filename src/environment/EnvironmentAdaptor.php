@@ -8,17 +8,13 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\environment;
-
 
 /**
  * Interface EnvironmentAdaptor
- * @package coverallskit\environment
  */
 interface EnvironmentAdaptor
 {
-
     const CI = 'CI';
     const COVERALLS_REPO_TOKEN = 'COVERALLS_REPO_TOKEN';
 
@@ -41,5 +37,4 @@ interface EnvironmentAdaptor
      * @return bool
      */
     public function isSupported();
-
 }

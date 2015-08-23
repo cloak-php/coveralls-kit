@@ -8,18 +8,15 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\report\lcov;
 
 use coverallskit\entity\CoverageResult as EntityCoverage;
 
 /**
  * Class Coverage
- * @package coverallskit\report\lcov
  */
 final class Coverage extends AbstractRecord
 {
-
     const PATTURN = '/^DA:(\d+),(\d+)/';
 
     /**
@@ -31,7 +28,6 @@ final class Coverage extends AbstractRecord
      * @var int
      */
     private $executeCount;
-
 
     protected function parse()
     {
@@ -89,11 +85,11 @@ final class Coverage extends AbstractRecord
 
     /**
      * @param string $record
+     *
      * @return bool
      */
     public static function match($record)
     {
         return preg_match(self::PATTURN, $record) === 1;
     }
-
 }

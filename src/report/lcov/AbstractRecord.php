@@ -8,16 +8,13 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\report\lcov;
 
 /**
  * Class Record
- * @package coverallskit\report\lcov
  */
 abstract class AbstractRecord implements FileRecord
 {
-
     /**
      * @var string
      */
@@ -33,5 +30,4 @@ abstract class AbstractRecord implements FileRecord
     }
 
     abstract protected function parse();
-
 }

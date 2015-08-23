@@ -8,23 +8,19 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit;
 
+use coverallskit\entity\collection\SourceFileCollection;
 use coverallskit\entity\CoverallsReport;
 use coverallskit\entity\RepositoryEntity;
 use coverallskit\entity\ServiceEntity;
 use coverallskit\entity\SourceFile;
-use coverallskit\entity\collection\SourceFileCollection;
-
 
 /**
  * Class CoverallsReportBuilder
- * @package coverallskit
  */
 class CoverallsReportBuilder implements ReportBuilder
 {
-
     /**
      * @var string
      */
@@ -50,7 +46,6 @@ class CoverallsReportBuilder implements ReportBuilder
      */
     private $sourceFiles;
 
-
     public function __construct()
     {
         $this->sourceFiles = new SourceFileCollection();
@@ -58,11 +53,13 @@ class CoverallsReportBuilder implements ReportBuilder
 
     /**
      * @param string $reportFilePath
+     *
      * @return $this
      */
     public function reportFilePath($reportFilePath)
     {
         $this->reportFilePath = $reportFilePath;
+
         return $this;
     }
 
@@ -76,11 +73,13 @@ class CoverallsReportBuilder implements ReportBuilder
 
     /**
      * @param string $repositoryToken
+     *
      * @return $this
      */
     public function token($repositoryToken)
     {
         $this->token = $repositoryToken;
+
         return $this;
     }
 
@@ -94,11 +93,13 @@ class CoverallsReportBuilder implements ReportBuilder
 
     /**
      * @param ServiceEntity $service
+     *
      * @return $this
      */
     public function service(ServiceEntity $service)
     {
         $this->service = $service;
+
         return $this;
     }
 
@@ -112,11 +113,13 @@ class CoverallsReportBuilder implements ReportBuilder
 
     /**
      * @param RepositoryEntity $repository
+     *
      * @return $this
      */
     public function repository(RepositoryEntity $repository)
     {
         $this->repository = $repository;
+
         return $this;
     }
 
@@ -130,16 +133,19 @@ class CoverallsReportBuilder implements ReportBuilder
 
     /**
      * @param SourceFile $source
+     *
      * @return $this
      */
     public function addSource(SourceFile $source)
     {
         $this->sourceFiles->add($source);
+
         return $this;
     }
 
     /**
      * @param SourceFileCollection $sources
+     *
      * @return $this
      */
     public function addSources(SourceFileCollection $sources)
@@ -147,6 +153,7 @@ class CoverallsReportBuilder implements ReportBuilder
         foreach ($sources as $source) {
             $this->addSource($source);
         }
+
         return $this;
     }
 
@@ -184,11 +191,11 @@ class CoverallsReportBuilder implements ReportBuilder
 
     /**
      * @param Configuration $config
+     *
      * @return ReportBuilder
      */
     public static function fromConfiguration(Configuration $config)
     {
         return $config->applyTo(new self());
     }
-
 }

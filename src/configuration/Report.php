@@ -8,25 +8,20 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\configuration;
 
-
-use coverallskit\ReportBuilder;
-use coverallskit\report\ParserRegistry;
 use coverallskit\exception\FileNotFoundException;
-use coverallskit\exception\RegistryNotFoundException;
 use coverallskit\exception\NotSupportFileTypeException;
+use coverallskit\exception\RegistryNotFoundException;
+use coverallskit\report\ParserRegistry;
+use coverallskit\ReportBuilder;
 use Zend\Config\Config;
-
 
 /**
  * Class Report
- * @package coverallskit\configuration
  */
 class Report extends AbstractConfiguration
 {
-
     const REPORT_FILE_KEY = 'reportFile';
     const INPUT_REPORT_FILE_KEY = 'input';
     const INPUT_REPORT_FILE_TYPE_KEY = 'type';
@@ -40,6 +35,7 @@ class Report extends AbstractConfiguration
     {
         $fileType = $this->get(self::INPUT_REPORT_FILE_KEY);
         $fileType = (is_null($fileType)) ? new Config([]) : $fileType;
+
         return $fileType;
     }
 
@@ -60,6 +56,7 @@ class Report extends AbstractConfiguration
     public function getReportFileName()
     {
         $path = $this->get(self::OUTPUT_REPORT_FILE_KEY);
+
         return $this->resolvePath($path);
     }
 
@@ -85,6 +82,7 @@ class Report extends AbstractConfiguration
     {
         $reportType = $this->getCoverageReportFileType();
         $reportFilePath = $this->getCoverageReportFilePath();
+
         return empty($reportType) || empty($reportFilePath);
     }
 
@@ -110,7 +108,9 @@ class Report extends AbstractConfiguration
 
     /**
      * @param string $reportType
+     *
      * @return \coverallskit\report\ReportParser
+     *
      * @throws \coverallskit\exception\NotSupportFileTypeException
      */
     private function detectReportParser($reportType)
@@ -128,6 +128,7 @@ class Report extends AbstractConfiguration
 
     /**
      * @param ReportBuilder $builder
+     *
      * @return ReportBuilder
      */
     public function applyTo(ReportBuilder $builder)
@@ -140,5 +141,4 @@ class Report extends AbstractConfiguration
 
         return $this->applyReportResult($builder);
     }
-
 }

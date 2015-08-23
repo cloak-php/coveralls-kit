@@ -2,12 +2,11 @@
 
 namespace coverallskit\entity\repository;
 
-use coverallskit\Entity;
 use coverallskit\AttributePopulatable;
+use coverallskit\Entity;
 
 class Branch implements Entity
 {
-
     use AttributePopulatable;
 
     private $name;
@@ -52,5 +51,4 @@ class Branch implements Entity
     {
         return $this->getName();
     }
-
 }

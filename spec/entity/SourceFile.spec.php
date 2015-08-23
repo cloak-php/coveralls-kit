@@ -8,101 +8,99 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\spec;
 
-use coverallskit\entity\SourceFile;
-use coverallskit\entity\CoverageResult;
-use coverallskit\exception\FileNotFoundException;
 use coverallskit\entity\collection\CoverageCollection;
+use coverallskit\entity\CoverageResult;
+use coverallskit\entity\SourceFile;
+use coverallskit\exception\FileNotFoundException;
 use coverallskit\exception\LineOutOfRangeException;
 
-
-describe(SourceFile::class, function() {
-    beforeEach(function() {
+describe(SourceFile::class, function () {
+    beforeEach(function () {
         $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
         $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
         $this->sourceFile = new SourceFile($this->path);
     });
-    describe('__construct', function() {
-        context('when the file does not exist', function() {
-            beforeEach(function() {
+    describe('__construct', function () {
+        context('when the file does not exist', function () {
+            beforeEach(function () {
                 $this->sourceFile = new SourceFile($this->path);
             });
-            it('should throw coverallskit\exception\FileNotFoundException', function() {
-                expect(function() {
+            it('should throw coverallskit\exception\FileNotFoundException', function () {
+                expect(function () {
                     $source = new SourceFile('bar.php');
                 })->toThrow(FileNotFoundException::class);
             });
         });
     });
 
-    describe('isEmpty', function() {
-        context('when the contents of the source file is empty', function() {
-            beforeEach(function() {
+    describe('isEmpty', function () {
+        context('when the contents of the source file is empty', function () {
+            beforeEach(function () {
                 $this->emptySourcePath = realpath(__DIR__ . '/../fixtures/empty.php');
                 $this->emptySourceFile = new SourceFile($this->emptySourcePath);
             });
-            it('should return true', function() {
+            it('should return true', function () {
                 expect($this->emptySourceFile->isEmpty())->toBeTrue();
             });
         });
     });
-    describe('getName', function() {
-        beforeEach(function() {
+    describe('getName', function () {
+        beforeEach(function () {
             $this->sourceFile = new SourceFile($this->path);
         });
-        it('should return file name', function() {
+        it('should return file name', function () {
             expect($this->sourceFile->getName())->toBe($this->path);
         });
     });
-    describe('getContent', function() {
-        beforeEach(function() {
+    describe('getContent', function () {
+        beforeEach(function () {
             $this->sourceFile = new SourceFile($this->path);
         });
-        it('should return file content', function() {
+        it('should return file content', function () {
             expect($this->sourceFile->getContent())->toBe(trim(file_get_contents($this->path)));
         });
     });
 
-    describe('getContentDigest', function() {
-        beforeEach(function() {
+    describe('getContentDigest', function () {
+        beforeEach(function () {
             $this->sourceFile = new SourceFile($this->path);
         });
-        it('should return file content digest', function() {
+        it('should return file content digest', function () {
             expect($this->sourceFile->getContentDigest())->toBe(md5(trim(file_get_contents($this->path))));
         });
     });
 
-    describe('getCoverages', function() {
-        beforeEach(function() {
+    describe('getCoverages', function () {
+        beforeEach(function () {
             $this->sourceFile = new SourceFile($this->path);
         });
-        it('should return coverallskit\entity\collection\CoverageCollection instance', function() {
+        it('should return coverallskit\entity\collection\CoverageCollection instance', function () {
             expect($this->sourceFile->getCoverages())->toBeAnInstanceOf(CoverageCollection::class);
         });
     });
-    describe('addCoverage', function() {
-        beforeEach(function() {
+    describe('addCoverage', function () {
+        beforeEach(function () {
             $this->coverage = CoverageResult::unused(1);
             $this->sourceFile = new SourceFile($this->path);
             $this->sourceFile->addCoverage($this->coverage);
             $this->retrieveCoverage = $this->sourceFile->getCoverage(1);
         });
-        it('should add coverage', function() {
+        it('should add coverage', function () {
             expect($this->retrieveCoverage)->toEqual($this->coverage);
         });
 
-        context('when line out of range', function() {
-            it('should add coverage', function() {
-                expect(function() {
+        context('when line out of range', function () {
+            it('should add coverage', function () {
+                expect(function () {
                     $coverage = CoverageResult::unused(999);
                     $this->sourceFile->addCoverage($coverage);
                 })->toThrow(LineOutOfRangeException::class);
             });
         });
-        context('when the blank line of the last', function() {
-            it('should add coverage', function() {
+        context('when the blank line of the last', function () {
+            it('should add coverage', function () {
                 $coverage = CoverageResult::unused(4);
                 $this->sourceFile->addCoverage($coverage);
 
@@ -111,44 +109,44 @@ describe(SourceFile::class, function() {
         });
     });
 
-    describe('removeCoverage', function() {
-        beforeEach(function() {
+    describe('removeCoverage', function () {
+        beforeEach(function () {
             $this->coverage = CoverageResult::unused(3);
             $this->sourceFile->addCoverage($this->coverage);
         });
-        it('should add coverage', function() {
+        it('should add coverage', function () {
             $this->sourceFile->removeCoverage($this->coverage);
             expect($this->sourceFile->getCoverage(3))->toBeNull();
         });
     });
 
-    describe('getExecutedLineCount', function() {
-        beforeEach(function() {
+    describe('getExecutedLineCount', function () {
+        beforeEach(function () {
             $this->sourceFile = new SourceFile($this->path);
             $this->sourceFile->addCoverage(CoverageResult::executed(12));
             $this->sourceFile->addCoverage(CoverageResult::unused(17));
         });
-        it('return executed line count', function() {
+        it('return executed line count', function () {
             expect($this->sourceFile->getExecutedLineCount())->toEqual(1);
         });
     });
 
-    describe('getUnusedLineCount', function() {
-        beforeEach(function() {
+    describe('getUnusedLineCount', function () {
+        beforeEach(function () {
             $this->sourceFile = new SourceFile($this->path);
             $this->sourceFile->addCoverage(CoverageResult::executed(12));
             $this->sourceFile->addCoverage(CoverageResult::unused(17));
         });
-        it('return unused line count', function() {
+        it('return unused line count', function () {
             expect($this->sourceFile->getUnusedLineCount())->toEqual(1);
         });
     });
 
-    describe('toArray', function() {
-        beforeEach(function() {
+    describe('toArray', function () {
+        beforeEach(function () {
             $this->sourceFile = new SourceFile($this->path);
         });
-        it('should return array values', function() {
+        it('should return array values', function () {
             $values = $this->sourceFile->toArray();
             expect($values['name'])->toEqual($this->sourceFile->getPathFromCurrentDirectory());
             expect($values['source_digest'])->toEqual($this->sourceFile->getContentDigest());
@@ -156,19 +154,19 @@ describe(SourceFile::class, function() {
         });
     });
 
-    describe('__toString', function() {
-        beforeEach(function() {
+    describe('__toString', function () {
+        beforeEach(function () {
             $this->path = realpath(__DIR__ . '/../fixtures/foo.php');
             $this->relativePath = str_replace(getcwd() . '/', '', $this->path);
             $this->sourceFile = new SourceFile($this->path);
         });
-        it('should return json string', function() {
+        it('should return json string', function () {
             $json = [
                 'name' => $this->relativePath,
                 'source_digest' => md5(trim(file_get_contents($this->path))),
                 'coverage' => [
-                    null,null,null,null,null,null,null,null,null,null,null,null,
-                    null,null,null,null,null,null,null,null
+                    null, null, null, null, null, null, null, null, null, null, null, null,
+                    null, null, null, null, null, null, null, null
                 ]
             ];
             expect((string) $this->sourceFile)->toEqual(json_encode($json));

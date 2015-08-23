@@ -8,25 +8,23 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\exception;
 
-use Exception;
 use ArrayIterator;
 use Countable;
+use Exception;
 use IteratorAggregate;
 
 class ExceptionCollection extends Exception implements IteratorAggregate, Countable
 {
-
     /**
      * @var ArrayIterator
      */
     private $exceptions;
 
     /**
-     * @param string $message
-     * @param int $code
+     * @param string    $message
+     * @param int       $code
      * @param Exception $previous
      */
     public function __construct($message = '', $code = 0, Exception $previous = null)
@@ -41,6 +39,7 @@ class ExceptionCollection extends Exception implements IteratorAggregate, Counta
     public function add(Exception $exception)
     {
         $this->exceptions->append($exception);
+
         return $this;
     }
 
@@ -67,7 +66,7 @@ class ExceptionCollection extends Exception implements IteratorAggregate, Counta
         foreach ($exceptions as $exception) {
             $this->add($exception);
         }
+
         return $this;
     }
-
 }

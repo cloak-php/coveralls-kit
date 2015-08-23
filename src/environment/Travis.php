@@ -8,21 +8,15 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\environment;
-
-
 
 /**
  * Class Travis
- * @package coverallskit\environment
  */
 abstract class Travis extends AbstractAdaptor implements EnvironmentAdaptor
 {
-
     const TRAVIS = 'TRAVIS';
     const TRAVIS_JOB_ID = 'TRAVIS_JOB_ID';
-
 
     /**
      * {@inheritdoc}
@@ -38,7 +32,7 @@ abstract class Travis extends AbstractAdaptor implements EnvironmentAdaptor
     public function isSupported()
     {
         $value = $this->environment->get(self::TRAVIS);
+
         return $value === 'true';
     }
-
 }

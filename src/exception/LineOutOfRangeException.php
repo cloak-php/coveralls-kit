@@ -8,17 +8,15 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\exception;
 
-use coverallskit\value\LineRange;
 use coverallskit\entity\CoverageEntity;
+use coverallskit\value\LineRange;
 use Exception;
 use OutOfRangeException;
 
 class LineOutOfRangeException extends OutOfRangeException
 {
-
     public function __construct(CoverageEntity $coverage, LineRange $range, $code = 0, Exception $previous = null)
     {
         $template = "The %dst line is outside the range of the %dth line from the %dst line";
@@ -26,5 +24,4 @@ class LineOutOfRangeException extends OutOfRangeException
 
         parent::__construct($message, $code, $previous);
     }
-
 }
