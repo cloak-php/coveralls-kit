@@ -1,14 +1,13 @@
 <?php
 
+use cloak\peridot\CloakPlugin;
 use Evenement\EventEmitterInterface;
 use expect\peridot\ExpectPlugin;
-use cloak\peridot\CloakPlugin;
-use Peridot\Reporter\Dot\DotReporterPlugin;
 use holyshared\peridot\FileFixturePlugin;
 use holyshared\peridot\temporary\TemporaryPlugin;
+use Peridot\Reporter\Dot\DotReporterPlugin;
 
-return function(EventEmitterInterface $emitter)
-{
+return function (EventEmitterInterface $emitter) {
     $dot = new DotReporterPlugin($emitter);
     ExpectPlugin::create()->registerTo($emitter);
     TemporaryPlugin::create()->registerTo($emitter);
