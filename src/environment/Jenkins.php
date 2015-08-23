@@ -23,7 +23,7 @@ final class Jenkins extends AbstractAdaptor implements EnvironmentAdaptor
      */
     public function getName()
     {
-        return '';
+        return 'jenkins';
     }
 
     /**
@@ -31,7 +31,7 @@ final class Jenkins extends AbstractAdaptor implements EnvironmentAdaptor
      */
     public function getBuildJobId()
     {
-        return null;
+        return $this->environment->get('BUILD_NUMBER');
     }
 
     /**
@@ -39,7 +39,8 @@ final class Jenkins extends AbstractAdaptor implements EnvironmentAdaptor
      */
     public function isSupported()
     {
-        return true;
+        $value = $this->environment->get('JENKINS_URL');
+        return $value !== null;
     }
 
 }

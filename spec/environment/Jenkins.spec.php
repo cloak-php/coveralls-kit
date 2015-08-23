@@ -18,25 +18,38 @@ use coverallskit\environment\Jenkins;
 describe(Jenkins::class, function() {
     describe('#getName', function() {
         it('return adaptor name', function() {
-            $this->general = new Jenkins(new Environment());
-            expect($this->general->getName())->toBe('');
+            $this->jenkins = new Jenkins(new Environment());
+            expect($this->jenkins->getName())->toBe('jenkins');
         });
     });
     describe('#getBuildJobId', function() {
         it('return build job id', function() {
-            $environment = new Environment();
-            $this->general = new Jenkins($environment);
-            expect($this->general->getBuildJobId())->toBeNull();
+            $environment = new Environment([
+                'BUILD_NUMBER' => 101
+            ]);
+            $this->jenkins = new Jenkins($environment);
+            expect($this->jenkins->getBuildJobId())->toBe(101);
         });
     });
     describe('#isSupported', function() {
-        context('when supported', function() {
+        context('when jenkins enviroment', function() {
             beforeEach(function() {
-                $environment = new Environment();
-                $this->general = new Jenkins($environment);
+                $environment = new Environment([
+                    'JENKINS_URL' => 'http://example.com'
+                ]);
+                $this->jenkins = new Jenkins($environment);
             });
             it('return true', function() {
-                expect($this->general->isSupported())->toBeTrue();
+                expect($this->jenkins->isSupported())->toBeTrue();
+            });
+        });
+        context('when not jenkins enviroment', function() {
+            beforeEach(function() {
+                $environment = new Environment();
+                $this->jenkins = new Jenkins($environment);
+            });
+            it('return false', function() {
+                expect($this->jenkins->isSupported())->toBeFalse();
             });
         });
     });
