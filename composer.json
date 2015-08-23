@@ -7,13 +7,13 @@
     "require": {
         "php": ">=5.5.0",
         "phpcollection/phpcollection": "~0.4",
-        "guzzlehttp/guzzle": "~5.3",
+        "guzzlehttp/guzzle": "~6.0",
         "gitonomy/gitlib": "~0.1",
         "yosymfony/toml": "~0.3",
-        "symfony/dom-crawler": "~2.6",
-        "symfony/css-selector": "~2.6",
-        "zendframework/zend-config": "~2.4",
-        "zendframework/zend-console": "~2.4",
+        "symfony/dom-crawler": "~2.7",
+        "symfony/css-selector": "~2.7",
+        "zendframework/zend-config": "~2.5",
+        "zendframework/zend-console": "~2.5",
         "eloquent/pathogen": "~0.6",
         "easyframework/collections": "~4.0"
     },
