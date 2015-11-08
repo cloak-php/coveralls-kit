@@ -8,20 +8,17 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit;
 
 /**
  * Interface Configuration
- * @package coverallskit
  */
 interface Configuration
 {
-
     /**
      * @param ReportBuilder $builder
+     *
      * @return ReportBuilder
      */
     public function applyTo(ReportBuilder $builder);
-
 }

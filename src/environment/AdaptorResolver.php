@@ -8,21 +8,16 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\environment;
-
 
 use coverallskit\Environment;
 use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
-
 /**
  * Class AdaptorResolver
- * @package coverallskit\environment
  */
 class AdaptorResolver
 {
-
     /**
      * @var \coverallskit\environment\EnvironmentAdaptor[]
      */
@@ -32,7 +27,6 @@ class AdaptorResolver
      * @var \coverallskit\environment\General
      */
     private $generalAdaptor;
-
 
     /**
      * @param Environment $environment
@@ -67,6 +61,7 @@ class AdaptorResolver
 
     /**
      * @param string $name
+     *
      * @return EnvironmentAdaptor
      */
     public function resolveByName($name)
@@ -83,6 +78,7 @@ class AdaptorResolver
 
     /**
      * @param string $name
+     *
      * @return EnvironmentAdaptor|null
      */
     private function detectByName($name)
@@ -115,5 +111,4 @@ class AdaptorResolver
 
         return $detectedAdaptor;
     }
-
 }

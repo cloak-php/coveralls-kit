@@ -8,20 +8,16 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\entity;
 
 use coverallskit\value\LineRange;
 use UnexpectedValueException;
 
-
 /**
  * Class CoverageResult
- * @package coverallskit\entity
  */
 class CoverageResult implements CoverageEntity
 {
-
     /**
      * @var int
      */
@@ -31,7 +27,6 @@ class CoverageResult implements CoverageEntity
      * @var int
      */
     private $analysisResult;
-
 
     /**
      * @param int $lineAt
@@ -78,6 +73,7 @@ class CoverageResult implements CoverageEntity
 
     /**
      * @param LineRange $lineRange
+     *
      * @return bool
      */
     public function contains(LineRange $lineRange)
@@ -87,6 +83,7 @@ class CoverageResult implements CoverageEntity
 
     /**
      * @param int $lineAt
+     *
      * @return CoverageResult
      */
     public static function unused($lineAt)
@@ -96,6 +93,7 @@ class CoverageResult implements CoverageEntity
 
     /**
      * @param int $lineAt
+     *
      * @return CoverageResult
      */
     public static function executed($lineAt)
@@ -126,5 +124,4 @@ class CoverageResult implements CoverageEntity
         $message = sprintf("Value of the analysis results is invalid.\nMust specify a 0 or 1 (got: %d)", $result);
         throw new UnexpectedValueException($message);
     }
-
 }

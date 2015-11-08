@@ -8,18 +8,15 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\entity;
 
 use coverallskit\value\LineRange;
 
 /**
  * Interface CoverageEntity
- * @package coverallskit\entity
  */
 interface CoverageEntity
 {
-
     const UNUSED = 0;
     const EXECUTED = 1;
 
@@ -35,6 +32,7 @@ interface CoverageEntity
 
     /**
      * @param LineRange $lineRange
+     *
      * @return bool
      */
     public function contains(LineRange $lineRange);
@@ -53,5 +51,4 @@ interface CoverageEntity
      * @return integer|null
      */
     public function valueOf();
-
 }

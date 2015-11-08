@@ -8,18 +8,15 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\spec;
 
-
-use coverallskit\Environment;
 use coverallskit\entity\CIService;
+use coverallskit\Environment;
 use coverallskit\environment\EnvironmentAdaptor;
 use Prophecy\Prophet;
 
-
-describe(CIService::class, function() {
-    beforeEach(function() {
+describe(CIService::class, function () {
+    beforeEach(function () {
         $this->prophet = new Prophet();
 
         $adaptor = $this->prophet->prophesize(EnvironmentAdaptor::class);
@@ -30,30 +27,30 @@ describe(CIService::class, function() {
 
         $this->service = new CIService($adaptor->reveal());
     });
-    describe('getServiceName', function() {
-        it('return service name', function() {
+    describe('getServiceName', function () {
+        it('return service name', function () {
             expect($this->service->getServiceName())->toBe('travis-ci');
         });
     });
-    describe('getServiceJobId', function() {
-        it('return build job id', function() {
+    describe('getServiceJobId', function () {
+        it('return build job id', function () {
             expect($this->service->getServiceJobId())->toBe('10');
         });
     });
-    describe('getCoverallsToken', function() {
-        it('return coveralls api token value', function() {
+    describe('getCoverallsToken', function () {
+        it('return coveralls api token value', function () {
             expect($this->service->getCoverallsToken())->toBe('token');
         });
     });
-    describe('isEmpty', function() {
-        context('when empty', function() {
-            it('return false', function() {
+    describe('isEmpty', function () {
+        context('when empty', function () {
+            it('return false', function () {
                 expect($this->service->isEmpty())->toBeFalse();
             });
         });
     });
-    describe('__toString', function() {
-        it('return json string', function() {
+    describe('__toString', function () {
+        it('return json string', function () {
             $expectValue = '{"service_name":"travis-ci","service_job_id":"10"}';
             $actualValue = (string) $this->service;
             expect($actualValue)->toBe($expectValue);

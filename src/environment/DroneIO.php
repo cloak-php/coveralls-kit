@@ -8,21 +8,16 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\environment;
-
 
 /**
  * Class DroneIO
- * @package coverallskit\environment
  */
 final class DroneIO extends AbstractAdaptor implements EnvironmentAdaptor
 {
-
     const NAME = 'drone.io';
     const DRONE = 'DRONE';
     const DRONE_BUILD_NUMBER = 'DRONE_BUILD_NUMBER';
-
 
     /**
      * {@inheritdoc}
@@ -46,7 +41,7 @@ final class DroneIO extends AbstractAdaptor implements EnvironmentAdaptor
     public function isSupported()
     {
         $value = $this->environment->get(self::DRONE);
+
         return $value === 'true';
     }
-
 }

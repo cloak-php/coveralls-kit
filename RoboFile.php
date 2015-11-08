@@ -5,13 +5,11 @@ use coverallskit\BuilderConfiguration;
 use coverallskit\CoverallsReportBuilder;
 use holyshared\peridot\robo\loadTasks as PeridotTasks;
 
-
 /**
  * Class RoboFile
  */
 class RoboFile extends Tasks
 {
-
     use PeridotTasks;
 
     public function specAll()
@@ -63,5 +61,4 @@ class RoboFile extends Tasks
 
         return $this->taskExec($command)->run();
     }
-
 }

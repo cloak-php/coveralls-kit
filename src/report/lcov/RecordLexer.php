@@ -8,21 +8,17 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\report\lcov;
 
 use ReflectionMethod;
-use UnexpectedValueException;
 use SplFileObject;
-
+use UnexpectedValueException;
 
 /**
  * Class RecordLexer
- * @package coverallskit\report\lcov
  */
 class RecordLexer
 {
-
     /**
      * @var SplFileObject
      */
@@ -68,7 +64,9 @@ class RecordLexer
 
     /**
      * @param string $record
+     *
      * @return \coverallskit\report\lcov\FileRecord
+     *
      * @throws \UnexpectedValueException
      */
     private function detectRecord($record)
@@ -89,5 +87,4 @@ class RecordLexer
 
         throw new UnexpectedValueException();
     }
-
 }

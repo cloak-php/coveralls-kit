@@ -8,24 +8,20 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\entity\collection;
 
-use coverallskit\entity\CoverageEntity;
-use coverallskit\value\LineRange;
 use coverallskit\AttributePopulatable;
-use coverallskit\exception\LineOutOfRangeException;
-use PhpCollection\Map;
+use coverallskit\entity\CoverageEntity;
 use coverallskit\exception\ExceptionCollection;
-
+use coverallskit\exception\LineOutOfRangeException;
+use coverallskit\value\LineRange;
+use PhpCollection\Map;
 
 /**
  * Class CoverageCollection
- * @package coverallskit\entity\collection
  */
 class CoverageCollection implements CompositeEntityCollection
 {
-
     use AttributePopulatable;
 
     /**
@@ -49,6 +45,7 @@ class CoverageCollection implements CompositeEntityCollection
 
     /**
      * @param CoverageEntity $coverage
+     *
      * @throws \coverallskit\exception\LineOutOfRangeException
      */
     public function add(CoverageEntity $coverage)
@@ -61,6 +58,7 @@ class CoverageCollection implements CompositeEntityCollection
 
     /**
      * @param array $coverages
+     *
      * @throws \coverallskit\exception\ExceptionCollection
      */
     public function addAll(array $coverages)
@@ -112,6 +110,7 @@ class CoverageCollection implements CompositeEntityCollection
 
     /**
      * @param $lineAt
+     *
      * @return null|void
      */
     public function at($lineAt)
@@ -138,9 +137,10 @@ class CoverageCollection implements CompositeEntityCollection
      */
     public function getExecutedLineCount()
     {
-        $filter = function(CoverageEntity $coverage) {
+        $filter = function (CoverageEntity $coverage) {
             return $coverage->isExecuted();
         };
+
         return $this->matchCount($filter);
     }
 
@@ -149,24 +149,28 @@ class CoverageCollection implements CompositeEntityCollection
      */
     public function getUnusedLineCount()
     {
-        $filter = function(CoverageEntity $coverage) {
+        $filter = function (CoverageEntity $coverage) {
             return $coverage->isUnused();
         };
+
         return $this->matchCount($filter);
     }
 
     /**
      * @param callable $filter
+     *
      * @return int
      */
     protected function matchCount(callable $filter)
     {
         $matchLines = $this->filter($filter);
+
         return $matchLines->count();
     }
 
     /**
      * @param callable $filter
+     *
      * @return \PhpCollection\AbstractMap
      */
     protected function filter(callable $filter)
@@ -236,5 +240,4 @@ class CoverageCollection implements CompositeEntityCollection
     {
         return json_encode($this->toArray());
     }
-
 }

@@ -2,17 +2,14 @@
 
 namespace coverallskit\entity\repository;
 
-use coverallskit\CompositeEntity;
 use coverallskit\AttributePopulatable;
-
+use coverallskit\CompositeEntity;
 
 /**
  * Class Commit
- * @package coverallskit\entity\repository
  */
 class Commit implements CompositeEntity
 {
-
     use AttributePopulatable;
 
     private $id;
@@ -21,7 +18,6 @@ class Commit implements CompositeEntity
     private $committerName;
     private $committerEmail;
     private $message;
-
 
     /**
      * @param array $values
@@ -82,5 +78,4 @@ class Commit implements CompositeEntity
     {
         return json_encode($this->toArray());
     }
-
 }

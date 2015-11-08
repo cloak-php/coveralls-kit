@@ -8,21 +8,17 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit;
 
 use coverallskit\entity\ReportEntity;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 
-
 /**
  * Class CoverallsReportTransfer
- * @package coverallskit
  */
 class CoverallsReportTransfer implements ReportTransfer
 {
-
     /**
      * @var \GuzzleHttp\ClientInterface
      */
@@ -74,5 +70,4 @@ class CoverallsReportTransfer implements ReportTransfer
             ]
         ]);
     }
-
 }

@@ -8,7 +8,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\exception;
 
 use Exception;
@@ -16,14 +15,12 @@ use UnexpectedValueException;
 
 /**
  * Class NotSupportFileTypeException
- * @package coverallskit\exception
  */
 class NotSupportFileTypeException extends UnexpectedValueException
 {
-
     /**
-     * @param string $path
-     * @param int $code
+     * @param string    $path
+     * @param int       $code
      * @param Exception $previous
      */
     public function __construct($path, $code = 0, Exception $previous = null)
@@ -33,5 +30,4 @@ class NotSupportFileTypeException extends UnexpectedValueException
 
         parent::__construct("The '$fileType' file type is not supported.", $code, $previous);
     }
-
 }

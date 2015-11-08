@@ -8,20 +8,16 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\environment;
 
 /**
  * Class CodeShip
- * @package coverallskit\environment
  */
 final class CodeShip extends AbstractAdaptor implements EnvironmentAdaptor
 {
-
     const NAME = 'codeship';
     const CI_NAME = 'CI_NAME';
     const CI_BUILD_NUMBER = 'CI_BUILD_NUMBER';
-
 
     /**
      * {@inheritdoc}
@@ -45,7 +41,7 @@ final class CodeShip extends AbstractAdaptor implements EnvironmentAdaptor
     public function isSupported()
     {
         $value = $this->environment->get(self::CI_NAME);
+
         return $value === self::NAME;
     }
-
 }

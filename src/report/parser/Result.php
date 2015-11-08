@@ -8,7 +8,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace coverallskit\report\parser;
 
 use coverallskit\entity\collection\SourceFileCollection;
@@ -16,11 +15,9 @@ use coverallskit\exception\ExceptionCollection;
 
 /**
  * Class Result
- * @package coverallskit\report\parser
  */
 class Result
 {
-
     /**
      * @var \coverallskit\entity\collection\SourceFileCollection
      */
@@ -79,5 +76,4 @@ class Result
     {
         return $this->parseErrors->isEmpty() === false;
     }
-
 }
