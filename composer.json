@@ -15,15 +15,15 @@
         "zendframework/zend-config": "~2.5",
         "zendframework/zend-console": "~2.5",
         "eloquent/pathogen": "~0.6",
-        "easyframework/collections": "~4.0"
+        "easyframework/collections": "~4.1"
     },
     "require-dev": {
-        "phpspec/prophecy": "~1.4",
-        "peridot-php/peridot": "~1.15",
+        "phpspec/prophecy": "~1.5",
+        "peridot-php/peridot": "~1.16",
         "expect/peridot-expect-plugin": "~3.0",
         "cloak/peridot-cloak-plugin": "~2.0",
         "holyshared/robo-peridot": "~2.0",
-        "codegyre/robo": "~0.5",
+        "codegyre/robo": "~0.6",
         "peridot-php/peridot-dot-reporter": "~1.0",
         "holyshared/peridot-file-fixture-plugin": "~1.0",
         "holyshared/peridot-temporary-plugin": "~1.0"
