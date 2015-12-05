@@ -18,7 +18,7 @@ use coverallskit\environment\DroneIO;
 use coverallskit\environment\General;
 use coverallskit\environment\Jenkins;
 use coverallskit\environment\TravisCI;
-use coverallskit\exception\EnvironmentAdaptorNotFoundException;
+use coverallskit\exception\EnvironmentAdapterNotFoundException;
 
 describe(AdapterResolver::class, function () {
     describe('#resolveByEnvironment', function () {
@@ -120,10 +120,10 @@ describe(AdapterResolver::class, function () {
             });
         });
         context('when not supported', function () {
-            it('throw \coverallskit\exception\EnvironmentAdaptorNotFoundException exception', function () {
+            it('throw \coverallskit\exception\EnvironmentAdapterNotFoundException exception', function () {
                 expect(function () {
                     $this->resolver->resolveByName('not_found');
-                })->toThrow(EnvironmentAdaptorNotFoundException::class);
+                })->toThrow(EnvironmentAdapterNotFoundException::class);
             });
         });
     });

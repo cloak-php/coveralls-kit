@@ -11,7 +11,7 @@
 namespace coverallskit\environment;
 
 use coverallskit\Environment;
-use coverallskit\exception\EnvironmentAdaptorNotFoundException;
+use coverallskit\exception\EnvironmentAdapterNotFoundException;
 
 /**
  * Class AdapterResolver
@@ -69,7 +69,7 @@ class AdapterResolver
         $detectedAdaptor = $this->detectByName($name);
 
         if ($detectedAdaptor === null) {
-            $exception = EnvironmentAdaptorNotFoundException::createByName($name);
+            $exception = EnvironmentAdapterNotFoundException::createByName($name);
             throw $exception;
         }
 
