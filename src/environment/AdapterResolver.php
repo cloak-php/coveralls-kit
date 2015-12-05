@@ -26,14 +26,14 @@ class AdapterResolver
     /**
      * @var \coverallskit\environment\General
      */
-    private $generalAdaptor;
+    private $generalAdapter;
 
     /**
      * @param Environment $environment
      */
     public function __construct(Environment $environment)
     {
-        $adaptors = [
+        $adapters = [
             new TravisCI($environment),
             new TravisPro($environment),
             new CircleCI($environment),
@@ -41,8 +41,8 @@ class AdapterResolver
             new CodeShip($environment),
             new Jenkins($environment)
         ];
-        $this->adaptors = $adaptors;
-        $this->generalAdaptor = new General($environment);
+        $this->adapters = $adapters;
+        $this->generalAdapter = new General($environment);
     }
 
     /**
@@ -50,13 +50,13 @@ class AdapterResolver
      */
     public function resolveByEnvironment()
     {
-        $detectedAdaptor = $this->detectFromSupportAdaptors();
+        $detectedAdapter = $this->detectFromSupportAdapters();
 
-        if ($detectedAdaptor === null) {
-            return $this->generalAdaptor;
+        if ($detectedAdapter === null) {
+            return $this->generalAdapter;
         }
 
-        return $detectedAdaptor;
+        return $detectedAdapter;
     }
 
     /**
@@ -66,14 +66,14 @@ class AdapterResolver
      */
     public function resolveByName($name)
     {
-        $detectedAdaptor = $this->detectByName($name);
+        $detectedAdapter = $this->detectByName($name);
 
-        if ($detectedAdaptor === null) {
+        if ($detectedAdapter === null) {
             $exception = EnvironmentAdapterNotFoundException::createByName($name);
             throw $exception;
         }
 
-        return $detectedAdaptor;
+        return $detectedAdapter;
     }
 
     /**
@@ -83,32 +83,32 @@ class AdapterResolver
      */
     private function detectByName($name)
     {
-        $detectedAdaptor = null;
+        $detectedAdapter = null;
 
-        foreach ($this->adaptors as $adaptor) {
-            if ($adaptor->getName() === $name) {
-                $detectedAdaptor = $adaptor;
+        foreach ($this->adapters as $adapter) {
+            if ($adapter->getName() === $name) {
+                $detectedAdapter = $adapter;
                 break;
             }
         }
 
-        return $detectedAdaptor;
+        return $detectedAdapter;
     }
 
     /**
      * @return EnvironmentAdapter|null
      */
-    private function detectFromSupportAdaptors()
+    private function detectFromSupportAdapters()
     {
-        $detectedAdaptor = null;
+        $detectedAdapter = null;
 
-        foreach ($this->adaptors as $adaptor) {
-            if ($adaptor->isSupported()) {
-                $detectedAdaptor = $adaptor;
+        foreach ($this->adapters as $adapter) {
+            if ($adapter->isSupported()) {
+                $detectedAdapter = $adapter;
                 break;
             }
         }
 
-        return $detectedAdaptor;
+        return $detectedAdapter;
     }
 }
