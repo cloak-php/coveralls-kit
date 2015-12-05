@@ -19,13 +19,13 @@ describe(CIService::class, function () {
     beforeEach(function () {
         $this->prophet = new Prophet();
 
-        $adaptor = $this->prophet->prophesize(EnvironmentAdapter::class);
-        $adaptor->getName()->willReturn('travis-ci');
-        $adaptor->getBuildJobId()->willReturn('10');
-        $adaptor->getCoverallsToken()->willReturn('token');
-        $adaptor->isSupported()->willReturn(true);
+        $adapter = $this->prophet->prophesize(EnvironmentAdapter::class);
+        $adapter->getName()->willReturn('travis-ci');
+        $adapter->getBuildJobId()->willReturn('10');
+        $adapter->getCoverallsToken()->willReturn('token');
+        $adapter->isSupported()->willReturn(true);
 
-        $this->service = new CIService($adaptor->reveal());
+        $this->service = new CIService($adapter->reveal());
     });
     describe('getServiceName', function () {
         it('return service name', function () {

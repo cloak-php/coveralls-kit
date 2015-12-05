@@ -33,9 +33,9 @@ describe(AdapterResolver::class, function () {
                     ]);
                     $this->resolver = new AdapterResolver($environment);
                 });
-                it('return detect circle-ci adaptor', function () {
-                    $adaptor = $this->resolver->resolveByEnvironment();
-                    expect($adaptor)->toBeAnInstanceOf(CircleCI::class);
+                it('return detect circle-ci adapter', function () {
+                    $adapter = $this->resolver->resolveByEnvironment();
+                    expect($adapter)->toBeAnInstanceOf(CircleCI::class);
                 });
             });
             context('when drone.io', function () {
@@ -48,9 +48,9 @@ describe(AdapterResolver::class, function () {
                     ]);
                     $this->resolver = new AdapterResolver($environment);
                 });
-                it('return detect drone.io adaptor', function () {
-                    $adaptor = $this->resolver->resolveByEnvironment();
-                    expect($adaptor)->toBeAnInstanceOf(DroneIO::class);
+                it('return detect drone.io adapter', function () {
+                    $adapter = $this->resolver->resolveByEnvironment();
+                    expect($adapter)->toBeAnInstanceOf(DroneIO::class);
                 });
             });
             context('when travis-ci', function () {
@@ -63,9 +63,9 @@ describe(AdapterResolver::class, function () {
                     ]);
                     $this->resolver = new AdapterResolver($environment);
                 });
-                it('return detect travis-ci adaptor', function () {
-                    $adaptor = $this->resolver->resolveByEnvironment();
-                    expect($adaptor)->toBeAnInstanceOf(TravisCI::class);
+                it('return detect travis-ci adapter', function () {
+                    $adapter = $this->resolver->resolveByEnvironment();
+                    expect($adapter)->toBeAnInstanceOf(TravisCI::class);
                 });
             });
             context('when codeship', function () {
@@ -78,9 +78,9 @@ describe(AdapterResolver::class, function () {
                     ]);
                     $this->resolver = new AdapterResolver($environment);
                 });
-                it('return detect codeship adaptor', function () {
-                    $adaptor = $this->resolver->resolveByEnvironment();
-                    expect($adaptor)->toBeAnInstanceOf(CodeShip::class);
+                it('return detect codeship adapter', function () {
+                    $adapter = $this->resolver->resolveByEnvironment();
+                    expect($adapter)->toBeAnInstanceOf(CodeShip::class);
                 });
             });
             context('when jenkins', function () {
@@ -91,9 +91,9 @@ describe(AdapterResolver::class, function () {
                     ]);
                     $this->resolver = new AdapterResolver($environment);
                 });
-                it('return detect jenkins adaptor', function () {
-                    $adaptor = $this->resolver->resolveByEnvironment();
-                    expect($adaptor)->toBeAnInstanceOf(Jenkins::class);
+                it('return detect jenkins adapter', function () {
+                    $adapter = $this->resolver->resolveByEnvironment();
+                    expect($adapter)->toBeAnInstanceOf(Jenkins::class);
                 });
             });
         });
@@ -102,9 +102,9 @@ describe(AdapterResolver::class, function () {
                 $environment = new Environment([]);
                 $this->resolver = new AdapterResolver($environment);
             });
-            it('return general adaptor', function () {
-                $adaptor = $this->resolver->resolveByEnvironment();
-                expect($adaptor)->toBeAnInstanceOf(General::class);
+            it('return general adapter', function () {
+                $adapter = $this->resolver->resolveByEnvironment();
+                expect($adapter)->toBeAnInstanceOf(General::class);
             });
         });
     });
@@ -114,9 +114,9 @@ describe(AdapterResolver::class, function () {
             $this->detector = new AdapterResolver($environment);
         });
         context('when supported', function () {
-            it('return detect adaptor', function () {
-                $adaptor = $this->resolver->resolveByName('circle-ci');
-                expect($adaptor)->toBeAnInstanceOf(CircleCI::class);
+            it('return detect adapter', function () {
+                $adapter = $this->resolver->resolveByName('circle-ci');
+                expect($adapter)->toBeAnInstanceOf(CircleCI::class);
             });
         });
         context('when not supported', function () {

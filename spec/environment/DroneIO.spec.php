@@ -15,7 +15,7 @@ use coverallskit\environment\DroneIO;
 
 describe(DroneIO::class, function () {
     describe('#getName', function () {
-        it('return adaptor name', function () {
+        it('return adapter name', function () {
             $this->drone = new DroneIO(new Environment());
             expect($this->drone->getName())->toBe('drone.io');
         });

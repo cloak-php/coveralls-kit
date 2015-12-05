@@ -43,8 +43,8 @@ describe(CoverallsReportTransfer::class, function () {
                 'TRAVIS_JOB_ID' => '10',
                 'COVERALLS_REPO_TOKEN' => 'token'
             ]);
-            $adaptor = new TravisCI($environment);
-            $service = new CIService($adaptor);
+            $adapter = new TravisCI($environment);
+            $service = new CIService($adapter);
 
             $this->report = new CoverallsReport([
                 'name' => __DIR__ . '/fixtures/coveralls.json',
