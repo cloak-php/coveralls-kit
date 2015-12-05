@@ -46,7 +46,7 @@ class AdapterResolver
     }
 
     /**
-     * @return EnvironmentAdaptor
+     * @return EnvironmentAdapter
      */
     public function resolveByEnvironment()
     {
@@ -62,7 +62,7 @@ class AdapterResolver
     /**
      * @param string $name
      *
-     * @return EnvironmentAdaptor
+     * @return EnvironmentAdapter
      */
     public function resolveByName($name)
     {
@@ -79,7 +79,7 @@ class AdapterResolver
     /**
      * @param string $name
      *
-     * @return EnvironmentAdaptor|null
+     * @return EnvironmentAdapter|null
      */
     private function detectByName($name)
     {
@@ -96,7 +96,7 @@ class AdapterResolver
     }
 
     /**
-     * @return EnvironmentAdaptor|null
+     * @return EnvironmentAdapter|null
      */
     private function detectFromSupportAdaptors()
     {
