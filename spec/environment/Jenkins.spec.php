@@ -15,7 +15,7 @@ use coverallskit\environment\Jenkins;
 
 describe(Jenkins::class, function () {
     describe('#getName', function () {
-        it('return adaptor name', function () {
+        it('return adapter name', function () {
             $this->jenkins = new Jenkins(new Environment());
             expect($this->jenkins->getName())->toBe('jenkins');
         });

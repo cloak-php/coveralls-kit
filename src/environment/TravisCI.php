@@ -13,7 +13,7 @@ namespace coverallskit\environment;
 /**
  * Class TravisCI
  */
-final class TravisCI extends Travis implements EnvironmentAdaptor
+final class TravisCI extends Travis implements EnvironmentAdapter
 {
     const NAME = 'travis-ci';
 

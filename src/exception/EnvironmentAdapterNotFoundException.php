@@ -13,14 +13,14 @@ namespace coverallskit\exception;
 use UnexpectedValueException;
 
 /**
- * Class EnvironmentAdaptorNotFoundException
+ * Class EnvironmentAdapterNotFoundException
  */
-class EnvironmentAdaptorNotFoundException extends UnexpectedValueException
+class EnvironmentAdapterNotFoundException extends UnexpectedValueException
 {
     /**
      * @param string $name
      *
-     * @return EnvironmentAdaptorNotFoundException
+     * @return EnvironmentAdapterNotFoundException
      */
     public static function createByName($name)
     {

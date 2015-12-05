@@ -13,7 +13,7 @@ namespace coverallskit\environment;
 /**
  * Class TravisPro
  */
-final class TravisPro extends Travis implements EnvironmentAdaptor
+final class TravisPro extends Travis implements EnvironmentAdapter
 {
     const NAME = 'travis-pro';
 

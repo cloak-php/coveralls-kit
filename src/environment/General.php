@@ -13,7 +13,7 @@ namespace coverallskit\environment;
 /**
  * Class General
  */
-final class General extends AbstractAdaptor implements EnvironmentAdaptor
+final class General extends AbstractAdapter implements EnvironmentAdapter
 {
     /**
      * {@inheritdoc}

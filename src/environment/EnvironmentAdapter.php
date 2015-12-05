@@ -11,9 +11,9 @@
 namespace coverallskit\environment;
 
 /**
- * Interface EnvironmentAdaptor
+ * Interface EnvironmentAdapter
  */
-interface EnvironmentAdaptor
+interface EnvironmentAdapter
 {
     const CI = 'CI';
     const COVERALLS_REPO_TOKEN = 'COVERALLS_REPO_TOKEN';

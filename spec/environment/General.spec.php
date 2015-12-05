@@ -15,7 +15,7 @@ use coverallskit\environment\General;
 
 describe(General::class, function () {
     describe('#getName', function () {
-        it('return adaptor name', function () {
+        it('return adapter name', function () {
             $this->general = new General(new Environment());
             expect($this->general->getName())->toBe('');
         });
