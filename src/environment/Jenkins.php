@@ -13,7 +13,7 @@ namespace coverallskit\environment;
 /**
  * Class Jenkins
  */
-final class Jenkins extends AbstractAdaptor implements EnvironmentAdaptor
+final class Jenkins extends AbstractAdapter implements EnvironmentAdapter
 {
     /**
      * {@inheritdoc}

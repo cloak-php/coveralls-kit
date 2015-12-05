@@ -13,7 +13,7 @@ namespace coverallskit\environment;
 /**
  * Class Travis
  */
-abstract class Travis extends AbstractAdaptor implements EnvironmentAdaptor
+abstract class Travis extends AbstractAdapter implements EnvironmentAdapter
 {
     const TRAVIS = 'TRAVIS';
     const TRAVIS_JOB_ID = 'TRAVIS_JOB_ID';

@@ -13,9 +13,9 @@ namespace coverallskit\environment;
 use coverallskit\Environment;
 
 /**
- * Class AbstractAdaptor
+ * Class AbstractAdapter
  */
-abstract class AbstractAdaptor implements EnvironmentAdaptor
+abstract class AbstractAdapter implements EnvironmentAdapter
 {
     /**
      * @var \coverallskit\Environment

@@ -19,7 +19,7 @@ use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 class AdaptorResolver
 {
     /**
-     * @var \coverallskit\environment\EnvironmentAdaptor[]
+     * @var \coverallskit\environment\EnvironmentAdapter[]
      */
     private $adaptors;
 

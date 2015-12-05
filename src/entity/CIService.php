@@ -11,7 +11,7 @@
 namespace coverallskit\entity;
 
 use coverallskit\AttributePopulatable;
-use coverallskit\environment\EnvironmentAdaptor;
+use coverallskit\environment\EnvironmentAdapter;
 
 /**
  * Class CIService
@@ -21,14 +21,14 @@ class CIService implements ServiceEntity
     use AttributePopulatable;
 
     /**
-     * @var \coverallskit\environment\EnvironmentAdaptor
+     * @var \coverallskit\environment\EnvironmentAdapter
      */
     protected $adaptor;
 
     /**
-     * @param EnvironmentAdaptor $adaptor
+     * @param EnvironmentAdapter $adaptor
      */
-    public function __construct(EnvironmentAdaptor $adaptor)
+    public function __construct(EnvironmentAdapter $adaptor)
     {
         $this->adaptor = $adaptor;
     }
