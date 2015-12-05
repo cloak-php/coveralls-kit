@@ -6,7 +6,6 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "phpcollection/phpcollection": "~0.4",
         "guzzlehttp/guzzle": "~6.1",
         "gitonomy/gitlib": "~0.1",
         "yosymfony/toml": "~0.3",
