@@ -21,7 +21,7 @@ class AdapterResolver
     /**
      * @var \coverallskit\environment\EnvironmentAdapter[]
      */
-    private $adaptors;
+    private $adapters;
 
     /**
      * @var \coverallskit\environment\General
