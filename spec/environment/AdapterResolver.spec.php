@@ -11,7 +11,7 @@
 namespace coverallskit\spec;
 
 use coverallskit\Environment;
-use coverallskit\environment\AdaptorResolver;
+use coverallskit\environment\AdapterResolver;
 use coverallskit\environment\CircleCI;
 use coverallskit\environment\CodeShip;
 use coverallskit\environment\DroneIO;
@@ -20,7 +20,7 @@ use coverallskit\environment\Jenkins;
 use coverallskit\environment\TravisCI;
 use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
-describe(AdaptorResolver::class, function () {
+describe(AdapterResolver::class, function () {
     describe('#resolveByEnvironment', function () {
         context('when supported', function () {
             context('when circle-ci', function () {
@@ -31,7 +31,7 @@ describe(AdaptorResolver::class, function () {
                         'CIRCLE_BUILD_NUM' => '10',
                         'COVERALLS_REPO_TOKEN' => 'token'
                     ]);
-                    $this->resolver = new AdaptorResolver($environment);
+                    $this->resolver = new AdapterResolver($environment);
                 });
                 it('return detect circle-ci adaptor', function () {
                     $adaptor = $this->resolver->resolveByEnvironment();
@@ -46,7 +46,7 @@ describe(AdaptorResolver::class, function () {
                         'DRONE_BUILD_NUMBER' => '10',
                         'COVERALLS_REPO_TOKEN' => 'token'
                     ]);
-                    $this->resolver = new AdaptorResolver($environment);
+                    $this->resolver = new AdapterResolver($environment);
                 });
                 it('return detect drone.io adaptor', function () {
                     $adaptor = $this->resolver->resolveByEnvironment();
@@ -61,7 +61,7 @@ describe(AdaptorResolver::class, function () {
                         'TRAVIS_JOB_ID' => '10',
                         'COVERALLS_REPO_TOKEN' => 'token'
                     ]);
-                    $this->resolver = new AdaptorResolver($environment);
+                    $this->resolver = new AdapterResolver($environment);
                 });
                 it('return detect travis-ci adaptor', function () {
                     $adaptor = $this->resolver->resolveByEnvironment();
@@ -76,7 +76,7 @@ describe(AdaptorResolver::class, function () {
                         'CI_BUILD_NUMBER' => '10',
                         'COVERALLS_REPO_TOKEN' => 'token'
                     ]);
-                    $this->resolver = new AdaptorResolver($environment);
+                    $this->resolver = new AdapterResolver($environment);
                 });
                 it('return detect codeship adaptor', function () {
                     $adaptor = $this->resolver->resolveByEnvironment();
@@ -89,7 +89,7 @@ describe(AdaptorResolver::class, function () {
                         'BUILD_NUMBER' => '10',
                         'JENKINS_URL' => 'http://example.com'
                     ]);
-                    $this->resolver = new AdaptorResolver($environment);
+                    $this->resolver = new AdapterResolver($environment);
                 });
                 it('return detect jenkins adaptor', function () {
                     $adaptor = $this->resolver->resolveByEnvironment();
@@ -100,7 +100,7 @@ describe(AdaptorResolver::class, function () {
         context('when not supported', function () {
             beforeEach(function () {
                 $environment = new Environment([]);
-                $this->resolver = new AdaptorResolver($environment);
+                $this->resolver = new AdapterResolver($environment);
             });
             it('return general adaptor', function () {
                 $adaptor = $this->resolver->resolveByEnvironment();
@@ -111,7 +111,7 @@ describe(AdaptorResolver::class, function () {
     describe('#resolveByName', function () {
         beforeEach(function () {
             $environment = new Environment([]);
-            $this->detector = new AdaptorResolver($environment);
+            $this->detector = new AdapterResolver($environment);
         });
         context('when supported', function () {
             it('return detect adaptor', function () {

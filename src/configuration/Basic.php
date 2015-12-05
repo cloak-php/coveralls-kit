@@ -13,7 +13,7 @@ namespace coverallskit\configuration;
 use coverallskit\entity\CIService;
 use coverallskit\entity\GitRepository;
 use coverallskit\Environment;
-use coverallskit\environment\AdaptorResolver;
+use coverallskit\environment\AdapterResolver;
 use coverallskit\ReportBuilder;
 use Eloquent\Pathogen\AbsolutePath;
 use Zend\Config\Config;
@@ -28,7 +28,7 @@ class Basic extends AbstractConfiguration
     const REPOSITORY_DIRECTORY_KEY = 'repositoryDirectory';
 
     /**
-     * @var \coverallskit\environment\AdaptorResolver
+     * @var \coverallskit\environment\AdapterResolver
      */
     private $adaptorResolver;
 
@@ -38,7 +38,7 @@ class Basic extends AbstractConfiguration
      */
     public function __construct(Config $config, AbsolutePath $rootPath)
     {
-        $this->adaptorResolver = new AdaptorResolver(new Environment($_SERVER));
+        $this->adaptorResolver = new AdapterResolver(new Environment($_SERVER));
 
         parent::__construct($config, $rootPath);
     }

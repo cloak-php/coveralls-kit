@@ -14,9 +14,9 @@ use coverallskit\Environment;
 use coverallskit\exception\EnvironmentAdaptorNotFoundException;
 
 /**
- * Class AdaptorResolver
+ * Class AdapterResolver
  */
-class AdaptorResolver
+class AdapterResolver
 {
     /**
      * @var \coverallskit\environment\EnvironmentAdapter[]
