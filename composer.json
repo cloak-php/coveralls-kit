@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.0",
         "guzzlehttp/guzzle": "~6.1",
-        "gitonomy/gitlib": "~0.1",
+        "gitonomy/gitlib": "~1.0",
         "yosymfony/toml": "~0.3",
         "symfony/dom-crawler": "~3.0",
         "symfony/css-selector": "~3.0",
