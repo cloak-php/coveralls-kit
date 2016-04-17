@@ -10,7 +10,6 @@
  */
 namespace coverallskit;
 
-use Collections\Dictionary;
 use coverallskit\exception\RegistryNotFoundException;
 use ReflectionClass;
 
@@ -20,13 +19,13 @@ use ReflectionClass;
 class ObjectRegistry
 {
     /**
-     * @var \Collections\Dictionary
+     * @var array
      */
-    private $reflections;
+    private $reflections = [];
 
     public function __construct()
     {
-        $this->reflections = new Dictionary;
+        $this->reflections = [];
     }
 
     /**
@@ -39,11 +38,11 @@ class ObjectRegistry
      */
     public function get($name, array $arguments = [])
     {
-        if ($this->reflections->containsKey($name) === false) {
+        if (array_key_exists($name, $this->reflections) === false) {
             throw new RegistryNotFoundException("$name not found registry");
         }
 
-        $reflection = $this->reflections->get($name);
+        $reflection = $this->reflections[$name];
 
         return $reflection->newInstanceArgs($arguments);
     }
@@ -55,6 +54,6 @@ class ObjectRegistry
     public function register($name, $class)
     {
         $reflection = new ReflectionClass($class);
-        $this->reflections->add($name, $reflection);
+        $this->reflections[$name] =  $reflection;
     }
 }

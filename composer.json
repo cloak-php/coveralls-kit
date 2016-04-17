@@ -6,23 +6,22 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "guzzlehttp/guzzle": "~6.1",
+        "guzzlehttp/guzzle": "~6.2",
         "gitonomy/gitlib": "~1.0",
         "yosymfony/toml": "~0.3",
         "symfony/dom-crawler": "~3.0",
         "symfony/css-selector": "~3.0",
-        "zendframework/zend-config": "~2.5",
-        "zendframework/zend-console": "~2.5",
-        "eloquent/pathogen": "~0.6",
-        "easyframework/collections": "~4.1"
+        "zendframework/zend-config": "~2.6",
+        "zendframework/zend-console": "~2.6",
+        "eloquent/pathogen": "~0.6"
     },
     "require-dev": {
-        "phpspec/prophecy": "~1.5",
-        "peridot-php/peridot": "~1.16",
+        "phpspec/prophecy": "~1.6",
+        "peridot-php/peridot": "~1.18",
         "expect/peridot-expect-plugin": "~3.0",
         "cloak/peridot-cloak-plugin": "~2.0",
         "holyshared/robo-peridot": "~2.0",
-        "codegyre/robo": "~0.6",
+        "codegyre/robo": "~0.7",
         "peridot-php/peridot-dot-reporter": "~1.0",
         "holyshared/peridot-file-fixture-plugin": "~1.0",
         "holyshared/peridot-temporary-plugin": "~1.0"
